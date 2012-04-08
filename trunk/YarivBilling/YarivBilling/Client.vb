@@ -30,17 +30,15 @@ Public Class Client
             Dim column, row As Integer
             column = 1
             row = 2
-            'row = xlApp.Cells.Find("*", SearchOrder:=xlByRows, SearchDirection:=xlPrevious).Row
-            'If (IsNewClient(txtBoxClientNumber.Text, xlWorkSheet)) Then
-            For Each item As String In items
-                xlWorkSheet.Cells(row, column) = item
-                column = column + 1
-            Next
-            'Else
-            '    MsgBox("aaa")
-
-            'End If
-
+            If (IsNewClient(txtBoxClientNumber.Text, xlWorkSheet)) Then
+                row = GetLastRow(xlWorkSheet)
+                For Each item As String In items
+                    xlWorkSheet.Cells(row, column) = item
+                    column = column + 1
+                Next
+            Else
+                MsgBox("Client Exists!")
+            End If
             xlApp.DisplayAlerts = False
             xlWorkSheet.SaveAs("E:\Yariv Handasa\YarivBilling\DataBase.xls")
             xlWorkBook.Close()
@@ -77,19 +75,27 @@ Public Class Client
     End Function
 
 
-    'Private Function IsNewClient(ByVal item As String, ByVal worksheet As Excel.Worksheet) As Boolean
-    '    Excel.Range allCellsRng;
-    'string lowerRightCell = "IV65536";
-    'allCellsRng = ws.get_Range("A1", lowerRightCell).Cells;
-    '    Dim row = 2
-    '    For Each Cell In Activeshee
-    '        If worksheet.Cells(row,0) == item Then
-    '            Return True
-    '            row = row + 1
-    '        End If
-    '    Next
-    '    Return False
-    'End Function
+    Private Function IsNewClient(ByVal item As String, ByVal worksheet As Excel.Worksheet) As Boolean
+        Dim row As Integer
+        row = 2
+        While TypeOf worksheet.Cells(row, 1) Is Object And Not (Format(worksheet.Cells(row, 1).Value) = vbNullString)
+            If worksheet.Cells(row, 1).Value.ToString() = item Then
+                Return False
+            Else
+                row = row + 1
+            End If
+        End While
+        Return True
+    End Function
+
+    Private Function GetLastRow(ByVal worksheet As Worksheet) As Integer
+        Dim row As Integer
+        row = 2
+        While Not (Format(worksheet.Cells(row, 1).Value) = vbNullString)
+            row = row + 1
+        End While
+        Return row
+    End Function
 
 End Class
 
