@@ -21,13 +21,19 @@ namespace Billing
         private void btnAddClient_Click(object sender, EventArgs e)
         {
             ClientForm clientForm = new ClientForm(helper);
-            clientForm.ShowDialog();
+            clientForm.ShowDialog();            
         }
 
         private void btnAddProject_Click(object sender, EventArgs e)
         {
             ProjectForm projectForm = new ProjectForm(helper);
             projectForm.ShowDialog();
+        }
+
+        private void btnAddContract_Click(object sender, EventArgs e)
+        {
+            ContractForm contractForm = new ContractForm(helper);
+            contractForm.ShowDialog();
         }
     }
 }

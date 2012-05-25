@@ -45,6 +45,7 @@
             this.saveBtn = new System.Windows.Forms.Button();
             this.clientNamelbl = new System.Windows.Forms.Label();
             this.clientNameComboBox = new System.Windows.Forms.ComboBox();
+            this.cancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // projectCodeLbl
@@ -191,11 +192,22 @@
             this.clientNameComboBox.TabIndex = 39;
             this.clientNameComboBox.Click += new System.EventHandler(this.clientNamecomboBox_Click);
             // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(36, 248);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.TabIndex = 71;
+            this.cancelBtn.Text = "ביטול";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 283);
+            this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.clientNameComboBox);
             this.Controls.Add(this.clientNamelbl);
             this.Controls.Add(this.button1);
@@ -240,5 +252,6 @@
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Label clientNamelbl;
         private System.Windows.Forms.ComboBox clientNameComboBox;
+        private System.Windows.Forms.Button cancelBtn;
     }
 }
