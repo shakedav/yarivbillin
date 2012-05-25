@@ -64,6 +64,12 @@
     <Compile Include="ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContractForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContractForm.Designer.cs">
+      <DependentUpon>ContractForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -87,6 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContractForm.resx">
+      <DependentUpon>ContractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

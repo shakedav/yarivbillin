@@ -18,8 +18,9 @@ namespace Billing
             InitializeComponent();
             projectsHelper = helper;
             projectCodetxtBox.Text = (projectsHelper.Projects.Rows.Count + 1).ToString();
-
-            //TODO: get client name and project code
+            clientNameComboBox.DataSource = projectsHelper.Clients.Columns["קוד לקוח"].Table;
+            clientNameComboBox.DisplayMember = "שם לקוח";
+            clientNameComboBox.Text = projectsHelper.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
         }
 
         private void ClearAllFields(object sender, EventArgs e)
@@ -58,15 +59,13 @@ namespace Billing
 
         private void clientNamecomboBox_Click(object sender, EventArgs e)
         {
-            clientNameComboBox.DataSource = projectsHelper.Clients.Columns["קוד לקוח"].Table;
-            clientNameComboBox.DisplayMember = "שם לקוח";
             clientNameComboBox.Text = projectsHelper.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
             clientNameComboBox.Refresh();
         }
 
-        private void ClearAllFields()
+        private void cancelBtn_Click(object sender, EventArgs e)
         {
-
-        }       
+            this.Close();
+        }
     }
 }

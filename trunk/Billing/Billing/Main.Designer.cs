@@ -52,6 +52,7 @@
             this.btnAddContract.TabIndex = 2;
             this.btnAddContract.Text = "הוסף חוזה";
             this.btnAddContract.UseVisualStyleBackColor = true;
+            this.btnAddContract.Click += new System.EventHandler(this.btnAddContract_Click);
             // 
             // btnAddProject
             // 

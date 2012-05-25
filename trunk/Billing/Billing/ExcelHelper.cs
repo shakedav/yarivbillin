@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using Microsoft.Office.Interop;
 using ExcelApp = Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices; 
+using System.Runtime.InteropServices;
 
 namespace Billing
 {
@@ -20,7 +20,9 @@ namespace Billing
         public DataTable Contracts;
         public DataTable Bills;
         public DataTable Projects;
-        public static String Path = ConfigurationSettings.AppSettings["excelFilePath"];
+        public DataTable ContractTypes;
+        public DataTable StatusTypes;
+        public static String Path = System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
         OleDbDataAdapter dbDa = new OleDbDataAdapter();
         static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
         OleDbConnection dbCon;
@@ -33,6 +35,8 @@ namespace Billing
             Contracts = ds.Tables["חוזים"];
             Bills = ds.Tables["חשבונות"];
             Projects = ds.Tables["פרוייקטים"];
+            ContractTypes = ds.Tables["סוגי חוזים"];
+            StatusTypes = ds.Tables["סוגי סטטוס"];
         }
 
         private DataSet ReadExcelData(string Path)
@@ -61,7 +65,7 @@ namespace Billing
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < str.Length; i++)
             {
-                if ((str[i] != '$'))
+                if ((str[i] != '$') && (str[i] !='\''))
                     sb.Append(str[i]);
             }
 

@@ -55,6 +55,11 @@ namespace Billing
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
         {
             ClearAllFields();
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }       
     }
 }
