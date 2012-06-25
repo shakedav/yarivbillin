@@ -10,24 +10,55 @@ using System.Configuration;
 using Microsoft.Office.Interop;
 using ExcelApp = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 namespace Billing
 {
-    public class ExcelHelper
-    {
-        public string Con_Str;
-        public DataTable Clients;
-        public DataTable Contracts;
-        public DataTable Bills;
-        public DataTable Projects;
-        public DataTable ContractTypes;
-        public DataTable StatusTypes;
-        public static String Path = System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
-        OleDbDataAdapter dbDa = new OleDbDataAdapter();
-        static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
-        OleDbConnection dbCon;
+   public sealed class ExcelHelper
+   {
+       public string Con_Str;
+       public DataTable Clients;
+       public DataTable ClientTypes;
+       public DataTable Contracts;
+       public DataTable Bills;
+       public DataTable Projects;
+       public DataTable ContractTypes;
+       public DataTable StatusTypes;
+       public static String Path = System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
+       OleDbDataAdapter dbDa = new OleDbDataAdapter();
+       static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
+       OleDbConnection dbCon;
+       private static object locker = new Object();
+       private static volatile ExcelHelper instance;
+      
+       /// <summary>
+       /// Get an instance of the ExcelHelper (create on the first time).
+       /// </summary>
+       public static ExcelHelper Instance
+       {
+           get
+           {
+               // Check if the instance has not been created yet
+               if (instance == null)
+               {
+                   // Enter a locking state
+                   lock (locker)
+                   {
+                       // Ensure that the instance is still not valid
+                       if (instance == null)
+                       {
+                           // Create the instace
+                           instance = new ExcelHelper();
+                       }
+                   }
+               }
 
-        public ExcelHelper()
+               // Return the single instance
+               return instance;
+           }
+       }
+
+        ExcelHelper()
         {
             dbCon = new OleDbConnection(sConnection);         
             DataSet ds = ReadExcelData(Path);
@@ -37,6 +68,7 @@ namespace Billing
             Projects = ds.Tables["פרוייקטים"];
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
+            ClientTypes = ds.Tables["סוגי לקוחות"];
         }
 
         private DataSet ReadExcelData(string Path)
@@ -129,12 +161,45 @@ namespace Billing
 
         public string getItemFromTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind)
         {           
-            for (int i = 0; i <= table.Rows.Count; i++)
+            for (int i = 0; i <= table.Rows.Count-1; i++)
             {
                 if (table.Rows[i][columnNameToSearchIn].ToString() == stringToMatch)
                     return table.Rows[i][whatToFind].ToString();
             }
             return string.Empty;
+        }
+
+        public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
+        {
+            int max = int.Parse(typeID);
+            string maxID= string.Empty;
+            for (int i = 0; i <= table.Rows.Count-1; i++)
+            {
+                if (typeID == table.Rows[i][typeName].ToString())
+                {
+                    if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                    {
+                        maxID = table.Rows[i][columnName].ToString();
+                        max = int.Parse(maxID);
+                    }
+                }
+            }
+            max++;
+            return max.ToString();
+        }
+
+        public ArrayList GetItemsByFilter(DataTable fromTable, string filterByColumn,string valueToFilterBy, string ItemToGet)
+        {
+            ArrayList list = new ArrayList();
+            for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
+            {
+                if (valueToFilterBy == fromTable.Rows[i][filterByColumn].ToString())
+                {
+                    list.Add(fromTable.Rows[i][ItemToGet].ToString());
+                }
+            }
+            return list;
+            
         }
     }
 }

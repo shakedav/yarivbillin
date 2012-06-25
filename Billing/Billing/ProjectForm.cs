@@ -10,17 +10,14 @@ using System.Windows.Forms;
 namespace Billing
 {
     public partial class ProjectForm : Form
-    {
-        ExcelHelper projectsHelper;
-
-        public ProjectForm(ExcelHelper helper)
+    {       
+        public ProjectForm()
         {
             InitializeComponent();
-            projectsHelper = helper;
-            projectCodetxtBox.Text = (projectsHelper.Projects.Rows.Count + 1).ToString();
-            clientNameComboBox.DataSource = projectsHelper.Clients.Columns["קוד לקוח"].Table;
+            projectCodetxtBox.Text = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
+            clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns["קוד לקוח"].Table;
             clientNameComboBox.DisplayMember = "שם לקוח";
-            clientNameComboBox.Text = projectsHelper.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
+            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
         }
 
         private void ClearAllFields(object sender, EventArgs e)
@@ -34,7 +31,7 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = projectsHelper.Projects.NewRow();
+            DataRow row = ExcelHelper.Instance.Projects.NewRow();
             try
             {
                 row["קוד פרוייקט"] = projectCodetxtBox.Text;
@@ -43,9 +40,9 @@ namespace Billing
                 row["שם פרוייקט אצל המזמין"] = projectNameInviterTxtBox.Text;
                 row["קוד פרוייקט אצל המזמין"] = projectCodeInviterTxtBox.Text;
                 row["תיאור הפרוייקט"] = projectDescriptiontxtBox.Text;
-                row["קוד הלקוח"] = projectsHelper.getItemFromTable(projectsHelper.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח");
-                projectsHelper.SaveDataToExcel(row, projectsHelper.Projects.TableName);
-                projectsHelper.Projects.Rows.Add(row);
+                row["קוד הלקוח"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח");
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName);
+                ExcelHelper.Instance.Projects.Rows.Add(row);
                 Close();
             }
             catch (Exception ex)
@@ -59,7 +56,7 @@ namespace Billing
 
         private void clientNamecomboBox_Click(object sender, EventArgs e)
         {
-            clientNameComboBox.Text = projectsHelper.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
+            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
             clientNameComboBox.Refresh();
         }
 
