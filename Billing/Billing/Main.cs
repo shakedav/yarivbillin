@@ -33,5 +33,11 @@ namespace Billing
             ContractForm contractForm = new ContractForm();
             contractForm.ShowDialog();
         }
+
+        private void btnAddBill_Click(object sender, EventArgs e)
+        {
+            BillForm billForm = new BillForm();
+            billForm.ShowDialog();
+        }
     }
 }

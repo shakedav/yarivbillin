@@ -24,6 +24,7 @@ namespace Billing
        public DataTable Projects;
        public DataTable ContractTypes;
        public DataTable StatusTypes;
+       public DataTable ValueTypes;
        public static String Path = System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
        OleDbDataAdapter dbDa = new OleDbDataAdapter();
        static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
@@ -69,6 +70,7 @@ namespace Billing
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
+            ValueTypes = ds.Tables["סוגי תמורה"];
         }
 
         private DataSet ReadExcelData(string Path)
@@ -160,46 +162,142 @@ namespace Billing
         }
 
         public string getItemFromTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind)
-        {           
-            for (int i = 0; i <= table.Rows.Count-1; i++)
+        {
+            try
             {
-                if (table.Rows[i][columnNameToSearchIn].ToString() == stringToMatch)
-                    return table.Rows[i][whatToFind].ToString();
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
+                {
+                    if (table.Rows[i][columnNameToSearchIn].ToString() == stringToMatch)
+                        return table.Rows[i][whatToFind].ToString();
+                }
+                return string.Empty;
             }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
         {
-            int max = int.Parse(typeID);
-            string maxID= string.Empty;
-            for (int i = 0; i <= table.Rows.Count-1; i++)
+            try
             {
-                if (typeID == table.Rows[i][typeName].ToString())
+                int max = int.Parse(typeID);
+                string maxID = string.Empty;
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
-                    if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                    if (typeID == table.Rows[i][typeName].ToString())
                     {
-                        maxID = table.Rows[i][columnName].ToString();
-                        max = int.Parse(maxID);
+                        if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                        {
+                            maxID = table.Rows[i][columnName].ToString();
+                            max = int.Parse(maxID);
+                        }
                     }
                 }
+                max++;
+                return max.ToString();
             }
-            max++;
-            return max.ToString();
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
         public ArrayList GetItemsByFilter(DataTable fromTable, string filterByColumn,string valueToFilterBy, string ItemToGet)
         {
-            ArrayList list = new ArrayList();
-            for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
+            try
             {
-                if (valueToFilterBy == fromTable.Rows[i][filterByColumn].ToString())
+                ArrayList list = new ArrayList();
+                for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
                 {
-                    list.Add(fromTable.Rows[i][ItemToGet].ToString());
+                    if (valueToFilterBy == fromTable.Rows[i][filterByColumn].ToString())
+                    {
+                        list.Add(fromTable.Rows[i][ItemToGet].ToString());
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public string GetMaxItemOfColumn(DataTable table, string columnName, string typeID, string typeName)
+        {
+            try
+            {
+                int max = 0;
+                string maxID = string.Empty;
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
+                {
+                    if (typeID == table.Rows[i][typeName].ToString())
+                    {
+                        if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                        {
+                            maxID = table.Rows[i][columnName].ToString();
+                            max = int.Parse(maxID);
+                        }
+                    }
+                }
+                max++;
+                return max.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public string getLastBillSum(string billSequence, string accountNumber)
+        {
+            try
+            {
+                DataTable table = this.Bills;
+                if (int.Parse(billSequence) > 0)
+                {
+                    for (int i = 0; i <= table.Rows.Count - 1; i++)
+                    {
+                        if ((accountNumber == table.Rows[i]["מספר חשבון ביריב"].ToString()) &&
+                            ((int.Parse(billSequence) - 1).ToString() == table.Rows[i]["מספר חשבון חלקי בחוזה"].ToString()))
+                        {
+                            return table.Rows[i]["סה\"כ לתשלום"].ToString();
+                        }
+                    }
                 }
             }
-            return list;
-            
+            catch (Exception ex)
+            {
+                return "0";
+            }
+            return "0";
+        }
+
+        public string GetMaxItemOfColumnByColumn(DataTable table, string columnName, string secondColumn, string secondColumnValue)
+        {
+            try
+            {
+                int max = 0;
+                string maxID = string.Empty;
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
+                {
+                    if (secondColumnValue == table.Rows[i][secondColumn].ToString())
+                    {
+                        if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                        {
+                            maxID = table.Rows[i][columnName].ToString();
+                            max = int.Parse(maxID);
+                        }
+                    }
+                }
+                max++;
+                return max.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
