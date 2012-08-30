@@ -250,7 +250,7 @@ namespace Billing
             }
         }
 
-        public string getLastBillSum(string billSequence, string accountNumber)
+        public string getLastBillAmount(string billSequence, string accountNumber)
         {
             try
             {
@@ -272,6 +272,19 @@ namespace Billing
                 return "0";
             }
             return "0";
+        }
+
+        private int getContractBillsSum(string contractCode)
+        {
+            int sum = 0;
+            foreach (DataRow row in Bills.Rows)
+            {
+                if (row["קוד חוזה"].ToString() == contractCode)
+                {
+                    sum = sum + int.Parse(row["סה\"כ לתשלום"].ToString());
+                }
+            }
+            return sum;
         }
 
         public string GetMaxItemOfColumnByColumn(DataTable table, string columnName, string secondColumn, string secondColumnValue)
@@ -297,6 +310,19 @@ namespace Billing
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public string getUsedAmountOfContract(string contractCode)
+        {
+            try
+            {
+                int totalAmount = int.Parse(getItemFromTable(Contracts, contractCode, "קוד חוזה יריב", "תמורה"));
+                return ((double)getContractBillsSum(contractCode) / totalAmount).ToString("0.0%");
+            }
+            catch (Exception ex)
+            {
+                return "0";
             }
         }
     }
