@@ -25,6 +25,7 @@ namespace Billing
             contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns["קוד סוג"].Table;
             contractTypeComboBox.DisplayMember = "שם הסוג";
             contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex]["שם הסוג"].ToString();
+            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(yarivContractCodeTxtBox.Text);
             //TODO: לכתוב את "ניצול חוזה" כמו שצריך
            
         }

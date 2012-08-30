@@ -28,7 +28,7 @@ namespace Billing
             billStatusComboBox.DataSource = ExcelHelper.Instance.StatusTypes.Columns["קוד סטטוס"].Table;
             billStatusComboBox.DisplayMember = "שם סטטוס";
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex]["שם סטטוס"].ToString();
-            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillSum(billSequenceInContractTxtBox.Text , billNumberTxtBox.Text);
+            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text , billNumberTxtBox.Text);
         }
 
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,13 +82,13 @@ namespace Billing
         private void billNumberTxtBox_Leave(object sender, EventArgs e)
         {
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, "מספר חשבון חלקי בחוזה", "מספר חשבון ביריב", billNumberTxtBox.Text);
-            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillSum(billSequenceInContractTxtBox.Text, billNumberTxtBox.Text);            
+            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, billNumberTxtBox.Text);            
         }
 
         private void billNumberTxtBox_TextChanged(object sender, EventArgs e)
         {
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, "מספר חשבון חלקי בחוזה", "מספר חשבון ביריב", billNumberTxtBox.Text);
-            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillSum(billSequenceInContractTxtBox.Text, billNumberTxtBox.Text);
+            lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, billNumberTxtBox.Text);
             //totalToPayTxtBox.Text;
         }
     }
