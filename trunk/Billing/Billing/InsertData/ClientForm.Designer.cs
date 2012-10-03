@@ -40,7 +40,7 @@
             this.emailLbl = new System.Windows.Forms.Label();
             this.saveBtn = new System.Windows.Forms.Button();
             this.ClearFieldsBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveAndAddProj = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.ClientTypelbl = new System.Windows.Forms.Label();
             this.ClientTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -74,7 +74,7 @@
             this.ClientsDataGrid.ReadOnly = true;
             this.ClientsDataGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientsDataGrid.Size = new System.Drawing.Size(760, 252);
-            this.ClientsDataGrid.TabIndex = 1;
+            this.ClientsDataGrid.TabIndex = 100;
             // 
             // clientNamelbl
             // 
@@ -113,7 +113,7 @@
             this.phoneTxtBox.Location = new System.Drawing.Point(336, 33);
             this.phoneTxtBox.Name = "phoneTxtBox";
             this.phoneTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.phoneTxtBox.TabIndex = 7;
+            this.phoneTxtBox.TabIndex = 4;
             // 
             // phoneLbl
             // 
@@ -128,8 +128,9 @@
             // 
             this.emailTxtBox.Location = new System.Drawing.Point(526, 36);
             this.emailTxtBox.Name = "emailTxtBox";
+            this.emailTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.emailTxtBox.Size = new System.Drawing.Size(199, 20);
-            this.emailTxtBox.TabIndex = 9;
+            this.emailTxtBox.TabIndex = 6;
             // 
             // emailLbl
             // 
@@ -145,7 +146,7 @@
             this.saveBtn.Location = new System.Drawing.Point(15, 71);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 20;
+            this.saveBtn.TabIndex = 7;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -155,26 +156,27 @@
             this.ClearFieldsBtn.Location = new System.Drawing.Point(248, 71);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearFieldsBtn.TabIndex = 21;
+            this.ClearFieldsBtn.TabIndex = 9;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
             this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearFieldsBtn_Click);
             // 
-            // button1
+            // btnSaveAndAddProj
             // 
-            this.button1.Location = new System.Drawing.Point(96, 71);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "שמור והוסף פרוייקט";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSaveAndAddProj.Location = new System.Drawing.Point(96, 71);
+            this.btnSaveAndAddProj.Name = "btnSaveAndAddProj";
+            this.btnSaveAndAddProj.Size = new System.Drawing.Size(146, 23);
+            this.btnSaveAndAddProj.TabIndex = 8;
+            this.btnSaveAndAddProj.Text = "שמור והוסף פרוייקט";
+            this.btnSaveAndAddProj.UseVisualStyleBackColor = true;
+            this.btnSaveAndAddProj.Click += new System.EventHandler(this.btnSaveAndAddProj_Click);
             // 
             // cancelBtn
             // 
             this.cancelBtn.Location = new System.Drawing.Point(329, 71);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 71;
+            this.cancelBtn.TabIndex = 10;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -194,7 +196,7 @@
             this.ClientTypeComboBox.Location = new System.Drawing.Point(72, 6);
             this.ClientTypeComboBox.Name = "ClientTypeComboBox";
             this.ClientTypeComboBox.Size = new System.Drawing.Size(175, 21);
-            this.ClientTypeComboBox.TabIndex = 73;
+            this.ClientTypeComboBox.TabIndex = 1;
             this.ClientTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ClientTypeComboBox_SelectedIndexChanged);
             // 
             // clientCodeTxtBox
@@ -202,7 +204,7 @@
             this.clientCodeTxtBox.Location = new System.Drawing.Point(70, 33);
             this.clientCodeTxtBox.Name = "clientCodeTxtBox";
             this.clientCodeTxtBox.Size = new System.Drawing.Size(177, 20);
-            this.clientCodeTxtBox.TabIndex = 75;
+            this.clientCodeTxtBox.TabIndex = 2;
             // 
             // ClientCodelbl
             // 
@@ -223,7 +225,7 @@
             this.Controls.Add(this.ClientTypeComboBox);
             this.Controls.Add(this.ClientTypelbl);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveAndAddProj);
             this.Controls.Add(this.ClearFieldsBtn);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.emailTxtBox);
@@ -260,7 +262,7 @@
         private System.Windows.Forms.Label emailLbl;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button ClearFieldsBtn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveAndAddProj;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Label ClientTypelbl;
         private System.Windows.Forms.ComboBox ClientTypeComboBox;

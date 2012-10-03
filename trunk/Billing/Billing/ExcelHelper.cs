@@ -325,5 +325,28 @@ namespace Billing
                 return "0";
             }
         }
+
+        public ArrayList GetRowItemsByFilter(DataTable fromTable, string filterByColumn, string valueToFilterBy)
+        {
+            try
+            {
+                ArrayList list = new ArrayList();
+                for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
+                {
+                    if (valueToFilterBy == fromTable.Rows[i][filterByColumn].ToString())
+                    {
+                        for (int j = 0; j <= fromTable.Columns.Count - 1; j++)
+                        {
+                            list.Add(fromTable.Rows[i][j].ToString());
+                        }                     
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@
         {
             this.clientNameComboBox = new System.Windows.Forms.ComboBox();
             this.clientNamelbl = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveAddBill = new System.Windows.Forms.Button();
             this.ClearFieldsBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.signingDatelbl = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.clientNameComboBox.Location = new System.Drawing.Point(12, 12);
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(296, 21);
-            this.clientNameComboBox.TabIndex = 56;
+            this.clientNameComboBox.TabIndex = 1;
             this.clientNameComboBox.SelectedIndexChanged += new System.EventHandler(this.clientNameComboBox_SelectedIndexChanged);
             this.clientNameComboBox.Click += new System.EventHandler(this.clientNameComboBox_Click);
             // 
@@ -79,21 +79,22 @@
             this.clientNamelbl.TabIndex = 55;
             this.clientNamelbl.Text = "שם הלקוח";
             // 
-            // button1
+            // btnSaveAddBill
             // 
-            this.button1.Location = new System.Drawing.Point(209, 398);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 23);
-            this.button1.TabIndex = 54;
-            this.button1.Text = "שמור והוסף פרוייקט";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSaveAddBill.Location = new System.Drawing.Point(209, 398);
+            this.btnSaveAddBill.Name = "btnSaveAddBill";
+            this.btnSaveAddBill.Size = new System.Drawing.Size(146, 23);
+            this.btnSaveAddBill.TabIndex = 15;
+            this.btnSaveAddBill.Text = "שמור והוסף חשבון";
+            this.btnSaveAddBill.UseVisualStyleBackColor = true;
+            this.btnSaveAddBill.Click += new System.EventHandler(this.btnSaveAddBill_Click);
             // 
             // ClearFieldsBtn
             // 
             this.ClearFieldsBtn.Location = new System.Drawing.Point(128, 398);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearFieldsBtn.TabIndex = 53;
+            this.ClearFieldsBtn.TabIndex = 16;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
             this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearFieldsBtn_Click);
@@ -103,7 +104,7 @@
             this.saveBtn.Location = new System.Drawing.Point(361, 398);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 52;
+            this.saveBtn.TabIndex = 14;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -123,14 +124,14 @@
             this.projectCodeTxtBox.Location = new System.Drawing.Point(12, 65);
             this.projectCodeTxtBox.Name = "projectCodeTxtBox";
             this.projectCodeTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectCodeTxtBox.TabIndex = 40;
+            this.projectCodeTxtBox.TabIndex = 3;
             // 
             // clientContractCodetxtBox
             // 
             this.clientContractCodetxtBox.Location = new System.Drawing.Point(12, 118);
             this.clientContractCodetxtBox.Name = "clientContractCodetxtBox";
             this.clientContractCodetxtBox.Size = new System.Drawing.Size(296, 20);
-            this.clientContractCodetxtBox.TabIndex = 43;
+            this.clientContractCodetxtBox.TabIndex = 5;
             // 
             // clientContractCodelbl
             // 
@@ -146,7 +147,7 @@
             this.valueTxtBox.Location = new System.Drawing.Point(12, 144);
             this.valueTxtBox.Name = "valueTxtBox";
             this.valueTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.valueTxtBox.TabIndex = 44;
+            this.valueTxtBox.TabIndex = 6;
             // 
             // valuelbl
             // 
@@ -163,7 +164,7 @@
             this.yarivContractCodeTxtBox.Location = new System.Drawing.Point(12, 92);
             this.yarivContractCodeTxtBox.Name = "yarivContractCodeTxtBox";
             this.yarivContractCodeTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.yarivContractCodeTxtBox.TabIndex = 42;
+            this.yarivContractCodeTxtBox.TabIndex = 4;
             // 
             // yarivContractCodeLbl
             // 
@@ -207,7 +208,7 @@
             this.projectNameComboBox.Location = new System.Drawing.Point(12, 39);
             this.projectNameComboBox.Name = "projectNameComboBox";
             this.projectNameComboBox.Size = new System.Drawing.Size(296, 21);
-            this.projectNameComboBox.TabIndex = 59;
+            this.projectNameComboBox.TabIndex = 2;
             this.projectNameComboBox.SelectedIndexChanged += new System.EventHandler(this.projectNameComboBox_SelectedIndexChanged);
             // 
             // endDatelbl
@@ -242,14 +243,14 @@
             this.signingDatePicker.Location = new System.Drawing.Point(12, 173);
             this.signingDatePicker.Name = "signingDatePicker";
             this.signingDatePicker.Size = new System.Drawing.Size(296, 20);
-            this.signingDatePicker.TabIndex = 63;
+            this.signingDatePicker.TabIndex = 7;
             // 
             // startDatePicker
             // 
             this.startDatePicker.Location = new System.Drawing.Point(12, 199);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(296, 20);
-            this.startDatePicker.TabIndex = 64;
+            this.startDatePicker.TabIndex = 8;
             this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // endDatePicker
@@ -257,28 +258,28 @@
             this.endDatePicker.Location = new System.Drawing.Point(12, 225);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(296, 20);
-            this.endDatePicker.TabIndex = 65;
+            this.endDatePicker.TabIndex = 9;
             // 
             // valueCalculationtxtBox
             // 
             this.valueCalculationtxtBox.Location = new System.Drawing.Point(12, 278);
             this.valueCalculationtxtBox.Name = "valueCalculationtxtBox";
             this.valueCalculationtxtBox.Size = new System.Drawing.Size(296, 20);
-            this.valueCalculationtxtBox.TabIndex = 66;
+            this.valueCalculationtxtBox.TabIndex = 11;
             // 
             // valueCalculationWaytxtBox
             // 
             this.valueCalculationWaytxtBox.Location = new System.Drawing.Point(12, 304);
             this.valueCalculationWaytxtBox.Name = "valueCalculationWaytxtBox";
             this.valueCalculationWaytxtBox.Size = new System.Drawing.Size(296, 20);
-            this.valueCalculationWaytxtBox.TabIndex = 67;
+            this.valueCalculationWaytxtBox.TabIndex = 12;
             // 
             // contractParttxtBox
             // 
             this.contractParttxtBox.Location = new System.Drawing.Point(12, 330);
             this.contractParttxtBox.Name = "contractParttxtBox";
             this.contractParttxtBox.Size = new System.Drawing.Size(296, 20);
-            this.contractParttxtBox.TabIndex = 68;
+            this.contractParttxtBox.TabIndex = 13;
             // 
             // contractPartlbl
             // 
@@ -294,7 +295,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(47, 398);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 70;
+            this.cancelBtn.TabIndex = 17;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -305,7 +306,7 @@
             this.contractTypeComboBox.Location = new System.Drawing.Point(12, 251);
             this.contractTypeComboBox.Name = "contractTypeComboBox";
             this.contractTypeComboBox.Size = new System.Drawing.Size(296, 21);
-            this.contractTypeComboBox.TabIndex = 71;
+            this.contractTypeComboBox.TabIndex = 10;
             // 
             // contractTypelbl
             // 
@@ -338,7 +339,7 @@
             this.Controls.Add(this.startDatelbl);
             this.Controls.Add(this.clientNameComboBox);
             this.Controls.Add(this.clientNamelbl);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveAddBill);
             this.Controls.Add(this.ClearFieldsBtn);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.signingDatelbl);
@@ -363,7 +364,7 @@
 
         private System.Windows.Forms.ComboBox clientNameComboBox;
         private System.Windows.Forms.Label clientNamelbl;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveAddBill;
         private System.Windows.Forms.Button ClearFieldsBtn;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Label signingDatelbl;

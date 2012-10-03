@@ -58,22 +58,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillForm.cs">
+    <Compile Include="DisplayData\DisplayClientDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BillForm.Designer.cs">
+    <Compile Include="DisplayData\DisplayClientDataForm.Designer.cs">
+      <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertData\BillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertData\BillForm.Designer.cs">
       <DependentUpon>BillForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClientForm.cs">
+    <Compile Include="InsertData\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClientForm.Designer.cs">
+    <Compile Include="InsertData\ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContractForm.cs">
+    <Compile Include="InsertData\ContractForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ContractForm.Designer.cs">
+    <Compile Include="InsertData\ContractForm.Designer.cs">
       <DependentUpon>ContractForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelHelper.cs" />
@@ -84,26 +90,29 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectForm.cs">
+    <Compile Include="InsertData\ProjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProjectForm.Designer.cs">
+    <Compile Include="InsertData\ProjectForm.Designer.cs">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BillForm.resx">
+    <EmbeddedResource Include="DisplayData\DisplayClientDataForm.resx">
+      <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertData\BillForm.resx">
       <DependentUpon>BillForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClientForm.resx">
+    <EmbeddedResource Include="InsertData\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContractForm.resx">
+    <EmbeddedResource Include="InsertData\ContractForm.resx">
       <DependentUpon>ContractForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectForm.resx">
+    <EmbeddedResource Include="InsertData\ProjectForm.resx">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

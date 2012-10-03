@@ -40,7 +40,7 @@
             this.projectNametxtBox = new System.Windows.Forms.TextBox();
             this.projectDescriptiontxtBox = new System.Windows.Forms.TextBox();
             this.projectDescriptionlbl = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveAddContract = new System.Windows.Forms.Button();
             this.ClearFieldsBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.clientNamelbl = new System.Windows.Forms.Label();
@@ -71,7 +71,7 @@
             this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(89, 117);
             this.projectCodeInviterTxtBox.Name = "projectCodeInviterTxtBox";
             this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectCodeInviterTxtBox.TabIndex = 4;
+            this.projectCodeInviterTxtBox.TabIndex = 5;
             // 
             // projectCodeInviterLbl
             // 
@@ -87,7 +87,7 @@
             this.projectNameInviterTxtBox.Location = new System.Drawing.Point(90, 143);
             this.projectNameInviterTxtBox.Name = "projectNameInviterTxtBox";
             this.projectNameInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectNameInviterTxtBox.TabIndex = 5;
+            this.projectNameInviterTxtBox.TabIndex = 6;
             // 
             // projectNameInviterLbl
             // 
@@ -103,7 +103,7 @@
             this.contactManTxtBox.Location = new System.Drawing.Point(87, 91);
             this.contactManTxtBox.Name = "contactManTxtBox";
             this.contactManTxtBox.Size = new System.Drawing.Size(297, 20);
-            this.contactManTxtBox.TabIndex = 3;
+            this.contactManTxtBox.TabIndex = 4;
             // 
             // contactManLbl
             // 
@@ -120,21 +120,21 @@
             this.projectCodetxtBox.Location = new System.Drawing.Point(88, 38);
             this.projectCodetxtBox.Name = "projectCodetxtBox";
             this.projectCodetxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectCodetxtBox.TabIndex = 1;
+            this.projectCodetxtBox.TabIndex = 2;
             // 
             // projectNametxtBox
             // 
             this.projectNametxtBox.Location = new System.Drawing.Point(89, 64);
             this.projectNametxtBox.Name = "projectNametxtBox";
             this.projectNametxtBox.Size = new System.Drawing.Size(297, 20);
-            this.projectNametxtBox.TabIndex = 2;
+            this.projectNametxtBox.TabIndex = 3;
             // 
             // projectDescriptiontxtBox
             // 
             this.projectDescriptiontxtBox.Location = new System.Drawing.Point(89, 169);
             this.projectDescriptiontxtBox.Name = "projectDescriptiontxtBox";
             this.projectDescriptiontxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectDescriptiontxtBox.TabIndex = 6;
+            this.projectDescriptiontxtBox.TabIndex = 7;
             // 
             // projectDescriptionlbl
             // 
@@ -145,21 +145,22 @@
             this.projectDescriptionlbl.TabIndex = 33;
             this.projectDescriptionlbl.Text = "תיאור הפרוייקט";
             // 
-            // button1
+            // btnSaveAddContract
             // 
-            this.button1.Location = new System.Drawing.Point(198, 248);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 23);
-            this.button1.TabIndex = 36;
-            this.button1.Text = "שמור והוסף פרוייקט";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSaveAddContract.Location = new System.Drawing.Point(198, 248);
+            this.btnSaveAddContract.Name = "btnSaveAddContract";
+            this.btnSaveAddContract.Size = new System.Drawing.Size(146, 23);
+            this.btnSaveAddContract.TabIndex = 9;
+            this.btnSaveAddContract.Text = "שמור והוסף חוזה";
+            this.btnSaveAddContract.UseVisualStyleBackColor = true;
+            this.btnSaveAddContract.Click += new System.EventHandler(this.btnSaveAddContract_Click);
             // 
             // ClearFieldsBtn
             // 
             this.ClearFieldsBtn.Location = new System.Drawing.Point(117, 248);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearFieldsBtn.TabIndex = 35;
+            this.ClearFieldsBtn.TabIndex = 10;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
             this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearAllFields);
@@ -169,7 +170,7 @@
             this.saveBtn.Location = new System.Drawing.Point(350, 248);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 34;
+            this.saveBtn.TabIndex = 8;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -189,7 +190,7 @@
             this.clientNameComboBox.Location = new System.Drawing.Point(90, 12);
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(294, 21);
-            this.clientNameComboBox.TabIndex = 39;
+            this.clientNameComboBox.TabIndex = 1;
             this.clientNameComboBox.Click += new System.EventHandler(this.clientNamecomboBox_Click);
             // 
             // cancelBtn
@@ -197,7 +198,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(36, 248);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 71;
+            this.cancelBtn.TabIndex = 11;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -210,7 +211,7 @@
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.clientNameComboBox);
             this.Controls.Add(this.clientNamelbl);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveAddContract);
             this.Controls.Add(this.ClearFieldsBtn);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.projectDescriptiontxtBox);
@@ -247,7 +248,7 @@
         private System.Windows.Forms.TextBox projectNametxtBox;
         private System.Windows.Forms.TextBox projectDescriptiontxtBox;
         private System.Windows.Forms.Label projectDescriptionlbl;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveAddContract;
         private System.Windows.Forms.Button ClearFieldsBtn;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Label clientNamelbl;
