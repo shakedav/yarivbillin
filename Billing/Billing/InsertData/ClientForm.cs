@@ -28,6 +28,12 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            SaveData();
+            Close();
+        }
+
+        private void SaveData()
+        {
             DataRow row = ExcelHelper.Instance.Clients.NewRow();
             try
             {
@@ -35,20 +41,17 @@ namespace Billing
                 row["שם לקוח"] = clientNameTxtBox.Text;
                 row["כתובת"] = ClientAddressTxtBox.Text;
                 row["טלפון"] = phoneTxtBox.Text;
-                row["אימייל"] = emailTxtBox.Text;                
+                row["אימייל"] = emailTxtBox.Text;
                 row["סוג לקוח"] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString();
                 row["קוד לקוח"] = clientCodeTxtBox.Text;
-                                    //clientCodeTxtBox.Text.Replace(row["סוג לקוח"] + "-", "");
-                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);                
+                //clientCodeTxtBox.Text.Replace(row["סוג לקוח"] + "-", "");
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);
                 ExcelHelper.Instance.Clients.Rows.Add(row);
-                Close();               
+            
             }
             catch (Exception ex)
             {
-                MessageBoxOptions options = MessageBoxOptions.RtlReading |
-                MessageBoxOptions.RightAlign;
-                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש", ExcelHelper.Path);
-                MessageBox.Show(this, text, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);            
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -75,6 +78,25 @@ namespace Billing
             clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, "קוד לקוח",
                                                   ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString()
                                                   , "סוג לקוח");
+        }
+
+        private void btnSaveAndAddProj_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                SaveData();
+                this.Hide();
+                this.Close();
+                Form f = new ProjectForm(clientNameTxtBox.Text);
+                f.ShowDialog();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBoxOptions options = MessageBoxOptions.RtlReading |
+            //    MessageBoxOptions.RightAlign;
+            //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            //    MessageBox.Show(this, text, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+            //}
         }       
     }
 }

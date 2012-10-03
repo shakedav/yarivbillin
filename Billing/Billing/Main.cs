@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.DisplayData;
 
 namespace Billing
 {
@@ -38,6 +39,12 @@ namespace Billing
         {
             BillForm billForm = new BillForm();
             billForm.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form f = new DisplayClientDataForm();
+            f.ShowDialog();
         }
     }
 }

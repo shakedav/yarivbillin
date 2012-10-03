@@ -13,6 +13,21 @@ namespace Billing
     {
         public ContractForm()
         {
+            Onload();
+            //TODO: לכתוב את "ניצול חוזה" כמו שצריך
+           
+        }
+
+        public ContractForm(string selectedClient, string selectedProject)
+        {
+            Onload();
+            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+            projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
+            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
+        }
+
+        private void Onload()
+        {
             InitializeComponent();
             yarivContractCodeTxtBox.Text = (ExcelHelper.Instance.Contracts.Rows.Count + 1).ToString();
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns["קוד לקוח"].Table;
@@ -21,13 +36,11 @@ namespace Billing
             projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח",
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח")
                 , "שם הפרוייקט");
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");  
+            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
             contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns["קוד סוג"].Table;
             contractTypeComboBox.DisplayMember = "שם הסוג";
             contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex]["שם הסוג"].ToString();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(yarivContractCodeTxtBox.Text);
-            //TODO: לכתוב את "ניצול חוזה" כמו שצריך
-           
         }
 
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
@@ -37,6 +50,7 @@ namespace Billing
             valueCalculationtxtBox.Clear();
             valueCalculationWaytxtBox.Clear();
             contractParttxtBox.Clear();
+            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(yarivContractCodeTxtBox.Text);
         }
 
         private void clientNameComboBox_Click(object sender, EventArgs e)
@@ -60,10 +74,16 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            SaveData();
+            Close();
+        }
+
+        private void SaveData()
+        {
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
             {
-                row["קוד לקוח"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,clientNameComboBox.Text,"שם לקוח","קוד לקוח");
+                row["קוד לקוח"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח");
                 row["קוד פרוייקט"] = projectCodeTxtBox.Text;
                 row["קוד חוזה יריב"] = yarivContractCodeTxtBox.Text;
                 row["קוד חוזה לקוח"] = clientContractCodetxtBox.Text;
@@ -77,14 +97,10 @@ namespace Billing
                 row["ניצול חוזה"] = contractParttxtBox.Text;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
-                Close();
             }
             catch (Exception ex)
             {
-                MessageBoxOptions options = MessageBoxOptions.RtlReading |
-                MessageBoxOptions.RightAlign;
-                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש", ExcelHelper.Path);
-                MessageBox.Show(this, text, "בעיה בשמירת פרוייקט", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -100,6 +116,25 @@ namespace Billing
             projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח", ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח"), "שם הפרוייקט");
 
             projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
+        }
+
+        private void btnSaveAddBill_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                SaveData();
+                this.Hide();
+                this.Close();
+                Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                f.ShowDialog();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBoxOptions options = MessageBoxOptions.RtlReading |
+            //    MessageBoxOptions.RightAlign;
+            //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            //    MessageBox.Show(this, text, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+            //}
         }     
     }
 }
