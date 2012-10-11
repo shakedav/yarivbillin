@@ -140,8 +140,7 @@ namespace Billing
             excelWorksheet = null;
             excelWorkbook = null;
             excelApp = null;
-            GC.Collect(); 
-   
+            GC.Collect();    
         }
 
         private string toAlphabet(int col)
@@ -326,27 +325,80 @@ namespace Billing
             }
         }
 
-        public ArrayList GetRowItemsByFilter(DataTable fromTable, string filterByColumn, string valueToFilterBy)
+        public Dictionary<string,string> GetRowItemsByFilter(DataTable fromTable, string filterByColumn, string valueToFilterBy)
         {
             try
             {
                 ArrayList list = new ArrayList();
+                Dictionary<string, string> dictionary = new Dictionary<string, string>();
                 for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
                 {
                     if (valueToFilterBy == fromTable.Rows[i][filterByColumn].ToString())
                     {
                         for (int j = 0; j <= fromTable.Columns.Count - 1; j++)
                         {
-                            list.Add(fromTable.Rows[i][j].ToString());
-                        }                     
+                            dictionary.Add(fromTable.Columns[j].ToString(), fromTable.Rows[i][j].ToString());
+                            //list.Add(fromTable.Rows[i][j].ToString());                            
+                        }
+                        return dictionary;
                     }
                 }
-                return list;
+                return dictionary;
             }
             catch (Exception ex)
             {
                 throw;
             }
         }
-    }
+
+        public bool CheckExistence(string TextToSearch, string column, DataTable dataTable)
+        {
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                if (TextToSearch == dataTable.Rows[i][column].ToString())
+                {
+                    return true;
+                }
+            }            
+            return false;
+        }
+
+        public void DeleteRow(DataTable table, string TextToSearch, string column, string sheetName)
+        {            
+            ExcelApp.Application excelApp = new ExcelApp.Application();
+            excelApp.DisplayAlerts = false;
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
+            ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
+            for (int row = 0; row <= table.Rows.Count - 1; row++)
+            {
+                if (TextToSearch == table.Rows[row][column].ToString())
+                {
+                    table.Rows[row].Delete();
+                    ((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Rows[row+2]).Delete();
+                    bool SaveChanges = true;
+                    excelWorksheet.SaveAs(Path);
+                    excelWorkbook.SaveAs(Path);
+                    excelWorkbook.Close(SaveChanges, Path, null);
+                    excelApp.Workbooks.Close();
+                    excelApp.Quit();
+
+                    if (excelSheets != null) { Marshal.ReleaseComObject(excelSheets); }
+                    if (excelWorksheet != null) { Marshal.ReleaseComObject(excelWorksheet); }
+                    if (excelWorkbook != null) { Marshal.ReleaseComObject(excelWorkbook); }
+                    if (excelApp != null) { Marshal.ReleaseComObject(excelApp); }
+
+                    excelSheets = null;
+                    excelWorksheet = null;
+                    excelWorkbook = null;
+                    excelApp = null;
+                    GC.Collect();
+                    ReadExcelData(Path);
+                    return;
+                }
+            }
+
+
+        }
+   }
 }

@@ -28,15 +28,33 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            SaveData();
+            if (ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, "שם לקוח", ExcelHelper.Instance.Clients))
+            {
+                using (var form = new DataExists(clientNameTxtBox.Text))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        bool save = form.ShouldSave;
+                        if (save)
+                        {
+                            SaveData();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                SaveData();
+            }
             Close();
         }
 
         private void SaveData()
         {
-            DataRow row = ExcelHelper.Instance.Clients.NewRow();
             try
             {
+                DataRow row = ExcelHelper.Instance.Clients.NewRow();
                 //TODO: Verify all fields are filled.
                 row["שם לקוח"] = clientNameTxtBox.Text;
                 row["כתובת"] = ClientAddressTxtBox.Text;
@@ -47,7 +65,6 @@ namespace Billing
                 //clientCodeTxtBox.Text.Replace(row["סוג לקוח"] + "-", "");
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);
                 ExcelHelper.Instance.Clients.Rows.Add(row);
-            
             }
             catch (Exception ex)
             {
@@ -97,6 +114,6 @@ namespace Billing
             //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
             //    MessageBox.Show(this, text, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
             //}
-        }       
+        }        
     }
 }
