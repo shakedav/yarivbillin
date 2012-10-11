@@ -22,10 +22,15 @@ namespace Billing.DisplayData
 
         private void ClientNamesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ArrayList clientDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, "שם לקוח", ClientNamesComboBox.Text);
+            Dictionary<string,string> clientDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, "שם לקוח", ExcelHelper.Instance.Clients.Rows[ClientNamesComboBox.SelectedIndex]["שם לקוח"].ToString());
             if (clientDataList.Count != 0)
             {
-                clientTypeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ClientTypes, clientDataList[1].ToString(), "קוד לקוח", "סוג לקוח");
+                clientTypeTxtBox.Text = clientDataList["סוג לקוח"];
+                clientNameTxtBox.Text = clientDataList["שם לקוח"];
+                ClientAddressTxtBox.Text = clientDataList["כתובת"];
+                phoneTxtBox.Text = clientDataList["טלפון"];
+                clientCodeTxtBox.Text = clientDataList["קוד לקוח"];
+                emailTxtBox.Text = clientDataList["אימייל"];
             }
         }
 

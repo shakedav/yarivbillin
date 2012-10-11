@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataExists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataExists.Designer.cs">
+      <DependentUpon>DataExists.cs</DependentUpon>
+    </Compile>
     <Compile Include="DisplayData\DisplayClientDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataExists.resx">
+      <DependentUpon>DataExists.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DisplayData\DisplayClientDataForm.resx">
       <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
     </EmbeddedResource>
