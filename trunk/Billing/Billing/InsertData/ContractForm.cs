@@ -74,15 +74,46 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            SaveData();
+            CheckAndSave();
             Close();
+        }
+
+        private void btnSaveAddBill_Click(object sender, EventArgs e)
+        {
+            CheckAndSave();
+            this.Hide();
+            this.Close();
+            Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+            f.ShowDialog();
+        }
+
+        private void CheckAndSave()
+        {
+            if (IsDataExist())
+            {
+                if (ExcelHelper.Instance.shouldSave("חוזה {0}", yarivContractCodeTxtBox.Text))
+                {
+                    SaveData();
+                }
+            }
+            else
+            {
+                SaveData();
+            }
+        }
+
+        private bool IsDataExist()
+        {
+            return ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
+                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח"),
+                "קוד חוזה לקוח", "קוד לקוח", ExcelHelper.Instance.Contracts);
         }
 
         private void SaveData()
         {
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
-            {
+            {                
                 row["קוד לקוח"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח");
                 row["קוד פרוייקט"] = projectCodeTxtBox.Text;
                 row["קוד חוזה יריב"] = yarivContractCodeTxtBox.Text;
@@ -100,7 +131,10 @@ namespace Billing
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxOptions options = MessageBoxOptions.RtlReading |
+                MessageBoxOptions.RightAlign;
+                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
             }
         }
 
@@ -118,24 +152,7 @@ namespace Billing
             projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
         }
 
-        private void btnSaveAddBill_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-                SaveData();
-                this.Hide();
-                this.Close();
-                Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
-                f.ShowDialog();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBoxOptions options = MessageBoxOptions.RtlReading |
-            //    MessageBoxOptions.RightAlign;
-            //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-            //    MessageBox.Show(this, text, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
-            //}
-        }     
+        
     }
 }
 

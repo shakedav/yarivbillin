@@ -43,14 +43,23 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            SaveData();
+            CheckAndSave();
             Close();
+            
+        }
+
+        private bool IsDataExist()
+        {
+            return ExcelHelper.Instance.CheckExistence(projectNametxtBox.Text,
+                                                        ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
+                                                        clientNameComboBox.Text, "שם לקוח", "קוד לקוח"), "שם הפרוייקט",
+                                                        "קוד הלקוח",ExcelHelper.Instance.Projects);
         }
 
         private void SaveData()
         {
             try
-            {
+            {                
                 DataRow row = ExcelHelper.Instance.Projects.NewRow();
                 row["קוד פרוייקט"] = projectCodetxtBox.Text;
                 row["שם הפרוייקט"] = projectNametxtBox.Text;
@@ -64,7 +73,10 @@ namespace Billing
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxOptions options = MessageBoxOptions.RtlReading |
+                MessageBoxOptions.RightAlign;
+                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת פרוייקט", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
             }
         }
         
@@ -82,21 +94,26 @@ namespace Billing
 
         private void btnSaveAddContract_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            CheckAndSave();
+            this.Hide();
+            this.Close();
+            Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
+            f.ShowDialog();
+        }
+
+        private void CheckAndSave()
+        {
+            if (IsDataExist())
+            {
+                if (ExcelHelper.Instance.shouldSave("פרוייקט {0}", projectNametxtBox.Text))
+                {
+                    SaveData();
+                }
+            }
+            else
+            {
                 SaveData();
-                this.Hide();
-                this.Close();
-                Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
-                f.ShowDialog();
-            //}             
-            //catch (Exception ex)
-            //{
-            //    MessageBoxOptions options = MessageBoxOptions.RtlReading |
-            //    MessageBoxOptions.RightAlign;
-            //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-            //    MessageBox.Show(this, text, "בעיה בשמירת פרוייקט", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
-            //}
+            }
         }
     }
 }

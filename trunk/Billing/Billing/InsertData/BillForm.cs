@@ -11,9 +11,6 @@ namespace Billing
 {
     public partial class BillForm : Form
     {
-        private string p;
-        private string p_2;
-
         public BillForm()
         {
             Onload();
@@ -70,9 +67,35 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = ExcelHelper.Instance.Bills.NewRow();
+            CheckAndSave();
+            Close();
+        }
+
+        private void CheckAndSave()
+        {
+            if (IsDataExist())
+            {
+                if (ExcelHelper.Instance.shouldSave("חשבון {0}", billNumberTxtBox.Text))
+                {
+                    SaveData();
+                }
+            }
+            else
+            {
+                SaveData();
+            }
+        }
+
+        private bool IsDataExist()
+        {
+            return ExcelHelper.Instance.CheckExistence(billNumberTxtBox.Text,contractCodeComboBox.Text, "מספר חשבון ביריב","קוד חוזה", ExcelHelper.Instance.Bills);
+        }
+
+        private void SaveData()
+        {
             try
             {
+                DataRow row = ExcelHelper.Instance.Bills.NewRow();
                 if (!errorsLabel.Visible)
                 {
                     row["קוד חוזה"] = contractCodeComboBox.Text;
@@ -80,7 +103,7 @@ namespace Billing
                     row["מספר חשבון חלקי בחוזה"] = billSequenceInContractTxtBox.Text;
                     row["חישוב התמורה"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, valueComboBox.Text, "סוג תמורה", "קוד תמורה");
                     row["חשבון קודם"] = lastBillTxtBox.Text;
-                    row["סכום התשלום"] = totalToPayTxtBox.Text;
+                    row["סכום החשבון"] = totalToPayTxtBox.Text;
                     row["המע\"מ"] = maamTxtBox.Text;
                     row["סה\"כ לתשלום"] = totalWithMaamTextBox.Text;
                     row["סוג סטטוס"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, "שם סטטוס", "קוד סטטוס");
@@ -94,7 +117,7 @@ namespace Billing
                 MessageBoxOptions options = MessageBoxOptions.RtlReading |
                 MessageBoxOptions.RightAlign;
                 string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-                MessageBox.Show(this, text, "בעיה בשמירת חשבון", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חשבון", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
             }
         }
 

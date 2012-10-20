@@ -11,11 +11,15 @@ namespace Billing
 {
     public partial class ClientForm : Form
     {
-        
+        Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
         public ClientForm()
         {
             InitializeComponent();
-
+            
+            foreach (DataRow row in ExcelHelper.Instance.ClientTypes.Rows)
+            {
+                clientTypeDic.Add(row[1].ToString(), row[0].ToString());
+            }
             ClientsDataGrid.DataSource = ExcelHelper.Instance.Clients;
 
             ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns["קוד לקוח"].Table;
@@ -28,47 +32,86 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, "שם לקוח", ExcelHelper.Instance.Clients))
+            if (CheckAllFieldsAreFilled())
             {
-                using (var form = new DataExists(clientNameTxtBox.Text))
+                CheckAndSave();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה");
+            }
+        }
+
+        private void CheckAndSave()
+        {
+            if (IsDataExist())
+            {
+                if (ExcelHelper.Instance.shouldSave("לקוח {0}", clientNameTxtBox.Text))
                 {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        bool save = form.ShouldSave;
-                        if (save)
-                        {
-                            SaveData();
-                        }
-                    }
+                    SaveData();
                 }
             }
             else
             {
                 SaveData();
             }
-            Close();
         }
+                      
+    
+
+        private bool CheckAllFieldsAreFilled()
+        {
+            if ((string.IsNullOrEmpty(clientNameTxtBox.Text)) || (string.IsNullOrEmpty(ClientAddressTxtBox.Text))
+                || (string.IsNullOrEmpty(phoneTxtBox.Text)) || (string.IsNullOrEmpty(emailTxtBox.Text)))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsDataExist()
+        {
+            return ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], "שם לקוח", "סוג לקוח", ExcelHelper.Instance.Clients);
+        }
+
+        private void btnSaveAndAddProj_Click(object sender, EventArgs e)
+        {
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                this.Hide();
+                this.Close();
+                Form f = new ProjectForm(clientNameTxtBox.Text);
+                f.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה"); 
+            }
+        }        
 
         private void SaveData()
         {
             try
             {
-                DataRow row = ExcelHelper.Instance.Clients.NewRow();
-                //TODO: Verify all fields are filled.
+                DataRow row = ExcelHelper.Instance.Clients.NewRow();                
                 row["שם לקוח"] = clientNameTxtBox.Text;
                 row["כתובת"] = ClientAddressTxtBox.Text;
                 row["טלפון"] = phoneTxtBox.Text;
                 row["אימייל"] = emailTxtBox.Text;
                 row["סוג לקוח"] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString();
                 row["קוד לקוח"] = clientCodeTxtBox.Text;
-                //clientCodeTxtBox.Text.Replace(row["סוג לקוח"] + "-", "");
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);
                 ExcelHelper.Instance.Clients.Rows.Add(row);
+                
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBoxOptions options = MessageBoxOptions.RtlReading |
+                MessageBoxOptions.RightAlign;
+                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
             }
         }
 
@@ -97,23 +140,6 @@ namespace Billing
                                                   , "סוג לקוח");
         }
 
-        private void btnSaveAndAddProj_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-                SaveData();
-                this.Hide();
-                this.Close();
-                Form f = new ProjectForm(clientNameTxtBox.Text);
-                f.ShowDialog();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBoxOptions options = MessageBoxOptions.RtlReading |
-            //    MessageBoxOptions.RightAlign;
-            //    string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-            //    MessageBox.Show(this, text, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
-            //}
-        }        
+       
     }
 }

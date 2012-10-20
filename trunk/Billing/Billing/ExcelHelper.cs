@@ -11,6 +11,7 @@ using Microsoft.Office.Interop;
 using ExcelApp = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace Billing
 {
@@ -70,7 +71,7 @@ namespace Billing
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
-            ValueTypes = ds.Tables["סוגי תמורה"];
+            ValueTypes = ds.Tables["סוגי תמורה"];           
         }
 
         private DataSet ReadExcelData(string Path)
@@ -351,11 +352,11 @@ namespace Billing
             }
         }
 
-        public bool CheckExistence(string TextToSearch, string column, DataTable dataTable)
+        public bool CheckExistence(string TextToSearch1, string TextToSearch2, string column1, string column2, DataTable dataTable)
         {
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
             {
-                if (TextToSearch == dataTable.Rows[i][column].ToString())
+                if ((TextToSearch1 == dataTable.Rows[i][column1].ToString()) && (TextToSearch2 == dataTable.Rows[i][column2].ToString()))
                 {
                     return true;
                 }
@@ -397,8 +398,19 @@ namespace Billing
                     return;
                 }
             }
+        }
 
-
+        public bool shouldSave(string message, string ExistingData)
+        {
+            using (var form = new DataExists(string.Format(message, ExistingData)))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    return form.ShouldSave;
+                }
+                else return false;
+            }
         }
    }
 }

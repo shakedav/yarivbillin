@@ -30,3 +30,7 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.BillForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.DisplayData.DisplayClientDataForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.DataExists.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Release\Billing.exe.manifest
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Release\Billing.application
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.exe.manifest
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.application
