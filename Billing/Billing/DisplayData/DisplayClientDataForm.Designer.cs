@@ -40,8 +40,6 @@
             this.phoneLbl = new System.Windows.Forms.Label();
             this.ClientAddressTxtBox = new System.Windows.Forms.TextBox();
             this.clientAddressLbl = new System.Windows.Forms.Label();
-            this.clientNameTxtBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.clientCodeTxtBox = new System.Windows.Forms.TextBox();
             this.getContractsBtn = new System.Windows.Forms.Button();
             this.getProjectsBtn = new System.Windows.Forms.Button();
@@ -71,7 +69,7 @@
             // clientNamelbl
             // 
             this.clientNamelbl.AutoSize = true;
-            this.clientNamelbl.Location = new System.Drawing.Point(813, 9);
+            this.clientNamelbl.Location = new System.Drawing.Point(814, 15);
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(52, 13);
             this.clientNamelbl.TabIndex = 3;
@@ -80,7 +78,7 @@
             // ClientNamesComboBox
             // 
             this.ClientNamesComboBox.FormattingEnabled = true;
-            this.ClientNamesComboBox.Location = new System.Drawing.Point(608, 6);
+            this.ClientNamesComboBox.Location = new System.Drawing.Point(609, 12);
             this.ClientNamesComboBox.Name = "ClientNamesComboBox";
             this.ClientNamesComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientNamesComboBox.Size = new System.Drawing.Size(199, 21);
@@ -90,15 +88,15 @@
             // 
             // clientTypeTxtBox
             // 
-            this.clientTypeTxtBox.Location = new System.Drawing.Point(201, 6);
+            this.clientTypeTxtBox.Location = new System.Drawing.Point(443, 12);
             this.clientTypeTxtBox.Name = "clientTypeTxtBox";
-            this.clientTypeTxtBox.Size = new System.Drawing.Size(177, 20);
+            this.clientTypeTxtBox.Size = new System.Drawing.Size(100, 20);
             this.clientTypeTxtBox.TabIndex = 87;
             // 
             // ClientCodelbl
             // 
             this.ClientCodelbl.AutoSize = true;
-            this.ClientCodelbl.Location = new System.Drawing.Point(383, 35);
+            this.ClientCodelbl.Location = new System.Drawing.Point(382, 15);
             this.ClientCodelbl.Name = "ClientCodelbl";
             this.ClientCodelbl.Size = new System.Drawing.Size(55, 13);
             this.ClientCodelbl.TabIndex = 86;
@@ -107,7 +105,7 @@
             // ClientTypelbl
             // 
             this.ClientTypelbl.AutoSize = true;
-            this.ClientTypelbl.Location = new System.Drawing.Point(384, 9);
+            this.ClientTypelbl.Location = new System.Drawing.Point(549, 15);
             this.ClientTypelbl.Name = "ClientTypelbl";
             this.ClientTypelbl.Size = new System.Drawing.Size(54, 13);
             this.ClientTypelbl.TabIndex = 84;
@@ -115,7 +113,7 @@
             // 
             // emailTxtBox
             // 
-            this.emailTxtBox.Location = new System.Drawing.Point(608, 66);
+            this.emailTxtBox.Location = new System.Drawing.Point(180, 39);
             this.emailTxtBox.Name = "emailTxtBox";
             this.emailTxtBox.Size = new System.Drawing.Size(199, 20);
             this.emailTxtBox.TabIndex = 83;
@@ -123,7 +121,7 @@
             // emailLbl
             // 
             this.emailLbl.AutoSize = true;
-            this.emailLbl.Location = new System.Drawing.Point(821, 69);
+            this.emailLbl.Location = new System.Drawing.Point(393, 42);
             this.emailLbl.Name = "emailLbl";
             this.emailLbl.Size = new System.Drawing.Size(44, 13);
             this.emailLbl.TabIndex = 82;
@@ -131,7 +129,7 @@
             // 
             // phoneTxtBox
             // 
-            this.phoneTxtBox.Location = new System.Drawing.Point(444, 33);
+            this.phoneTxtBox.Location = new System.Drawing.Point(443, 39);
             this.phoneTxtBox.Name = "phoneTxtBox";
             this.phoneTxtBox.Size = new System.Drawing.Size(100, 20);
             this.phoneTxtBox.TabIndex = 81;
@@ -139,7 +137,7 @@
             // phoneLbl
             // 
             this.phoneLbl.AutoSize = true;
-            this.phoneLbl.Location = new System.Drawing.Point(564, 36);
+            this.phoneLbl.Location = new System.Drawing.Point(565, 42);
             this.phoneLbl.Name = "phoneLbl";
             this.phoneLbl.Size = new System.Drawing.Size(38, 13);
             this.phoneLbl.TabIndex = 80;
@@ -147,7 +145,7 @@
             // 
             // ClientAddressTxtBox
             // 
-            this.ClientAddressTxtBox.Location = new System.Drawing.Point(608, 36);
+            this.ClientAddressTxtBox.Location = new System.Drawing.Point(609, 42);
             this.ClientAddressTxtBox.Name = "ClientAddressTxtBox";
             this.ClientAddressTxtBox.Size = new System.Drawing.Size(199, 20);
             this.ClientAddressTxtBox.TabIndex = 79;
@@ -155,47 +153,32 @@
             // clientAddressLbl
             // 
             this.clientAddressLbl.AutoSize = true;
-            this.clientAddressLbl.Location = new System.Drawing.Point(825, 39);
+            this.clientAddressLbl.Location = new System.Drawing.Point(826, 45);
             this.clientAddressLbl.Name = "clientAddressLbl";
             this.clientAddressLbl.Size = new System.Drawing.Size(40, 13);
             this.clientAddressLbl.TabIndex = 78;
             this.clientAddressLbl.Text = "כתובת";
             // 
-            // clientNameTxtBox
-            // 
-            this.clientNameTxtBox.Location = new System.Drawing.Point(444, 6);
-            this.clientNameTxtBox.Name = "clientNameTxtBox";
-            this.clientNameTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.clientNameTxtBox.TabIndex = 77;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(550, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 76;
-            this.label1.Text = "שם לקוח";
-            // 
             // clientCodeTxtBox
             // 
-            this.clientCodeTxtBox.Location = new System.Drawing.Point(201, 32);
+            this.clientCodeTxtBox.Location = new System.Drawing.Point(314, 12);
             this.clientCodeTxtBox.Name = "clientCodeTxtBox";
-            this.clientCodeTxtBox.Size = new System.Drawing.Size(177, 20);
+            this.clientCodeTxtBox.Size = new System.Drawing.Size(62, 20);
             this.clientCodeTxtBox.TabIndex = 88;
             // 
             // getContractsBtn
             // 
-            this.getContractsBtn.Location = new System.Drawing.Point(790, 92);
+            this.getContractsBtn.Location = new System.Drawing.Point(790, 77);
             this.getContractsBtn.Name = "getContractsBtn";
             this.getContractsBtn.Size = new System.Drawing.Size(75, 23);
             this.getContractsBtn.TabIndex = 89;
             this.getContractsBtn.Text = "הצג חוזים";
             this.getContractsBtn.UseVisualStyleBackColor = true;
+            this.getContractsBtn.Click += new System.EventHandler(this.getContractsBtn_Click);
             // 
             // getProjectsBtn
             // 
-            this.getProjectsBtn.Location = new System.Drawing.Point(676, 92);
+            this.getProjectsBtn.Location = new System.Drawing.Point(676, 77);
             this.getProjectsBtn.Name = "getProjectsBtn";
             this.getProjectsBtn.Size = new System.Drawing.Size(108, 23);
             this.getProjectsBtn.TabIndex = 90;
@@ -204,7 +187,7 @@
             // 
             // getBillsBtn
             // 
-            this.getBillsBtn.Location = new System.Drawing.Point(562, 92);
+            this.getBillsBtn.Location = new System.Drawing.Point(562, 77);
             this.getBillsBtn.Name = "getBillsBtn";
             this.getBillsBtn.Size = new System.Drawing.Size(108, 23);
             this.getBillsBtn.TabIndex = 91;
@@ -229,8 +212,6 @@
             this.Controls.Add(this.phoneLbl);
             this.Controls.Add(this.ClientAddressTxtBox);
             this.Controls.Add(this.clientAddressLbl);
-            this.Controls.Add(this.clientNameTxtBox);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.ClientNamesComboBox);
             this.Controls.Add(this.clientNamelbl);
             this.Controls.Add(this.ClientsDataGrid);
@@ -256,8 +237,6 @@
         private System.Windows.Forms.Label phoneLbl;
         private System.Windows.Forms.TextBox ClientAddressTxtBox;
         private System.Windows.Forms.Label clientAddressLbl;
-        private System.Windows.Forms.TextBox clientNameTxtBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox clientCodeTxtBox;
         private System.Windows.Forms.Button getContractsBtn;
         private System.Windows.Forms.Button getProjectsBtn;

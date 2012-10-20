@@ -26,7 +26,6 @@ namespace Billing.DisplayData
             if (clientDataList.Count != 0)
             {
                 clientTypeTxtBox.Text = clientDataList["סוג לקוח"];
-                clientNameTxtBox.Text = clientDataList["שם לקוח"];
                 ClientAddressTxtBox.Text = clientDataList["כתובת"];
                 phoneTxtBox.Text = clientDataList["טלפון"];
                 clientCodeTxtBox.Text = clientDataList["קוד לקוח"];
@@ -39,6 +38,12 @@ namespace Billing.DisplayData
             ClientNamesComboBox.DataSource = ExcelHelper.Instance.Clients.Columns["שם לקוח"].Table;
             ClientNamesComboBox.DisplayMember = "שם לקוח";
             ClientNamesComboBox.ValueMember = "קוד לקוח";
+        }
+
+        private void getContractsBtn_Click(object sender, EventArgs e)
+        {
+            Form f = new DisplayContractDetails();
+            f.ShowDialog();
         }
     }
 }

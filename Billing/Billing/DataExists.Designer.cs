@@ -36,7 +36,7 @@
             // errorMessage
             // 
             this.errorMessage.AutoSize = true;
-            this.errorMessage.Location = new System.Drawing.Point(319, 9);
+            this.errorMessage.Location = new System.Drawing.Point(242, 9);
             this.errorMessage.Name = "errorMessage";
             this.errorMessage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.errorMessage.Size = new System.Drawing.Size(0, 13);
