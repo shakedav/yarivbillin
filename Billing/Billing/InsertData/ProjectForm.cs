@@ -43,9 +43,15 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            CheckAndSave();
-            Close();
-            
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה");
+            }
         }
 
         private bool IsDataExist()
@@ -94,11 +100,30 @@ namespace Billing
 
         private void btnSaveAddContract_Click(object sender, EventArgs e)
         {
-            CheckAndSave();
-            this.Hide();
-            this.Close();
-            Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
-            f.ShowDialog();
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                this.Hide();
+                this.Close();
+                Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
+                f.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה"); 
+            }
+        }
+
+        private bool CheckAllFieldsAreFilled()
+        {
+            if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(projectCodetxtBox.Text))
+                || (string.IsNullOrEmpty(projectNameInviterTxtBox.Text)) || (string.IsNullOrEmpty(contactManTxtBox.Text))
+                || (string.IsNullOrEmpty(projectCodeInviterTxtBox.Text)) || (string.IsNullOrEmpty(projectNameInviterTxtBox.Text))
+                || (string.IsNullOrEmpty(projectDescriptiontxtBox.Text)))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void CheckAndSave()
