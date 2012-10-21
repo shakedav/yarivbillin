@@ -74,17 +74,46 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            CheckAndSave();
-            Close();
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה");
+            }
         }
 
         private void btnSaveAddBill_Click(object sender, EventArgs e)
         {
-            CheckAndSave();
-            this.Hide();
-            this.Close();
-            Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
-            f.ShowDialog();
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                this.Hide();
+                this.Close();
+                Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                f.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה");
+            }
+        }
+
+        private bool CheckAllFieldsAreFilled()
+        {
+            if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(projectNameComboBox.Text))
+                || (string.IsNullOrEmpty(projectCodeTxtBox.Text)) || (string.IsNullOrEmpty(yarivContractCodeTxtBox.Text))
+                || (string.IsNullOrEmpty(clientContractCodetxtBox.Text)) || (string.IsNullOrEmpty(valueTxtBox.Text))
+                || (string.IsNullOrEmpty(signingDatePicker.Text)) || (string.IsNullOrEmpty(startDatePicker.Text))
+                || (string.IsNullOrEmpty(endDatePicker.Text)) || (string.IsNullOrEmpty(contractTypeComboBox.Text))
+                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)) || (string.IsNullOrEmpty(valueCalculationWaytxtBox.Text))
+                || (string.IsNullOrEmpty(contractParttxtBox.Text)))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void CheckAndSave()

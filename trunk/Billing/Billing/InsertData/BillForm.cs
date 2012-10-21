@@ -67,8 +67,28 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            CheckAndSave();
-            Close();
+            if (CheckAllFieldsAreFilled())
+            {
+                CheckAndSave();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("מלא את כל השדות בבקשה");
+            }
+        }
+
+        private bool CheckAllFieldsAreFilled()
+        {
+            if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(contractCodeComboBox.Text))
+                || (string.IsNullOrEmpty(billNumberTxtBox.Text)) || (string.IsNullOrEmpty(billSequenceInContractTxtBox.Text))
+                || (string.IsNullOrEmpty(valueComboBox.Text)) || (string.IsNullOrEmpty(lastBillTxtBox.Text))
+                || (string.IsNullOrEmpty(totalToPayTxtBox.Text)) || (string.IsNullOrEmpty(maamTxtBox.Text))
+                || (string.IsNullOrEmpty(totalWithMaamTextBox.Text)) || (string.IsNullOrEmpty(billStatusComboBox.Text)))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void CheckAndSave()
