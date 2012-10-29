@@ -22,8 +22,11 @@ namespace Billing
         {
             Onload();
             clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+            clientNameComboBox.Enabled = false;
             projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
+            projectNameComboBox.Enabled = false;
             projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
+            projectCodeTxtBox.Enabled = false;
         }
 
         private void Onload()

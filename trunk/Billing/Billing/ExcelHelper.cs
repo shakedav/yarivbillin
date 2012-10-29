@@ -250,7 +250,7 @@ namespace Billing
             }
         }
 
-        public string getLastBillAmount(string billSequence, string accountNumber)
+        public string getLastBillAmount(string billSequence, string contractCode)
         {
             try
             {
@@ -259,7 +259,7 @@ namespace Billing
                 {
                     for (int i = 0; i <= table.Rows.Count - 1; i++)
                     {
-                        if ((accountNumber == table.Rows[i]["מספר חשבון ביריב"].ToString()) &&
+                        if ((contractCode == table.Rows[i]["קוד חוזה"].ToString()) &&
                             ((int.Parse(billSequence) - 1).ToString() == table.Rows[i]["מספר חשבון חלקי בחוזה"].ToString()))
                         {
                             return table.Rows[i]["סה\"כ לתשלום"].ToString();
@@ -411,6 +411,20 @@ namespace Billing
                 }
                 else return false;
             }
+        }
+
+        public string getTotalOfBills(string contractCode)
+        {
+            DataTable table = this.Bills;
+            double billsAmount = 0;
+            for (int i = 0; i <= table.Rows.Count - 1; i++)
+            {
+                if (contractCode == table.Rows[i]["קוד חוזה"].ToString())
+                {
+                    billsAmount += double.Parse(table.Rows[i]["סה\"כ לתשלום"].ToString());
+                }
+            }
+            return billsAmount.ToString();            
         }
    }
 }

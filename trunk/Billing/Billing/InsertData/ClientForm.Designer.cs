@@ -201,6 +201,7 @@
             // 
             // clientCodeTxtBox
             // 
+            this.clientCodeTxtBox.Enabled = false;
             this.clientCodeTxtBox.Location = new System.Drawing.Point(70, 33);
             this.clientCodeTxtBox.Name = "clientCodeTxtBox";
             this.clientCodeTxtBox.Size = new System.Drawing.Size(177, 20);
