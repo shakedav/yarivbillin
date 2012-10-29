@@ -29,7 +29,7 @@ namespace Billing
         {
             Onload();
             clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-            //clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
+            clientNameComboBox.Enabled = false;
         }
 
         private void ClearAllFields(object sender, EventArgs e)

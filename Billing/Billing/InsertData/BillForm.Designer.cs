@@ -52,6 +52,8 @@
             this.totalWithMaamTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.errorsLabel = new System.Windows.Forms.Label();
+            this.totalBillsComboBox = new System.Windows.Forms.ComboBox();
+            this.totalBills = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // clientNameComboBox
@@ -109,11 +111,11 @@
             // 
             // billNumberTxtBox
             // 
+            this.billNumberTxtBox.Enabled = false;
             this.billNumberTxtBox.Location = new System.Drawing.Point(84, 59);
             this.billNumberTxtBox.Name = "billNumberTxtBox";
             this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billNumberTxtBox.TabIndex = 3;
-            this.billNumberTxtBox.TextChanged += new System.EventHandler(this.billNumberTxtBox_TextChanged);
             this.billNumberTxtBox.Leave += new System.EventHandler(this.billNumberTxtBox_Leave);
             // 
             // yarivContractCodeLbl
@@ -165,7 +167,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(503, 245);
+            this.label3.Location = new System.Drawing.Point(500, 272);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 82;
@@ -174,7 +176,7 @@
             // billStatusComboBox
             // 
             this.billStatusComboBox.FormattingEnabled = true;
-            this.billStatusComboBox.Location = new System.Drawing.Point(84, 242);
+            this.billStatusComboBox.Location = new System.Drawing.Point(84, 269);
             this.billStatusComboBox.Name = "billStatusComboBox";
             this.billStatusComboBox.Size = new System.Drawing.Size(296, 21);
             this.billStatusComboBox.TabIndex = 10;
@@ -186,10 +188,11 @@
             this.contractCodeComboBox.Name = "contractCodeComboBox";
             this.contractCodeComboBox.Size = new System.Drawing.Size(296, 21);
             this.contractCodeComboBox.TabIndex = 2;
+            this.contractCodeComboBox.SelectedIndexChanged += new System.EventHandler(this.contractCodeComboBox_SelectedIndexChanged);
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(121, 276);
+            this.cancelBtn.Location = new System.Drawing.Point(121, 318);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 13;
@@ -199,7 +202,7 @@
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(202, 276);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(202, 318);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearFieldsBtn.TabIndex = 12;
@@ -209,7 +212,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(283, 276);
+            this.saveBtn.Location = new System.Drawing.Point(283, 318);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 11;
@@ -227,6 +230,7 @@
             // 
             // lastBillTxtBox
             // 
+            this.lastBillTxtBox.Enabled = false;
             this.lastBillTxtBox.Location = new System.Drawing.Point(84, 138);
             this.lastBillTxtBox.Name = "lastBillTxtBox";
             this.lastBillTxtBox.Size = new System.Drawing.Size(296, 20);
@@ -251,7 +255,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(409, 216);
+            this.label5.Location = new System.Drawing.Point(409, 219);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(134, 13);
             this.label5.TabIndex = 93;
@@ -260,18 +264,38 @@
             // errorsLabel
             // 
             this.errorsLabel.AutoSize = true;
-            this.errorsLabel.Location = new System.Drawing.Point(35, 302);
+            this.errorsLabel.Location = new System.Drawing.Point(35, 344);
             this.errorsLabel.Name = "errorsLabel";
             this.errorsLabel.Padding = new System.Windows.Forms.Padding(100, 10, 100, 10);
             this.errorsLabel.Size = new System.Drawing.Size(200, 33);
             this.errorsLabel.TabIndex = 94;
             this.errorsLabel.Visible = false;
             // 
+            // totalBillsComboBox
+            // 
+            this.totalBillsComboBox.Enabled = false;
+            this.totalBillsComboBox.FormattingEnabled = true;
+            this.totalBillsComboBox.Location = new System.Drawing.Point(84, 242);
+            this.totalBillsComboBox.Name = "totalBillsComboBox";
+            this.totalBillsComboBox.Size = new System.Drawing.Size(296, 21);
+            this.totalBillsComboBox.TabIndex = 95;
+            // 
+            // totalBills
+            // 
+            this.totalBills.AutoSize = true;
+            this.totalBills.Location = new System.Drawing.Point(404, 245);
+            this.totalBills.Name = "totalBills";
+            this.totalBills.Size = new System.Drawing.Size(136, 13);
+            this.totalBills.TabIndex = 96;
+            this.totalBills.Text = "סכום החשבונות החלקיים";
+            // 
             // BillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 445);
+            this.Controls.Add(this.totalBillsComboBox);
+            this.Controls.Add(this.totalBills);
             this.Controls.Add(this.errorsLabel);
             this.Controls.Add(this.totalWithMaamTextBox);
             this.Controls.Add(this.label5);
@@ -329,5 +353,7 @@
         private System.Windows.Forms.TextBox totalWithMaamTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label errorsLabel;
+        private System.Windows.Forms.ComboBox totalBillsComboBox;
+        private System.Windows.Forms.Label totalBills;
     }
 }

@@ -45,5 +45,20 @@ namespace Billing.DisplayData
             Form f = new DisplayContractDetails();
             f.ShowDialog();
         }
+
+        private void getProjectsBtn_Click(object sender, EventArgs e)
+        {
+            if (string.Equals(ClientNamesComboBox.Text, "לחץ כאן להצגת רשימת הלקוחות"))
+            {
+                Form f = new DisplayProjectDetails();
+                f.ShowDialog();
+            }
+            else
+            {
+                Form f = new DisplayProjectDetails(clientCodeTxtBox.Text, ClientNamesComboBox.Text);
+                f.ShowDialog();
+            }
+
+        }
     }
 }

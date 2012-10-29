@@ -184,6 +184,7 @@
             this.getProjectsBtn.TabIndex = 90;
             this.getProjectsBtn.Text = "הצג פרוייקטים";
             this.getProjectsBtn.UseVisualStyleBackColor = true;
+            this.getProjectsBtn.Click += new System.EventHandler(this.getProjectsBtn_Click);
             // 
             // getBillsBtn
             // 
