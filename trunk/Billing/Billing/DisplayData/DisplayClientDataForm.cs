@@ -47,6 +47,16 @@ namespace Billing.DisplayData
         {
             projectCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח", clientCodeTxtBox.Text, "קוד פרוייקט");
             GetProjectData();
+        }       
+
+        private void projectCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetProjectData();            
+        }
+
+        private void projectCodeComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            GetProjectData();
         }
 
         private void GetProjectData()
@@ -65,12 +75,6 @@ namespace Billing.DisplayData
                 FillContractsData();
             }
         }
-
-        private void projectCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GetProjectData();            
-        }
-
         #endregion Projects
 
         #region Contracts
@@ -83,29 +87,54 @@ namespace Billing.DisplayData
 
         private void GetContractData()
         {
-            Dictionary<string, string> ProjectDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, "קוד חוזה יריב",
+            Dictionary<string, string> contractDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, "קוד חוזה יריב",
                                                            ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, YarivComboBox.Text, "קוד חוזה יריב", "קוד חוזה יריב"));
-            clientContractCodetxtBox.Text = ProjectDataList["קוד חוזה לקוח"];
-            valueTxtBox.Text = ProjectDataList["תמורה"];
-            contractTypeComboBox.Text = ExcelHelper.Instance.ContractTypes.Rows[int.Parse(ProjectDataList["סיווג חוזה"])]["שם הסוג"].ToString();
-            valueCalculationtxtBox.Text = ProjectDataList["נגזרת התמורה"];
-            signingDateTxt.Text = ProjectDataList["תאריך חתימת החוזה"];
-            startDateTxt.Text = ProjectDataList["מועד תחילת חוזה"];
-            endDateTxt.Text = ProjectDataList["מועד סיום חוזה"];
-            valueCalculationWaytxtBox.Text = ProjectDataList["אופן חישוב תמורה"];
-            contractParttxtBox.Text = ProjectDataList["ניצול חוזה"];
+            clientContractCodetxtBox.Text = contractDataList["קוד חוזה לקוח"];
+            valueTxtBox.Text = contractDataList["תמורה"];
+            contractTypeComboBox.Text = ExcelHelper.Instance.ContractTypes.Rows[int.Parse(contractDataList["סיווג חוזה"])]["שם הסוג"].ToString();
+            valueCalculationtxtBox.Text = contractDataList["נגזרת התמורה"];
+            signingDateTxt.Text = contractDataList["תאריך חתימת החוזה"];
+            startDateTxt.Text = contractDataList["מועד תחילת חוזה"];
+            endDateTxt.Text = contractDataList["מועד סיום חוזה"];
+            valueCalculationWaytxtBox.Text = contractDataList["אופן חישוב תמורה"];
+            contractParttxtBox.Text = contractDataList["ניצול חוזה"];
         }
 
         #endregion Contracts
 
-        private void projectCodeComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            GetProjectData();
-        }
+        
 
         private void YarivComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetContractData();
+            fillBillsListBox();
+
+        }
+
+        private void fillBillsListBox()
+        {
+            BillsListBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Bills, "קוד חוזה", projectCodeComboBox.Text, "מספר חשבון ביריב");
+        }
+
+        private void BillsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetBillData();
+        }
+
+        private void GetBillData()
+        {
+            Dictionary<string, string> billDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, "מספר חשבון ביריב",
+                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, BillsListBox.Text, "מספר חשבון ביריב", "מספר חשבון ביריב"));
+            billDateTxt.Text = billDataList["תאריך החשבון"];
+            billNumberTxtBox.Text = billDataList["מספר חשבון ביריב"];
+            billSequenceInContractTxtBox.Text = billDataList["מספר חשבון חלקי בחוזה"];
+            valueTxt.Text = billDataList["חישוב התמורה"];
+            lastBillTxtBox.Text = billDataList["חשבון קודם"];
+            totalToPayTxtBox.Text = billDataList["סכום החשבון"];
+            maamTxtBox.Text = billDataList["המע\"מ"];
+            totalWithMaamTextBox.Text = billDataList["סה\"כ לתשלום"];
+            totalBillsTxt.Text = ExcelHelper.Instance.getTotalOfBills(YarivComboBox.Text);
+            billStatusTxt.Text = ExcelHelper.Instance.StatusTypes.Rows[int.Parse(billDataList["סוג סטטוס"])]["שם סטטוס"].ToString();            
         }
 
     }
