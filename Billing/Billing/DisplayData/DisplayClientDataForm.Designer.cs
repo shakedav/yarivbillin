@@ -96,6 +96,7 @@
             this.billStatusTxt = new System.Windows.Forms.TextBox();
             this.valueTxt = new System.Windows.Forms.TextBox();
             this.billDateTxt = new System.Windows.Forms.TextBox();
+            this.BillsListBox = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.ProjectGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -541,6 +542,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.BillsListBox);
             this.groupBox3.Controls.Add(this.billDateTxt);
             this.groupBox3.Controls.Add(this.valueTxt);
             this.groupBox3.Controls.Add(this.billStatusTxt);
@@ -572,7 +574,7 @@
             // billDatelbl
             // 
             this.billDatelbl.AutoSize = true;
-            this.billDatelbl.Location = new System.Drawing.Point(918, 27);
+            this.billDatelbl.Location = new System.Drawing.Point(853, 28);
             this.billDatelbl.Name = "billDatelbl";
             this.billDatelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.billDatelbl.Size = new System.Drawing.Size(83, 13);
@@ -582,7 +584,7 @@
             // lastBillTxtBox
             // 
             this.lastBillTxtBox.Enabled = false;
-            this.lastBillTxtBox.Location = new System.Drawing.Point(542, 126);
+            this.lastBillTxtBox.Location = new System.Drawing.Point(477, 127);
             this.lastBillTxtBox.Name = "lastBillTxtBox";
             this.lastBillTxtBox.Size = new System.Drawing.Size(296, 20);
             this.lastBillTxtBox.TabIndex = 103;
@@ -590,7 +592,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(932, 129);
+            this.label4.Location = new System.Drawing.Point(867, 130);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 109;
@@ -598,7 +600,7 @@
             // 
             // totalToPayTxtBox
             // 
-            this.totalToPayTxtBox.Location = new System.Drawing.Point(542, 152);
+            this.totalToPayTxtBox.Location = new System.Drawing.Point(477, 153);
             this.totalToPayTxtBox.Name = "totalToPayTxtBox";
             this.totalToPayTxtBox.Size = new System.Drawing.Size(296, 20);
             this.totalToPayTxtBox.TabIndex = 104;
@@ -606,7 +608,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(925, 155);
+            this.label1.Location = new System.Drawing.Point(860, 156);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 108;
@@ -614,7 +616,7 @@
             // 
             // billSequenceInContractTxtBox
             // 
-            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(542, 73);
+            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(477, 74);
             this.billSequenceInContractTxtBox.Name = "billSequenceInContractTxtBox";
             this.billSequenceInContractTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billSequenceInContractTxtBox.TabIndex = 101;
@@ -622,7 +624,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(868, 76);
+            this.label2.Location = new System.Drawing.Point(803, 77);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(133, 13);
@@ -632,7 +634,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(919, 102);
+            this.label3.Location = new System.Drawing.Point(854, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 106;
@@ -641,7 +643,7 @@
             // billNumberTxtBox
             // 
             this.billNumberTxtBox.Enabled = false;
-            this.billNumberTxtBox.Location = new System.Drawing.Point(542, 47);
+            this.billNumberTxtBox.Location = new System.Drawing.Point(477, 48);
             this.billNumberTxtBox.Name = "billNumberTxtBox";
             this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billNumberTxtBox.TabIndex = 100;
@@ -649,7 +651,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(899, 50);
+            this.label5.Location = new System.Drawing.Point(834, 51);
             this.label5.Name = "label5";
             this.label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label5.Size = new System.Drawing.Size(102, 13);
@@ -659,7 +661,7 @@
             // totalBills
             // 
             this.totalBills.AutoSize = true;
-            this.totalBills.Location = new System.Drawing.Point(397, 74);
+            this.totalBills.Location = new System.Drawing.Point(332, 75);
             this.totalBills.Name = "totalBills";
             this.totalBills.Size = new System.Drawing.Size(136, 13);
             this.totalBills.TabIndex = 119;
@@ -667,7 +669,7 @@
             // 
             // totalWithMaamTextBox
             // 
-            this.totalWithMaamTextBox.Location = new System.Drawing.Point(77, 45);
+            this.totalWithMaamTextBox.Location = new System.Drawing.Point(12, 46);
             this.totalWithMaamTextBox.Name = "totalWithMaamTextBox";
             this.totalWithMaamTextBox.Size = new System.Drawing.Size(296, 20);
             this.totalWithMaamTextBox.TabIndex = 113;
@@ -675,7 +677,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(402, 48);
+            this.label6.Location = new System.Drawing.Point(337, 49);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(134, 13);
             this.label6.TabIndex = 117;
@@ -684,7 +686,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(493, 101);
+            this.label7.Location = new System.Drawing.Point(428, 102);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 13);
             this.label7.TabIndex = 116;
@@ -692,7 +694,7 @@
             // 
             // maamTxtBox
             // 
-            this.maamTxtBox.Location = new System.Drawing.Point(77, 19);
+            this.maamTxtBox.Location = new System.Drawing.Point(12, 20);
             this.maamTxtBox.Name = "maamTxtBox";
             this.maamTxtBox.Size = new System.Drawing.Size(296, 20);
             this.maamTxtBox.TabIndex = 112;
@@ -700,7 +702,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(496, 22);
+            this.label8.Location = new System.Drawing.Point(431, 23);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 13);
             this.label8.TabIndex = 115;
@@ -708,21 +710,21 @@
             // 
             // totalBillsTxt
             // 
-            this.totalBillsTxt.Location = new System.Drawing.Point(77, 72);
+            this.totalBillsTxt.Location = new System.Drawing.Point(12, 73);
             this.totalBillsTxt.Name = "totalBillsTxt";
             this.totalBillsTxt.Size = new System.Drawing.Size(296, 20);
             this.totalBillsTxt.TabIndex = 120;
             // 
             // billStatusTxt
             // 
-            this.billStatusTxt.Location = new System.Drawing.Point(77, 98);
+            this.billStatusTxt.Location = new System.Drawing.Point(12, 99);
             this.billStatusTxt.Name = "billStatusTxt";
             this.billStatusTxt.Size = new System.Drawing.Size(296, 20);
             this.billStatusTxt.TabIndex = 121;
             // 
             // valueTxt
             // 
-            this.valueTxt.Location = new System.Drawing.Point(542, 98);
+            this.valueTxt.Location = new System.Drawing.Point(477, 99);
             this.valueTxt.Name = "valueTxt";
             this.valueTxt.Size = new System.Drawing.Size(296, 20);
             this.valueTxt.TabIndex = 122;
@@ -730,10 +732,19 @@
             // billDateTxt
             // 
             this.billDateTxt.Enabled = false;
-            this.billDateTxt.Location = new System.Drawing.Point(542, 24);
+            this.billDateTxt.Location = new System.Drawing.Point(477, 25);
             this.billDateTxt.Name = "billDateTxt";
             this.billDateTxt.Size = new System.Drawing.Size(296, 20);
             this.billDateTxt.TabIndex = 123;
+            // 
+            // BillsListBox
+            // 
+            this.BillsListBox.FormattingEnabled = true;
+            this.BillsListBox.Location = new System.Drawing.Point(940, 19);
+            this.BillsListBox.Name = "BillsListBox";
+            this.BillsListBox.Size = new System.Drawing.Size(120, 160);
+            this.BillsListBox.TabIndex = 124;
+            this.BillsListBox.SelectedIndexChanged += new System.EventHandler(this.BillsListBox_SelectedIndexChanged);
             // 
             // DisplayClientDataForm
             // 
@@ -828,5 +839,6 @@
         private System.Windows.Forms.TextBox valueTxt;
         private System.Windows.Forms.TextBox billStatusTxt;
         private System.Windows.Forms.TextBox billDateTxt;
+        private System.Windows.Forms.ListBox BillsListBox;
     }
 }
