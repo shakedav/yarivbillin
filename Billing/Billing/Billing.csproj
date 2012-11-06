@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -92,29 +92,17 @@
     <Compile Include="DataExists.Designer.cs">
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayData\DisplayBillDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayData\DisplayBillDetails.Designer.cs">
-      <DependentUpon>DisplayBillDetails.cs</DependentUpon>
-    </Compile>
     <Compile Include="DisplayData\DisplayClientDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DisplayData\DisplayClientDataForm.Designer.cs">
       <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayData\DisplayContractDetails.cs">
+    <Compile Include="Documents\DocTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayData\DisplayContractDetails.Designer.cs">
-      <DependentUpon>DisplayContractDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DisplayData\DisplayProjectDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayData\DisplayProjectDetails.Designer.cs">
-      <DependentUpon>DisplayProjectDetails.cs</DependentUpon>
+    <Compile Include="Documents\DocTemplate.Designer.cs">
+      <DependentUpon>DocTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="InsertData\BillForm.cs">
       <SubType>Form</SubType>
@@ -155,11 +143,8 @@
     <EmbeddedResource Include="DisplayData\DisplayClientDataForm.resx">
       <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayData\DisplayContractDetails.resx">
-      <DependentUpon>DisplayContractDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DisplayData\DisplayProjectDetails.resx">
-      <DependentUpon>DisplayProjectDetails.cs</DependentUpon>
+    <EmbeddedResource Include="Documents\DocTemplate.resx">
+      <DependentUpon>DocTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\BillForm.resx">
       <DependentUpon>BillForm.cs</DependentUpon>
@@ -219,6 +204,35 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

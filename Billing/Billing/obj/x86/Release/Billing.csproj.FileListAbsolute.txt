@@ -34,5 +34,5 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Release\Bill
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Release\Billing.application
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.exe.manifest
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.application
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.DisplayData.DisplayContractDetails.resources
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.DisplayData.DisplayProjectDetails.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.Documents.DocTemplate.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.csproj.ResolveComReference.cache

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Billing.DisplayData;
+using Billing.Documents;
 
 namespace Billing
 {
@@ -45,6 +46,12 @@ namespace Billing
         {
             Form f = new DisplayClientDataForm();
             f.ShowDialog();
+        }
+
+        private void createBillDocument_Click(object sender, EventArgs e)
+        {
+            Form Doc = new DocTemplate();
+            Doc.ShowDialog();
         }
     }
 }
