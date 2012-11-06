@@ -33,6 +33,7 @@
             this.btnAddProject = new System.Windows.Forms.Button();
             this.btnAddBill = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.createBillDocument = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddClient
@@ -85,11 +86,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // createBillDocument
+            // 
+            this.createBillDocument.Location = new System.Drawing.Point(12, 40);
+            this.createBillDocument.Name = "createBillDocument";
+            this.createBillDocument.Size = new System.Drawing.Size(102, 23);
+            this.createBillDocument.TabIndex = 5;
+            this.createBillDocument.Text = "מסמך חשבון";
+            this.createBillDocument.UseVisualStyleBackColor = true;
+            this.createBillDocument.Click += new System.EventHandler(this.createBillDocument_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.createBillDocument);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAddBill);
             this.Controls.Add(this.btnAddProject);
@@ -108,6 +120,7 @@
         private System.Windows.Forms.Button btnAddProject;
         private System.Windows.Forms.Button btnAddBill;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button createBillDocument;
     }
 }
 

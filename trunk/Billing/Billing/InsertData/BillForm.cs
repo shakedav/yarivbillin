@@ -125,6 +125,7 @@ namespace Billing
                 {
                     row["קוד חוזה"] = contractCodeComboBox.Text;
                     row["מספר חשבון ביריב"] = billNumberTxtBox.Text;
+                    row["תאריך החשבון"] = billDateBox.Text;
                     row["מספר חשבון חלקי בחוזה"] = billSequenceInContractTxtBox.Text;
                     row["חישוב התמורה"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, valueComboBox.Text, "סוג תמורה", "קוד תמורה");
                     row["חשבון קודם"] = lastBillTxtBox.Text;

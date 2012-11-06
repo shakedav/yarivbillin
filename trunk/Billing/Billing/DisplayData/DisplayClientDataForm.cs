@@ -14,12 +14,10 @@ namespace Billing.DisplayData
     {
         public DisplayClientDataForm()
         {
-            InitializeComponent();
-
-            ClientsDataGrid.DataSource = ExcelHelper.Instance.Clients;
+            InitializeComponent();            
             ClientNamesComboBox.Text = "לחץ כאן להצגת רשימת הלקוחות";
-        }             
-
+        }
+        #region Clients
         private void ClientNamesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Dictionary<string,string> clientDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, "שם לקוח", ExcelHelper.Instance.Clients.Rows[ClientNamesComboBox.SelectedIndex]["שם לקוח"].ToString());
@@ -30,8 +28,9 @@ namespace Billing.DisplayData
                 phoneTxtBox.Text = clientDataList["טלפון"];
                 clientCodeTxtBox.Text = clientDataList["קוד לקוח"];
                 emailTxtBox.Text = clientDataList["אימייל"];
+                FillProjectsData();                
             }
-        }
+        }       
 
         private void ClientNamesComboBox_MouseClick(object sender, MouseEventArgs e)
         {
@@ -40,25 +39,74 @@ namespace Billing.DisplayData
             ClientNamesComboBox.ValueMember = "קוד לקוח";
         }
 
-        private void getContractsBtn_Click(object sender, EventArgs e)
+        #endregion Clients
+
+        #region Projects
+
+        private void FillProjectsData()
         {
-            Form f = new DisplayContractDetails();
-            f.ShowDialog();
+            projectCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח", clientCodeTxtBox.Text, "קוד פרוייקט");
+            GetProjectData();
         }
 
-        private void getProjectsBtn_Click(object sender, EventArgs e)
+        private void GetProjectData()
         {
-            if (string.Equals(ClientNamesComboBox.Text, "לחץ כאן להצגת רשימת הלקוחות"))
+            Dictionary<string, string> ProjectDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, "קוד פרוייקט",
+                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectCodeComboBox.Text, "קוד פרוייקט", "קוד פרוייקט"));
+            if (ProjectDataList.Count != 0)
             {
-                Form f = new DisplayProjectDetails();
-                f.ShowDialog();
+                ClientNamesComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, ProjectDataList["קוד הלקוח"], "קוד לקוח", "שם לקוח");
+                projectCodeComboBox.Text = ProjectDataList["קוד פרוייקט"];
+                projectNametxtBox.Text = ProjectDataList["שם הפרוייקט"];
+                contactManTxtBox.Text = ProjectDataList["איש קשר בפרוייקט"];
+                projectNameInviterTxtBox.Text = ProjectDataList["שם פרוייקט אצל המזמין"];
+                projectCodeInviterTxtBox.Text = ProjectDataList["קוד פרוייקט אצל המזמין"];
+                projectDescriptiontxtBox.Text = ProjectDataList["תיאור הפרוייקט"];
+                FillContractsData();
             }
-            else
-            {
-                Form f = new DisplayProjectDetails(clientCodeTxtBox.Text, ClientNamesComboBox.Text);
-                f.ShowDialog();
-            }
-
         }
+
+        private void projectCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetProjectData();            
+        }
+
+        #endregion Projects
+
+        #region Contracts
+
+        private void FillContractsData()
+        {
+            YarivComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, "קוד פרוייקט", projectCodeComboBox.Text, "קוד חוזה יריב");
+            GetContractData();
+        }
+
+        private void GetContractData()
+        {
+            Dictionary<string, string> ProjectDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, "קוד חוזה יריב",
+                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, YarivComboBox.Text, "קוד חוזה יריב", "קוד חוזה יריב"));
+            clientContractCodetxtBox.Text = ProjectDataList["קוד חוזה לקוח"];
+            valueTxtBox.Text = ProjectDataList["תמורה"];
+            contractTypeComboBox.Text = ExcelHelper.Instance.ContractTypes.Rows[int.Parse(ProjectDataList["סיווג חוזה"])]["שם הסוג"].ToString();
+            valueCalculationtxtBox.Text = ProjectDataList["נגזרת התמורה"];
+            signingDateTxt.Text = ProjectDataList["תאריך חתימת החוזה"];
+            startDateTxt.Text = ProjectDataList["מועד תחילת חוזה"];
+            endDateTxt.Text = ProjectDataList["מועד סיום חוזה"];
+            valueCalculationWaytxtBox.Text = ProjectDataList["אופן חישוב תמורה"];
+            contractParttxtBox.Text = ProjectDataList["ניצול חוזה"];
+        }
+
+        #endregion Contracts
+
+        private void projectCodeComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            GetProjectData();
+        }
+
+        private void YarivComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetContractData();
+        }
+
     }
 }
