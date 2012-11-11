@@ -16,7 +16,7 @@ namespace Billing
         public DataExists(string message)
         {
             InitializeComponent();
-            errorMessage.Text = string.Format("{0} כבר קיים, האם ברצונך לשמור {0} נוסף?", message);            
+            errorMessage.Text = string.Format("{0} כבר קיים, האם ברצונך לשמור?", message);            
         }
 
         private void btnSave_Click(object sender, EventArgs e)

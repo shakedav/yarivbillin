@@ -1,4 +1,6 @@
-﻿namespace Billing
+﻿using System.Windows.Forms;
+using System;
+namespace Billing
 {
     partial class BillForm
     {
@@ -52,17 +54,22 @@
             this.totalWithMaamTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.errorsLabel = new System.Windows.Forms.Label();
-            this.totalBillsComboBox = new System.Windows.Forms.ComboBox();
             this.totalBills = new System.Windows.Forms.Label();
             this.billDatelbl = new System.Windows.Forms.Label();
             this.billDateBox = new System.Windows.Forms.DateTimePicker();
+            this.contractPartlbl = new System.Windows.Forms.Label();
+            this.contractParttxtBox = new System.Windows.Forms.TextBox();
+            this.totalBillsTxtBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // clientNameComboBox
             // 
+            this.clientNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clientNameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clientNameComboBox.FormattingEnabled = true;
             this.clientNameComboBox.Location = new System.Drawing.Point(84, 6);
             this.clientNameComboBox.Name = "clientNameComboBox";
+            this.clientNameComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientNameComboBox.Size = new System.Drawing.Size(296, 21);
             this.clientNameComboBox.TabIndex = 1;
             this.clientNameComboBox.SelectedIndexChanged += new System.EventHandler(this.clientNameComboBox_SelectedIndexChanged);
@@ -82,6 +89,7 @@
             this.billSequenceInContractTxtBox.Name = "billSequenceInContractTxtBox";
             this.billSequenceInContractTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billSequenceInContractTxtBox.TabIndex = 4;
+            this.billSequenceInContractTxtBox.Leave += new System.EventHandler(this.billSequenceInContractTxtBox_Leave);
             // 
             // clientContractCodelbl
             // 
@@ -118,7 +126,6 @@
             this.billNumberTxtBox.Name = "billNumberTxtBox";
             this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billNumberTxtBox.TabIndex = 3;
-            this.billNumberTxtBox.Leave += new System.EventHandler(this.billNumberTxtBox_Leave);
             // 
             // yarivContractCodeLbl
             // 
@@ -177,17 +184,24 @@
             // 
             // billStatusComboBox
             // 
+            this.billStatusComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.billStatusComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.billStatusComboBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.billStatusComboBox.FormattingEnabled = true;
             this.billStatusComboBox.Location = new System.Drawing.Point(84, 296);
             this.billStatusComboBox.Name = "billStatusComboBox";
+            this.billStatusComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.billStatusComboBox.Size = new System.Drawing.Size(296, 21);
             this.billStatusComboBox.TabIndex = 10;
             // 
             // contractCodeComboBox
             // 
+            this.contractCodeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.contractCodeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.contractCodeComboBox.FormattingEnabled = true;
             this.contractCodeComboBox.Location = new System.Drawing.Point(84, 33);
             this.contractCodeComboBox.Name = "contractCodeComboBox";
+            this.contractCodeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.contractCodeComboBox.Size = new System.Drawing.Size(296, 21);
             this.contractCodeComboBox.TabIndex = 2;
             this.contractCodeComboBox.SelectedIndexChanged += new System.EventHandler(this.contractCodeComboBox_SelectedIndexChanged);
@@ -224,9 +238,12 @@
             // 
             // valueComboBox
             // 
+            this.valueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.valueComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.valueComboBox.FormattingEnabled = true;
             this.valueComboBox.Location = new System.Drawing.Point(84, 138);
             this.valueComboBox.Name = "valueComboBox";
+            this.valueComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.valueComboBox.Size = new System.Drawing.Size(296, 21);
             this.valueComboBox.TabIndex = 5;
             // 
@@ -273,15 +290,6 @@
             this.errorsLabel.TabIndex = 94;
             this.errorsLabel.Visible = false;
             // 
-            // totalBillsComboBox
-            // 
-            this.totalBillsComboBox.Enabled = false;
-            this.totalBillsComboBox.FormattingEnabled = true;
-            this.totalBillsComboBox.Location = new System.Drawing.Point(84, 269);
-            this.totalBillsComboBox.Name = "totalBillsComboBox";
-            this.totalBillsComboBox.Size = new System.Drawing.Size(296, 21);
-            this.totalBillsComboBox.TabIndex = 95;
-            // 
             // totalBills
             // 
             this.totalBills.AutoSize = true;
@@ -303,19 +311,49 @@
             // 
             // billDateBox
             // 
+            this.billDateBox.CustomFormat = "MM/yyyy";
+            this.billDateBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.billDateBox.Location = new System.Drawing.Point(84, 60);
+            this.billDateBox.MinDate = new System.DateTime(2012, 1, 1, 0, 0, 0, 0);
             this.billDateBox.Name = "billDateBox";
+            this.billDateBox.ShowUpDown = true;
             this.billDateBox.Size = new System.Drawing.Size(296, 20);
             this.billDateBox.TabIndex = 99;
+            this.billDateBox.Value = new System.DateTime(2012, 11, 11, 0, 0, 0, 0);
+            // 
+            // contractPartlbl
+            // 
+            this.contractPartlbl.AutoSize = true;
+            this.contractPartlbl.Location = new System.Drawing.Point(480, 326);
+            this.contractPartlbl.Name = "contractPartlbl";
+            this.contractPartlbl.Size = new System.Drawing.Size(63, 13);
+            this.contractPartlbl.TabIndex = 101;
+            this.contractPartlbl.Text = "ניצול חוזה";
+            // 
+            // contractParttxtBox
+            // 
+            this.contractParttxtBox.Location = new System.Drawing.Point(84, 323);
+            this.contractParttxtBox.Name = "contractParttxtBox";
+            this.contractParttxtBox.Size = new System.Drawing.Size(296, 20);
+            this.contractParttxtBox.TabIndex = 100;
+            // 
+            // totalBillsTxtBox
+            // 
+            this.totalBillsTxtBox.Location = new System.Drawing.Point(84, 269);
+            this.totalBillsTxtBox.Name = "totalBillsTxtBox";
+            this.totalBillsTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.totalBillsTxtBox.TabIndex = 102;
             // 
             // BillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 445);
+            this.Controls.Add(this.totalBillsTxtBox);
+            this.Controls.Add(this.contractPartlbl);
+            this.Controls.Add(this.contractParttxtBox);
             this.Controls.Add(this.billDateBox);
             this.Controls.Add(this.billDatelbl);
-            this.Controls.Add(this.totalBillsComboBox);
             this.Controls.Add(this.totalBills);
             this.Controls.Add(this.errorsLabel);
             this.Controls.Add(this.totalWithMaamTextBox);
@@ -374,9 +412,11 @@
         private System.Windows.Forms.TextBox totalWithMaamTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label errorsLabel;
-        private System.Windows.Forms.ComboBox totalBillsComboBox;
         private System.Windows.Forms.Label totalBills;
         private System.Windows.Forms.Label billDatelbl;
         private System.Windows.Forms.DateTimePicker billDateBox;
+        private Label contractPartlbl;
+        private TextBox contractParttxtBox;
+        private TextBox totalBillsTxtBox;
     }
 }

@@ -55,7 +55,7 @@
             this.projectCodeLbl.Name = "projectCodeLbl";
             this.projectCodeLbl.Size = new System.Drawing.Size(71, 13);
             this.projectCodeLbl.TabIndex = 23;
-            this.projectCodeLbl.Text = "קוד פרוייקט";
+            this.projectCodeLbl.Text = ColumnNames.PROJECT_CODE;
             // 
             // projectNameLbl
             // 
@@ -80,7 +80,7 @@
             this.projectCodeInviterLbl.Name = "projectCodeInviterLbl";
             this.projectCodeInviterLbl.Size = new System.Drawing.Size(135, 13);
             this.projectCodeInviterLbl.TabIndex = 31;
-            this.projectCodeInviterLbl.Text = "קוד פרוייקט אצל המזמין";
+            this.projectCodeInviterLbl.Text = ColumnNames.INVITER_PROJECT_CODE;
             // 
             // projectNameInviterTxtBox
             // 
@@ -96,7 +96,7 @@
             this.projectNameInviterLbl.Name = "projectNameInviterLbl";
             this.projectNameInviterLbl.Size = new System.Drawing.Size(132, 13);
             this.projectNameInviterLbl.TabIndex = 29;
-            this.projectNameInviterLbl.Text = "שם פרוייקט אצל המזמין";
+            this.projectNameInviterLbl.Text = ColumnNames.INVITER_PROJECT_NAME;
             // 
             // contactManTxtBox
             // 
@@ -112,7 +112,7 @@
             this.contactManLbl.Name = "contactManLbl";
             this.contactManLbl.Size = new System.Drawing.Size(106, 13);
             this.contactManLbl.TabIndex = 27;
-            this.contactManLbl.Text = "איש קשר בפרוייקט";
+            this.contactManLbl.Text = ColumnNames.PROJECT_CONTACT_MAN;
             // 
             // projectCodetxtBox
             // 
@@ -143,7 +143,7 @@
             this.projectDescriptionlbl.Name = "projectDescriptionlbl";
             this.projectDescriptionlbl.Size = new System.Drawing.Size(90, 13);
             this.projectDescriptionlbl.TabIndex = 33;
-            this.projectDescriptionlbl.Text = "תיאור הפרוייקט";
+            this.projectDescriptionlbl.Text = ColumnNames.PROJECT_DESCRIPTION;
             // 
             // btnSaveAddContract
             // 

@@ -83,7 +83,7 @@
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(52, 13);
             this.clientNamelbl.TabIndex = 2;
-            this.clientNamelbl.Text = "שם לקוח";
+            this.clientNamelbl.Text = ColumnNames.CLIENT_NAME;
             // 
             // clientNameTxtBox
             // 
@@ -106,7 +106,7 @@
             this.clientAddressLbl.Name = "clientAddressLbl";
             this.clientAddressLbl.Size = new System.Drawing.Size(40, 13);
             this.clientAddressLbl.TabIndex = 4;
-            this.clientAddressLbl.Text = "כתובת";
+            this.clientAddressLbl.Text = ColumnNames.ADRESS;
             // 
             // phoneTxtBox
             // 
@@ -122,7 +122,7 @@
             this.phoneLbl.Name = "phoneLbl";
             this.phoneLbl.Size = new System.Drawing.Size(38, 13);
             this.phoneLbl.TabIndex = 6;
-            this.phoneLbl.Text = "טלפון";
+            this.phoneLbl.Text = ColumnNames.PHONE;
             // 
             // emailTxtBox
             // 
@@ -139,7 +139,7 @@
             this.emailLbl.Name = "emailLbl";
             this.emailLbl.Size = new System.Drawing.Size(44, 13);
             this.emailLbl.TabIndex = 8;
-            this.emailLbl.Text = "אימייל";
+            this.emailLbl.Text = ColumnNames.EMAIL;
             // 
             // saveBtn
             // 
@@ -188,7 +188,7 @@
             this.ClientTypelbl.Name = "ClientTypelbl";
             this.ClientTypelbl.Size = new System.Drawing.Size(54, 13);
             this.ClientTypelbl.TabIndex = 72;
-            this.ClientTypelbl.Text = "סוג לקוח";
+            this.ClientTypelbl.Text = ColumnNames.CLIENT_TYPE;
             // 
             // ClientTypeComboBox
             // 
@@ -214,7 +214,7 @@
             this.ClientCodelbl.Name = "ClientCodelbl";
             this.ClientCodelbl.Size = new System.Drawing.Size(55, 13);
             this.ClientCodelbl.TabIndex = 74;
-            this.ClientCodelbl.Text = "קוד לקוח";
+            this.ClientCodelbl.Text = ColumnNames.CLIENT_CODE;
             // 
             // ClientForm
             // 

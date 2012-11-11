@@ -76,27 +76,27 @@
             this.signingDatelbl = new System.Windows.Forms.Label();
             this.clientContractCodetxtBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.billDatelbl = new System.Windows.Forms.Label();
-            this.lastBillTxtBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.totalToPayTxtBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.billSequenceInContractTxtBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.billNumberTxtBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.BillsListBox = new System.Windows.Forms.ListBox();
+            this.billDateTxt = new System.Windows.Forms.TextBox();
+            this.valueTxt = new System.Windows.Forms.TextBox();
+            this.billStatusTxt = new System.Windows.Forms.TextBox();
+            this.totalBillsTxt = new System.Windows.Forms.TextBox();
             this.totalBills = new System.Windows.Forms.Label();
             this.totalWithMaamTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.maamTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.totalBillsTxt = new System.Windows.Forms.TextBox();
-            this.billStatusTxt = new System.Windows.Forms.TextBox();
-            this.valueTxt = new System.Windows.Forms.TextBox();
-            this.billDateTxt = new System.Windows.Forms.TextBox();
-            this.BillsListBox = new System.Windows.Forms.ListBox();
+            this.billDatelbl = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lastBillTxtBox = new System.Windows.Forms.TextBox();
+            this.billNumberTxtBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.totalToPayTxtBox = new System.Windows.Forms.TextBox();
+            this.billSequenceInContractTxtBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.ProjectGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -571,92 +571,43 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "חשבונות";
             // 
-            // billDatelbl
+            // BillsListBox
             // 
-            this.billDatelbl.AutoSize = true;
-            this.billDatelbl.Location = new System.Drawing.Point(853, 28);
-            this.billDatelbl.Name = "billDatelbl";
-            this.billDatelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.billDatelbl.Size = new System.Drawing.Size(83, 13);
-            this.billDatelbl.TabIndex = 110;
-            this.billDatelbl.Text = "תאריך החשבון";
+            this.BillsListBox.FormattingEnabled = true;
+            this.BillsListBox.Location = new System.Drawing.Point(940, 19);
+            this.BillsListBox.Name = "BillsListBox";
+            this.BillsListBox.Size = new System.Drawing.Size(120, 160);
+            this.BillsListBox.TabIndex = 124;
+            this.BillsListBox.SelectedIndexChanged += new System.EventHandler(this.BillsListBox_SelectedIndexChanged);
             // 
-            // lastBillTxtBox
+            // billDateTxt
             // 
-            this.lastBillTxtBox.Enabled = false;
-            this.lastBillTxtBox.Location = new System.Drawing.Point(477, 127);
-            this.lastBillTxtBox.Name = "lastBillTxtBox";
-            this.lastBillTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.lastBillTxtBox.TabIndex = 103;
+            this.billDateTxt.Enabled = false;
+            this.billDateTxt.Location = new System.Drawing.Point(477, 25);
+            this.billDateTxt.Name = "billDateTxt";
+            this.billDateTxt.Size = new System.Drawing.Size(296, 20);
+            this.billDateTxt.TabIndex = 123;
             // 
-            // label4
+            // valueTxt
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(867, 130);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 109;
-            this.label4.Text = "חשבון קודם";
+            this.valueTxt.Location = new System.Drawing.Point(477, 99);
+            this.valueTxt.Name = "valueTxt";
+            this.valueTxt.Size = new System.Drawing.Size(296, 20);
+            this.valueTxt.TabIndex = 122;
             // 
-            // totalToPayTxtBox
+            // billStatusTxt
             // 
-            this.totalToPayTxtBox.Location = new System.Drawing.Point(477, 153);
-            this.totalToPayTxtBox.Name = "totalToPayTxtBox";
-            this.totalToPayTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.totalToPayTxtBox.TabIndex = 104;
+            this.billStatusTxt.Location = new System.Drawing.Point(12, 99);
+            this.billStatusTxt.Name = "billStatusTxt";
+            this.billStatusTxt.Size = new System.Drawing.Size(296, 20);
+            this.billStatusTxt.TabIndex = 121;
             // 
-            // label1
+            // totalBillsTxt
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(860, 156);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 108;
-            this.label1.Text = "סכום החשבון";
-            // 
-            // billSequenceInContractTxtBox
-            // 
-            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(477, 74);
-            this.billSequenceInContractTxtBox.Name = "billSequenceInContractTxtBox";
-            this.billSequenceInContractTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.billSequenceInContractTxtBox.TabIndex = 101;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(803, 77);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(133, 13);
-            this.label2.TabIndex = 107;
-            this.label2.Text = "מספר חשבון חלקי בחוזה";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(854, 103);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 13);
-            this.label3.TabIndex = 106;
-            this.label3.Text = "חישוב התמורה";
-            // 
-            // billNumberTxtBox
-            // 
-            this.billNumberTxtBox.Enabled = false;
-            this.billNumberTxtBox.Location = new System.Drawing.Point(477, 48);
-            this.billNumberTxtBox.Name = "billNumberTxtBox";
-            this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.billNumberTxtBox.TabIndex = 100;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(834, 51);
-            this.label5.Name = "label5";
-            this.label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label5.Size = new System.Drawing.Size(102, 13);
-            this.label5.TabIndex = 105;
-            this.label5.Text = "מספר חשבון (יריב)";
+            this.totalBillsTxt.Location = new System.Drawing.Point(12, 73);
+            this.totalBillsTxt.Name = "totalBillsTxt";
+            this.totalBillsTxt.Size = new System.Drawing.Size(296, 20);
+            this.totalBillsTxt.TabIndex = 120;
             // 
             // totalBills
             // 
@@ -708,43 +659,92 @@
             this.label8.TabIndex = 115;
             this.label8.Text = "המע\"מ";
             // 
-            // totalBillsTxt
+            // billDatelbl
             // 
-            this.totalBillsTxt.Location = new System.Drawing.Point(12, 73);
-            this.totalBillsTxt.Name = "totalBillsTxt";
-            this.totalBillsTxt.Size = new System.Drawing.Size(296, 20);
-            this.totalBillsTxt.TabIndex = 120;
+            this.billDatelbl.AutoSize = true;
+            this.billDatelbl.Location = new System.Drawing.Point(853, 28);
+            this.billDatelbl.Name = "billDatelbl";
+            this.billDatelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.billDatelbl.Size = new System.Drawing.Size(83, 13);
+            this.billDatelbl.TabIndex = 110;
+            this.billDatelbl.Text = "תאריך החשבון";
             // 
-            // billStatusTxt
+            // label5
             // 
-            this.billStatusTxt.Location = new System.Drawing.Point(12, 99);
-            this.billStatusTxt.Name = "billStatusTxt";
-            this.billStatusTxt.Size = new System.Drawing.Size(296, 20);
-            this.billStatusTxt.TabIndex = 121;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(834, 51);
+            this.label5.Name = "label5";
+            this.label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label5.Size = new System.Drawing.Size(102, 13);
+            this.label5.TabIndex = 105;
+            this.label5.Text = "מספר חשבון (יריב)";
             // 
-            // valueTxt
+            // lastBillTxtBox
             // 
-            this.valueTxt.Location = new System.Drawing.Point(477, 99);
-            this.valueTxt.Name = "valueTxt";
-            this.valueTxt.Size = new System.Drawing.Size(296, 20);
-            this.valueTxt.TabIndex = 122;
+            this.lastBillTxtBox.Enabled = false;
+            this.lastBillTxtBox.Location = new System.Drawing.Point(477, 127);
+            this.lastBillTxtBox.Name = "lastBillTxtBox";
+            this.lastBillTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.lastBillTxtBox.TabIndex = 103;
             // 
-            // billDateTxt
+            // billNumberTxtBox
             // 
-            this.billDateTxt.Enabled = false;
-            this.billDateTxt.Location = new System.Drawing.Point(477, 25);
-            this.billDateTxt.Name = "billDateTxt";
-            this.billDateTxt.Size = new System.Drawing.Size(296, 20);
-            this.billDateTxt.TabIndex = 123;
+            this.billNumberTxtBox.Enabled = false;
+            this.billNumberTxtBox.Location = new System.Drawing.Point(477, 48);
+            this.billNumberTxtBox.Name = "billNumberTxtBox";
+            this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.billNumberTxtBox.TabIndex = 100;
             // 
-            // BillsListBox
+            // label4
             // 
-            this.BillsListBox.FormattingEnabled = true;
-            this.BillsListBox.Location = new System.Drawing.Point(940, 19);
-            this.BillsListBox.Name = "BillsListBox";
-            this.BillsListBox.Size = new System.Drawing.Size(120, 160);
-            this.BillsListBox.TabIndex = 124;
-            this.BillsListBox.SelectedIndexChanged += new System.EventHandler(this.BillsListBox_SelectedIndexChanged);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(867, 130);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 109;
+            this.label4.Text = "חשבון קודם";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(854, 103);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 13);
+            this.label3.TabIndex = 106;
+            this.label3.Text = "חישוב התמורה";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(803, 77);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label2.Size = new System.Drawing.Size(133, 13);
+            this.label2.TabIndex = 107;
+            this.label2.Text = "מספר חשבון חלקי בחוזה";
+            // 
+            // totalToPayTxtBox
+            // 
+            this.totalToPayTxtBox.Location = new System.Drawing.Point(477, 153);
+            this.totalToPayTxtBox.Name = "totalToPayTxtBox";
+            this.totalToPayTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.totalToPayTxtBox.TabIndex = 104;
+            // 
+            // billSequenceInContractTxtBox
+            // 
+            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(477, 74);
+            this.billSequenceInContractTxtBox.Name = "billSequenceInContractTxtBox";
+            this.billSequenceInContractTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.billSequenceInContractTxtBox.TabIndex = 101;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(860, 156);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 108;
+            this.label1.Text = "סכום החשבון";
             // 
             // DisplayClientDataForm
             // 

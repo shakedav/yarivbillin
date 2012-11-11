@@ -53,8 +53,6 @@
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
             this.valueCalculationtxtBox = new System.Windows.Forms.TextBox();
             this.valueCalculationWaytxtBox = new System.Windows.Forms.TextBox();
-            this.contractParttxtBox = new System.Windows.Forms.TextBox();
-            this.contractPartlbl = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.contractTypeComboBox = new System.Windows.Forms.ComboBox();
             this.contractTypelbl = new System.Windows.Forms.Label();
@@ -274,22 +272,6 @@
             this.valueCalculationWaytxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueCalculationWaytxtBox.TabIndex = 12;
             // 
-            // contractParttxtBox
-            // 
-            this.contractParttxtBox.Location = new System.Drawing.Point(12, 330);
-            this.contractParttxtBox.Name = "contractParttxtBox";
-            this.contractParttxtBox.Size = new System.Drawing.Size(296, 20);
-            this.contractParttxtBox.TabIndex = 13;
-            // 
-            // contractPartlbl
-            // 
-            this.contractPartlbl.AutoSize = true;
-            this.contractPartlbl.Location = new System.Drawing.Point(408, 333);
-            this.contractPartlbl.Name = "contractPartlbl";
-            this.contractPartlbl.Size = new System.Drawing.Size(63, 13);
-            this.contractPartlbl.TabIndex = 69;
-            this.contractPartlbl.Text = "ניצול חוזה";
-            // 
             // cancelBtn
             // 
             this.cancelBtn.Location = new System.Drawing.Point(47, 398);
@@ -325,8 +307,6 @@
             this.Controls.Add(this.contractTypelbl);
             this.Controls.Add(this.contractTypeComboBox);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.contractPartlbl);
-            this.Controls.Add(this.contractParttxtBox);
             this.Controls.Add(this.valueCalculationWaytxtBox);
             this.Controls.Add(this.valueCalculationtxtBox);
             this.Controls.Add(this.endDatePicker);
@@ -387,8 +367,6 @@
         private System.Windows.Forms.DateTimePicker endDatePicker;
         private System.Windows.Forms.TextBox valueCalculationtxtBox;
         private System.Windows.Forms.TextBox valueCalculationWaytxtBox;
-        private System.Windows.Forms.TextBox contractParttxtBox;
-        private System.Windows.Forms.Label contractPartlbl;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ComboBox contractTypeComboBox;
         private System.Windows.Forms.Label contractTypelbl;
