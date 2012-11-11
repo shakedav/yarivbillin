@@ -14,29 +14,29 @@ namespace Billing.DisplayData
     {
         public DisplayClientDataForm()
         {
-            InitializeComponent();            
+            InitializeComponent();   
             ClientNamesComboBox.Text = "לחץ כאן להצגת רשימת הלקוחות";
         }
         #region Clients
         private void ClientNamesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Dictionary<string,string> clientDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, "שם לקוח", ExcelHelper.Instance.Clients.Rows[ClientNamesComboBox.SelectedIndex]["שם לקוח"].ToString());
+            Dictionary<string,string> clientDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_NAME, ExcelHelper.Instance.Clients.Rows[ClientNamesComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString());
             if (clientDataList.Count != 0)
             {
-                clientTypeTxtBox.Text = clientDataList["סוג לקוח"];
-                ClientAddressTxtBox.Text = clientDataList["כתובת"];
-                phoneTxtBox.Text = clientDataList["טלפון"];
-                clientCodeTxtBox.Text = clientDataList["קוד לקוח"];
-                emailTxtBox.Text = clientDataList["אימייל"];
+                clientTypeTxtBox.Text = clientDataList[ColumnNames.CLIENT_CODE];
+                ClientAddressTxtBox.Text = clientDataList[ColumnNames.ADRESS];
+                phoneTxtBox.Text = clientDataList[ColumnNames.PHONE];
+                clientCodeTxtBox.Text = clientDataList[ColumnNames.CLIENT_CODE];
+                emailTxtBox.Text = clientDataList[ColumnNames.EMAIL];
                 FillProjectsData();                
             }
         }       
 
         private void ClientNamesComboBox_MouseClick(object sender, MouseEventArgs e)
         {
-            ClientNamesComboBox.DataSource = ExcelHelper.Instance.Clients.Columns["שם לקוח"].Table;
-            ClientNamesComboBox.DisplayMember = "שם לקוח";
-            ClientNamesComboBox.ValueMember = "קוד לקוח";
+            ClientNamesComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_NAME].Table;
+            ClientNamesComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
+            ClientNamesComboBox.ValueMember = ColumnNames.CLIENT_CODE;
         }
 
         #endregion Clients
@@ -45,7 +45,7 @@ namespace Billing.DisplayData
 
         private void FillProjectsData()
         {
-            projectCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח", clientCodeTxtBox.Text, "קוד פרוייקט");
+            projectCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, clientCodeTxtBox.Text, ColumnNames.PROJECT_CODE);
             GetProjectData();
         }       
 
@@ -61,17 +61,17 @@ namespace Billing.DisplayData
 
         private void GetProjectData()
         {
-            Dictionary<string, string> ProjectDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, "קוד פרוייקט",
-                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectCodeComboBox.Text, "קוד פרוייקט", "קוד פרוייקט"));
+            Dictionary<string, string> ProjectDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE,
+                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectCodeComboBox.Text, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_CODE));
             if (ProjectDataList.Count != 0)
             {
-                ClientNamesComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, ProjectDataList["קוד הלקוח"], "קוד לקוח", "שם לקוח");
-                projectCodeComboBox.Text = ProjectDataList["קוד פרוייקט"];
-                projectNametxtBox.Text = ProjectDataList["שם הפרוייקט"];
-                contactManTxtBox.Text = ProjectDataList["איש קשר בפרוייקט"];
-                projectNameInviterTxtBox.Text = ProjectDataList["שם פרוייקט אצל המזמין"];
-                projectCodeInviterTxtBox.Text = ProjectDataList["קוד פרוייקט אצל המזמין"];
-                projectDescriptiontxtBox.Text = ProjectDataList["תיאור הפרוייקט"];
+                ClientNamesComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, ProjectDataList[ColumnNames.CLIENT_CODE], ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
+                projectCodeComboBox.Text = ProjectDataList[ColumnNames.PROJECT_CODE];
+                projectNametxtBox.Text = ProjectDataList[ColumnNames.PROJECT_NAME];
+                contactManTxtBox.Text = ProjectDataList[ColumnNames.PROJECT_CONTACT_MAN];
+                projectNameInviterTxtBox.Text = ProjectDataList[ColumnNames.INVITER_PROJECT_NAME];
+                projectCodeInviterTxtBox.Text = ProjectDataList[ColumnNames.INVITER_PROJECT_CODE];
+                projectDescriptiontxtBox.Text = ProjectDataList[ColumnNames.PROJECT_DESCRIPTION];
                 FillContractsData();
             }
         }
@@ -81,23 +81,23 @@ namespace Billing.DisplayData
 
         private void FillContractsData()
         {
-            YarivComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, "קוד פרוייקט", projectCodeComboBox.Text, "קוד חוזה יריב");
+            YarivComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.PROJECT_CODE, projectCodeComboBox.Text, ColumnNames.CONTRACT_CODE_YARIV);
             GetContractData();
         }
 
         private void GetContractData()
         {
-            Dictionary<string, string> contractDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, "קוד חוזה יריב",
-                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, YarivComboBox.Text, "קוד חוזה יריב", "קוד חוזה יריב"));
-            clientContractCodetxtBox.Text = contractDataList["קוד חוזה לקוח"];
-            valueTxtBox.Text = contractDataList["תמורה"];
-            contractTypeComboBox.Text = ExcelHelper.Instance.ContractTypes.Rows[int.Parse(contractDataList["סיווג חוזה"])]["שם הסוג"].ToString();
-            valueCalculationtxtBox.Text = contractDataList["נגזרת התמורה"];
-            signingDateTxt.Text = contractDataList["תאריך חתימת החוזה"];
-            startDateTxt.Text = contractDataList["מועד תחילת חוזה"];
-            endDateTxt.Text = contractDataList["מועד סיום חוזה"];
-            valueCalculationWaytxtBox.Text = contractDataList["אופן חישוב תמורה"];
-            contractParttxtBox.Text = contractDataList["ניצול חוזה"];
+            Dictionary<string, string> contractDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CONTRACT_CODE_YARIV,
+                                                           ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, YarivComboBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.CONTRACT_CODE_YARIV));
+            clientContractCodetxtBox.Text = contractDataList[ColumnNames.CONRACT_CODE_CLIENT];
+            valueTxtBox.Text = contractDataList[ColumnNames.VALUE];
+            contractTypeComboBox.Text = ExcelHelper.Instance.ContractTypes.Rows[int.Parse(contractDataList[ColumnNames.CONTRACT_TYPE])][ColumnNames.TYPE_NAME].ToString();
+            valueCalculationtxtBox.Text = contractDataList[ColumnNames.VALUE_CALCULATION];
+            signingDateTxt.Text = contractDataList[ColumnNames.CONTRACT_SIGNING_DATE];
+            startDateTxt.Text = contractDataList[ColumnNames.CONTRACT_START_DATE];
+            endDateTxt.Text = contractDataList[ColumnNames.CONTRACT_END_DATE];
+            valueCalculationWaytxtBox.Text = contractDataList[ColumnNames.VALUE_CALCULATION_WAY];
+            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(YarivComboBox.Text);
         }
 
         #endregion Contracts
@@ -113,7 +113,7 @@ namespace Billing.DisplayData
 
         private void fillBillsListBox()
         {
-            BillsListBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Bills, "קוד חוזה", projectCodeComboBox.Text, "מספר חשבון ביריב");
+            BillsListBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.CONTRACT_CODE_YARIV, projectCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV);
         }
 
         private void BillsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,18 +123,18 @@ namespace Billing.DisplayData
 
         private void GetBillData()
         {
-            Dictionary<string, string> billDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, "מספר חשבון ביריב",
-                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, BillsListBox.Text, "מספר חשבון ביריב", "מספר חשבון ביריב"));
-            billDateTxt.Text = billDataList["תאריך החשבון"];
-            billNumberTxtBox.Text = billDataList["מספר חשבון ביריב"];
-            billSequenceInContractTxtBox.Text = billDataList["מספר חשבון חלקי בחוזה"];
-            valueTxt.Text = billDataList["חישוב התמורה"];
-            lastBillTxtBox.Text = billDataList["חשבון קודם"];
-            totalToPayTxtBox.Text = billDataList["סכום החשבון"];
-            maamTxtBox.Text = billDataList["המע\"מ"];
-            totalWithMaamTextBox.Text = billDataList["סה\"כ לתשלום"];
+            Dictionary<string, string> billDataList = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV,
+                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, BillsListBox.Text, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.BILL_NUMBER_YARIV));
+            billDateTxt.Text = billDataList[ColumnNames.BILL_DATE];
+            billNumberTxtBox.Text = billDataList[ColumnNames.BILL_NUMBER_YARIV];
+            billSequenceInContractTxtBox.Text = billDataList[ColumnNames.BILL_SEQUENCE];
+            valueTxt.Text = billDataList[ColumnNames.VALUE_CALC];
+            lastBillTxtBox.Text = billDataList[ColumnNames.PREVIOUS_BILL];
+            totalToPayTxtBox.Text = billDataList[ColumnNames.BILL_AMOUNT];
+            maamTxtBox.Text = billDataList[ColumnNames.MAAM];
+            totalWithMaamTextBox.Text = billDataList[ColumnNames.TOTAL_AMOUNT];
             totalBillsTxt.Text = ExcelHelper.Instance.getTotalOfBills(YarivComboBox.Text);
-            billStatusTxt.Text = ExcelHelper.Instance.StatusTypes.Rows[int.Parse(billDataList["סוג סטטוס"])]["שם סטטוס"].ToString();            
+            billStatusTxt.Text = ExcelHelper.Instance.StatusTypes.Rows[int.Parse(billDataList[ColumnNames.STATUS_TYPE])][ColumnNames.STATUS_NAME].ToString();            
         }
 
     }

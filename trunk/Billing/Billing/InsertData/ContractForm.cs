@@ -14,7 +14,7 @@ namespace Billing
         public ContractForm()
         {
             Onload();
-            //TODO: לכתוב את "ניצול חוזה" כמו שצריך
+            //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
            
         }
 
@@ -25,7 +25,7 @@ namespace Billing
             clientNameComboBox.Enabled = false;
             projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
             projectNameComboBox.Enabled = false;
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
+            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
             projectCodeTxtBox.Enabled = false;
         }
 
@@ -33,17 +33,16 @@ namespace Billing
         {
             InitializeComponent();
             yarivContractCodeTxtBox.Text = (ExcelHelper.Instance.Contracts.Rows.Count + 1).ToString();
-            clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns["קוד לקוח"].Table;
-            clientNameComboBox.DisplayMember = "שם לקוח";
-            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
-            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח",
-                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח")
-                , "שם הפרוייקט");
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
-            contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns["קוד סוג"].Table;
-            contractTypeComboBox.DisplayMember = "שם הסוג";
-            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex]["שם הסוג"].ToString();
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(yarivContractCodeTxtBox.Text);
+            clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
+            clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
+            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE,
+                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE)
+                , ColumnNames.PROJECT_NAME);
+            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
+            contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns[ColumnNames.TYPE_CODE].Table;
+            contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;
+            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();            
         }
 
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
@@ -51,14 +50,12 @@ namespace Billing
             clientContractCodetxtBox.Clear();
             valueTxtBox.Clear();         
             valueCalculationtxtBox.Clear();
-            valueCalculationWaytxtBox.Clear();
-            contractParttxtBox.Clear();
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(yarivContractCodeTxtBox.Text);
+            valueCalculationWaytxtBox.Clear();            
         }
 
         private void clientNameComboBox_Click(object sender, EventArgs e)
         {
-            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex]["שם לקוח"].ToString();
+            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
             clientNameComboBox.Refresh();
         }
 
@@ -66,7 +63,7 @@ namespace Billing
         {
             projectNameComboBox.Refresh();
             projectNameComboBox.Text = projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, "שם הפרוייקט", "קוד פרוייקט");
+            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
             projectCodeTxtBox.Refresh();
         }
 
@@ -77,30 +74,51 @@ namespace Billing
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (CheckAllFieldsAreFilled())
+            try
             {
-                CheckAndSave();
-                Close();
+                if (CheckAllFieldsAreFilled())
+                {
+                    CheckAndSave();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("מלא את כל השדות בבקשה");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("מלא את כל השדות בבקשה");
+                ShowErrorMessage(ex);
             }
+        }
+
+        private void ShowErrorMessage(Exception ex)
+        {
+            MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
         private void btnSaveAddBill_Click(object sender, EventArgs e)
         {
-            if (CheckAllFieldsAreFilled())
+            try
             {
-                CheckAndSave();
-                this.Hide();
-                this.Close();
-                Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
-                f.ShowDialog();
+                if (CheckAllFieldsAreFilled())
+                {
+                    CheckAndSave();
+                    this.Hide();
+                    this.Close();
+                    Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                    f.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("מלא את כל השדות בבקשה");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("מלא את כל השדות בבקשה");
+                ShowErrorMessage(ex);
             }
         }
 
@@ -111,8 +129,7 @@ namespace Billing
                 || (string.IsNullOrEmpty(clientContractCodetxtBox.Text)) || (string.IsNullOrEmpty(valueTxtBox.Text))
                 || (string.IsNullOrEmpty(signingDatePicker.Text)) || (string.IsNullOrEmpty(startDatePicker.Text))
                 || (string.IsNullOrEmpty(endDatePicker.Text)) || (string.IsNullOrEmpty(contractTypeComboBox.Text))
-                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)) || (string.IsNullOrEmpty(valueCalculationWaytxtBox.Text))
-                || (string.IsNullOrEmpty(contractParttxtBox.Text)))
+                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)) || (string.IsNullOrEmpty(valueCalculationWaytxtBox.Text)))
             {
                 return false;
             }
@@ -137,8 +154,8 @@ namespace Billing
         private bool IsDataExist()
         {
             return ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
-                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח"),
-                "קוד חוזה לקוח", "קוד לקוח", ExcelHelper.Instance.Contracts);
+                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
+                ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts);
         }
 
         private void SaveData()
@@ -146,27 +163,23 @@ namespace Billing
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
             {                
-                row["קוד לקוח"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח");
-                row["קוד פרוייקט"] = projectCodeTxtBox.Text;
-                row["קוד חוזה יריב"] = yarivContractCodeTxtBox.Text;
-                row["קוד חוזה לקוח"] = clientContractCodetxtBox.Text;
-                row["תמורה"] = valueTxtBox.Text;
-                row["תאריך חתימת החוזה"] = signingDatePicker.Text;
-                row["מועד תחילת חוזה"] = startDatePicker.Text;
-                row["מועד סיום חוזה"] = endDatePicker.Text;
-                row["סיווג חוזה"] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, "שם הסוג", "קוד סוג");
-                row["נגזרת התמורה"] = valueCalculationtxtBox.Text;
-                row["אופן חישוב תמורה"] = valueCalculationWaytxtBox.Text;
-                row["ניצול חוזה"] = contractParttxtBox.Text;
+                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+                row[ColumnNames.PROJECT_CODE] = projectCodeTxtBox.Text;
+                row[ColumnNames.CONTRACT_CODE_YARIV] = yarivContractCodeTxtBox.Text;
+                row[ColumnNames.CONRACT_CODE_CLIENT] = clientContractCodetxtBox.Text;
+                row[ColumnNames.VALUE] = valueTxtBox.Text;
+                row[ColumnNames.CONTRACT_SIGNING_DATE] = signingDatePicker.Text;
+                row[ColumnNames.CONTRACT_START_DATE] = startDatePicker.Text;
+                row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
+                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
+                row[ColumnNames.VALUE_CALCULATION] = valueCalculationtxtBox.Text;
+                row[ColumnNames.VALUE_CALCULATION_WAY] = valueCalculationWaytxtBox.Text;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
             }
             catch (Exception ex)
             {
-                MessageBoxOptions options = MessageBoxOptions.RtlReading |
-                MessageBoxOptions.RightAlign;
-                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+                ShowErrorMessage(ex);
             }
         }
 
@@ -179,7 +192,7 @@ namespace Billing
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {           
             projectNameComboBox.DataSource = null;
-            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, "קוד הלקוח", ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, "שם לקוח", "קוד לקוח"), "שם הפרוייקט");
+            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME);
 
             projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
         }

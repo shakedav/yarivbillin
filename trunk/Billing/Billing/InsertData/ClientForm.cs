@@ -22,24 +22,31 @@ namespace Billing
             }
             ClientsDataGrid.DataSource = ExcelHelper.Instance.Clients;
 
-            ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns["קוד לקוח"].Table;
-            ClientTypeComboBox.DisplayMember = "סוג לקוח";
-            ClientTypeComboBox.Text = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["סוג לקוח"].ToString();
-            clientCodeTxtBox.Text =ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, "קוד לקוח",
-                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString()
-                                                  , "סוג לקוח");
+            ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns[ColumnNames.CLIENT_CODE].Table;
+            ClientTypeComboBox.DisplayMember = ColumnNames.CLIENT_TYPE;
+            ClientTypeComboBox.Text = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_TYPE].ToString();
+            clientCodeTxtBox.Text =ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
+                                                  , ColumnNames.CLIENT_TYPE);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (CheckAllFieldsAreFilled())
+            try
             {
-                CheckAndSave();
-                Close();
+                if (CheckAllFieldsAreFilled())
+                {
+                    CheckAndSave();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("מלא את כל השדות בבקשה");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("מלא את כל השדות בבקשה");
+                ShowErrorMessage(ex);
             }
         }
 
@@ -72,47 +79,50 @@ namespace Billing
 
         private bool IsDataExist()
         {
-            return ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], "שם לקוח", "סוג לקוח", ExcelHelper.Instance.Clients);
+            return ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients);
         }
 
         private void btnSaveAndAddProj_Click(object sender, EventArgs e)
         {
-            if (CheckAllFieldsAreFilled())
-            {
-                CheckAndSave();
-                this.Hide();
-                this.Close();
-                Form f = new ProjectForm(clientNameTxtBox.Text);
-                f.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("מלא את כל השדות בבקשה"); 
-            }
-        }        
-
-        private void SaveData()
-        {
             try
             {
-                DataRow row = ExcelHelper.Instance.Clients.NewRow();                
-                row["שם לקוח"] = clientNameTxtBox.Text;
-                row["כתובת"] = ClientAddressTxtBox.Text;
-                row["טלפון"] = phoneTxtBox.Text;
-                row["אימייל"] = emailTxtBox.Text;
-                row["סוג לקוח"] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString();
-                row["קוד לקוח"] = clientCodeTxtBox.Text;
-                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);
-                ExcelHelper.Instance.Clients.Rows.Add(row);
-                
+                if (CheckAllFieldsAreFilled())
+                {
+                    CheckAndSave();
+                    this.Hide();
+                    this.Close();
+                    Form f = new ProjectForm(clientNameTxtBox.Text);
+                    f.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("מלא את כל השדות בבקשה");
+                }
             }
             catch (Exception ex)
             {
-                MessageBoxOptions options = MessageBoxOptions.RtlReading |
-                MessageBoxOptions.RightAlign;
-                string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
-                MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+                ShowErrorMessage(ex);
             }
+        }
+
+        private void ShowErrorMessage(Exception ex)
+        {
+            MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
+        }
+
+        private void SaveData()
+        {
+            DataRow row = ExcelHelper.Instance.Clients.NewRow();
+            row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
+            row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;
+            row[ColumnNames.PHONE] = phoneTxtBox.Text;
+            row[ColumnNames.EMAIL] = emailTxtBox.Text;
+            row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();
+            row[ColumnNames.CLIENT_CODE] = clientCodeTxtBox.Text;
+            ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName);
+            ExcelHelper.Instance.Clients.Rows.Add(row);
         }
 
         private void ClearAllFields()
@@ -135,9 +145,9 @@ namespace Billing
 
         private void ClientTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, "קוד לקוח",
-                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex]["קוד לקוח"].ToString()
-                                                  , "סוג לקוח");
+            clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
+                                                  , ColumnNames.CLIENT_TYPE);
         }
 
        

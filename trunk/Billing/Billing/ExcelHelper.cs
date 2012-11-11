@@ -141,7 +141,8 @@ namespace Billing
             excelWorksheet = null;
             excelWorkbook = null;
             excelApp = null;
-            GC.Collect();    
+            GC.Collect();
+            ReadExcelData(Path);
         }
 
         private string toAlphabet(int col)
@@ -259,10 +260,10 @@ namespace Billing
                 {
                     for (int i = 0; i <= table.Rows.Count - 1; i++)
                     {
-                        if ((contractCode == table.Rows[i]["קוד חוזה"].ToString()) &&
-                            ((int.Parse(billSequence) - 1).ToString() == table.Rows[i]["מספר חשבון חלקי בחוזה"].ToString()))
+                        if ((contractCode == table.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString()) &&
+                            ((int.Parse(billSequence) - 1).ToString() == table.Rows[i][ColumnNames.BILL_SEQUENCE].ToString()))
                         {
-                            return table.Rows[i]["סה\"כ לתשלום"].ToString();
+                            return table.Rows[i][ColumnNames.TOTAL_AMOUNT].ToString();
                         }
                     }
                 }
@@ -274,14 +275,14 @@ namespace Billing
             return "0";
         }
 
-        private int getContractBillsSum(string contractCode)
+        private double getContractBillsSum(string contractCode)
         {
-            int sum = 0;
+            double sum = 0;
             foreach (DataRow row in Bills.Rows)
             {
-                if (row["קוד חוזה"].ToString() == contractCode)
+                if (row[ColumnNames.CONTRACT_CODE_YARIV].ToString() == contractCode)
                 {
-                    sum = sum + int.Parse(row["סה\"כ לתשלום"].ToString());
+                    sum = sum + double.Parse(row[ColumnNames.TOTAL_AMOUNT].ToString());
                 }
             }
             return sum;
@@ -317,7 +318,7 @@ namespace Billing
         {
             try
             {
-                int totalAmount = int.Parse(getItemFromTable(Contracts, contractCode, "קוד חוזה יריב", "תמורה"));
+                int totalAmount = int.Parse(getItemFromTable(Contracts, contractCode, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE));
                 return ((double)getContractBillsSum(contractCode) / totalAmount).ToString("0.0%");
             }
             catch (Exception ex)
@@ -419,9 +420,9 @@ namespace Billing
             double billsAmount = 0;
             for (int i = 0; i <= table.Rows.Count - 1; i++)
             {
-                if (contractCode == table.Rows[i]["קוד חוזה"].ToString())
+                if (contractCode == table.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString())
                 {
-                    billsAmount += double.Parse(table.Rows[i]["סה\"כ לתשלום"].ToString());
+                    billsAmount += double.Parse(table.Rows[i][ColumnNames.TOTAL_AMOUNT].ToString());
                 }
             }
             return billsAmount.ToString();            
