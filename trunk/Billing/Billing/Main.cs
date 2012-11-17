@@ -50,8 +50,7 @@ namespace Billing
 
         private void createBillDocument_Click(object sender, EventArgs e)
         {
-            Form Doc = new DocTemplate();
-            Doc.ShowDialog();
-        }
+            new Test().ShowDialog();            
+        }        
     }
 }

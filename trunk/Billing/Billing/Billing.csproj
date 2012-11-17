@@ -65,6 +65,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Excel, Version=2.0.1.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Excel.dll</HintPath>
@@ -99,11 +102,11 @@
     <Compile Include="DisplayData\DisplayClientDataForm.Designer.cs">
       <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Documents\DocTemplate.cs">
+    <Compile Include="Documents\Test.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Documents\DocTemplate.Designer.cs">
-      <DependentUpon>DocTemplate.cs</DependentUpon>
+    <Compile Include="Documents\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
     </Compile>
     <Compile Include="InsertData\BillForm.cs">
       <SubType>Form</SubType>
@@ -144,8 +147,8 @@
     <EmbeddedResource Include="DisplayData\DisplayClientDataForm.resx">
       <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Documents\DocTemplate.resx">
-      <DependentUpon>DocTemplate.cs</DependentUpon>
+    <EmbeddedResource Include="Documents\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\BillForm.resx">
       <DependentUpon>BillForm.cs</DependentUpon>
@@ -235,6 +238,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,12 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
 
 namespace Billing.Documents
 {
-    public partial class DocTemplate : Form
+    public partial class Test : Form
     {
-        public DocTemplate()
+        public Test()
         {
             InitializeComponent();
         }
@@ -160,6 +161,7 @@ namespace Billing.Documents
 
             //Close this form.
             this.Close();
+
         }
     }
 }

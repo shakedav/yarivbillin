@@ -1,6 +1,6 @@
 ﻿namespace Billing.Documents
 {
-    partial class DocTemplate
+    partial class Test
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(78, 50);
+            this.button1.Location = new System.Drawing.Point(118, 78);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -41,14 +41,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // DocTemplate
+            // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.button1);
-            this.Name = "DocTemplate";
-            this.Text = "DocTemplate";
+            this.Name = "Test";
+            this.Text = "Test";
             this.ResumeLayout(false);
 
         }

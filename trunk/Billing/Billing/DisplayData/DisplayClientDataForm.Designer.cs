@@ -97,6 +97,9 @@
             this.totalToPayTxtBox = new System.Windows.Forms.TextBox();
             this.billSequenceInContractTxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.createBillDocument = new System.Windows.Forms.Button();
+            this.contactManDesctxt = new System.Windows.Forms.TextBox();
+            this.contactManDescLbl = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.ProjectGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -229,6 +232,8 @@
             // 
             // ProjectGroupBox
             // 
+            this.ProjectGroupBox.Controls.Add(this.contactManDesctxt);
+            this.ProjectGroupBox.Controls.Add(this.contactManDescLbl);
             this.ProjectGroupBox.Controls.Add(this.projectCodeComboBox);
             this.ProjectGroupBox.Controls.Add(this.projectDescriptiontxtBox);
             this.ProjectGroupBox.Controls.Add(this.projectDescriptionlbl);
@@ -746,11 +751,38 @@
             this.label1.TabIndex = 108;
             this.label1.Text = "סכום החשבון";
             // 
+            // createBillDocument
+            // 
+            this.createBillDocument.Location = new System.Drawing.Point(1008, 721);
+            this.createBillDocument.Name = "createBillDocument";
+            this.createBillDocument.Size = new System.Drawing.Size(75, 23);
+            this.createBillDocument.TabIndex = 96;
+            this.createBillDocument.Text = "צור חשבון";
+            this.createBillDocument.UseVisualStyleBackColor = true;
+            this.createBillDocument.Click += new System.EventHandler(this.createBillDocument_Click);
+            // 
+            // contactManDesctxt
+            // 
+            this.contactManDesctxt.Location = new System.Drawing.Point(79, 77);
+            this.contactManDesctxt.Name = "contactManDesctxt";
+            this.contactManDesctxt.Size = new System.Drawing.Size(294, 20);
+            this.contactManDesctxt.TabIndex = 68;
+            // 
+            // contactManDescLbl
+            // 
+            this.contactManDescLbl.AutoSize = true;
+            this.contactManDescLbl.Location = new System.Drawing.Point(396, 80);
+            this.contactManDescLbl.Name = "contactManDescLbl";
+            this.contactManDescLbl.Size = new System.Drawing.Size(140, 13);
+            this.contactManDescLbl.TabIndex = 69;
+            this.contactManDescLbl.Text = "תיאור איש קשר בפרוייקט";
+            // 
             // DisplayClientDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 762);
+            this.Controls.Add(this.createBillDocument);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.ProjectGroupBox);
@@ -840,5 +872,8 @@
         private System.Windows.Forms.TextBox billStatusTxt;
         private System.Windows.Forms.TextBox billDateTxt;
         private System.Windows.Forms.ListBox BillsListBox;
+        private System.Windows.Forms.Button createBillDocument;
+        private System.Windows.Forms.TextBox contactManDesctxt;
+        private System.Windows.Forms.Label contactManDescLbl;
     }
 }
