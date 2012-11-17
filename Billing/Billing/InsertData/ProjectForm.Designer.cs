@@ -46,6 +46,8 @@
             this.clientNamelbl = new System.Windows.Forms.Label();
             this.clientNameComboBox = new System.Windows.Forms.ComboBox();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.contactManDescTxt = new System.Windows.Forms.TextBox();
+            this.contactManDescLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // projectCodeLbl
@@ -55,7 +57,7 @@
             this.projectCodeLbl.Name = "projectCodeLbl";
             this.projectCodeLbl.Size = new System.Drawing.Size(71, 13);
             this.projectCodeLbl.TabIndex = 23;
-            this.projectCodeLbl.Text = ColumnNames.PROJECT_CODE;
+            this.projectCodeLbl.Text = "קוד פרוייקט";
             // 
             // projectNameLbl
             // 
@@ -68,7 +70,7 @@
             // 
             // projectCodeInviterTxtBox
             // 
-            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(89, 117);
+            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(89, 145);
             this.projectCodeInviterTxtBox.Name = "projectCodeInviterTxtBox";
             this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(296, 20);
             this.projectCodeInviterTxtBox.TabIndex = 5;
@@ -76,15 +78,15 @@
             // projectCodeInviterLbl
             // 
             this.projectCodeInviterLbl.AutoSize = true;
-            this.projectCodeInviterLbl.Location = new System.Drawing.Point(420, 120);
+            this.projectCodeInviterLbl.Location = new System.Drawing.Point(420, 148);
             this.projectCodeInviterLbl.Name = "projectCodeInviterLbl";
             this.projectCodeInviterLbl.Size = new System.Drawing.Size(135, 13);
             this.projectCodeInviterLbl.TabIndex = 31;
-            this.projectCodeInviterLbl.Text = ColumnNames.INVITER_PROJECT_CODE;
+            this.projectCodeInviterLbl.Text = "קוד פרוייקט אצל המזמין";
             // 
             // projectNameInviterTxtBox
             // 
-            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(90, 143);
+            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(90, 171);
             this.projectNameInviterTxtBox.Name = "projectNameInviterTxtBox";
             this.projectNameInviterTxtBox.Size = new System.Drawing.Size(296, 20);
             this.projectNameInviterTxtBox.TabIndex = 6;
@@ -92,11 +94,11 @@
             // projectNameInviterLbl
             // 
             this.projectNameInviterLbl.AutoSize = true;
-            this.projectNameInviterLbl.Location = new System.Drawing.Point(423, 146);
+            this.projectNameInviterLbl.Location = new System.Drawing.Point(423, 174);
             this.projectNameInviterLbl.Name = "projectNameInviterLbl";
             this.projectNameInviterLbl.Size = new System.Drawing.Size(132, 13);
             this.projectNameInviterLbl.TabIndex = 29;
-            this.projectNameInviterLbl.Text = ColumnNames.INVITER_PROJECT_NAME;
+            this.projectNameInviterLbl.Text = "שם פרוייקט אצל המזמין";
             // 
             // contactManTxtBox
             // 
@@ -112,7 +114,7 @@
             this.contactManLbl.Name = "contactManLbl";
             this.contactManLbl.Size = new System.Drawing.Size(106, 13);
             this.contactManLbl.TabIndex = 27;
-            this.contactManLbl.Text = ColumnNames.PROJECT_CONTACT_MAN;
+            this.contactManLbl.Text = "איש קשר בפרוייקט";
             // 
             // projectCodetxtBox
             // 
@@ -131,7 +133,7 @@
             // 
             // projectDescriptiontxtBox
             // 
-            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(89, 169);
+            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(89, 197);
             this.projectDescriptiontxtBox.Name = "projectDescriptiontxtBox";
             this.projectDescriptiontxtBox.Size = new System.Drawing.Size(296, 20);
             this.projectDescriptiontxtBox.TabIndex = 7;
@@ -139,11 +141,11 @@
             // projectDescriptionlbl
             // 
             this.projectDescriptionlbl.AutoSize = true;
-            this.projectDescriptionlbl.Location = new System.Drawing.Point(465, 169);
+            this.projectDescriptionlbl.Location = new System.Drawing.Point(465, 197);
             this.projectDescriptionlbl.Name = "projectDescriptionlbl";
             this.projectDescriptionlbl.Size = new System.Drawing.Size(90, 13);
             this.projectDescriptionlbl.TabIndex = 33;
-            this.projectDescriptionlbl.Text = ColumnNames.PROJECT_DESCRIPTION;
+            this.projectDescriptionlbl.Text = "תיאור הפרוייקט";
             // 
             // btnSaveAddContract
             // 
@@ -203,11 +205,29 @@
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
+            // contactManDescTxt
+            // 
+            this.contactManDescTxt.Location = new System.Drawing.Point(87, 117);
+            this.contactManDescTxt.Name = "contactManDescTxt";
+            this.contactManDescTxt.Size = new System.Drawing.Size(297, 20);
+            this.contactManDescTxt.TabIndex = 39;
+            // 
+            // contactManDescLbl
+            // 
+            this.contactManDescLbl.AutoSize = true;
+            this.contactManDescLbl.Location = new System.Drawing.Point(415, 117);
+            this.contactManDescLbl.Name = "contactManDescLbl";
+            this.contactManDescLbl.Size = new System.Drawing.Size(140, 13);
+            this.contactManDescLbl.TabIndex = 40;
+            this.contactManDescLbl.Text = "תיאור איש קשר בפרוייקט";
+            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 283);
+            this.Controls.Add(this.contactManDescTxt);
+            this.Controls.Add(this.contactManDescLbl);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.clientNameComboBox);
             this.Controls.Add(this.clientNamelbl);
@@ -254,5 +274,7 @@
         private System.Windows.Forms.Label clientNamelbl;
         private System.Windows.Forms.ComboBox clientNameComboBox;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.TextBox contactManDescTxt;
+        private System.Windows.Forms.Label contactManDescLbl;
     }
 }

@@ -39,6 +39,7 @@ namespace Billing
             projectDescriptiontxtBox.Clear();
             projectCodeInviterTxtBox.Clear();
             projectNameInviterTxtBox.Clear();
+            contactManDescTxt.Clear();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -79,6 +80,7 @@ namespace Billing
             row[ColumnNames.INVITER_PROJECT_CODE] = projectCodeInviterTxtBox.Text;
             row[ColumnNames.PROJECT_DESCRIPTION] = projectDescriptiontxtBox.Text;
             row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+            row[ColumnNames.CONTACT_MAN_DESC] = contactManDescTxt.Text;
             ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName);
             ExcelHelper.Instance.Projects.Rows.Add(row);
         }
@@ -130,7 +132,7 @@ namespace Billing
             if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(projectCodetxtBox.Text))
                 || (string.IsNullOrEmpty(projectNameInviterTxtBox.Text)) || (string.IsNullOrEmpty(contactManTxtBox.Text))
                 || (string.IsNullOrEmpty(projectCodeInviterTxtBox.Text)) || (string.IsNullOrEmpty(projectNameInviterTxtBox.Text))
-                || (string.IsNullOrEmpty(projectDescriptiontxtBox.Text)))
+                || (string.IsNullOrEmpty(projectDescriptiontxtBox.Text)) || (string.IsNullOrEmpty(contactManDescTxt.Text)))
             {
                 return false;
             }
