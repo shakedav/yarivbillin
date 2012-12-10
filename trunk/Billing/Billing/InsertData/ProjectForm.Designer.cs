@@ -73,7 +73,7 @@
             this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(89, 145);
             this.projectCodeInviterTxtBox.Name = "projectCodeInviterTxtBox";
             this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectCodeInviterTxtBox.TabIndex = 5;
+            this.projectCodeInviterTxtBox.TabIndex = 6;
             // 
             // projectCodeInviterLbl
             // 
@@ -89,7 +89,7 @@
             this.projectNameInviterTxtBox.Location = new System.Drawing.Point(90, 171);
             this.projectNameInviterTxtBox.Name = "projectNameInviterTxtBox";
             this.projectNameInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectNameInviterTxtBox.TabIndex = 6;
+            this.projectNameInviterTxtBox.TabIndex = 7;
             // 
             // projectNameInviterLbl
             // 
@@ -136,7 +136,7 @@
             this.projectDescriptiontxtBox.Location = new System.Drawing.Point(89, 197);
             this.projectDescriptiontxtBox.Name = "projectDescriptiontxtBox";
             this.projectDescriptiontxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectDescriptiontxtBox.TabIndex = 7;
+            this.projectDescriptiontxtBox.TabIndex = 8;
             // 
             // projectDescriptionlbl
             // 
@@ -152,7 +152,7 @@
             this.btnSaveAddContract.Location = new System.Drawing.Point(198, 248);
             this.btnSaveAddContract.Name = "btnSaveAddContract";
             this.btnSaveAddContract.Size = new System.Drawing.Size(146, 23);
-            this.btnSaveAddContract.TabIndex = 9;
+            this.btnSaveAddContract.TabIndex = 10;
             this.btnSaveAddContract.Text = "שמור והוסף חוזה";
             this.btnSaveAddContract.UseVisualStyleBackColor = true;
             this.btnSaveAddContract.Click += new System.EventHandler(this.btnSaveAddContract_Click);
@@ -162,7 +162,7 @@
             this.ClearFieldsBtn.Location = new System.Drawing.Point(117, 248);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearFieldsBtn.TabIndex = 10;
+            this.ClearFieldsBtn.TabIndex = 11;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
             this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearAllFields);
@@ -172,7 +172,7 @@
             this.saveBtn.Location = new System.Drawing.Point(350, 248);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 8;
+            this.saveBtn.TabIndex = 9;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -200,7 +200,7 @@
             this.cancelBtn.Location = new System.Drawing.Point(36, 248);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 11;
+            this.cancelBtn.TabIndex = 12;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -210,7 +210,7 @@
             this.contactManDescTxt.Location = new System.Drawing.Point(87, 117);
             this.contactManDescTxt.Name = "contactManDescTxt";
             this.contactManDescTxt.Size = new System.Drawing.Size(297, 20);
-            this.contactManDescTxt.TabIndex = 39;
+            this.contactManDescTxt.TabIndex = 5;
             // 
             // contactManDescLbl
             // 

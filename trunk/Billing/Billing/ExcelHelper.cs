@@ -225,7 +225,7 @@ namespace Billing
             }
         }
 
-        public string GetMaxItemOfColumn(DataTable table, string columnName, string typeID, string typeName)
+        public string GetMaxItemOfColumn(DataTable table, string columnName)
         {
             try
             {
@@ -233,16 +233,12 @@ namespace Billing
                 string maxID = string.Empty;
                 for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
-                    if (typeID == table.Rows[i][typeName].ToString())
+                    if (int.Parse(table.Rows[i][columnName].ToString()) > max)
                     {
-                        if (int.Parse(table.Rows[i][columnName].ToString()) > max)
-                        {
-                            maxID = table.Rows[i][columnName].ToString();
-                            max = int.Parse(maxID);
-                        }
+                        maxID = table.Rows[i][columnName].ToString();
+                        max = int.Parse(maxID);
                     }
-                }
-                max++;
+                }  
                 return max.ToString();
             }
             catch (Exception ex)
@@ -288,7 +284,7 @@ namespace Billing
             return sum;
         }
 
-        public string GetMaxItemOfColumnByColumn(DataTable table, string columnName, string secondColumn, string secondColumnValue)
+        public string GetMaxItemOfColumnByColumn(DataTable table, string maxItemName, string columnToSearchValueIn, string valueToSearchBy)
         {
             try
             {
@@ -296,11 +292,11 @@ namespace Billing
                 string maxID = string.Empty;
                 for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
-                    if (secondColumnValue == table.Rows[i][secondColumn].ToString())
+                    if (valueToSearchBy == table.Rows[i][columnToSearchValueIn].ToString())
                     {
-                        if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                        if (int.Parse(table.Rows[i][maxItemName].ToString()) > max)
                         {
-                            maxID = table.Rows[i][columnName].ToString();
+                            maxID = table.Rows[i][maxItemName].ToString();
                             max = int.Parse(maxID);
                         }
                     }
@@ -426,6 +422,18 @@ namespace Billing
                 }
             }
             return billsAmount.ToString();            
+        }
+
+        internal bool CheckExistenceOfSingleValue(string TextToSearch, string columnName, DataTable dataTable)
+        {
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                if (TextToSearch == dataTable.Rows[i][columnName].ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
    }
 }
