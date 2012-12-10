@@ -47,14 +47,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Billing.exe" size="86528">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Billing.exe" size="89600">
       <assemblyIdentity name="Billing" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>wqM6QG/4BlzheY41n/qZlk4vZwY=</dsig:DigestValue>
+        <dsig:DigestValue>c/u45T9FE7FLcjyoe2wrLoV4Rqc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -82,13 +82,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Billing.exe.config" size="201">
+  <file name="Billing.exe.config" size="213">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>8BTakFSO1Kl4BxRurKeAIeG2K+U=</dsig:DigestValue>
+      <dsig:DigestValue>wq+OcaZcO7KZm9ZLT+zdckn373Y=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

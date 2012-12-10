@@ -120,6 +120,12 @@
     <Compile Include="InsertData\ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InsertData\ClientTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertData\ClientTypeForm.Designer.cs">
+      <DependentUpon>ClientTypeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertData\ContractForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertData\ClientTypeForm.resx">
+      <DependentUpon>ClientTypeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ContractForm.resx">
       <DependentUpon>ContractForm.cs</DependentUpon>

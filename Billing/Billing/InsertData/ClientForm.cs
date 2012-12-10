@@ -150,6 +150,12 @@ namespace Billing
                                                   , ColumnNames.CLIENT_TYPE);
         }
 
+        private void addClientType_Click(object sender, EventArgs e)
+        {
+            Form f = new ClientTypeForm();
+            f.ShowDialog();
+        }
+
        
     }
 }

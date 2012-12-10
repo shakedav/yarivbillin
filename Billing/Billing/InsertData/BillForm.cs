@@ -11,6 +11,7 @@ namespace Billing
 {
     public partial class BillForm : Form
     {
+        public string clientCode;
         public BillForm()
         {
             Onload();
@@ -18,11 +19,12 @@ namespace Billing
 
         private void Onload()
         {
-            InitializeComponent();
-            billNumberTxtBox.Text = (ExcelHelper.Instance.Bills.Rows.Count + 1).ToString();
+            InitializeComponent();            
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+            clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+            billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CONTRACT_CODE_YARIV, clientCode);
             contractCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE,
                                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
@@ -57,14 +59,15 @@ namespace Billing
             contractCodeComboBox.DataSource = null;
             contractCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.CONTRACT_CODE_YARIV);
-            contractCodeComboBox.Text = contractCodeComboBox.SelectedItem == null ? "אין חוזים ללקוח זה" : contractCodeComboBox.SelectedItem.ToString();
-            billSequenceInContractTxtBox.Text = (billSequence == null ? "1" : billSequence); 
+            contractCodeComboBox.Text = contractCodeComboBox.SelectedItem == null ? "אין חוזים ללקוח זה" : contractCodeComboBox.SelectedItem.ToString();            
+            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
             if (contractCodeComboBox.Text != "אין חוזים ללקוח זה")
             {
                 lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-                    //ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, (int.Parse(billSequenceInContractTxtBox.Text) - 1).ToString(), ColumnNames.BILL_NUMBER_YARIV, ColumnNames.PREVIOUS_BILL);
             }
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+            billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -149,6 +152,7 @@ namespace Billing
                     row[ColumnNames.MAAM] = maamTxtBox.Text;
                     row[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
                     row[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
+                    row[ColumnNames.CLIENT_CODE] = clientCode;
                     ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Bills.TableName);
                     ExcelHelper.Instance.Bills.Rows.Add(row);
                     Close();
@@ -228,6 +232,8 @@ namespace Billing
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
+            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -238,8 +244,7 @@ namespace Billing
         }
 
         private void billSequenceInContractTxtBox_Leave(object sender, EventArgs e)
-        {
-            //billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
+        {            
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
         }

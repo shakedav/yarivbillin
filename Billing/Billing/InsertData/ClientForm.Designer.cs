@@ -46,6 +46,7 @@
             this.ClientTypeComboBox = new System.Windows.Forms.ComboBox();
             this.clientCodeTxtBox = new System.Windows.Forms.TextBox();
             this.ClientCodelbl = new System.Windows.Forms.Label();
+            this.addClientType = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ClientsDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +84,7 @@
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(52, 13);
             this.clientNamelbl.TabIndex = 2;
-            this.clientNamelbl.Text = ColumnNames.CLIENT_NAME;
+            this.clientNamelbl.Text = "שם לקוח";
             // 
             // clientNameTxtBox
             // 
@@ -106,7 +107,7 @@
             this.clientAddressLbl.Name = "clientAddressLbl";
             this.clientAddressLbl.Size = new System.Drawing.Size(40, 13);
             this.clientAddressLbl.TabIndex = 4;
-            this.clientAddressLbl.Text = ColumnNames.ADRESS;
+            this.clientAddressLbl.Text = "כתובת";
             // 
             // phoneTxtBox
             // 
@@ -122,7 +123,7 @@
             this.phoneLbl.Name = "phoneLbl";
             this.phoneLbl.Size = new System.Drawing.Size(38, 13);
             this.phoneLbl.TabIndex = 6;
-            this.phoneLbl.Text = ColumnNames.PHONE;
+            this.phoneLbl.Text = "טלפון";
             // 
             // emailTxtBox
             // 
@@ -139,7 +140,7 @@
             this.emailLbl.Name = "emailLbl";
             this.emailLbl.Size = new System.Drawing.Size(44, 13);
             this.emailLbl.TabIndex = 8;
-            this.emailLbl.Text = ColumnNames.EMAIL;
+            this.emailLbl.Text = "אימייל";
             // 
             // saveBtn
             // 
@@ -188,7 +189,7 @@
             this.ClientTypelbl.Name = "ClientTypelbl";
             this.ClientTypelbl.Size = new System.Drawing.Size(54, 13);
             this.ClientTypelbl.TabIndex = 72;
-            this.ClientTypelbl.Text = ColumnNames.CLIENT_TYPE;
+            this.ClientTypelbl.Text = "סוג לקוח";
             // 
             // ClientTypeComboBox
             // 
@@ -214,13 +215,24 @@
             this.ClientCodelbl.Name = "ClientCodelbl";
             this.ClientCodelbl.Size = new System.Drawing.Size(55, 13);
             this.ClientCodelbl.TabIndex = 74;
-            this.ClientCodelbl.Text = ColumnNames.CLIENT_CODE;
+            this.ClientCodelbl.Text = "קוד לקוח";
+            // 
+            // addClientType
+            // 
+            this.addClientType.Location = new System.Drawing.Point(671, 71);
+            this.addClientType.Name = "addClientType";
+            this.addClientType.Size = new System.Drawing.Size(101, 23);
+            this.addClientType.TabIndex = 101;
+            this.addClientType.Text = "הוסף סוג לקוח";
+            this.addClientType.UseVisualStyleBackColor = true;
+            this.addClientType.Click += new System.EventHandler(this.addClientType_Click);
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 462);
+            this.Controls.Add(this.addClientType);
             this.Controls.Add(this.clientCodeTxtBox);
             this.Controls.Add(this.ClientCodelbl);
             this.Controls.Add(this.ClientTypeComboBox);
@@ -269,5 +281,6 @@
         private System.Windows.Forms.ComboBox ClientTypeComboBox;
         private System.Windows.Forms.TextBox clientCodeTxtBox;
         private System.Windows.Forms.Label ClientCodelbl;
+        private System.Windows.Forms.Button addClientType;
     }
 }
