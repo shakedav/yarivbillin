@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnAddClient = new System.Windows.Forms.Button();
             this.btnAddContract = new System.Windows.Forms.Button();
             this.btnAddProject = new System.Windows.Forms.Button();
             this.btnAddBill = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.createBillDocument = new System.Windows.Forms.Button();
+            this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnAddClient
@@ -96,6 +98,12 @@
             this.createBillDocument.UseVisualStyleBackColor = true;
             this.createBillDocument.Click += new System.EventHandler(this.createBillDocument_Click);
             // 
+            // UpdateTimer
+            // 
+            this.UpdateTimer.Enabled = true;
+            this.UpdateTimer.Interval = 15000;
+            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -121,6 +129,7 @@
         private System.Windows.Forms.Button btnAddBill;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button createBillDocument;
+        private System.Windows.Forms.Timer UpdateTimer;
     }
 }
 

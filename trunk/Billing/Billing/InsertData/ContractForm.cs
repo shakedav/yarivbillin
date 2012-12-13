@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace Billing
 {
     public partial class ContractForm : Form
-    {
+    {        
         public ContractForm()
         {
             Onload();
@@ -50,7 +50,8 @@ namespace Billing
             clientContractCodetxtBox.Clear();
             valueTxtBox.Clear();         
             valueCalculationtxtBox.Clear();
-            valueCalculationWaytxtBox.Clear();            
+            valueCalculationWaytxtBox.Clear();
+            valueWithMaamTxtBox.Clear();
         }
 
         private void clientNameComboBox_Click(object sender, EventArgs e)
@@ -79,7 +80,6 @@ namespace Billing
                 if (CheckAllFieldsAreFilled())
                 {
                     CheckAndSave();
-                    Close();
                 }
                 else
                 {
@@ -95,7 +95,7 @@ namespace Billing
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
@@ -138,24 +138,33 @@ namespace Billing
 
         private void CheckAndSave()
         {
-            if (IsDataExist())
+            if (!(startDatePicker.Value > endDatePicker.Value))
             {
-                if (ExcelHelper.Instance.shouldSave("חוזה {0}", yarivContractCodeTxtBox.Text))
+
+                if (IsDataExist())
+                {
+                    if (ExcelHelper.Instance.shouldSave(string.Format("קוד חוזה {0} או", clientContractCodetxtBox.Text) + " או חוזה {0}", yarivContractCodeTxtBox.Text))
+                    {
+                        SaveData();
+                    }
+                }
+                else
                 {
                     SaveData();
                 }
             }
             else
             {
-                SaveData();
+                MessageBox.Show("תאריך התחלה קטן מתאריך סיום, אנא וודא תאריכים תקפים");
             }
         }
 
         private bool IsDataExist()
         {
-            return ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
+            return ((ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
-                ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts);
+                ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts)) ||
+                (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ExcelHelper.Instance.Contracts)));
         }
 
         private void SaveData()
@@ -195,6 +204,12 @@ namespace Billing
             projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME);
 
             projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
+        }
+
+        private void valueTxtBox_Leave(object sender, EventArgs e)
+        {
+            double value = double.Parse(valueTxtBox.Text);
+            valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
         }
 
         

@@ -45,5 +45,7 @@ namespace Billing
         public static string VALUE_CODE = "קוד תמורה";
         public static string VALUE_TYPE = "סוג תמורה";
         public static string CONTACT_MAN_DESC= "תיאור איש קשר בפרוייקט";
+        public static string CONTACT_MAN_PHONE = "טלפון איש קשר בפרוייקט";
+        public static string CONTACT_MAN_EMAIL = "מייל איש קשר בפרוייקט";
     }
 }

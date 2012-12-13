@@ -48,6 +48,10 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.contactManDescTxt = new System.Windows.Forms.TextBox();
             this.contactManDescLbl = new System.Windows.Forms.Label();
+            this.contactManPhoneTxtBox = new System.Windows.Forms.TextBox();
+            this.contactManPhonelbl = new System.Windows.Forms.Label();
+            this.contactManEmailTxtBox = new System.Windows.Forms.TextBox();
+            this.contactManEmaillbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // projectCodeLbl
@@ -70,15 +74,15 @@
             // 
             // projectCodeInviterTxtBox
             // 
-            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(89, 145);
+            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(88, 195);
             this.projectCodeInviterTxtBox.Name = "projectCodeInviterTxtBox";
             this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectCodeInviterTxtBox.TabIndex = 6;
+            this.projectCodeInviterTxtBox.TabIndex = 8;
             // 
             // projectCodeInviterLbl
             // 
             this.projectCodeInviterLbl.AutoSize = true;
-            this.projectCodeInviterLbl.Location = new System.Drawing.Point(420, 148);
+            this.projectCodeInviterLbl.Location = new System.Drawing.Point(419, 198);
             this.projectCodeInviterLbl.Name = "projectCodeInviterLbl";
             this.projectCodeInviterLbl.Size = new System.Drawing.Size(135, 13);
             this.projectCodeInviterLbl.TabIndex = 31;
@@ -86,15 +90,15 @@
             // 
             // projectNameInviterTxtBox
             // 
-            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(90, 171);
+            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(89, 221);
             this.projectNameInviterTxtBox.Name = "projectNameInviterTxtBox";
             this.projectNameInviterTxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectNameInviterTxtBox.TabIndex = 7;
+            this.projectNameInviterTxtBox.TabIndex = 9;
             // 
             // projectNameInviterLbl
             // 
             this.projectNameInviterLbl.AutoSize = true;
-            this.projectNameInviterLbl.Location = new System.Drawing.Point(423, 174);
+            this.projectNameInviterLbl.Location = new System.Drawing.Point(422, 224);
             this.projectNameInviterLbl.Name = "projectNameInviterLbl";
             this.projectNameInviterLbl.Size = new System.Drawing.Size(132, 13);
             this.projectNameInviterLbl.TabIndex = 29;
@@ -118,7 +122,6 @@
             // 
             // projectCodetxtBox
             // 
-            this.projectCodetxtBox.Enabled = false;
             this.projectCodetxtBox.Location = new System.Drawing.Point(88, 38);
             this.projectCodetxtBox.Name = "projectCodetxtBox";
             this.projectCodetxtBox.Size = new System.Drawing.Size(296, 20);
@@ -133,15 +136,15 @@
             // 
             // projectDescriptiontxtBox
             // 
-            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(89, 197);
+            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(88, 247);
             this.projectDescriptiontxtBox.Name = "projectDescriptiontxtBox";
             this.projectDescriptiontxtBox.Size = new System.Drawing.Size(296, 20);
-            this.projectDescriptiontxtBox.TabIndex = 8;
+            this.projectDescriptiontxtBox.TabIndex = 10;
             // 
             // projectDescriptionlbl
             // 
             this.projectDescriptionlbl.AutoSize = true;
-            this.projectDescriptionlbl.Location = new System.Drawing.Point(465, 197);
+            this.projectDescriptionlbl.Location = new System.Drawing.Point(464, 247);
             this.projectDescriptionlbl.Name = "projectDescriptionlbl";
             this.projectDescriptionlbl.Size = new System.Drawing.Size(90, 13);
             this.projectDescriptionlbl.TabIndex = 33;
@@ -149,30 +152,30 @@
             // 
             // btnSaveAddContract
             // 
-            this.btnSaveAddContract.Location = new System.Drawing.Point(198, 248);
+            this.btnSaveAddContract.Location = new System.Drawing.Point(198, 305);
             this.btnSaveAddContract.Name = "btnSaveAddContract";
             this.btnSaveAddContract.Size = new System.Drawing.Size(146, 23);
-            this.btnSaveAddContract.TabIndex = 10;
+            this.btnSaveAddContract.TabIndex = 21;
             this.btnSaveAddContract.Text = "שמור והוסף חוזה";
             this.btnSaveAddContract.UseVisualStyleBackColor = true;
             this.btnSaveAddContract.Click += new System.EventHandler(this.btnSaveAddContract_Click);
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(117, 248);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(117, 305);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearFieldsBtn.TabIndex = 11;
+            this.ClearFieldsBtn.TabIndex = 22;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
             this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearAllFields);
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(350, 248);
+            this.saveBtn.Location = new System.Drawing.Point(350, 305);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 9;
+            this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -197,10 +200,10 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(36, 248);
+            this.cancelBtn.Location = new System.Drawing.Point(36, 305);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 12;
+            this.cancelBtn.TabIndex = 23;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -221,11 +224,47 @@
             this.contactManDescLbl.TabIndex = 40;
             this.contactManDescLbl.Text = "תיאור איש קשר בפרוייקט";
             // 
+            // contactManPhoneTxtBox
+            // 
+            this.contactManPhoneTxtBox.Location = new System.Drawing.Point(87, 143);
+            this.contactManPhoneTxtBox.Name = "contactManPhoneTxtBox";
+            this.contactManPhoneTxtBox.Size = new System.Drawing.Size(297, 20);
+            this.contactManPhoneTxtBox.TabIndex = 6;
+            // 
+            // contactManPhonelbl
+            // 
+            this.contactManPhonelbl.AutoSize = true;
+            this.contactManPhonelbl.Location = new System.Drawing.Point(415, 146);
+            this.contactManPhonelbl.Name = "contactManPhonelbl";
+            this.contactManPhonelbl.Size = new System.Drawing.Size(140, 13);
+            this.contactManPhonelbl.TabIndex = 42;
+            this.contactManPhonelbl.Text = "טלפון איש קשר בפרוייקט";
+            // 
+            // contactManEmailTxtBox
+            // 
+            this.contactManEmailTxtBox.Location = new System.Drawing.Point(87, 169);
+            this.contactManEmailTxtBox.Name = "contactManEmailTxtBox";
+            this.contactManEmailTxtBox.Size = new System.Drawing.Size(297, 20);
+            this.contactManEmailTxtBox.TabIndex = 7;
+            // 
+            // contactManEmaillbl
+            // 
+            this.contactManEmaillbl.AutoSize = true;
+            this.contactManEmaillbl.Location = new System.Drawing.Point(423, 172);
+            this.contactManEmaillbl.Name = "contactManEmaillbl";
+            this.contactManEmaillbl.Size = new System.Drawing.Size(133, 13);
+            this.contactManEmaillbl.TabIndex = 44;
+            this.contactManEmaillbl.Text = "מייל איש קשר בפרוייקט";
+            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 283);
+            this.ClientSize = new System.Drawing.Size(567, 345);
+            this.Controls.Add(this.contactManEmailTxtBox);
+            this.Controls.Add(this.contactManEmaillbl);
+            this.Controls.Add(this.contactManPhoneTxtBox);
+            this.Controls.Add(this.contactManPhonelbl);
             this.Controls.Add(this.contactManDescTxt);
             this.Controls.Add(this.contactManDescLbl);
             this.Controls.Add(this.cancelBtn);
@@ -276,5 +315,9 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.TextBox contactManDescTxt;
         private System.Windows.Forms.Label contactManDescLbl;
+        private System.Windows.Forms.TextBox contactManPhoneTxtBox;
+        private System.Windows.Forms.Label contactManPhonelbl;
+        private System.Windows.Forms.TextBox contactManEmailTxtBox;
+        private System.Windows.Forms.Label contactManEmaillbl;
     }
 }
