@@ -52,10 +52,9 @@ namespace Billing
 
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string billSequence = null ;
             lastBillTxtBox.Clear();
             totalToPayTxtBox.Clear();
-            maamTxtBox.Clear();
+            maamTxtBox.Text = Constants.Instance.MAAM.ToString();
             contractCodeComboBox.DataSource = null;
             contractCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.CONTRACT_CODE_YARIV);
@@ -170,28 +169,26 @@ namespace Billing
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);            
         }
 
-        private void maamTxtBox_TextChanged(object sender, EventArgs e)
-        {
-            double maamAmount;
-            errorsLabel.Visible = false;
-            bool maam = double.TryParse(maamTxtBox.Text, out maamAmount);
-            if ((maam) && (!string.IsNullOrEmpty(totalToPayTxtBox.Text)))
-            {
-                totalWithMaamTextBox.Text = ((double.Parse(totalToPayTxtBox.Text) + (double.Parse(totalToPayTxtBox.Text) * (double.Parse(maamTxtBox.Text)))).ToString());
-            }
-            else
-            {
-                errorsLabel.Visible = true;
-                errorsLabel.Text = "מע\"מ שגוי, בדוק את המע\"מ ונסה שוב ";
-                errorsLabel.ForeColor = Color.Red;
-            }
-        }
+        //private void maamTxtBox_TextChanged(object sender, EventArgs e)
+        //{
+        //    errorsLabel.Visible = false;
+        //    if (!string.IsNullOrEmpty(totalToPayTxtBox.Text))
+        //    {
+        //        totalWithMaamTextBox.Text = ((double.Parse(totalToPayTxtBox.Text) + (double.Parse(totalToPayTxtBox.Text) * Constants.Instance.MAAM)).ToString());
+        //    }
+        //    else
+        //    {
+        //        errorsLabel.Visible = true;
+        //        errorsLabel.Text = "מע\"מ שגוי, בדוק את המע\"מ ונסה שוב ";
+        //        errorsLabel.ForeColor = Color.Red;
+        //    }
+        //}
 
         private void totalToPayTxtBox_Leave(object sender, EventArgs e)
         {
             double tot;
             bool total = double.TryParse(totalToPayTxtBox.Text, out tot);
-            maamTxtBox.Text = string.IsNullOrEmpty(maamTxtBox.Text) ? "0" : maamTxtBox.Text;
+            maamTxtBox.Text = string.IsNullOrEmpty(Constants.Instance.MAAM.ToString()) ? "0" : maamTxtBox.Text;
             if ((total) && (!string.IsNullOrEmpty(maamTxtBox.Text)))
             {
                 totalWithMaamTextBox.Text = ((double.Parse(totalToPayTxtBox.Text) + (double.Parse(totalToPayTxtBox.Text) * (double.Parse(maamTxtBox.Text)))).ToString());
