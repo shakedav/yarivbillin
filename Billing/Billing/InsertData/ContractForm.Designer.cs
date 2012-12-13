@@ -56,6 +56,8 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.contractTypeComboBox = new System.Windows.Forms.ComboBox();
             this.contractTypelbl = new System.Windows.Forms.Label();
+            this.valueWithMaamTxtBox = new System.Windows.Forms.TextBox();
+            this.valueWithMaam = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // clientNameComboBox
@@ -110,7 +112,7 @@
             // signingDatelbl
             // 
             this.signingDatelbl.AutoSize = true;
-            this.signingDatelbl.Location = new System.Drawing.Point(361, 179);
+            this.signingDatelbl.Location = new System.Drawing.Point(361, 202);
             this.signingDatelbl.Name = "signingDatelbl";
             this.signingDatelbl.Size = new System.Drawing.Size(110, 13);
             this.signingDatelbl.TabIndex = 51;
@@ -118,7 +120,6 @@
             // 
             // projectCodeTxtBox
             // 
-            this.projectCodeTxtBox.Enabled = false;
             this.projectCodeTxtBox.Location = new System.Drawing.Point(12, 65);
             this.projectCodeTxtBox.Name = "projectCodeTxtBox";
             this.projectCodeTxtBox.Size = new System.Drawing.Size(296, 20);
@@ -146,19 +147,19 @@
             this.valueTxtBox.Name = "valueTxtBox";
             this.valueTxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueTxtBox.TabIndex = 6;
+            this.valueTxtBox.Leave += new System.EventHandler(this.valueTxtBox_Leave);
             // 
             // valuelbl
             // 
             this.valuelbl.AutoSize = true;
-            this.valuelbl.Location = new System.Drawing.Point(432, 147);
+            this.valuelbl.Location = new System.Drawing.Point(356, 147);
             this.valuelbl.Name = "valuelbl";
-            this.valuelbl.Size = new System.Drawing.Size(39, 13);
+            this.valuelbl.Size = new System.Drawing.Size(115, 13);
             this.valuelbl.TabIndex = 49;
-            this.valuelbl.Text = "תמורה";
+            this.valuelbl.Text = "תמורה לא כולל מע\"מ";
             // 
             // yarivContractCodeTxtBox
             // 
-            this.yarivContractCodeTxtBox.Enabled = false;
             this.yarivContractCodeTxtBox.Location = new System.Drawing.Point(12, 92);
             this.yarivContractCodeTxtBox.Name = "yarivContractCodeTxtBox";
             this.yarivContractCodeTxtBox.Size = new System.Drawing.Size(296, 20);
@@ -194,7 +195,7 @@
             // startDatelbl
             // 
             this.startDatelbl.AutoSize = true;
-            this.startDatelbl.Location = new System.Drawing.Point(375, 205);
+            this.startDatelbl.Location = new System.Drawing.Point(375, 228);
             this.startDatelbl.Name = "startDatelbl";
             this.startDatelbl.Size = new System.Drawing.Size(96, 13);
             this.startDatelbl.TabIndex = 58;
@@ -212,7 +213,7 @@
             // endDatelbl
             // 
             this.endDatelbl.AutoSize = true;
-            this.endDatelbl.Location = new System.Drawing.Point(384, 231);
+            this.endDatelbl.Location = new System.Drawing.Point(384, 254);
             this.endDatelbl.Name = "endDatelbl";
             this.endDatelbl.Size = new System.Drawing.Size(87, 13);
             this.endDatelbl.TabIndex = 60;
@@ -221,7 +222,7 @@
             // valueCalculationlbl
             // 
             this.valueCalculationlbl.AutoSize = true;
-            this.valueCalculationlbl.Location = new System.Drawing.Point(393, 281);
+            this.valueCalculationlbl.Location = new System.Drawing.Point(393, 304);
             this.valueCalculationlbl.Name = "valueCalculationlbl";
             this.valueCalculationlbl.Size = new System.Drawing.Size(78, 13);
             this.valueCalculationlbl.TabIndex = 61;
@@ -230,7 +231,7 @@
             // valueCalculationWaylbl
             // 
             this.valueCalculationWaylbl.AutoSize = true;
-            this.valueCalculationWaylbl.Location = new System.Drawing.Point(368, 307);
+            this.valueCalculationWaylbl.Location = new System.Drawing.Point(368, 330);
             this.valueCalculationWaylbl.Name = "valueCalculationWaylbl";
             this.valueCalculationWaylbl.Size = new System.Drawing.Size(103, 13);
             this.valueCalculationWaylbl.TabIndex = 62;
@@ -238,14 +239,14 @@
             // 
             // signingDatePicker
             // 
-            this.signingDatePicker.Location = new System.Drawing.Point(12, 173);
+            this.signingDatePicker.Location = new System.Drawing.Point(12, 196);
             this.signingDatePicker.Name = "signingDatePicker";
             this.signingDatePicker.Size = new System.Drawing.Size(296, 20);
             this.signingDatePicker.TabIndex = 7;
             // 
             // startDatePicker
             // 
-            this.startDatePicker.Location = new System.Drawing.Point(12, 199);
+            this.startDatePicker.Location = new System.Drawing.Point(12, 222);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(296, 20);
             this.startDatePicker.TabIndex = 8;
@@ -253,21 +254,21 @@
             // 
             // endDatePicker
             // 
-            this.endDatePicker.Location = new System.Drawing.Point(12, 225);
+            this.endDatePicker.Location = new System.Drawing.Point(12, 248);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(296, 20);
             this.endDatePicker.TabIndex = 9;
             // 
             // valueCalculationtxtBox
             // 
-            this.valueCalculationtxtBox.Location = new System.Drawing.Point(12, 278);
+            this.valueCalculationtxtBox.Location = new System.Drawing.Point(12, 301);
             this.valueCalculationtxtBox.Name = "valueCalculationtxtBox";
             this.valueCalculationtxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueCalculationtxtBox.TabIndex = 11;
             // 
             // valueCalculationWaytxtBox
             // 
-            this.valueCalculationWaytxtBox.Location = new System.Drawing.Point(12, 304);
+            this.valueCalculationWaytxtBox.Location = new System.Drawing.Point(12, 327);
             this.valueCalculationWaytxtBox.Name = "valueCalculationWaytxtBox";
             this.valueCalculationWaytxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueCalculationWaytxtBox.TabIndex = 12;
@@ -285,7 +286,7 @@
             // contractTypeComboBox
             // 
             this.contractTypeComboBox.FormattingEnabled = true;
-            this.contractTypeComboBox.Location = new System.Drawing.Point(12, 251);
+            this.contractTypeComboBox.Location = new System.Drawing.Point(12, 274);
             this.contractTypeComboBox.Name = "contractTypeComboBox";
             this.contractTypeComboBox.Size = new System.Drawing.Size(296, 21);
             this.contractTypeComboBox.TabIndex = 10;
@@ -293,17 +294,35 @@
             // contractTypelbl
             // 
             this.contractTypelbl.AutoSize = true;
-            this.contractTypelbl.Location = new System.Drawing.Point(412, 254);
+            this.contractTypelbl.Location = new System.Drawing.Point(412, 277);
             this.contractTypelbl.Name = "contractTypelbl";
             this.contractTypelbl.Size = new System.Drawing.Size(59, 13);
             this.contractTypelbl.TabIndex = 72;
             this.contractTypelbl.Text = "סוג החוזה";
+            // 
+            // valueWithMaamTxtBox
+            // 
+            this.valueWithMaamTxtBox.Location = new System.Drawing.Point(12, 170);
+            this.valueWithMaamTxtBox.Name = "valueWithMaamTxtBox";
+            this.valueWithMaamTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.valueWithMaamTxtBox.TabIndex = 73;
+            // 
+            // valueWithMaam
+            // 
+            this.valueWithMaam.AutoSize = true;
+            this.valueWithMaam.Location = new System.Drawing.Point(374, 173);
+            this.valueWithMaam.Name = "valueWithMaam";
+            this.valueWithMaam.Size = new System.Drawing.Size(97, 13);
+            this.valueWithMaam.TabIndex = 74;
+            this.valueWithMaam.Text = "תמורה כולל מע\"מ";
             // 
             // ContractForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 433);
+            this.Controls.Add(this.valueWithMaamTxtBox);
+            this.Controls.Add(this.valueWithMaam);
             this.Controls.Add(this.contractTypelbl);
             this.Controls.Add(this.contractTypeComboBox);
             this.Controls.Add(this.cancelBtn);
@@ -370,5 +389,7 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ComboBox contractTypeComboBox;
         private System.Windows.Forms.Label contractTypelbl;
+        private System.Windows.Forms.TextBox valueWithMaamTxtBox;
+        private System.Windows.Forms.Label valueWithMaam;
     }
 }

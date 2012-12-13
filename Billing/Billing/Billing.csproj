@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnNames.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DataExists.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Billing
 {
    public sealed class ExcelHelper
-   {
+   {       
        public string Con_Str;
        public DataTable Clients;
        public DataTable ClientTypes;
@@ -25,14 +25,13 @@ namespace Billing
        public DataTable Projects;
        public DataTable ContractTypes;
        public DataTable StatusTypes;
-       public DataTable ValueTypes;
-       public static String Path = System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
+       public DataTable ValueTypes;      
        OleDbDataAdapter dbDa = new OleDbDataAdapter();
-       static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
+       static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Constants.Instance.Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
        OleDbConnection dbCon;
        private static object locker = new Object();
        private static volatile ExcelHelper instance;
-      
+       private bool disposed;
        /// <summary>
        /// Get an instance of the ExcelHelper (create on the first time).
        /// </summary>
@@ -58,12 +57,12 @@ namespace Billing
                // Return the single instance
                return instance;
            }
-       }
+       }      
 
         ExcelHelper()
         {
-            dbCon = new OleDbConnection(sConnection);         
-            DataSet ds = ReadExcelData(Path);
+            dbCon = new OleDbConnection(sConnection);
+            DataSet ds = ReadExcelData(Constants.Instance.Path);
             Clients = ds.Tables["לקוחות"];
             Contracts = ds.Tables["חוזים"];
             Bills = ds.Tables["חשבונות"];
@@ -111,7 +110,7 @@ namespace Billing
         {          
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             // get the last used column number 
@@ -126,9 +125,9 @@ namespace Billing
                 excelCell = null;
             }
             bool SaveChanges = true;
-            excelWorksheet.SaveAs(Path);
-            excelWorkbook.SaveAs(Path);
-            excelWorkbook.Close(SaveChanges, Path, null);
+            excelWorksheet.SaveAs(Constants.Instance.Path);
+            excelWorkbook.SaveAs(Constants.Instance.Path);
+            excelWorkbook.Close(SaveChanges, Constants.Instance.Path, null);
             excelApp.Workbooks.Close();
             excelApp.Quit();
             
@@ -142,7 +141,7 @@ namespace Billing
             excelWorkbook = null;
             excelApp = null;
             GC.Collect();
-            ReadExcelData(Path);
+            ReadExcelData(Constants.Instance.Path);
         }
 
         private string toAlphabet(int col)
@@ -365,7 +364,7 @@ namespace Billing
         {            
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             for (int row = 0; row <= table.Rows.Count - 1; row++)
@@ -375,9 +374,9 @@ namespace Billing
                     table.Rows[row].Delete();
                     ((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Rows[row+2]).Delete();
                     bool SaveChanges = true;
-                    excelWorksheet.SaveAs(Path);
-                    excelWorkbook.SaveAs(Path);
-                    excelWorkbook.Close(SaveChanges, Path, null);
+                    excelWorksheet.SaveAs(Constants.Instance.Path);
+                    excelWorkbook.SaveAs(Constants.Instance.Path);
+                    excelWorkbook.Close(SaveChanges, Constants.Instance.Path, null);
                     excelApp.Workbooks.Close();
                     excelApp.Quit();
 
@@ -391,7 +390,7 @@ namespace Billing
                     excelWorkbook = null;
                     excelApp = null;
                     GC.Collect();
-                    ReadExcelData(Path);
+                    ReadExcelData(Constants.Instance.Path);
                     return;
                 }
             }
@@ -424,7 +423,7 @@ namespace Billing
             return billsAmount.ToString();            
         }
 
-        internal bool CheckExistenceOfSingleValue(string TextToSearch, string columnName, DataTable dataTable)
+        public bool CheckExistenceOfSingleValue(string TextToSearch, string columnName, DataTable dataTable)
         {
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
             {
@@ -434,6 +433,20 @@ namespace Billing
                 }
             }
             return false;
+        }
+
+        internal void Reload()
+        {
+            dbCon = new OleDbConnection(sConnection);
+            DataSet ds = ReadExcelData(Constants.Instance.Path);
+            Clients = ds.Tables["לקוחות"];
+            Contracts = ds.Tables["חוזים"];
+            Bills = ds.Tables["חשבונות"];
+            Projects = ds.Tables["פרוייקטים"];
+            ContractTypes = ds.Tables["סוגי חוזים"];
+            StatusTypes = ds.Tables["סוגי סטטוס"];
+            ClientTypes = ds.Tables["סוגי לקוחות"];
+            ValueTypes = ds.Tables["סוגי תמורה"];
         }
    }
 }

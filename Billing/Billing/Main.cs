@@ -51,6 +51,11 @@ namespace Billing
         private void createBillDocument_Click(object sender, EventArgs e)
         {
             new Test().ShowDialog();            
+        }
+
+        private void UpdateTimer_Tick(object sender, EventArgs e)
+        {
+            ExcelHelper.Instance.Reload();
         }        
     }
 }

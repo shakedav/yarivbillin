@@ -40,6 +40,8 @@ namespace Billing
             projectCodeInviterTxtBox.Clear();
             projectNameInviterTxtBox.Clear();
             contactManDescTxt.Clear();
+            contactManPhoneTxtBox.Clear();
+            contactManEmailTxtBox.Clear();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -64,10 +66,11 @@ namespace Billing
 
         private bool IsDataExist()
         {
-            return ExcelHelper.Instance.CheckExistence(projectNametxtBox.Text,
+            return ((ExcelHelper.Instance.CheckExistence(projectNametxtBox.Text,
                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME,
-                                                        ColumnNames.CLIENT_CODE,ExcelHelper.Instance.Projects);
+                                                        ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Projects)) ||
+                                                        (ExcelHelper.Instance.CheckExistenceOfSingleValue(projectCodetxtBox.Text,ColumnNames.PROJECT_CODE,ExcelHelper.Instance.Projects)));
         }
 
         private void SaveData()
@@ -81,6 +84,8 @@ namespace Billing
             row[ColumnNames.PROJECT_DESCRIPTION] = projectDescriptiontxtBox.Text;
             row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
             row[ColumnNames.CONTACT_MAN_DESC] = contactManDescTxt.Text;
+            row[ColumnNames.CONTACT_MAN_PHONE] = contactManPhoneTxtBox.Text;
+            row[ColumnNames.CONTACT_MAN_EMAIL] = contactManEmailTxtBox.Text;
             ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName);
             ExcelHelper.Instance.Projects.Rows.Add(row);
         }
@@ -88,7 +93,7 @@ namespace Billing
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת פרוייקט", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
         
@@ -143,7 +148,8 @@ namespace Billing
         {
             if (IsDataExist())
             {
-                if (ExcelHelper.Instance.shouldSave("פרוייקט {0}", projectNametxtBox.Text))
+
+                if (ExcelHelper.Instance.shouldSave(string.Format("קוד פרוייקט {0} או", projectCodetxtBox.Text) + " או פרוייקט {0}", projectNametxtBox.Text))
                 {
                     SaveData();
                 }

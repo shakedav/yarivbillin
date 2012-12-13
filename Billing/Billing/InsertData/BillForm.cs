@@ -98,7 +98,7 @@ namespace Billing
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", ExcelHelper.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חשבון", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
