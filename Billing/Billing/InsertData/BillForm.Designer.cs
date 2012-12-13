@@ -162,7 +162,7 @@ namespace Billing
             this.maamTxtBox.Name = "maamTxtBox";
             this.maamTxtBox.Size = new System.Drawing.Size(296, 20);
             this.maamTxtBox.TabIndex = 8;
-            this.maamTxtBox.TextChanged += new System.EventHandler(this.maamTxtBox_TextChanged);
+            //this.maamTxtBox.TextChanged += new System.EventHandler(this.maamTxtBox_TextChanged);
             // 
             // label2
             // 
