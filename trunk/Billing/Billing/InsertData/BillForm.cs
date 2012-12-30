@@ -10,11 +10,13 @@ using System.Windows.Forms;
 namespace Billing
 {
     public partial class BillForm : Form
-    {
+    {        
         public string clientCode;
+        public Point lastControl;
         public BillForm()
         {
             Onload();
+            lastControl = new Point(contractParttxtBox.Location.X, addValue.Location.Y+15);
         }
 
         private void Onload()
@@ -167,22 +169,7 @@ namespace Billing
         {
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);            
-        }
-
-        //private void maamTxtBox_TextChanged(object sender, EventArgs e)
-        //{
-        //    errorsLabel.Visible = false;
-        //    if (!string.IsNullOrEmpty(totalToPayTxtBox.Text))
-        //    {
-        //        totalWithMaamTextBox.Text = ((double.Parse(totalToPayTxtBox.Text) + (double.Parse(totalToPayTxtBox.Text) * Constants.Instance.MAAM)).ToString());
-        //    }
-        //    else
-        //    {
-        //        errorsLabel.Visible = true;
-        //        errorsLabel.Text = "מע\"מ שגוי, בדוק את המע\"מ ונסה שוב ";
-        //        errorsLabel.ForeColor = Color.Red;
-        //    }
-        //}
+        }      
 
         private void totalToPayTxtBox_Leave(object sender, EventArgs e)
         {
@@ -245,5 +232,64 @@ namespace Billing
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
         }
+
+        private void addValue_Click(object sender, EventArgs e)
+        {
+            valuelbl.Visible = true;
+            valueComboBox.Visible = true;
+            
+        }
+
+        private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            switch (valueComboBox.SelectedIndex)
+            {
+                case 0:
+                    {
+                        TextBox txt = new TextBox();
+                        txt.Text = "הכנס תעריף שעתי";
+                        txt.Click += (sender1, e1) => {
+                            txt.Clear();
+                        };
+                        //txt.Location = lastControl;
+                        tblControls.Controls.Add(txt);
+                        TextBox text = new TextBox();
+                        text.Text = "הכנס מספר שעות עבודה";
+                        text.Click += (sender1, e1) =>
+                        {
+                            text.Clear();
+                        };
+                        tblControls.Controls.Add(text);
+                        Point p = new Point(txt.Location.X + 125, txt.Location.Y);
+                        text.Location = p;
+                        Button b = new Button();
+                        b.Text = "מחק";
+                        b.Size = new Size(50, 25);
+                        lastControl.Y = p.Y;
+                        b.Click += (sender1, e1) =>
+                        {
+                            lastControl = new Point(txt.Location.X, txt.Location.Y);
+                            this.Controls.Remove(txt);
+                            this.Controls.Remove(text);
+                            this.Controls.Remove(b);                            
+                        };
+                        b.Location = new Point(text.Location.X + 150, text.Location.Y);                        
+                        this.Controls.Add(txt);
+                        this.Controls.Add(text);
+                        this.Controls.Add(b);
+                        break;
+                    }
+
+            }
+            lastControl.Y = lastControl.Y + 25;
+            valuelbl.Visible = false;
+            valueComboBox.Visible = false;
+        }
+
+        private void clearText(object sender, Control e)
+        {
+            e.Text = "";
+        }
     }
 }
+
