@@ -13,6 +13,8 @@ namespace Billing
     {        
         public string clientCode;
         public Point lastControl;
+        private int tblRow = 0;
+        private int tblCol = 0;
         public BillForm()
         {
             Onload();
@@ -243,47 +245,130 @@ namespace Billing
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             switch (valueComboBox.SelectedIndex)
-            {
+            {                    
                 case 0:
                     {
-                        TextBox txt = new TextBox();
-                        txt.Text = "הכנס תעריף שעתי";
-                        txt.Click += (sender1, e1) => {
-                            txt.Clear();
-                        };
-                        //txt.Location = lastControl;
-                        tblControls.Controls.Add(txt);
-                        TextBox text = new TextBox();
-                        text.Text = "הכנס מספר שעות עבודה";
-                        text.Click += (sender1, e1) =>
-                        {
-                            text.Clear();
-                        };
-                        tblControls.Controls.Add(text);
-                        Point p = new Point(txt.Location.X + 125, txt.Location.Y);
-                        text.Location = p;
-                        Button b = new Button();
-                        b.Text = "מחק";
-                        b.Size = new Size(50, 25);
-                        lastControl.Y = p.Y;
-                        b.Click += (sender1, e1) =>
-                        {
-                            lastControl = new Point(txt.Location.X, txt.Location.Y);
-                            this.Controls.Remove(txt);
-                            this.Controls.Remove(text);
-                            this.Controls.Remove(b);                            
-                        };
-                        b.Location = new Point(text.Location.X + 150, text.Location.Y);                        
-                        this.Controls.Add(txt);
-                        this.Controls.Add(text);
-                        this.Controls.Add(b);
+                        TextBox txt = CreateTextBox("הכנס תעריף שעתי");
+                        tblControls.Controls.Add(txt,tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס מספר שעות עבודה");                      
+                        tblControls.Controls.Add(text,tblCol,tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);         
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 1:
+                    {
+                        TextBox txt = CreateTextBox("הכנס תעריף חודשי");
+                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס מספר חודשי עבודה");
+                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 2:
+                    {
+                        TextBox txt = CreateTextBox("הכנס אחוז משכר טרחה");
+                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס 1");
+                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 3:
+                    {
+                        TextBox txt = CreateTextBox("הכנס סכום לתשלום");
+                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס 1");
+                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 4:
+                    {
+                        TextBox txt = CreateTextBox("הכנס אחוז מהסכום של הקבלן");
+                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס 1");
+                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 5:
+                    {
+                        TextBox txt = CreateTextBox("הכנס את סכום החשבון");
+                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("הכנס 1");
+                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Button b = CreateDeleteBtn();
+                        tblControls.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b);
+                        tblCol = 0;
+                        tblRow++;
                         break;
                     }
 
             }
-            lastControl.Y = lastControl.Y + 25;
             valuelbl.Visible = false;
             valueComboBox.Visible = false;
+        }
+
+        private void SetDeleteEventHandler(TextBox txt, TextBox text, Button b)
+        {
+            b.Click += (sender1, e1) =>
+            {
+                tblControls.Controls.Remove(b);
+                tblControls.Controls.Remove(txt);
+                tblControls.Controls.Remove(text);
+            };
+        }
+
+        private static Button CreateDeleteBtn()
+        {
+            Button b = new Button();
+            b.Text = "מחק";
+            b.Size = new Size(50, 25);
+            return b;
+        }
+
+        private static TextBox CreateTextBox(string text)
+        {
+            TextBox txt = new TextBox();
+            txt.Text = text;
+            txt.Click += (sender1, e1) =>
+            {
+                txt.Clear();
+            };
+            return txt;
         }
 
         private void clearText(object sender, Control e)

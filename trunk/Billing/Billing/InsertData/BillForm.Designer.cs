@@ -361,13 +361,16 @@ namespace Billing
             // 
             // tblControls
             // 
-            this.tblControls.ColumnCount = 2;
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblControls.AutoScroll = true;
+            this.tblControls.ColumnCount = 3;
+            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblControls.Location = new System.Drawing.Point(44, 390);
             this.tblControls.Name = "tblControls";
-            this.tblControls.RowCount = 1;
-            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControls.RowCount = 2;
+            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblControls.Size = new System.Drawing.Size(296, 136);
             this.tblControls.TabIndex = 106;
             // 
