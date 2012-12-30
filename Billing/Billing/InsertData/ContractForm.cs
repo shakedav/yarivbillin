@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.InsertData;
 
 namespace Billing
 {
@@ -50,7 +51,6 @@ namespace Billing
             clientContractCodetxtBox.Clear();
             valueTxtBox.Clear();         
             valueCalculationtxtBox.Clear();
-            valueCalculationWaytxtBox.Clear();
             valueWithMaamTxtBox.Clear();
         }
 
@@ -129,7 +129,7 @@ namespace Billing
                 || (string.IsNullOrEmpty(clientContractCodetxtBox.Text)) || (string.IsNullOrEmpty(valueTxtBox.Text))
                 || (string.IsNullOrEmpty(signingDatePicker.Text)) || (string.IsNullOrEmpty(startDatePicker.Text))
                 || (string.IsNullOrEmpty(endDatePicker.Text)) || (string.IsNullOrEmpty(contractTypeComboBox.Text))
-                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)) || (string.IsNullOrEmpty(valueCalculationWaytxtBox.Text)))
+                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)))
             {
                 return false;
             }
@@ -182,7 +182,6 @@ namespace Billing
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_CALCULATION] = valueCalculationtxtBox.Text;
-                row[ColumnNames.VALUE_CALCULATION_WAY] = valueCalculationWaytxtBox.Text;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
             }
@@ -210,6 +209,22 @@ namespace Billing
         {
             double value = double.Parse(valueTxtBox.Text);
             valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
+        }
+
+        private void addValue_Click(object sender, EventArgs e)
+        {
+            using (AddValueForm form = new AddValueForm())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                   valueListBox.Items.Add(form.valueType);
+                   valueListBox.Visible = true;
+                }
+            }
+            
+            
+               
         }
 
         

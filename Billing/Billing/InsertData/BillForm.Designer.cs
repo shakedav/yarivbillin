@@ -34,7 +34,6 @@ namespace Billing
             this.clientNamelbl = new System.Windows.Forms.Label();
             this.billSequenceInContractTxtBox = new System.Windows.Forms.TextBox();
             this.clientContractCodelbl = new System.Windows.Forms.Label();
-            this.valuelbl = new System.Windows.Forms.Label();
             this.projectCodeLbl = new System.Windows.Forms.Label();
             this.billNumberTxtBox = new System.Windows.Forms.TextBox();
             this.yarivContractCodeLbl = new System.Windows.Forms.Label();
@@ -48,7 +47,6 @@ namespace Billing
             this.cancelBtn = new System.Windows.Forms.Button();
             this.ClearFieldsBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
-            this.valueComboBox = new System.Windows.Forms.ComboBox();
             this.lastBillTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.totalWithMaamTextBox = new System.Windows.Forms.TextBox();
@@ -60,6 +58,10 @@ namespace Billing
             this.contractPartlbl = new System.Windows.Forms.Label();
             this.contractParttxtBox = new System.Windows.Forms.TextBox();
             this.totalBillsTxtBox = new System.Windows.Forms.TextBox();
+            this.addValue = new System.Windows.Forms.Button();
+            this.valueComboBox = new System.Windows.Forms.ComboBox();
+            this.valuelbl = new System.Windows.Forms.Label();
+            this.tblControls = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // clientNameComboBox
@@ -100,15 +102,6 @@ namespace Billing
             this.clientContractCodelbl.Size = new System.Drawing.Size(133, 13);
             this.clientContractCodelbl.TabIndex = 72;
             this.clientContractCodelbl.Text = "מספר חשבון חלקי בחוזה";
-            // 
-            // valuelbl
-            // 
-            this.valuelbl.AutoSize = true;
-            this.valuelbl.Location = new System.Drawing.Point(461, 141);
-            this.valuelbl.Name = "valuelbl";
-            this.valuelbl.Size = new System.Drawing.Size(82, 13);
-            this.valuelbl.TabIndex = 71;
-            this.valuelbl.Text = "חישוב התמורה";
             // 
             // projectCodeLbl
             // 
@@ -162,7 +155,6 @@ namespace Billing
             this.maamTxtBox.Name = "maamTxtBox";
             this.maamTxtBox.Size = new System.Drawing.Size(296, 20);
             this.maamTxtBox.TabIndex = 8;
-            //this.maamTxtBox.TextChanged += new System.EventHandler(this.maamTxtBox_TextChanged);
             // 
             // label2
             // 
@@ -208,7 +200,7 @@ namespace Billing
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(81, 345);
+            this.cancelBtn.Location = new System.Drawing.Point(150, 543);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 13;
@@ -218,7 +210,7 @@ namespace Billing
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(162, 345);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(231, 543);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearFieldsBtn.TabIndex = 12;
@@ -228,24 +220,13 @@ namespace Billing
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(243, 345);
+            this.saveBtn.Location = new System.Drawing.Point(312, 543);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 11;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
-            // 
-            // valueComboBox
-            // 
-            this.valueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.valueComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.valueComboBox.FormattingEnabled = true;
-            this.valueComboBox.Location = new System.Drawing.Point(44, 138);
-            this.valueComboBox.Name = "valueComboBox";
-            this.valueComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.valueComboBox.Size = new System.Drawing.Size(296, 21);
-            this.valueComboBox.TabIndex = 5;
             // 
             // lastBillTxtBox
             // 
@@ -283,7 +264,7 @@ namespace Billing
             // errorsLabel
             // 
             this.errorsLabel.AutoSize = true;
-            this.errorsLabel.Location = new System.Drawing.Point(118, 371);
+            this.errorsLabel.Location = new System.Drawing.Point(187, 569);
             this.errorsLabel.Name = "errorsLabel";
             this.errorsLabel.Padding = new System.Windows.Forms.Padding(100, 10, 100, 10);
             this.errorsLabel.Size = new System.Drawing.Size(200, 33);
@@ -311,7 +292,7 @@ namespace Billing
             // 
             // billDateBox
             // 
-            this.billDateBox.CustomFormat = "MM/yyyy";
+            this.billDateBox.CustomFormat = "";
             this.billDateBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.billDateBox.Location = new System.Drawing.Point(44, 60);
             this.billDateBox.MinDate = new System.DateTime(2012, 1, 1, 0, 0, 0, 0);
@@ -344,11 +325,61 @@ namespace Billing
             this.totalBillsTxtBox.Size = new System.Drawing.Size(296, 20);
             this.totalBillsTxtBox.TabIndex = 102;
             // 
+            // addValue
+            // 
+            this.addValue.Location = new System.Drawing.Point(460, 352);
+            this.addValue.Name = "addValue";
+            this.addValue.Size = new System.Drawing.Size(83, 23);
+            this.addValue.TabIndex = 103;
+            this.addValue.Text = "הוסף תמורה";
+            this.addValue.UseVisualStyleBackColor = true;
+            this.addValue.Click += new System.EventHandler(this.addValue_Click);
+            // 
+            // valueComboBox
+            // 
+            this.valueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.valueComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.valueComboBox.FormattingEnabled = true;
+            this.valueComboBox.Location = new System.Drawing.Point(44, 354);
+            this.valueComboBox.Name = "valueComboBox";
+            this.valueComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.valueComboBox.Size = new System.Drawing.Size(296, 21);
+            this.valueComboBox.TabIndex = 104;
+            this.valueComboBox.Visible = false;
+            this.valueComboBox.SelectionChangeCommitted += new System.EventHandler(this.valueComboBox_SelectionChangeCommitted);
+            // 
+            // valuelbl
+            // 
+            this.valuelbl.AutoSize = true;
+            this.valuelbl.Location = new System.Drawing.Point(346, 357);
+            this.valuelbl.Name = "valuelbl";
+            this.valuelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.valuelbl.Size = new System.Drawing.Size(86, 13);
+            this.valuelbl.TabIndex = 105;
+            this.valuelbl.Text = "בחר סוג תמורה:";
+            this.valuelbl.Visible = false;
+            // 
+            // tblControls
+            // 
+            this.tblControls.ColumnCount = 2;
+            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblControls.Location = new System.Drawing.Point(44, 390);
+            this.tblControls.Name = "tblControls";
+            this.tblControls.RowCount = 1;
+            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControls.Size = new System.Drawing.Size(296, 136);
+            this.tblControls.TabIndex = 106;
+            // 
             // BillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 445);
+            this.ClientSize = new System.Drawing.Size(555, 611);
+            this.Controls.Add(this.tblControls);
+            this.Controls.Add(this.valueComboBox);
+            this.Controls.Add(this.valuelbl);
+            this.Controls.Add(this.addValue);
             this.Controls.Add(this.totalBillsTxtBox);
             this.Controls.Add(this.contractPartlbl);
             this.Controls.Add(this.contractParttxtBox);
@@ -360,7 +391,6 @@ namespace Billing
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lastBillTxtBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.valueComboBox);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.ClearFieldsBtn);
             this.Controls.Add(this.saveBtn);
@@ -375,7 +405,6 @@ namespace Billing
             this.Controls.Add(this.clientNamelbl);
             this.Controls.Add(this.billSequenceInContractTxtBox);
             this.Controls.Add(this.clientContractCodelbl);
-            this.Controls.Add(this.valuelbl);
             this.Controls.Add(this.billNumberTxtBox);
             this.Controls.Add(this.yarivContractCodeLbl);
             this.Controls.Add(this.projectCodeLbl);
@@ -392,7 +421,6 @@ namespace Billing
         private System.Windows.Forms.Label clientNamelbl;
         private System.Windows.Forms.TextBox billSequenceInContractTxtBox;
         private System.Windows.Forms.Label clientContractCodelbl;
-        private System.Windows.Forms.Label valuelbl;
         private System.Windows.Forms.Label projectCodeLbl;
         private System.Windows.Forms.TextBox billNumberTxtBox;
         private System.Windows.Forms.Label yarivContractCodeLbl;
@@ -406,7 +434,6 @@ namespace Billing
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Button ClearFieldsBtn;
         private System.Windows.Forms.Button saveBtn;
-        private System.Windows.Forms.ComboBox valueComboBox;
         private System.Windows.Forms.TextBox lastBillTxtBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox totalWithMaamTextBox;
@@ -418,5 +445,9 @@ namespace Billing
         private Label contractPartlbl;
         private TextBox contractParttxtBox;
         private TextBox totalBillsTxtBox;
+        private Button addValue;
+        private ComboBox valueComboBox;
+        private Label valuelbl;
+        private TableLayoutPanel tblControls;
     }
 }

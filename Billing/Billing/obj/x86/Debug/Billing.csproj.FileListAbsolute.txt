@@ -34,3 +34,4 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Ge
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\GenerateResource.write.1.tlog
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.exe.manifest
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.application
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.AddValueForm.resources

@@ -47,17 +47,18 @@
             this.projectNameComboBox = new System.Windows.Forms.ComboBox();
             this.endDatelbl = new System.Windows.Forms.Label();
             this.valueCalculationlbl = new System.Windows.Forms.Label();
-            this.valueCalculationWaylbl = new System.Windows.Forms.Label();
             this.signingDatePicker = new System.Windows.Forms.DateTimePicker();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
             this.valueCalculationtxtBox = new System.Windows.Forms.TextBox();
-            this.valueCalculationWaytxtBox = new System.Windows.Forms.TextBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.contractTypeComboBox = new System.Windows.Forms.ComboBox();
             this.contractTypelbl = new System.Windows.Forms.Label();
             this.valueWithMaamTxtBox = new System.Windows.Forms.TextBox();
             this.valueWithMaam = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.addValue = new System.Windows.Forms.Button();
+            this.valueListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // clientNameComboBox
@@ -228,15 +229,6 @@
             this.valueCalculationlbl.TabIndex = 61;
             this.valueCalculationlbl.Text = "נגזרת התמורה";
             // 
-            // valueCalculationWaylbl
-            // 
-            this.valueCalculationWaylbl.AutoSize = true;
-            this.valueCalculationWaylbl.Location = new System.Drawing.Point(368, 330);
-            this.valueCalculationWaylbl.Name = "valueCalculationWaylbl";
-            this.valueCalculationWaylbl.Size = new System.Drawing.Size(103, 13);
-            this.valueCalculationWaylbl.TabIndex = 62;
-            this.valueCalculationWaylbl.Text = "אופן חישוב תמורה";
-            // 
             // signingDatePicker
             // 
             this.signingDatePicker.Location = new System.Drawing.Point(12, 196);
@@ -265,13 +257,6 @@
             this.valueCalculationtxtBox.Name = "valueCalculationtxtBox";
             this.valueCalculationtxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueCalculationtxtBox.TabIndex = 11;
-            // 
-            // valueCalculationWaytxtBox
-            // 
-            this.valueCalculationWaytxtBox.Location = new System.Drawing.Point(12, 327);
-            this.valueCalculationWaytxtBox.Name = "valueCalculationWaytxtBox";
-            this.valueCalculationWaytxtBox.Size = new System.Drawing.Size(296, 20);
-            this.valueCalculationWaytxtBox.TabIndex = 12;
             // 
             // cancelBtn
             // 
@@ -316,22 +301,52 @@
             this.valueWithMaam.TabIndex = 74;
             this.valueWithMaam.Text = "תמורה כולל מע\"מ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(389, 330);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "חישוב התמורה";
+            // 
+            // addValue
+            // 
+            this.addValue.Location = new System.Drawing.Point(361, 325);
+            this.addValue.Name = "addValue";
+            this.addValue.Size = new System.Drawing.Size(25, 25);
+            this.addValue.TabIndex = 77;
+            this.addValue.Text = "+";
+            this.addValue.UseVisualStyleBackColor = true;
+            this.addValue.Click += new System.EventHandler(this.addValue_Click);
+            // 
+            // valueListBox
+            // 
+            this.valueListBox.FormattingEnabled = true;
+            this.valueListBox.Location = new System.Drawing.Point(12, 325);
+            this.valueListBox.Name = "valueListBox";
+            this.valueListBox.Size = new System.Drawing.Size(296, 69);
+            this.valueListBox.Sorted = true;
+            this.valueListBox.TabIndex = 78;
+            this.valueListBox.Visible = false;
+            // 
             // ContractForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 433);
+            this.Controls.Add(this.valueListBox);
+            this.Controls.Add(this.addValue);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.valueWithMaamTxtBox);
             this.Controls.Add(this.valueWithMaam);
             this.Controls.Add(this.contractTypelbl);
             this.Controls.Add(this.contractTypeComboBox);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.valueCalculationWaytxtBox);
             this.Controls.Add(this.valueCalculationtxtBox);
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
             this.Controls.Add(this.signingDatePicker);
-            this.Controls.Add(this.valueCalculationWaylbl);
             this.Controls.Add(this.valueCalculationlbl);
             this.Controls.Add(this.endDatelbl);
             this.Controls.Add(this.projectNameComboBox);
@@ -380,16 +395,17 @@
         private System.Windows.Forms.ComboBox projectNameComboBox;
         private System.Windows.Forms.Label endDatelbl;
         private System.Windows.Forms.Label valueCalculationlbl;
-        private System.Windows.Forms.Label valueCalculationWaylbl;
         private System.Windows.Forms.DateTimePicker signingDatePicker;
         private System.Windows.Forms.DateTimePicker startDatePicker;
         private System.Windows.Forms.DateTimePicker endDatePicker;
         private System.Windows.Forms.TextBox valueCalculationtxtBox;
-        private System.Windows.Forms.TextBox valueCalculationWaytxtBox;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ComboBox contractTypeComboBox;
         private System.Windows.Forms.Label contractTypelbl;
         private System.Windows.Forms.TextBox valueWithMaamTxtBox;
         private System.Windows.Forms.Label valueWithMaam;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button addValue;
+        private System.Windows.Forms.ListBox valueListBox;
     }
 }
