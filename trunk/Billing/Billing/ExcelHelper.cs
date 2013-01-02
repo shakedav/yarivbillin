@@ -25,7 +25,8 @@ namespace Billing
        public DataTable Projects;
        public DataTable ContractTypes;
        public DataTable StatusTypes;
-       public DataTable ValueTypes;      
+       public DataTable ValueTypes;
+       public DataTable ValueInBill;      
        OleDbDataAdapter dbDa = new OleDbDataAdapter();
        static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Constants.Instance.Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
        OleDbConnection dbCon;
@@ -70,7 +71,8 @@ namespace Billing
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
-            ValueTypes = ds.Tables["סוגי תמורה"];           
+            ValueTypes = ds.Tables["סוגי תמורה"];  
+            ValueInBill = ds.Tables["תמורות בחשבון"];
         }
 
         private DataSet ReadExcelData(string Path)
