@@ -371,7 +371,7 @@ namespace Billing
             this.tblControls.RowCount = 2;
             this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblControls.Size = new System.Drawing.Size(296, 136);
+            this.tblControls.Size = new System.Drawing.Size(496, 136);
             this.tblControls.TabIndex = 106;
             // 
             // BillForm

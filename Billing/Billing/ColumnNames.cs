@@ -32,7 +32,7 @@ namespace Billing
         public static string BILL_NUMBER_YARIV = "מספר חשבון ביריב";
         public static string BILL_DATE = "תאריך החשבון";
         public static string BILL_SEQUENCE = "מספר חשבון חלקי בחוזה";
-        public static string VALUE_CALC = "חישוב התמורה";
+        //public static string VALUE_CALC = "חישוב התמורה";
         public static string PREVIOUS_BILL = "חשבון קודם";
         public static string BILL_AMOUNT = "סכום החשבון";
         public static string MAAM = "המע\"מ";
@@ -47,5 +47,8 @@ namespace Billing
         public static string CONTACT_MAN_DESC= "תיאור איש קשר בפרוייקט";
         public static string CONTACT_MAN_PHONE = "טלפון איש קשר בפרוייקט";
         public static string CONTACT_MAN_EMAIL = "מייל איש קשר בפרוייקט";
+        public static string PAYMENT = "תשלום";
+        public static string QUANTITY = "כמות";
+
     }
 }

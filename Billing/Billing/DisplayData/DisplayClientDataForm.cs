@@ -132,7 +132,7 @@ namespace Billing.DisplayData
             billDateTxt.Text = billDataList[ColumnNames.BILL_DATE];
             billNumberTxtBox.Text = billDataList[ColumnNames.BILL_NUMBER_YARIV];
             billSequenceInContractTxtBox.Text = billDataList[ColumnNames.BILL_SEQUENCE];
-            valueTxt.Text = billDataList[ColumnNames.VALUE_CALC];
+            //valueTxt.Text = billDataList[ColumnNames.VALUE_CALC];
             lastBillTxtBox.Text = billDataList[ColumnNames.PREVIOUS_BILL];
             totalToPayTxtBox.Text = billDataList[ColumnNames.BILL_AMOUNT];
             maamTxtBox.Text = billDataList[ColumnNames.MAAM];
