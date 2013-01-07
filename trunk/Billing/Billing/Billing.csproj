@@ -97,6 +97,7 @@
     <Compile Include="DataExists.Designer.cs">
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataObjects\ValueItem.cs" />
     <Compile Include="DisplayData\DisplayClientDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
