@@ -11,7 +11,10 @@ using Billing.InsertData;
 namespace Billing
 {
     public partial class ContractForm : Form
-    {        
+    {
+
+        private string valueTypes = string.Empty;
+
         public ContractForm()
         {
             Onload();
@@ -182,6 +185,7 @@ namespace Billing
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_CALCULATION] = valueCalculationtxtBox.Text;
+                row[ColumnNames.VALUE_TYPES] = valueTypes;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
             }
@@ -219,6 +223,7 @@ namespace Billing
                 if (result == DialogResult.OK)
                 {
                    valueListBox.Items.Add(form.valueType);
+                   valueTypes = valueTypes + ";" + form.valueIndex;
                    valueListBox.Visible = true;
                 }
             }
