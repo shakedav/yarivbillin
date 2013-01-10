@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using Billing.DataObjects;
+using System.Globalization;
 
 namespace Billing
 {
@@ -21,7 +22,6 @@ namespace Billing
         public BillForm()
         {
             Onload();
-            lastControl = new Point(contractParttxtBox.Location.X, addValue.Location.Y+15);
         }
 
         private void Onload()
@@ -36,8 +36,8 @@ namespace Billing
                                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
                                                                         ColumnNames.CONTRACT_CODE_YARIV);
-            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);             
-            valueComboBox.DataSource = ExcelHelper.Instance.ValueTypes.Columns[ColumnNames.VALUE_CODE].Table;
+            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
+            valueComboBox.DataSource = GetAllowedValues();
             valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
             valueComboBox.Text = ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
             billStatusComboBox.DataSource = ExcelHelper.Instance.StatusTypes.Columns[ColumnNames.STATUS_CODE].Table;
@@ -45,7 +45,22 @@ namespace Billing
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex][ColumnNames.STATUS_NAME].ToString();
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+        }
+
+        private object GetAllowedValues()
+        {
+            List<int> valuesAllowed = ExcelHelper.Instance.getValuesFromDB(contractCodeComboBox.Text);
+
+            List<string> valuesDic = new List<string>();
+
+            foreach (int valueCode in valuesAllowed)
+            {
+                valuesDic.Add(ExcelHelper.Instance.ValueTypes.Rows[valueCode - 1][1].ToString());
+                
+            }
+            return valuesDic;            
         }
 
         public BillForm(string selectedClient, string selectedContract)
@@ -60,7 +75,7 @@ namespace Billing
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             lastBillTxtBox.Clear();
-            totalToPayTxtBox.Clear();
+            totalToPayTxtBox.Text = "0";
             maamTxtBox.Text = Constants.Instance.MAAM.ToString();
             contractCodeComboBox.DataSource = null;
             contractCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE,
@@ -72,6 +87,7 @@ namespace Billing
                 lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             }
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
             billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
         }
@@ -159,6 +175,7 @@ namespace Billing
                     billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
                     billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
                     billsRow[ColumnNames.CLIENT_CODE] = clientCode;
+                    billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
                     ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName);
                     ExcelHelper.Instance.Bills.Rows.Add(billsRow);           
                     foreach(KeyValuePair<int,List<TextBox>> list in valuesList)
@@ -195,12 +212,13 @@ namespace Billing
             billNumberTxtBox.Clear();
             billSequenceInContractTxtBox.Clear();
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-            totalToPayTxtBox.Clear();
+            totalToPayTxtBox.Text = "0";
             maamTxtBox.Clear();
             totalWithMaamTextBox.Clear();
             errorsLabel.Visible = false;
             contractParttxtBox.Clear();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
         }
 
         private void contractCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -208,8 +226,10 @@ namespace Billing
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -222,7 +242,8 @@ namespace Billing
         private void billSequenceInContractTxtBox_Leave(object sender, EventArgs e)
         {            
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
+            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);            
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
         }
 
         private void addValue_Click(object sender, EventArgs e)
@@ -493,6 +514,23 @@ namespace Billing
             }
             totalToPayTxtBox.Text = totalAmount.ToString();
             totalWithMaamTextBox.Text = (totalAmount * (1+Constants.Instance.MAAM)).ToString();
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+        }
+
+        private void billDateBox_ValueChanged(object sender, EventArgs e)
+        {
+            GetHebrewDate();            
+        }
+
+        private void GetHebrewDate()
+        {
+            System.Text.StringBuilder hebrewFormatedString = new System.Text.StringBuilder();
+            CultureInfo jewishCulture = CultureInfo.CreateSpecificCulture("he-IL");
+            jewishCulture.DateTimeFormat.Calendar = new HebrewCalendar();
+            hebrewFormatedString.Append(billDateBox.Value.ToString("dddd", jewishCulture) + " ");
+            hebrewFormatedString.Append(billDateBox.Value.ToString("dd", jewishCulture) + " ");
+            hebrewFormatedString.Append("" + billDateBox.Value.ToString("y", jewishCulture));
+            hebDateTxtBox.Text = hebrewFormatedString.ToString();
         }
     }
 }

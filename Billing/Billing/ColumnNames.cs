@@ -44,11 +44,13 @@ namespace Billing
         public static string STATUS_NAME = "שם סטטוס";
         public static string VALUE_CODE = "קוד תמורה";
         public static string VALUE_TYPE = "סוג תמורה";
+        public static string VALUE_TYPES = "סוגי תמורה";
         public static string CONTACT_MAN_DESC= "תיאור איש קשר בפרוייקט";
         public static string CONTACT_MAN_PHONE = "טלפון איש קשר בפרוייקט";
         public static string CONTACT_MAN_EMAIL = "מייל איש קשר בפרוייקט";
         public static string PAYMENT = "תשלום";
         public static string QUANTITY = "כמות";
+        public static string HEBREW_DATE = "תאריך עברי";
 
     }
 }

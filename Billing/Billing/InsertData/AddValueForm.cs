@@ -12,6 +12,7 @@ namespace Billing.InsertData
     public partial class AddValueForm : Form
     {
         public string valueType {get;set;}
+        public string valueIndex { get; set; }
 
         public AddValueForm()
         {
@@ -24,6 +25,7 @@ namespace Billing.InsertData
         private void selectBtn_Click(object sender, EventArgs e)
         {
             this.valueType = valueComboBox.Text;
+            this.valueIndex = (valueComboBox.SelectedIndex + 1).ToString();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
              

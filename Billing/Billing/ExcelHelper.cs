@@ -76,24 +76,31 @@ namespace Billing
         }
 
         private DataSet ReadExcelData(string Path)
-        {         
-            dbCon.Open();
-            // Get All Sheets Name
-            DataTable dtSheetName = dbCon.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-            // Retrive the Data by Sheetwise
-            DataSet dsOutput = new DataSet();
-            for (int nCount = 0; nCount < dtSheetName.Rows.Count; nCount++)
+        {
+            try
             {
-                string sSheetName = dtSheetName.Rows[nCount]["TABLE_NAME"].ToString();
-                string sQuery = "Select * From [" + sSheetName + "]";
-                OleDbCommand dbCmd = new OleDbCommand(sQuery, dbCon);
-                dbDa.SelectCommand = dbCmd;
-                DataTable dtData = new DataTable(getCleanName(sSheetName));
-                dbDa.Fill(dtData);
-                dsOutput.Tables.Add(dtData);
+                dbCon.Open();
+                // Get All Sheets Name
+                DataTable dtSheetName = dbCon.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                // Retrive the Data by Sheetwise
+                DataSet dsOutput = new DataSet();
+                for (int nCount = 0; nCount < dtSheetName.Rows.Count; nCount++)
+                {
+                    string sSheetName = dtSheetName.Rows[nCount]["TABLE_NAME"].ToString();
+                    string sQuery = "Select * From [" + sSheetName + "]";
+                    OleDbCommand dbCmd = new OleDbCommand(sQuery, dbCon);
+                    dbDa.SelectCommand = dbCmd;
+                    DataTable dtData = new DataTable(getCleanName(sSheetName));
+                    dbDa.Fill(dtData);
+                    dsOutput.Tables.Add(dtData);
+                }
+                dbCon.Close();
+                return dsOutput;
             }
-            dbCon.Close();
-            return dsOutput;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static string getCleanName(string str)
@@ -449,6 +456,18 @@ namespace Billing
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
             ValueTypes = ds.Tables["סוגי תמורה"];
+        }
+
+        internal List<int> getValuesFromDB(string contractCode)
+        {
+            string valuesString = getItemFromTable(Contracts, contractCode, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE_TYPES);
+            List<int> list = new List<int>();
+            foreach (string s in valuesString.Split(';'))
+            {
+                list.Add(Int32.Parse(s));
+            }
+
+            return list;
         }
    }
 }

@@ -50,7 +50,7 @@ namespace Billing
             this.totalWithMaamTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.errorsLabel = new System.Windows.Forms.Label();
-            this.totalBills = new System.Windows.Forms.Label();
+            this.totalBillsLbl = new System.Windows.Forms.Label();
             this.billDatelbl = new System.Windows.Forms.Label();
             this.billDateBox = new System.Windows.Forms.DateTimePicker();
             this.contractPartlbl = new System.Windows.Forms.Label();
@@ -63,6 +63,12 @@ namespace Billing
             this.totalToPayTxtBox = new System.Windows.Forms.TextBox();
             this.billAmountlbl = new System.Windows.Forms.Label();
             this.CheckTotalAmount = new System.Windows.Forms.Button();
+            this.hebDateTxtBox = new System.Windows.Forms.TextBox();
+            this.hebDateLbl = new System.Windows.Forms.Label();
+            this.totalBillsIncludingTxtBox = new System.Windows.Forms.TextBox();
+            this.totalBillsIncludingLbl = new System.Windows.Forms.Label();
+            this.contractused = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // clientNameComboBox
@@ -88,7 +94,7 @@ namespace Billing
             // 
             // billSequenceInContractTxtBox
             // 
-            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(44, 112);
+            this.billSequenceInContractTxtBox.Location = new System.Drawing.Point(44, 139);
             this.billSequenceInContractTxtBox.Name = "billSequenceInContractTxtBox";
             this.billSequenceInContractTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billSequenceInContractTxtBox.TabIndex = 4;
@@ -97,7 +103,7 @@ namespace Billing
             // clientContractCodelbl
             // 
             this.clientContractCodelbl.AutoSize = true;
-            this.clientContractCodelbl.Location = new System.Drawing.Point(410, 115);
+            this.clientContractCodelbl.Location = new System.Drawing.Point(410, 142);
             this.clientContractCodelbl.Name = "clientContractCodelbl";
             this.clientContractCodelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientContractCodelbl.Size = new System.Drawing.Size(133, 13);
@@ -116,7 +122,7 @@ namespace Billing
             // billNumberTxtBox
             // 
             this.billNumberTxtBox.Enabled = false;
-            this.billNumberTxtBox.Location = new System.Drawing.Point(44, 86);
+            this.billNumberTxtBox.Location = new System.Drawing.Point(44, 113);
             this.billNumberTxtBox.Name = "billNumberTxtBox";
             this.billNumberTxtBox.Size = new System.Drawing.Size(296, 20);
             this.billNumberTxtBox.TabIndex = 3;
@@ -124,7 +130,7 @@ namespace Billing
             // yarivContractCodeLbl
             // 
             this.yarivContractCodeLbl.AutoSize = true;
-            this.yarivContractCodeLbl.Location = new System.Drawing.Point(441, 89);
+            this.yarivContractCodeLbl.Location = new System.Drawing.Point(441, 116);
             this.yarivContractCodeLbl.Name = "yarivContractCodeLbl";
             this.yarivContractCodeLbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.yarivContractCodeLbl.Size = new System.Drawing.Size(102, 13);
@@ -150,7 +156,7 @@ namespace Billing
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(500, 273);
+            this.label3.Location = new System.Drawing.Point(500, 272);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 82;
@@ -162,7 +168,7 @@ namespace Billing
             this.billStatusComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.billStatusComboBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.billStatusComboBox.FormattingEnabled = true;
-            this.billStatusComboBox.Location = new System.Drawing.Point(44, 270);
+            this.billStatusComboBox.Location = new System.Drawing.Point(44, 269);
             this.billStatusComboBox.Name = "billStatusComboBox";
             this.billStatusComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.billStatusComboBox.Size = new System.Drawing.Size(296, 21);
@@ -182,7 +188,7 @@ namespace Billing
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(150, 543);
+            this.cancelBtn.Location = new System.Drawing.Point(184, 580);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 13;
@@ -192,7 +198,7 @@ namespace Billing
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(231, 543);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(265, 580);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearFieldsBtn.TabIndex = 12;
@@ -202,7 +208,7 @@ namespace Billing
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(312, 543);
+            this.saveBtn.Location = new System.Drawing.Point(346, 580);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 11;
@@ -229,15 +235,17 @@ namespace Billing
             // 
             // totalWithMaamTextBox
             // 
-            this.totalWithMaamTextBox.Location = new System.Drawing.Point(44, 217);
+            this.totalWithMaamTextBox.Location = new System.Drawing.Point(44, 554);
             this.totalWithMaamTextBox.Name = "totalWithMaamTextBox";
+            this.totalWithMaamTextBox.ReadOnly = true;
             this.totalWithMaamTextBox.Size = new System.Drawing.Size(296, 20);
             this.totalWithMaamTextBox.TabIndex = 9;
+            this.totalWithMaamTextBox.Text = "0";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(409, 220);
+            this.label5.Location = new System.Drawing.Point(406, 557);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(134, 13);
             this.label5.TabIndex = 93;
@@ -246,21 +254,21 @@ namespace Billing
             // errorsLabel
             // 
             this.errorsLabel.AutoSize = true;
-            this.errorsLabel.Location = new System.Drawing.Point(187, 569);
+            this.errorsLabel.Location = new System.Drawing.Point(221, 606);
             this.errorsLabel.Name = "errorsLabel";
             this.errorsLabel.Padding = new System.Windows.Forms.Padding(100, 10, 100, 10);
             this.errorsLabel.Size = new System.Drawing.Size(200, 33);
             this.errorsLabel.TabIndex = 94;
             this.errorsLabel.Visible = false;
             // 
-            // totalBills
+            // totalBillsLbl
             // 
-            this.totalBills.AutoSize = true;
-            this.totalBills.Location = new System.Drawing.Point(404, 246);
-            this.totalBills.Name = "totalBills";
-            this.totalBills.Size = new System.Drawing.Size(136, 13);
-            this.totalBills.TabIndex = 96;
-            this.totalBills.Text = "סכום החשבונות החלקיים";
+            this.totalBillsLbl.AutoSize = true;
+            this.totalBillsLbl.Location = new System.Drawing.Point(404, 220);
+            this.totalBillsLbl.Name = "totalBillsLbl";
+            this.totalBillsLbl.Size = new System.Drawing.Size(136, 13);
+            this.totalBillsLbl.TabIndex = 96;
+            this.totalBillsLbl.Text = "סכום החשבונות החלקיים";
             // 
             // billDatelbl
             // 
@@ -283,11 +291,12 @@ namespace Billing
             this.billDateBox.Size = new System.Drawing.Size(296, 20);
             this.billDateBox.TabIndex = 99;
             this.billDateBox.Value = new System.DateTime(2012, 11, 11, 0, 0, 0, 0);
+            this.billDateBox.ValueChanged += new System.EventHandler(this.billDateBox_ValueChanged);
             // 
             // contractPartlbl
             // 
             this.contractPartlbl.AutoSize = true;
-            this.contractPartlbl.Location = new System.Drawing.Point(382, 300);
+            this.contractPartlbl.Location = new System.Drawing.Point(382, 299);
             this.contractPartlbl.Name = "contractPartlbl";
             this.contractPartlbl.Size = new System.Drawing.Size(161, 13);
             this.contractPartlbl.TabIndex = 101;
@@ -295,21 +304,21 @@ namespace Billing
             // 
             // contractParttxtBox
             // 
-            this.contractParttxtBox.Location = new System.Drawing.Point(44, 297);
+            this.contractParttxtBox.Location = new System.Drawing.Point(44, 296);
             this.contractParttxtBox.Name = "contractParttxtBox";
             this.contractParttxtBox.Size = new System.Drawing.Size(296, 20);
             this.contractParttxtBox.TabIndex = 100;
             // 
             // totalBillsTxtBox
             // 
-            this.totalBillsTxtBox.Location = new System.Drawing.Point(44, 243);
+            this.totalBillsTxtBox.Location = new System.Drawing.Point(44, 217);
             this.totalBillsTxtBox.Name = "totalBillsTxtBox";
             this.totalBillsTxtBox.Size = new System.Drawing.Size(296, 20);
             this.totalBillsTxtBox.TabIndex = 102;
             // 
             // addValue
             // 
-            this.addValue.Location = new System.Drawing.Point(460, 326);
+            this.addValue.Location = new System.Drawing.Point(460, 346);
             this.addValue.Name = "addValue";
             this.addValue.Size = new System.Drawing.Size(83, 23);
             this.addValue.TabIndex = 103;
@@ -322,7 +331,7 @@ namespace Billing
             this.valueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.valueComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.valueComboBox.FormattingEnabled = true;
-            this.valueComboBox.Location = new System.Drawing.Point(44, 328);
+            this.valueComboBox.Location = new System.Drawing.Point(44, 348);
             this.valueComboBox.Name = "valueComboBox";
             this.valueComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.valueComboBox.Size = new System.Drawing.Size(296, 21);
@@ -333,7 +342,7 @@ namespace Billing
             // valuelbl
             // 
             this.valuelbl.AutoSize = true;
-            this.valuelbl.Location = new System.Drawing.Point(346, 331);
+            this.valuelbl.Location = new System.Drawing.Point(346, 351);
             this.valuelbl.Name = "valuelbl";
             this.valuelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.valuelbl.Size = new System.Drawing.Size(86, 13);
@@ -350,7 +359,7 @@ namespace Billing
             this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.Location = new System.Drawing.Point(44, 364);
+            this.tblControls.Location = new System.Drawing.Point(44, 384);
             this.tblControls.Name = "tblControls";
             this.tblControls.RowCount = 2;
             this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -361,15 +370,17 @@ namespace Billing
             // totalToPayTxtBox
             // 
             this.totalToPayTxtBox.Enabled = false;
-            this.totalToPayTxtBox.Location = new System.Drawing.Point(44, 508);
+            this.totalToPayTxtBox.Location = new System.Drawing.Point(44, 528);
             this.totalToPayTxtBox.Name = "totalToPayTxtBox";
+            this.totalToPayTxtBox.ReadOnly = true;
             this.totalToPayTxtBox.Size = new System.Drawing.Size(296, 20);
             this.totalToPayTxtBox.TabIndex = 107;
+            this.totalToPayTxtBox.Text = "0";
             // 
             // billAmountlbl
             // 
             this.billAmountlbl.AutoSize = true;
-            this.billAmountlbl.Location = new System.Drawing.Point(467, 511);
+            this.billAmountlbl.Location = new System.Drawing.Point(467, 531);
             this.billAmountlbl.Name = "billAmountlbl";
             this.billAmountlbl.Size = new System.Drawing.Size(76, 13);
             this.billAmountlbl.TabIndex = 108;
@@ -377,7 +388,7 @@ namespace Billing
             // 
             // CheckTotalAmount
             // 
-            this.CheckTotalAmount.Location = new System.Drawing.Point(378, 506);
+            this.CheckTotalAmount.Location = new System.Drawing.Point(378, 526);
             this.CheckTotalAmount.Name = "CheckTotalAmount";
             this.CheckTotalAmount.Size = new System.Drawing.Size(83, 23);
             this.CheckTotalAmount.TabIndex = 109;
@@ -385,11 +396,67 @@ namespace Billing
             this.CheckTotalAmount.UseVisualStyleBackColor = true;
             this.CheckTotalAmount.Click += new System.EventHandler(this.CheckTotalAmount_Click);
             // 
+            // hebDateTxtBox
+            // 
+            this.hebDateTxtBox.Location = new System.Drawing.Point(44, 86);
+            this.hebDateTxtBox.Name = "hebDateTxtBox";
+            this.hebDateTxtBox.ReadOnly = true;
+            this.hebDateTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.hebDateTxtBox.TabIndex = 110;
+            // 
+            // hebDateLbl
+            // 
+            this.hebDateLbl.AutoSize = true;
+            this.hebDateLbl.Location = new System.Drawing.Point(475, 89);
+            this.hebDateLbl.Name = "hebDateLbl";
+            this.hebDateLbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.hebDateLbl.Size = new System.Drawing.Size(68, 13);
+            this.hebDateLbl.TabIndex = 111;
+            this.hebDateLbl.Text = "תאריך עברי";
+            // 
+            // totalBillsIncludingTxtBox
+            // 
+            this.totalBillsIncludingTxtBox.Location = new System.Drawing.Point(44, 243);
+            this.totalBillsIncludingTxtBox.Name = "totalBillsIncludingTxtBox";
+            this.totalBillsIncludingTxtBox.Size = new System.Drawing.Size(245, 20);
+            this.totalBillsIncludingTxtBox.TabIndex = 113;
+            // 
+            // totalBillsIncludingLbl
+            // 
+            this.totalBillsIncludingLbl.AutoSize = true;
+            this.totalBillsIncludingLbl.Location = new System.Drawing.Point(324, 246);
+            this.totalBillsIncludingLbl.Name = "totalBillsIncludingLbl";
+            this.totalBillsIncludingLbl.Size = new System.Drawing.Size(216, 13);
+            this.totalBillsIncludingLbl.TabIndex = 112;
+            this.totalBillsIncludingLbl.Text = "סכום החשבונות החלקיים כולל חשבון זה";
+            // 
+            // contractused
+            // 
+            this.contractused.Location = new System.Drawing.Point(44, 322);
+            this.contractused.Name = "contractused";
+            this.contractused.Size = new System.Drawing.Size(296, 20);
+            this.contractused.TabIndex = 115;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(400, 325);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(143, 13);
+            this.label6.TabIndex = 114;
+            this.label6.Text = "ניצול חוזה כולל חשבון זה";
+            // 
             // BillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 611);
+            this.ClientSize = new System.Drawing.Size(555, 690);
+            this.Controls.Add(this.contractused);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.totalBillsIncludingTxtBox);
+            this.Controls.Add(this.totalBillsIncludingLbl);
+            this.Controls.Add(this.hebDateTxtBox);
+            this.Controls.Add(this.hebDateLbl);
             this.Controls.Add(this.CheckTotalAmount);
             this.Controls.Add(this.totalToPayTxtBox);
             this.Controls.Add(this.billAmountlbl);
@@ -402,7 +469,7 @@ namespace Billing
             this.Controls.Add(this.contractParttxtBox);
             this.Controls.Add(this.billDateBox);
             this.Controls.Add(this.billDatelbl);
-            this.Controls.Add(this.totalBills);
+            this.Controls.Add(this.totalBillsLbl);
             this.Controls.Add(this.errorsLabel);
             this.Controls.Add(this.totalWithMaamTextBox);
             this.Controls.Add(this.label5);
@@ -452,7 +519,7 @@ namespace Billing
         private System.Windows.Forms.TextBox totalWithMaamTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label errorsLabel;
-        private System.Windows.Forms.Label totalBills;
+        private System.Windows.Forms.Label totalBillsLbl;
         private System.Windows.Forms.Label billDatelbl;
         private System.Windows.Forms.DateTimePicker billDateBox;
         private Label contractPartlbl;
@@ -465,5 +532,11 @@ namespace Billing
         private TextBox totalToPayTxtBox;
         private Label billAmountlbl;
         private Button CheckTotalAmount;
+        private TextBox hebDateTxtBox;
+        private Label hebDateLbl;
+        private TextBox totalBillsIncludingTxtBox;
+        private Label totalBillsIncludingLbl;
+        private TextBox contractused;
+        private Label label6;
     }
 }
