@@ -46,11 +46,9 @@
             this.startDatelbl = new System.Windows.Forms.Label();
             this.projectNameComboBox = new System.Windows.Forms.ComboBox();
             this.endDatelbl = new System.Windows.Forms.Label();
-            this.valueCalculationlbl = new System.Windows.Forms.Label();
             this.signingDatePicker = new System.Windows.Forms.DateTimePicker();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.valueCalculationtxtBox = new System.Windows.Forms.TextBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.contractTypeComboBox = new System.Windows.Forms.ComboBox();
             this.contractTypelbl = new System.Windows.Forms.Label();
@@ -220,15 +218,6 @@
             this.endDatelbl.TabIndex = 60;
             this.endDatelbl.Text = "מועד סיום חוזה";
             // 
-            // valueCalculationlbl
-            // 
-            this.valueCalculationlbl.AutoSize = true;
-            this.valueCalculationlbl.Location = new System.Drawing.Point(393, 304);
-            this.valueCalculationlbl.Name = "valueCalculationlbl";
-            this.valueCalculationlbl.Size = new System.Drawing.Size(78, 13);
-            this.valueCalculationlbl.TabIndex = 61;
-            this.valueCalculationlbl.Text = "נגזרת התמורה";
-            // 
             // signingDatePicker
             // 
             this.signingDatePicker.Location = new System.Drawing.Point(12, 196);
@@ -250,13 +239,6 @@
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(296, 20);
             this.endDatePicker.TabIndex = 9;
-            // 
-            // valueCalculationtxtBox
-            // 
-            this.valueCalculationtxtBox.Location = new System.Drawing.Point(12, 301);
-            this.valueCalculationtxtBox.Name = "valueCalculationtxtBox";
-            this.valueCalculationtxtBox.Size = new System.Drawing.Size(296, 20);
-            this.valueCalculationtxtBox.TabIndex = 11;
             // 
             // cancelBtn
             // 
@@ -304,15 +286,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(389, 330);
+            this.label1.Location = new System.Drawing.Point(389, 306);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 76;
             this.label1.Text = "חישוב התמורה";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // addValue
             // 
-            this.addValue.Location = new System.Drawing.Point(361, 325);
+            this.addValue.Location = new System.Drawing.Point(361, 301);
             this.addValue.Name = "addValue";
             this.addValue.Size = new System.Drawing.Size(25, 25);
             this.addValue.TabIndex = 77;
@@ -323,12 +306,13 @@
             // valueListBox
             // 
             this.valueListBox.FormattingEnabled = true;
-            this.valueListBox.Location = new System.Drawing.Point(12, 325);
+            this.valueListBox.Location = new System.Drawing.Point(12, 301);
             this.valueListBox.Name = "valueListBox";
             this.valueListBox.Size = new System.Drawing.Size(296, 69);
             this.valueListBox.Sorted = true;
             this.valueListBox.TabIndex = 78;
             this.valueListBox.Visible = false;
+            this.valueListBox.SelectedIndexChanged += new System.EventHandler(this.valueListBox_SelectedIndexChanged);
             // 
             // ContractForm
             // 
@@ -343,11 +327,9 @@
             this.Controls.Add(this.contractTypelbl);
             this.Controls.Add(this.contractTypeComboBox);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.valueCalculationtxtBox);
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
             this.Controls.Add(this.signingDatePicker);
-            this.Controls.Add(this.valueCalculationlbl);
             this.Controls.Add(this.endDatelbl);
             this.Controls.Add(this.projectNameComboBox);
             this.Controls.Add(this.startDatelbl);
@@ -369,6 +351,7 @@
             this.Name = "ContractForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Text = "חוזה";
+            this.Load += new System.EventHandler(this.ContractForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -394,11 +377,9 @@
         private System.Windows.Forms.Label startDatelbl;
         private System.Windows.Forms.ComboBox projectNameComboBox;
         private System.Windows.Forms.Label endDatelbl;
-        private System.Windows.Forms.Label valueCalculationlbl;
         private System.Windows.Forms.DateTimePicker signingDatePicker;
         private System.Windows.Forms.DateTimePicker startDatePicker;
         private System.Windows.Forms.DateTimePicker endDatePicker;
-        private System.Windows.Forms.TextBox valueCalculationtxtBox;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ComboBox contractTypeComboBox;
         private System.Windows.Forms.Label contractTypelbl;
