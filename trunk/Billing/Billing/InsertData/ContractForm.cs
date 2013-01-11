@@ -53,7 +53,6 @@ namespace Billing
         {
             clientContractCodetxtBox.Clear();
             valueTxtBox.Clear();         
-            valueCalculationtxtBox.Clear();
             valueWithMaamTxtBox.Clear();
         }
 
@@ -82,7 +81,10 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
+                    if (CheckAndSave())
+                    {
+                        Close();
+                    }
                 }
                 else
                 {
@@ -108,12 +110,14 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    this.Hide();
-                    this.Close();
-                    Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
-                    f.ShowDialog();
-                }
+                    if (CheckAndSave())
+                    {
+                        this.Hide();
+                        this.Close();
+                        Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                        f.ShowDialog();
+                    }
+                        }
                 else
                 {
                     MessageBox.Show("מלא את כל השדות בבקשה");
@@ -131,15 +135,14 @@ namespace Billing
                 || (string.IsNullOrEmpty(projectCodeTxtBox.Text)) || (string.IsNullOrEmpty(yarivContractCodeTxtBox.Text))
                 || (string.IsNullOrEmpty(clientContractCodetxtBox.Text)) || (string.IsNullOrEmpty(valueTxtBox.Text))
                 || (string.IsNullOrEmpty(signingDatePicker.Text)) || (string.IsNullOrEmpty(startDatePicker.Text))
-                || (string.IsNullOrEmpty(endDatePicker.Text)) || (string.IsNullOrEmpty(contractTypeComboBox.Text))
-                || (string.IsNullOrEmpty(valueCalculationtxtBox.Text)))
+                || (string.IsNullOrEmpty(endDatePicker.Text)) || (string.IsNullOrEmpty(contractTypeComboBox.Text)))
             {
                 return false;
             }
             return true;
         }
 
-        private void CheckAndSave()
+        private bool CheckAndSave()
         {
             if (!(startDatePicker.Value > endDatePicker.Value))
             {
@@ -148,18 +151,19 @@ namespace Billing
                 {
                     if (ExcelHelper.Instance.shouldSave(string.Format("קוד חוזה {0} או", clientContractCodetxtBox.Text) + " או חוזה {0}", yarivContractCodeTxtBox.Text))
                     {
-                        SaveData();
+                        return SaveData();
                     }
                 }
                 else
                 {
-                    SaveData();
+                    return SaveData();
                 }
             }
             else
             {
-                MessageBox.Show("תאריך התחלה קטן מתאריך סיום, אנא וודא תאריכים תקפים");
+                MessageBox.Show("תאריך התחלה קטן מתאריך סיום, אנא וודא תאריכים תקפים");               
             }
+            return false;
         }
 
         private bool IsDataExist()
@@ -170,7 +174,7 @@ namespace Billing
                 (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ExcelHelper.Instance.Contracts)));
         }
 
-        private void SaveData()
+        private bool SaveData()
         {
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
@@ -183,15 +187,16 @@ namespace Billing
                 row[ColumnNames.CONTRACT_SIGNING_DATE] = signingDatePicker.Text;
                 row[ColumnNames.CONTRACT_START_DATE] = startDatePicker.Text;
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
-                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
-                row[ColumnNames.VALUE_CALCULATION] = valueCalculationtxtBox.Text;
+                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);                
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
+                return true;
             }
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                return false;
             }
         }
 
@@ -223,13 +228,28 @@ namespace Billing
                 if (result == DialogResult.OK)
                 {
                    valueListBox.Items.Add(form.valueType);
-                   valueTypes = valueTypes + ";" + form.valueIndex;
+                   valueTypes = valueTypes + form.valueIndex + ";";
                    valueListBox.Visible = true;
                 }
             }
             
             
                
+        }
+
+        private void ContractForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void valueListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
 
         

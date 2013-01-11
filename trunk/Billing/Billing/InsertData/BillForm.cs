@@ -36,8 +36,7 @@ namespace Billing
                                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
                                                                         ColumnNames.CONTRACT_CODE_YARIV);
-            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
-            valueComboBox.DataSource = GetAllowedValues();
+            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);            
             valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
             valueComboBox.Text = ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
             billStatusComboBox.DataSource = ExcelHelper.Instance.StatusTypes.Columns[ColumnNames.STATUS_CODE].Table;
@@ -103,8 +102,10 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    Close();
+                    if (CheckAndSave())
+                    {
+                        Close();
+                    }
                 }
                 else
                 {
@@ -129,26 +130,29 @@ namespace Billing
             if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(contractCodeComboBox.Text))
                 || (string.IsNullOrEmpty(billNumberTxtBox.Text)) || (string.IsNullOrEmpty(billSequenceInContractTxtBox.Text))
                 || (string.IsNullOrEmpty(valueComboBox.Text)) || (string.IsNullOrEmpty(totalToPayTxtBox.Text)) || (string.IsNullOrEmpty(maamTxtBox.Text))
-                || (string.IsNullOrEmpty(totalWithMaamTextBox.Text)) || (string.IsNullOrEmpty(billStatusComboBox.Text)))
+                || (string.IsNullOrEmpty(totalWithMaamTextBox.Text)) || (string.IsNullOrEmpty(billStatusComboBox.Text)) || (string.IsNullOrEmpty(hebDateTxtBox.Text)))
             {
                 return false;
             }
             return true;
         }
 
-        private void CheckAndSave()
+        private bool CheckAndSave()
         {
             if (IsDataExist())
             {
                 if (ExcelHelper.Instance.shouldSave("חשבון חלקי {0} או חשבון עבור חודש זה", billSequenceInContractTxtBox.Text))
                 {
                     SaveData();
+                    return true;
                 }
             }
             else
             {
                 SaveData();
+                return true;
             }
+            return false;
         }
 
         private bool IsDataExist()
@@ -218,7 +222,7 @@ namespace Billing
             errorsLabel.Visible = false;
             contractParttxtBox.Clear();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
         }
 
         private void contractCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -229,7 +233,8 @@ namespace Billing
             totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
+            valueComboBox.DataSource = GetAllowedValues();
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -515,6 +520,8 @@ namespace Billing
             totalToPayTxtBox.Text = totalAmount.ToString();
             totalWithMaamTextBox.Text = (totalAmount * (1+Constants.Instance.MAAM)).ToString();
             totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
         }
 
         private void billDateBox_ValueChanged(object sender, EventArgs e)

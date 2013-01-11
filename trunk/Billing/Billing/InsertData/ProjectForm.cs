@@ -50,8 +50,10 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    Close();
+                    if (CheckAndSave())
+                    {
+                        Close();
+                    }
                 }
                 else
                 {
@@ -115,11 +117,13 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    this.Hide();
-                    this.Close();
-                    Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
-                    f.ShowDialog();
+                    if (CheckAndSave())
+                    {
+                        this.Hide();
+                        this.Close();
+                        Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
+                        f.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -144,7 +148,7 @@ namespace Billing
             return true;
         }
 
-        private void CheckAndSave()
+        private bool CheckAndSave()
         {
             if (IsDataExist())
             {
@@ -152,12 +156,15 @@ namespace Billing
                 if (ExcelHelper.Instance.shouldSave(string.Format("קוד פרוייקט {0} או", projectCodetxtBox.Text) + " או פרוייקט {0}", projectNametxtBox.Text))
                 {
                     SaveData();
+                    return true;
                 }
             }
             else
             {
                 SaveData();
+                return true;
             }
+            return false;
         }
     }
 }

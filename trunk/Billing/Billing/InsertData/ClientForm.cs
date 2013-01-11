@@ -36,8 +36,10 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    Close();
+                    if (CheckAndSave())
+                    {                        
+                        Close();
+                    }
                 }
                 else
                 {
@@ -50,19 +52,22 @@ namespace Billing
             }
         }
 
-        private void CheckAndSave()
+        private bool CheckAndSave()
         {
             if (IsDataExist())
             {
                 if (ExcelHelper.Instance.shouldSave("לקוח {0}", clientNameTxtBox.Text))
                 {
                     SaveData();
+                    return true;
                 }
             }
             else
             {
                 SaveData();
+                return true;
             }
+            return false;
         }
                       
     
@@ -88,11 +93,13 @@ namespace Billing
             {
                 if (CheckAllFieldsAreFilled())
                 {
-                    CheckAndSave();
-                    this.Hide();
-                    this.Close();
-                    Form f = new ProjectForm(clientNameTxtBox.Text);
-                    f.ShowDialog();
+                    if (CheckAndSave())
+                    {
+                        this.Hide();
+                        this.Close();
+                        Form f = new ProjectForm(clientNameTxtBox.Text);
+                        f.ShowDialog();
+                    }
                 }
                 else
                 {

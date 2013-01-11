@@ -73,6 +73,7 @@
             this.Controls.Add(this.valuelbl);
             this.Name = "AddValueForm";
             this.RightToLeftLayout = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddValue";
             this.ResumeLayout(false);
             this.PerformLayout();

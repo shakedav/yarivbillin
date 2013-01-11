@@ -464,7 +464,10 @@ namespace Billing
             List<int> list = new List<int>();
             foreach (string s in valuesString.Split(';'))
             {
-                list.Add(Int32.Parse(s));
+                if (!string.IsNullOrEmpty(s))
+                {
+                    list.Add(Int32.Parse(s));
+                }
             }
 
             return list;
