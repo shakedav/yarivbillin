@@ -35,11 +35,20 @@ namespace Billing
                 return instance;
             }
         }
-
+        
         LogWriter()
         {
-            logger = LogManager.GetCurrentClassLogger(); 
-            logger.lo
+            logger = LogManager.GetCurrentClassLogger();
+        }
+
+        public void Trace(string message)
+        {            
+            logger.Trace(message);
+        }
+
+        public void Error(string message, Exception ex)
+        {            
+            logger.ErrorException(message,ex);
         }
     }
 }

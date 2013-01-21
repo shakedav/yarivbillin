@@ -202,6 +202,9 @@
     <None Include="App.config" />
     <None Include="Billing_TemporaryKey.pfx" />
     <None Include="DataBase - Empty.xls" />
+    <None Include="Nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

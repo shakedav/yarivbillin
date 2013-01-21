@@ -1,0 +1,21 @@
+2013-01-21 21:46:04.3010|TRACE|Billing.LogWriter|App Started
+2013-01-21 21:46:04.3170|ERROR|Billing.LogWriter|ERROR: 
+2013-01-21 21:46:15.9817|ERROR|Billing.LogWriter|ERROR: 
+2013-01-21 21:46:21.8420|TRACE|Billing.LogWriter|Client Saved
+2013-01-21 21:47:32.2921|TRACE|Billing.LogWriter|App Started
+2013-01-21 21:47:41.0106|ERROR|Billing.LogWriter|
+2013-01-21 21:47:41.0106|TRACE|Billing.LogWriter|Client Saved
+2013-01-21 21:48:05.7760|ERROR|Billing.LogWriter|
+2013-01-21 21:48:58.0150|TRACE|Billing.LogWriter|App Started
+2013-01-21 21:49:09.3486|ERROR|Billing.LogWriter|error when saving client info
+2013-01-21 21:49:09.3486|TRACE|Billing.LogWriter|Client Saved
+2013-01-21 21:49:50.3740|ERROR|Billing.LogWriter|error when saving client info
+2013-01-21 21:49:50.3740|TRACE|Billing.LogWriter|Client Saved
+2013-01-21 21:51:09.5035 App Started 
+2013-01-21 21:51:26.0664 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 137
+   at Billing.ClientForm.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 133
+   at Billing.ClientForm.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 69
+   at Billing.ClientForm.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 39
+2013-01-21 21:51:26.0664 Client Saved 

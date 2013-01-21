@@ -15,7 +15,8 @@ namespace Billing
     {
         public Main()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            LogWriter.Instance.Trace("App Started");
         }
 
         private void btnAddClient_Click(object sender, EventArgs e)
