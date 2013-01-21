@@ -35,3 +35,4 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Ge
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.exe.manifest
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.application
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.AddValueForm.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Nlog.config
