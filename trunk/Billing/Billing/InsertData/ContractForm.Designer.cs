@@ -291,7 +291,6 @@
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 76;
             this.label1.Text = "חישוב התמורה";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // addValue
             // 
@@ -312,7 +311,6 @@
             this.valueListBox.Sorted = true;
             this.valueListBox.TabIndex = 78;
             this.valueListBox.Visible = false;
-            this.valueListBox.SelectedIndexChanged += new System.EventHandler(this.valueListBox_SelectedIndexChanged);
             // 
             // ContractForm
             // 
@@ -351,7 +349,6 @@
             this.Name = "ContractForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Text = "חוזה";
-            this.Load += new System.EventHandler(this.ContractForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
