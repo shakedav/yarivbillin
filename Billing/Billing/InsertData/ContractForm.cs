@@ -94,7 +94,9 @@ namespace Billing
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                LogWriter.Instance.Error("error when saving contract info", ex);
             }
+            LogWriter.Instance.Trace("Contract Saved");
         }
 
         private void ShowErrorMessage(Exception ex)
@@ -126,7 +128,9 @@ namespace Billing
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                LogWriter.Instance.Error("error when saving client info", ex);
             }
+            LogWriter.Instance.Trace("Client Saved");
         }
 
         private bool CheckAllFieldsAreFilled()
@@ -231,28 +235,8 @@ namespace Billing
                    valueTypes = valueTypes + form.valueIndex + ";";
                    valueListBox.Visible = true;
                 }
-            }
-            
-            
-               
-        }
-
-        private void ContractForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void valueListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
+            }  
+        }        
     }
 }
 

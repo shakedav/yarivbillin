@@ -115,7 +115,9 @@ namespace Billing
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                LogWriter.Instance.Error("error when saving Bill info", ex);
             }
+            LogWriter.Instance.Trace("Bill Saved");
         }
 
         private void ShowErrorMessage(Exception ex)

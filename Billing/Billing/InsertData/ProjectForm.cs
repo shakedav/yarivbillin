@@ -63,7 +63,9 @@ namespace Billing
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                LogWriter.Instance.Error("error when saving Project info", ex);
             }
+            LogWriter.Instance.Trace("Project Saved");
         }
 
         private bool IsDataExist()
@@ -133,7 +135,9 @@ namespace Billing
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
+                LogWriter.Instance.Error("error when saving Project info", ex);
             }
+            LogWriter.Instance.Trace("Project Saved");
         }
 
         private bool CheckAllFieldsAreFilled()
