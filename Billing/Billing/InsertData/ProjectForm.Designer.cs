@@ -57,7 +57,7 @@
             // projectCodeLbl
             // 
             this.projectCodeLbl.AutoSize = true;
-            this.projectCodeLbl.Location = new System.Drawing.Point(484, 41);
+            this.projectCodeLbl.Location = new System.Drawing.Point(448, 41);
             this.projectCodeLbl.Name = "projectCodeLbl";
             this.projectCodeLbl.Size = new System.Drawing.Size(71, 13);
             this.projectCodeLbl.TabIndex = 23;
@@ -66,7 +66,7 @@
             // projectNameLbl
             // 
             this.projectNameLbl.AutoSize = true;
-            this.projectNameLbl.Location = new System.Drawing.Point(480, 67);
+            this.projectNameLbl.Location = new System.Drawing.Point(444, 67);
             this.projectNameLbl.Name = "projectNameLbl";
             this.projectNameLbl.Size = new System.Drawing.Size(75, 13);
             this.projectNameLbl.TabIndex = 25;
@@ -74,15 +74,15 @@
             // 
             // projectCodeInviterTxtBox
             // 
-            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(88, 195);
+            this.projectCodeInviterTxtBox.Location = new System.Drawing.Point(52, 195);
             this.projectCodeInviterTxtBox.Name = "projectCodeInviterTxtBox";
-            this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.projectCodeInviterTxtBox.Size = new System.Drawing.Size(294, 20);
             this.projectCodeInviterTxtBox.TabIndex = 8;
             // 
             // projectCodeInviterLbl
             // 
             this.projectCodeInviterLbl.AutoSize = true;
-            this.projectCodeInviterLbl.Location = new System.Drawing.Point(419, 198);
+            this.projectCodeInviterLbl.Location = new System.Drawing.Point(383, 198);
             this.projectCodeInviterLbl.Name = "projectCodeInviterLbl";
             this.projectCodeInviterLbl.Size = new System.Drawing.Size(135, 13);
             this.projectCodeInviterLbl.TabIndex = 31;
@@ -90,15 +90,15 @@
             // 
             // projectNameInviterTxtBox
             // 
-            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(89, 221);
+            this.projectNameInviterTxtBox.Location = new System.Drawing.Point(53, 221);
             this.projectNameInviterTxtBox.Name = "projectNameInviterTxtBox";
-            this.projectNameInviterTxtBox.Size = new System.Drawing.Size(296, 20);
+            this.projectNameInviterTxtBox.Size = new System.Drawing.Size(294, 20);
             this.projectNameInviterTxtBox.TabIndex = 9;
             // 
             // projectNameInviterLbl
             // 
             this.projectNameInviterLbl.AutoSize = true;
-            this.projectNameInviterLbl.Location = new System.Drawing.Point(422, 224);
+            this.projectNameInviterLbl.Location = new System.Drawing.Point(386, 224);
             this.projectNameInviterLbl.Name = "projectNameInviterLbl";
             this.projectNameInviterLbl.Size = new System.Drawing.Size(132, 13);
             this.projectNameInviterLbl.TabIndex = 29;
@@ -106,15 +106,15 @@
             // 
             // contactManTxtBox
             // 
-            this.contactManTxtBox.Location = new System.Drawing.Point(87, 91);
+            this.contactManTxtBox.Location = new System.Drawing.Point(51, 91);
             this.contactManTxtBox.Name = "contactManTxtBox";
-            this.contactManTxtBox.Size = new System.Drawing.Size(297, 20);
+            this.contactManTxtBox.Size = new System.Drawing.Size(294, 20);
             this.contactManTxtBox.TabIndex = 4;
             // 
             // contactManLbl
             // 
             this.contactManLbl.AutoSize = true;
-            this.contactManLbl.Location = new System.Drawing.Point(449, 94);
+            this.contactManLbl.Location = new System.Drawing.Point(413, 94);
             this.contactManLbl.Name = "contactManLbl";
             this.contactManLbl.Size = new System.Drawing.Size(106, 13);
             this.contactManLbl.TabIndex = 27;
@@ -122,29 +122,29 @@
             // 
             // projectCodetxtBox
             // 
-            this.projectCodetxtBox.Location = new System.Drawing.Point(88, 38);
+            this.projectCodetxtBox.Location = new System.Drawing.Point(52, 38);
             this.projectCodetxtBox.Name = "projectCodetxtBox";
-            this.projectCodetxtBox.Size = new System.Drawing.Size(296, 20);
+            this.projectCodetxtBox.Size = new System.Drawing.Size(294, 20);
             this.projectCodetxtBox.TabIndex = 2;
             // 
             // projectNametxtBox
             // 
-            this.projectNametxtBox.Location = new System.Drawing.Point(89, 64);
+            this.projectNametxtBox.Location = new System.Drawing.Point(53, 64);
             this.projectNametxtBox.Name = "projectNametxtBox";
-            this.projectNametxtBox.Size = new System.Drawing.Size(297, 20);
+            this.projectNametxtBox.Size = new System.Drawing.Size(294, 20);
             this.projectNametxtBox.TabIndex = 3;
             // 
             // projectDescriptiontxtBox
             // 
-            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(88, 247);
+            this.projectDescriptiontxtBox.Location = new System.Drawing.Point(52, 247);
             this.projectDescriptiontxtBox.Name = "projectDescriptiontxtBox";
-            this.projectDescriptiontxtBox.Size = new System.Drawing.Size(296, 20);
+            this.projectDescriptiontxtBox.Size = new System.Drawing.Size(294, 20);
             this.projectDescriptiontxtBox.TabIndex = 10;
             // 
             // projectDescriptionlbl
             // 
             this.projectDescriptionlbl.AutoSize = true;
-            this.projectDescriptionlbl.Location = new System.Drawing.Point(464, 247);
+            this.projectDescriptionlbl.Location = new System.Drawing.Point(428, 247);
             this.projectDescriptionlbl.Name = "projectDescriptionlbl";
             this.projectDescriptionlbl.Size = new System.Drawing.Size(90, 13);
             this.projectDescriptionlbl.TabIndex = 33;
@@ -152,9 +152,9 @@
             // 
             // btnSaveAddContract
             // 
-            this.btnSaveAddContract.Location = new System.Drawing.Point(198, 305);
+            this.btnSaveAddContract.Location = new System.Drawing.Point(171, 300);
             this.btnSaveAddContract.Name = "btnSaveAddContract";
-            this.btnSaveAddContract.Size = new System.Drawing.Size(146, 23);
+            this.btnSaveAddContract.Size = new System.Drawing.Size(294, 21);
             this.btnSaveAddContract.TabIndex = 21;
             this.btnSaveAddContract.Text = "שמור והוסף חוזה";
             this.btnSaveAddContract.UseVisualStyleBackColor = true;
@@ -162,9 +162,9 @@
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(117, 305);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(171, 327);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
-            this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClearFieldsBtn.Size = new System.Drawing.Size(294, 21);
             this.ClearFieldsBtn.TabIndex = 22;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
@@ -172,9 +172,9 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(350, 305);
+            this.saveBtn.Location = new System.Drawing.Point(171, 273);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.Size = new System.Drawing.Size(294, 21);
             this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -183,7 +183,7 @@
             // clientNamelbl
             // 
             this.clientNamelbl.AutoSize = true;
-            this.clientNamelbl.Location = new System.Drawing.Point(496, 15);
+            this.clientNamelbl.Location = new System.Drawing.Point(460, 15);
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(59, 13);
             this.clientNamelbl.TabIndex = 38;
@@ -192,7 +192,7 @@
             // clientNameComboBox
             // 
             this.clientNameComboBox.FormattingEnabled = true;
-            this.clientNameComboBox.Location = new System.Drawing.Point(90, 12);
+            this.clientNameComboBox.Location = new System.Drawing.Point(54, 12);
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(294, 21);
             this.clientNameComboBox.TabIndex = 1;
@@ -200,9 +200,9 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(36, 305);
+            this.cancelBtn.Location = new System.Drawing.Point(171, 354);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.Size = new System.Drawing.Size(294, 21);
             this.cancelBtn.TabIndex = 23;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -210,15 +210,15 @@
             // 
             // contactManDescTxt
             // 
-            this.contactManDescTxt.Location = new System.Drawing.Point(87, 117);
+            this.contactManDescTxt.Location = new System.Drawing.Point(51, 117);
             this.contactManDescTxt.Name = "contactManDescTxt";
-            this.contactManDescTxt.Size = new System.Drawing.Size(297, 20);
+            this.contactManDescTxt.Size = new System.Drawing.Size(294, 20);
             this.contactManDescTxt.TabIndex = 5;
             // 
             // contactManDescLbl
             // 
             this.contactManDescLbl.AutoSize = true;
-            this.contactManDescLbl.Location = new System.Drawing.Point(415, 117);
+            this.contactManDescLbl.Location = new System.Drawing.Point(379, 117);
             this.contactManDescLbl.Name = "contactManDescLbl";
             this.contactManDescLbl.Size = new System.Drawing.Size(140, 13);
             this.contactManDescLbl.TabIndex = 40;
@@ -226,15 +226,15 @@
             // 
             // contactManPhoneTxtBox
             // 
-            this.contactManPhoneTxtBox.Location = new System.Drawing.Point(87, 143);
+            this.contactManPhoneTxtBox.Location = new System.Drawing.Point(51, 143);
             this.contactManPhoneTxtBox.Name = "contactManPhoneTxtBox";
-            this.contactManPhoneTxtBox.Size = new System.Drawing.Size(297, 20);
+            this.contactManPhoneTxtBox.Size = new System.Drawing.Size(294, 20);
             this.contactManPhoneTxtBox.TabIndex = 6;
             // 
             // contactManPhonelbl
             // 
             this.contactManPhonelbl.AutoSize = true;
-            this.contactManPhonelbl.Location = new System.Drawing.Point(415, 146);
+            this.contactManPhonelbl.Location = new System.Drawing.Point(379, 146);
             this.contactManPhonelbl.Name = "contactManPhonelbl";
             this.contactManPhonelbl.Size = new System.Drawing.Size(140, 13);
             this.contactManPhonelbl.TabIndex = 42;
@@ -242,15 +242,15 @@
             // 
             // contactManEmailTxtBox
             // 
-            this.contactManEmailTxtBox.Location = new System.Drawing.Point(87, 169);
+            this.contactManEmailTxtBox.Location = new System.Drawing.Point(51, 169);
             this.contactManEmailTxtBox.Name = "contactManEmailTxtBox";
-            this.contactManEmailTxtBox.Size = new System.Drawing.Size(297, 20);
+            this.contactManEmailTxtBox.Size = new System.Drawing.Size(294, 20);
             this.contactManEmailTxtBox.TabIndex = 7;
             // 
             // contactManEmaillbl
             // 
             this.contactManEmaillbl.AutoSize = true;
-            this.contactManEmaillbl.Location = new System.Drawing.Point(423, 172);
+            this.contactManEmaillbl.Location = new System.Drawing.Point(387, 172);
             this.contactManEmaillbl.Name = "contactManEmaillbl";
             this.contactManEmaillbl.Size = new System.Drawing.Size(133, 13);
             this.contactManEmaillbl.TabIndex = 44;
@@ -260,7 +260,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 345);
+            this.ClientSize = new System.Drawing.Size(555, 690);
             this.Controls.Add(this.contactManEmailTxtBox);
             this.Controls.Add(this.contactManEmaillbl);
             this.Controls.Add(this.contactManPhoneTxtBox);

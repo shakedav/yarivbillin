@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ClientsDataGrid = new System.Windows.Forms.DataGridView();
             this.clientNamelbl = new System.Windows.Forms.Label();
             this.clientNameTxtBox = new System.Windows.Forms.TextBox();
             this.ClientAddressTxtBox = new System.Windows.Forms.TextBox();
@@ -47,40 +45,12 @@
             this.clientCodeTxtBox = new System.Windows.Forms.TextBox();
             this.ClientCodelbl = new System.Windows.Forms.Label();
             this.addClientType = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.ClientsDataGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(13, 179);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(759, 10);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            // 
-            // ClientsDataGrid
-            // 
-            this.ClientsDataGrid.AllowUserToAddRows = false;
-            this.ClientsDataGrid.AllowUserToDeleteRows = false;
-            this.ClientsDataGrid.AllowUserToResizeColumns = false;
-            this.ClientsDataGrid.AllowUserToResizeRows = false;
-            this.ClientsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.ClientsDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.ClientsDataGrid.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.ClientsDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ClientsDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.ClientsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ClientsDataGrid.Location = new System.Drawing.Point(12, 198);
-            this.ClientsDataGrid.Name = "ClientsDataGrid";
-            this.ClientsDataGrid.ReadOnly = true;
-            this.ClientsDataGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ClientsDataGrid.Size = new System.Drawing.Size(760, 252);
-            this.ClientsDataGrid.TabIndex = 100;
             // 
             // clientNamelbl
             // 
             this.clientNamelbl.AutoSize = true;
-            this.clientNamelbl.Location = new System.Drawing.Point(278, 9);
+            this.clientNamelbl.Location = new System.Drawing.Point(12, 62);
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(52, 13);
             this.clientNamelbl.TabIndex = 2;
@@ -88,22 +58,22 @@
             // 
             // clientNameTxtBox
             // 
-            this.clientNameTxtBox.Location = new System.Drawing.Point(336, 6);
+            this.clientNameTxtBox.Location = new System.Drawing.Point(72, 59);
             this.clientNameTxtBox.Name = "clientNameTxtBox";
-            this.clientNameTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.clientNameTxtBox.Size = new System.Drawing.Size(177, 20);
             this.clientNameTxtBox.TabIndex = 3;
             // 
             // ClientAddressTxtBox
             // 
-            this.ClientAddressTxtBox.Location = new System.Drawing.Point(526, 6);
+            this.ClientAddressTxtBox.Location = new System.Drawing.Point(73, 111);
             this.ClientAddressTxtBox.Name = "ClientAddressTxtBox";
-            this.ClientAddressTxtBox.Size = new System.Drawing.Size(199, 20);
+            this.ClientAddressTxtBox.Size = new System.Drawing.Size(177, 20);
             this.ClientAddressTxtBox.TabIndex = 5;
             // 
             // clientAddressLbl
             // 
             this.clientAddressLbl.AutoSize = true;
-            this.clientAddressLbl.Location = new System.Drawing.Point(468, 9);
+            this.clientAddressLbl.Location = new System.Drawing.Point(12, 114);
             this.clientAddressLbl.Name = "clientAddressLbl";
             this.clientAddressLbl.Size = new System.Drawing.Size(40, 13);
             this.clientAddressLbl.TabIndex = 4;
@@ -111,15 +81,15 @@
             // 
             // phoneTxtBox
             // 
-            this.phoneTxtBox.Location = new System.Drawing.Point(336, 33);
+            this.phoneTxtBox.Location = new System.Drawing.Point(72, 85);
             this.phoneTxtBox.Name = "phoneTxtBox";
-            this.phoneTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.phoneTxtBox.Size = new System.Drawing.Size(177, 20);
             this.phoneTxtBox.TabIndex = 4;
             // 
             // phoneLbl
             // 
             this.phoneLbl.AutoSize = true;
-            this.phoneLbl.Location = new System.Drawing.Point(278, 36);
+            this.phoneLbl.Location = new System.Drawing.Point(12, 88);
             this.phoneLbl.Name = "phoneLbl";
             this.phoneLbl.Size = new System.Drawing.Size(38, 13);
             this.phoneLbl.TabIndex = 6;
@@ -127,16 +97,16 @@
             // 
             // emailTxtBox
             // 
-            this.emailTxtBox.Location = new System.Drawing.Point(526, 36);
+            this.emailTxtBox.Location = new System.Drawing.Point(72, 137);
             this.emailTxtBox.Name = "emailTxtBox";
             this.emailTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.emailTxtBox.Size = new System.Drawing.Size(199, 20);
+            this.emailTxtBox.Size = new System.Drawing.Size(177, 20);
             this.emailTxtBox.TabIndex = 6;
             // 
             // emailLbl
             // 
             this.emailLbl.AutoSize = true;
-            this.emailLbl.Location = new System.Drawing.Point(468, 39);
+            this.emailLbl.Location = new System.Drawing.Point(12, 140);
             this.emailLbl.Name = "emailLbl";
             this.emailLbl.Size = new System.Drawing.Size(44, 13);
             this.emailLbl.TabIndex = 8;
@@ -144,9 +114,9 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(15, 71);
+            this.saveBtn.Location = new System.Drawing.Point(15, 163);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.Size = new System.Drawing.Size(126, 23);
             this.saveBtn.TabIndex = 7;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -154,9 +124,9 @@
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(248, 71);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(15, 221);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
-            this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClearFieldsBtn.Size = new System.Drawing.Size(126, 23);
             this.ClearFieldsBtn.TabIndex = 9;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
@@ -164,9 +134,9 @@
             // 
             // btnSaveAndAddProj
             // 
-            this.btnSaveAndAddProj.Location = new System.Drawing.Point(96, 71);
+            this.btnSaveAndAddProj.Location = new System.Drawing.Point(15, 192);
             this.btnSaveAndAddProj.Name = "btnSaveAndAddProj";
-            this.btnSaveAndAddProj.Size = new System.Drawing.Size(146, 23);
+            this.btnSaveAndAddProj.Size = new System.Drawing.Size(126, 23);
             this.btnSaveAndAddProj.TabIndex = 8;
             this.btnSaveAndAddProj.Text = "שמור והוסף פרוייקט";
             this.btnSaveAndAddProj.UseVisualStyleBackColor = true;
@@ -174,9 +144,9 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(329, 71);
+            this.cancelBtn.Location = new System.Drawing.Point(15, 250);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.Size = new System.Drawing.Size(126, 23);
             this.cancelBtn.TabIndex = 10;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -194,16 +164,16 @@
             // ClientTypeComboBox
             // 
             this.ClientTypeComboBox.FormattingEnabled = true;
-            this.ClientTypeComboBox.Location = new System.Drawing.Point(72, 6);
+            this.ClientTypeComboBox.Location = new System.Drawing.Point(74, 6);
             this.ClientTypeComboBox.Name = "ClientTypeComboBox";
-            this.ClientTypeComboBox.Size = new System.Drawing.Size(175, 21);
+            this.ClientTypeComboBox.Size = new System.Drawing.Size(177, 21);
             this.ClientTypeComboBox.TabIndex = 1;
             this.ClientTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ClientTypeComboBox_SelectedIndexChanged);
             // 
             // clientCodeTxtBox
             // 
             this.clientCodeTxtBox.Enabled = false;
-            this.clientCodeTxtBox.Location = new System.Drawing.Point(70, 33);
+            this.clientCodeTxtBox.Location = new System.Drawing.Point(72, 33);
             this.clientCodeTxtBox.Name = "clientCodeTxtBox";
             this.clientCodeTxtBox.Size = new System.Drawing.Size(177, 20);
             this.clientCodeTxtBox.TabIndex = 2;
@@ -219,9 +189,9 @@
             // 
             // addClientType
             // 
-            this.addClientType.Location = new System.Drawing.Point(671, 71);
+            this.addClientType.Location = new System.Drawing.Point(15, 279);
             this.addClientType.Name = "addClientType";
-            this.addClientType.Size = new System.Drawing.Size(101, 23);
+            this.addClientType.Size = new System.Drawing.Size(126, 23);
             this.addClientType.TabIndex = 101;
             this.addClientType.Text = "הוסף סוג לקוח";
             this.addClientType.UseVisualStyleBackColor = true;
@@ -231,7 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 462);
+            this.ClientSize = new System.Drawing.Size(555, 690);
             this.Controls.Add(this.addClientType);
             this.Controls.Add(this.clientCodeTxtBox);
             this.Controls.Add(this.ClientCodelbl);
@@ -249,13 +219,10 @@
             this.Controls.Add(this.clientAddressLbl);
             this.Controls.Add(this.clientNameTxtBox);
             this.Controls.Add(this.clientNamelbl);
-            this.Controls.Add(this.ClientsDataGrid);
-            this.Controls.Add(this.groupBox1);
             this.Name = "ClientForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "לקוח";
-            ((System.ComponentModel.ISupportInitialize)(this.ClientsDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,8 +230,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView ClientsDataGrid;
         private System.Windows.Forms.Label clientNamelbl;
         private System.Windows.Forms.TextBox clientNameTxtBox;
         private System.Windows.Forms.TextBox ClientAddressTxtBox;

@@ -19,3 +19,6 @@
    at Billing.ClientForm.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 69
    at Billing.ClientForm.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 39
 2013-01-21 21:51:26.0664 Client Saved 
+2013-01-28 00:23:12.4065 App Started 
+2013-01-28 00:23:41.6152 App Started 
+2013-01-28 00:34:45.4514 App Started 

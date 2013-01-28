@@ -19,8 +19,7 @@ namespace Billing
             foreach (DataRow row in ExcelHelper.Instance.ClientTypes.Rows)
             {
                 clientTypeDic.Add(row[1].ToString(), row[0].ToString());
-            }
-            ClientsDataGrid.DataSource = ExcelHelper.Instance.Clients;
+            }           
 
             ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns[ColumnNames.CLIENT_CODE].Table;
             ClientTypeComboBox.DisplayMember = ColumnNames.CLIENT_TYPE;
