@@ -100,7 +100,7 @@ namespace Billing.DisplayData
             signingDateTxt.Text = contractDataList[ColumnNames.CONTRACT_SIGNING_DATE];
             startDateTxt.Text = contractDataList[ColumnNames.CONTRACT_START_DATE];
             endDateTxt.Text = contractDataList[ColumnNames.CONTRACT_END_DATE];
-            valueCalculationWaytxtBox.Text = contractDataList[ColumnNames.VALUE_CALCULATION_WAY];
+            //valueCalculationWaytxtBox.Text = contractDataList[ColumnNames.VALUE_CALCULATION_WAY];
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(YarivComboBox.Text);
         }
 

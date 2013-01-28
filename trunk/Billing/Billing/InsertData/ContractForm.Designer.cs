@@ -62,7 +62,7 @@
             // clientNameComboBox
             // 
             this.clientNameComboBox.FormattingEnabled = true;
-            this.clientNameComboBox.Location = new System.Drawing.Point(12, 12);
+            this.clientNameComboBox.Location = new System.Drawing.Point(82, 12);
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(296, 21);
             this.clientNameComboBox.TabIndex = 1;
@@ -72,7 +72,7 @@
             // clientNamelbl
             // 
             this.clientNamelbl.AutoSize = true;
-            this.clientNamelbl.Location = new System.Drawing.Point(412, 15);
+            this.clientNamelbl.Location = new System.Drawing.Point(484, 15);
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.Size = new System.Drawing.Size(59, 13);
             this.clientNamelbl.TabIndex = 55;
@@ -80,7 +80,7 @@
             // 
             // btnSaveAddBill
             // 
-            this.btnSaveAddBill.Location = new System.Drawing.Point(209, 398);
+            this.btnSaveAddBill.Location = new System.Drawing.Point(255, 404);
             this.btnSaveAddBill.Name = "btnSaveAddBill";
             this.btnSaveAddBill.Size = new System.Drawing.Size(146, 23);
             this.btnSaveAddBill.TabIndex = 15;
@@ -90,7 +90,7 @@
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(128, 398);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(174, 404);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearFieldsBtn.TabIndex = 16;
@@ -100,7 +100,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(361, 398);
+            this.saveBtn.Location = new System.Drawing.Point(407, 404);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 14;
@@ -111,7 +111,7 @@
             // signingDatelbl
             // 
             this.signingDatelbl.AutoSize = true;
-            this.signingDatelbl.Location = new System.Drawing.Point(361, 202);
+            this.signingDatelbl.Location = new System.Drawing.Point(433, 203);
             this.signingDatelbl.Name = "signingDatelbl";
             this.signingDatelbl.Size = new System.Drawing.Size(110, 13);
             this.signingDatelbl.TabIndex = 51;
@@ -119,14 +119,14 @@
             // 
             // projectCodeTxtBox
             // 
-            this.projectCodeTxtBox.Location = new System.Drawing.Point(12, 65);
+            this.projectCodeTxtBox.Location = new System.Drawing.Point(82, 66);
             this.projectCodeTxtBox.Name = "projectCodeTxtBox";
             this.projectCodeTxtBox.Size = new System.Drawing.Size(296, 20);
             this.projectCodeTxtBox.TabIndex = 3;
             // 
             // clientContractCodetxtBox
             // 
-            this.clientContractCodetxtBox.Location = new System.Drawing.Point(12, 118);
+            this.clientContractCodetxtBox.Location = new System.Drawing.Point(82, 118);
             this.clientContractCodetxtBox.Name = "clientContractCodetxtBox";
             this.clientContractCodetxtBox.Size = new System.Drawing.Size(296, 20);
             this.clientContractCodetxtBox.TabIndex = 5;
@@ -134,7 +134,7 @@
             // clientContractCodelbl
             // 
             this.clientContractCodelbl.AutoSize = true;
-            this.clientContractCodelbl.Location = new System.Drawing.Point(376, 121);
+            this.clientContractCodelbl.Location = new System.Drawing.Point(448, 121);
             this.clientContractCodelbl.Name = "clientContractCodelbl";
             this.clientContractCodelbl.Size = new System.Drawing.Size(95, 13);
             this.clientContractCodelbl.TabIndex = 50;
@@ -142,7 +142,7 @@
             // 
             // valueTxtBox
             // 
-            this.valueTxtBox.Location = new System.Drawing.Point(12, 144);
+            this.valueTxtBox.Location = new System.Drawing.Point(82, 144);
             this.valueTxtBox.Name = "valueTxtBox";
             this.valueTxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueTxtBox.TabIndex = 6;
@@ -151,7 +151,7 @@
             // valuelbl
             // 
             this.valuelbl.AutoSize = true;
-            this.valuelbl.Location = new System.Drawing.Point(356, 147);
+            this.valuelbl.Location = new System.Drawing.Point(428, 147);
             this.valuelbl.Name = "valuelbl";
             this.valuelbl.Size = new System.Drawing.Size(115, 13);
             this.valuelbl.TabIndex = 49;
@@ -159,7 +159,7 @@
             // 
             // yarivContractCodeTxtBox
             // 
-            this.yarivContractCodeTxtBox.Location = new System.Drawing.Point(12, 92);
+            this.yarivContractCodeTxtBox.Location = new System.Drawing.Point(82, 92);
             this.yarivContractCodeTxtBox.Name = "yarivContractCodeTxtBox";
             this.yarivContractCodeTxtBox.Size = new System.Drawing.Size(296, 20);
             this.yarivContractCodeTxtBox.TabIndex = 4;
@@ -167,7 +167,7 @@
             // yarivContractCodeLbl
             // 
             this.yarivContractCodeLbl.AutoSize = true;
-            this.yarivContractCodeLbl.Location = new System.Drawing.Point(386, 95);
+            this.yarivContractCodeLbl.Location = new System.Drawing.Point(458, 95);
             this.yarivContractCodeLbl.Name = "yarivContractCodeLbl";
             this.yarivContractCodeLbl.Size = new System.Drawing.Size(85, 13);
             this.yarivContractCodeLbl.TabIndex = 48;
@@ -176,7 +176,7 @@
             // projectNameLbl
             // 
             this.projectNameLbl.AutoSize = true;
-            this.projectNameLbl.Location = new System.Drawing.Point(396, 42);
+            this.projectNameLbl.Location = new System.Drawing.Point(468, 42);
             this.projectNameLbl.Name = "projectNameLbl";
             this.projectNameLbl.Size = new System.Drawing.Size(75, 13);
             this.projectNameLbl.TabIndex = 47;
@@ -185,7 +185,7 @@
             // projectCodeLbl
             // 
             this.projectCodeLbl.AutoSize = true;
-            this.projectCodeLbl.Location = new System.Drawing.Point(400, 68);
+            this.projectCodeLbl.Location = new System.Drawing.Point(472, 69);
             this.projectCodeLbl.Name = "projectCodeLbl";
             this.projectCodeLbl.Size = new System.Drawing.Size(71, 13);
             this.projectCodeLbl.TabIndex = 46;
@@ -194,7 +194,7 @@
             // startDatelbl
             // 
             this.startDatelbl.AutoSize = true;
-            this.startDatelbl.Location = new System.Drawing.Point(375, 228);
+            this.startDatelbl.Location = new System.Drawing.Point(447, 228);
             this.startDatelbl.Name = "startDatelbl";
             this.startDatelbl.Size = new System.Drawing.Size(96, 13);
             this.startDatelbl.TabIndex = 58;
@@ -203,7 +203,7 @@
             // projectNameComboBox
             // 
             this.projectNameComboBox.FormattingEnabled = true;
-            this.projectNameComboBox.Location = new System.Drawing.Point(12, 39);
+            this.projectNameComboBox.Location = new System.Drawing.Point(82, 39);
             this.projectNameComboBox.Name = "projectNameComboBox";
             this.projectNameComboBox.Size = new System.Drawing.Size(296, 21);
             this.projectNameComboBox.TabIndex = 2;
@@ -212,7 +212,7 @@
             // endDatelbl
             // 
             this.endDatelbl.AutoSize = true;
-            this.endDatelbl.Location = new System.Drawing.Point(384, 254);
+            this.endDatelbl.Location = new System.Drawing.Point(456, 254);
             this.endDatelbl.Name = "endDatelbl";
             this.endDatelbl.Size = new System.Drawing.Size(87, 13);
             this.endDatelbl.TabIndex = 60;
@@ -220,14 +220,14 @@
             // 
             // signingDatePicker
             // 
-            this.signingDatePicker.Location = new System.Drawing.Point(12, 196);
+            this.signingDatePicker.Location = new System.Drawing.Point(82, 196);
             this.signingDatePicker.Name = "signingDatePicker";
             this.signingDatePicker.Size = new System.Drawing.Size(296, 20);
             this.signingDatePicker.TabIndex = 7;
             // 
             // startDatePicker
             // 
-            this.startDatePicker.Location = new System.Drawing.Point(12, 222);
+            this.startDatePicker.Location = new System.Drawing.Point(82, 222);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(296, 20);
             this.startDatePicker.TabIndex = 8;
@@ -235,14 +235,14 @@
             // 
             // endDatePicker
             // 
-            this.endDatePicker.Location = new System.Drawing.Point(12, 248);
+            this.endDatePicker.Location = new System.Drawing.Point(82, 248);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(296, 20);
             this.endDatePicker.TabIndex = 9;
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(47, 398);
+            this.cancelBtn.Location = new System.Drawing.Point(93, 404);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 17;
@@ -253,7 +253,7 @@
             // contractTypeComboBox
             // 
             this.contractTypeComboBox.FormattingEnabled = true;
-            this.contractTypeComboBox.Location = new System.Drawing.Point(12, 274);
+            this.contractTypeComboBox.Location = new System.Drawing.Point(82, 274);
             this.contractTypeComboBox.Name = "contractTypeComboBox";
             this.contractTypeComboBox.Size = new System.Drawing.Size(296, 21);
             this.contractTypeComboBox.TabIndex = 10;
@@ -261,7 +261,7 @@
             // contractTypelbl
             // 
             this.contractTypelbl.AutoSize = true;
-            this.contractTypelbl.Location = new System.Drawing.Point(412, 277);
+            this.contractTypelbl.Location = new System.Drawing.Point(484, 277);
             this.contractTypelbl.Name = "contractTypelbl";
             this.contractTypelbl.Size = new System.Drawing.Size(59, 13);
             this.contractTypelbl.TabIndex = 72;
@@ -269,7 +269,7 @@
             // 
             // valueWithMaamTxtBox
             // 
-            this.valueWithMaamTxtBox.Location = new System.Drawing.Point(12, 170);
+            this.valueWithMaamTxtBox.Location = new System.Drawing.Point(82, 170);
             this.valueWithMaamTxtBox.Name = "valueWithMaamTxtBox";
             this.valueWithMaamTxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueWithMaamTxtBox.TabIndex = 73;
@@ -277,7 +277,7 @@
             // valueWithMaam
             // 
             this.valueWithMaam.AutoSize = true;
-            this.valueWithMaam.Location = new System.Drawing.Point(374, 173);
+            this.valueWithMaam.Location = new System.Drawing.Point(446, 173);
             this.valueWithMaam.Name = "valueWithMaam";
             this.valueWithMaam.Size = new System.Drawing.Size(97, 13);
             this.valueWithMaam.TabIndex = 74;
@@ -286,7 +286,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(389, 306);
+            this.label1.Location = new System.Drawing.Point(461, 307);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 76;
@@ -294,7 +294,7 @@
             // 
             // addValue
             // 
-            this.addValue.Location = new System.Drawing.Point(361, 301);
+            this.addValue.Location = new System.Drawing.Point(428, 301);
             this.addValue.Name = "addValue";
             this.addValue.Size = new System.Drawing.Size(25, 25);
             this.addValue.TabIndex = 77;
@@ -305,7 +305,7 @@
             // valueListBox
             // 
             this.valueListBox.FormattingEnabled = true;
-            this.valueListBox.Location = new System.Drawing.Point(12, 301);
+            this.valueListBox.Location = new System.Drawing.Point(82, 301);
             this.valueListBox.Name = "valueListBox";
             this.valueListBox.Size = new System.Drawing.Size(296, 69);
             this.valueListBox.Sorted = true;
@@ -316,7 +316,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 433);
+            this.ClientSize = new System.Drawing.Size(555, 690);
             this.Controls.Add(this.valueListBox);
             this.Controls.Add(this.addValue);
             this.Controls.Add(this.label1);

@@ -187,6 +187,24 @@ namespace Billing
             }
         }
 
+        public List<string> searchInTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind)
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
+                {
+                    if (table.Rows[i][columnNameToSearchIn].ToString().Contains(stringToMatch))
+                        list.Add(table.Rows[i][whatToFind].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                LogWriter.Instance.Error("Error on search", ex);
+            }
+            return list;
+        }
+
         public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
         {
             try
