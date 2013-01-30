@@ -12,21 +12,40 @@ namespace Billing
     public partial class ClientForm : Form
     {
         Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
+        bool isNew = true;
         public ClientForm()
         {
+            OnLoad();
+        }
+
+        private void OnLoad()
+        {
             InitializeComponent();
-            
+
             foreach (DataRow row in ExcelHelper.Instance.ClientTypes.Rows)
             {
                 clientTypeDic.Add(row[1].ToString(), row[0].ToString());
-            }           
+            }
 
             ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns[ColumnNames.CLIENT_CODE].Table;
             ClientTypeComboBox.DisplayMember = ColumnNames.CLIENT_TYPE;
             ClientTypeComboBox.Text = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_TYPE].ToString();
-            clientCodeTxtBox.Text =ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+            clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
                                                   ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
                                                   , ColumnNames.CLIENT_TYPE);
+        }
+
+        public ClientForm(string clientCode)
+        {
+            isNew = false;
+            OnLoad();
+            Dictionary<string,string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE, clientCode);
+            clientNameTxtBox.Text = dic[ColumnNames.CLIENT_NAME];
+            clientCodeTxtBox.Text = dic[ColumnNames.CLIENT_CODE];
+            ClientTypeComboBox.SelectedItem = dic[ColumnNames.CLIENT_TYPE];
+            phoneTxtBox.Text = dic[ColumnNames.PHONE];
+            ClientAddressTxtBox.Text = dic[ColumnNames.ADRESS];
+            emailTxtBox.Text = dic[ColumnNames.EMAIL];            
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -98,7 +117,7 @@ namespace Billing
                     {
                         this.Hide();
                         this.Close();
-                        Form f = new ProjectForm(clientNameTxtBox.Text);
+                        Form f = new ProjectForm(string.Empty, clientNameTxtBox.Text);
                         f.ShowDialog();
                     }
                 }
@@ -155,9 +174,12 @@ namespace Billing
 
         private void ClientTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+            if (isNew)
+            {
+                clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
                                                   ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
                                                   , ColumnNames.CLIENT_TYPE);
+            }
         }
 
         private void addClientType_Click(object sender, EventArgs e)

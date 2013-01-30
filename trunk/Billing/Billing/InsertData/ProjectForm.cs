@@ -10,7 +10,8 @@ using System.Windows.Forms;
 namespace Billing
 {
     public partial class ProjectForm : Form
-    {       
+    {
+        bool isNew = true;
         public ProjectForm()
         {           
             Onload();
@@ -25,11 +26,40 @@ namespace Billing
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
         }
 
-        public ProjectForm(string selectedClient)
+        //public ProjectForm(string selectedClient)
+        //{
+        //    Onload();
+
+        //}
+
+        public ProjectForm(string selectedProject, string selectedClient)
         {
             Onload();
-            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-            clientNameComboBox.Enabled = false;
+            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE, selectedProject);
+
+            if (dic.Count > 0)
+            {
+                isNew = false;
+            }
+            if (isNew)
+            {
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.Enabled = false;
+            }
+            else
+            {
+                clientNameComboBox.SelectedItem = dic[ColumnNames.CLIENT_CODE];
+                projectCodetxtBox.Text = dic[ColumnNames.PROJECT_CODE];
+                projectNametxtBox.Text = dic[ColumnNames.PROJECT_NAME];
+                contactManTxtBox.Text = dic[ColumnNames.PROJECT_CONTACT_MAN];
+                contactManDescTxt.Text = dic[ColumnNames.CONTACT_MAN_DESC];
+                contactManPhoneTxtBox.Text = dic[ColumnNames.CONTACT_MAN_PHONE];
+                contactManEmailTxtBox.Text = dic[ColumnNames.CONTACT_MAN_EMAIL];
+                projectCodeInviterTxtBox.Text = dic[ColumnNames.INVITER_PROJECT_CODE];
+                projectNameInviterTxtBox.Text = dic[ColumnNames.INVITER_PROJECT_NAME];
+                projectDescriptiontxtBox.Text = dic[ColumnNames.PROJECT_DESCRIPTION];
+                clientNameComboBox.Enabled = false;
+            }
         }
 
         private void ClearAllFields(object sender, EventArgs e)
