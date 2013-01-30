@@ -187,7 +187,7 @@ namespace Billing
             }
         }
 
-        public List<string> searchInTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind)
+        public List<string> searchInTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind, string secondIdentifier, string itemType)
         {
             List<string> list = new List<string>();
             try
@@ -195,14 +195,15 @@ namespace Billing
                 for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
                     if (table.Rows[i][columnNameToSearchIn].ToString().Contains(stringToMatch))
-                        list.Add(table.Rows[i][whatToFind].ToString());
+                        list.Add(itemType + "-" + table.Rows[i][whatToFind].ToString() + "-" + table.Rows[i][secondIdentifier].ToString());
                 }
+                
+            return list;
             }
             catch (Exception ex)
             {
-                LogWriter.Instance.Error("Error on search", ex);
+                throw;
             }
-            return list;
         }
 
         public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)

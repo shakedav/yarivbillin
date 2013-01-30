@@ -22,3 +22,13 @@
 2013-01-28 00:23:12.4065 App Started 
 2013-01-28 00:23:41.6152 App Started 
 2013-01-28 00:34:45.4514 App Started 
+2013-01-31 01:43:56.3503 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 137
+   at Billing.ClientForm.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 153
+   at Billing.ClientForm.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 87
+   at Billing.ClientForm.btnSaveAndAddProj_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientForm.cs:line 116
+2013-01-31 01:43:56.3873 Client Saved 
+2013-01-31 01:49:56.1519 Client Saved 
+2013-01-31 01:50:16.4610 Client Saved 
+2013-01-31 01:51:25.4420 Client Saved 

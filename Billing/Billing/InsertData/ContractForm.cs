@@ -12,7 +12,7 @@ namespace Billing
 {
     public partial class ContractForm : Form
     {
-
+        bool isNew;
         private string valueTypes = string.Empty;
 
         public ContractForm()
