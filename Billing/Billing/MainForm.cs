@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.InsertData;
 
 namespace Billing
 {
@@ -13,37 +14,44 @@ namespace Billing
     {
         public MainForm()
         {
-            InitializeComponent();
-
+            InitializeComponent();            
         }
 
         private void btnAddBill_Click(object sender, EventArgs e)
         {
-            BillForm billForm = new BillForm();
-            displayFormInTab(billForm, splitContainer1);
+            BillForm billForm = new BillForm(this);
+            billForm.Parent = this;
+            //displayFormInTab(billForm, splitContainer1);
           
         }
 
         private void btnAddContract_Click(object sender, EventArgs e)
         {
-            ContractForm contractForm = new ContractForm();
-            displayFormInTab(contractForm, splitContainer1);                   
+            ContractForm contractForm = new ContractForm(this);
+            contractForm.Parent = this;
+            //displayFormInTab(contractForm, splitContainer1);                   
         }
 
         private void btnAddProject_Click(object sender, EventArgs e)
         {
-            ProjectForm projectForm = new ProjectForm();
-            displayFormInTab(projectForm, splitContainer1);
+            checkFormsStatus();
+            ProjectUserControl projectForm = new ProjectUserControl();
+            splitContainer1.Panel1.Visible = true;
+            splitContainer1.Panel1.Select();
+            splitContainer1.Panel1.Controls.Add(projectForm);       
           
         }
 
         private void btnAddClient_Click(object sender, EventArgs e)
         {
-            ClientForm clientForm = new ClientForm();
-            displayFormInTab(clientForm, splitContainer1);          
+            checkFormsStatus();
+            ClientUserControl control = new ClientUserControl();
+            splitContainer1.Panel1.Visible = true;
+            splitContainer1.Panel1.Select();
+            splitContainer1.Panel1.Controls.Add(control);        
         }
 
-        private void displayFormInTab(Form form, SplitContainer container)
+        public void checkFormsStatus()
         {
             if (splitContainer1.Panel1.Controls.Count >= 1)
             {
@@ -56,17 +64,7 @@ namespace Billing
                 {
                     splitContainer1.Panel1.Controls.Clear();
                 }
-            }
-            form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
-            
-            form.Left = (ClientSize.Width - splitContainer1.Panel1.Width) / 2;
-            form.Top = (ClientSize.Height - splitContainer1.Panel1.Height) / 2;
-            container.Panel1.Visible = true;
-            container.Panel1.Select();
-            container.Panel1.Controls.Add(form);
-            form.Show();
-           
+            }           
         }
 
         private void searchBtn_Click(object sender, EventArgs e)
@@ -95,26 +93,26 @@ namespace Billing
             {
                 case "לקוח":
                     {
-                        ClientForm form = new ClientForm(value2);
-                        displayFormInTab(form, searchSplit);
+                        ClientUserControl form = new ClientUserControl(value2);
+                        //displayFormInTab(form, searchSplit);
                         break;
                     }
                 case "פרוייקט":
                     {
-                        ProjectForm form = new ProjectForm(value2, string.Empty);
-                        displayFormInTab(form, searchSplit);
+                        ProjectUserControl form = new ProjectUserControl(value2, string.Empty);
+                        //displayFormInTab(form, searchSplit);
                         break;
                     }
                 case "חוזה":
                     {
                         ContractForm form = new ContractForm(value1, value2);
-                        displayFormInTab(form, searchSplit);
+                        //displayFormInTab(form, searchSplit);
                         break;
                     }
                 case "חשבון":
                     {
                         BillForm form = new BillForm(value1, value2);
-                        displayFormInTab(form, searchSplit);
+                        //displayFormInTab(form, searchSplit);
                         break;
                     }
             }

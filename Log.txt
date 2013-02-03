@@ -32,3 +32,49 @@
 2013-01-31 01:49:56.1519 Client Saved 
 2013-01-31 01:50:16.4610 Client Saved 
 2013-01-31 01:51:25.4420 Client Saved 
+2013-02-02 23:23:14.7122 Client Saved 
+2013-02-02 23:24:45.2384 Client Saved 
+2013-02-02 23:30:13.3761 Client Saved 
+2013-02-02 23:30:15.4742 Client Saved 
+2013-02-02 23:32:52.7972 Client Saved 
+2013-02-03 00:10:40.7100 Client Saved 
+2013-02-03 00:14:48.0401 Project Saved 
+2013-02-03 00:16:03.0584 Client Saved 
+2013-02-03 00:19:13.0523 Client Saved 
+2013-02-03 00:20:07.7264 error when saving Project info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ProjectForm.btnSaveAddContract_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectForm.cs:line 160
+2013-02-03 00:20:07.7264 Project Saved 
+2013-02-03 00:21:20.5726 Project Saved 
+2013-02-03 00:21:53.3384 Client Saved 
+2013-02-03 00:22:44.5274 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ContractForm.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractForm.cs:line 122
+2013-02-03 00:22:44.5274 Client Saved 
+2013-02-03 00:22:59.7102 Client Saved 
+2013-02-03 00:24:19.1218 Client Saved 
+2013-02-03 00:24:38.6199 Client Saved 
+2013-02-03 00:25:59.3555 Client Saved 
+2013-02-03 00:31:55.0368 error when saving Project info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ProjectForm.btnSaveAddContract_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectForm.cs:line 158
+2013-02-03 00:31:55.0389 Project Saved 
+2013-02-03 00:32:24.5225 error when saving Project info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ProjectForm.btnSaveAddContract_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectForm.cs:line 158
+2013-02-03 00:32:24.5225 Project Saved 
+2013-02-03 00:32:57.3594 error when saving Project info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ProjectForm.btnSaveAddContract_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectForm.cs:line 158
+2013-02-03 00:32:57.3594 Project Saved 
+2013-02-03 00:36:31.2917 Client Saved 
+2013-02-03 00:37:52.4093 error when saving Project info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.ProjectForm.btnSaveAddContract_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectForm.cs:line 158
+2013-02-03 00:37:52.4093 Project Saved 
+2013-02-03 00:39:37.8843 Client Saved 
+2013-02-03 00:41:22.9953 Client Saved 
+2013-02-03 00:42:25.5579 Client Saved 
+2013-02-03 00:51:29.7880 Client Saved 
+2013-02-03 23:10:23.9294 Client Saved 
+2013-02-03 23:18:23.2818 Client Saved 
+2013-02-04 00:07:29.5684 Client Saved 
+2013-02-04 00:09:12.9343 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ClientUserControl.btnSaveAndAddProj_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 123
+2013-02-04 00:09:12.9493 Client Saved 
+2013-02-04 00:11:45.5971 Client Saved 
+2013-02-04 00:13:24.9557 Client Saved 

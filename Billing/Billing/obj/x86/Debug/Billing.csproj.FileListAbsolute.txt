@@ -18,17 +18,13 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Billin
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Billing.application
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Billing.exe
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Billing.pdb
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\ICSharpCode.SharpZipLib.dll
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\ResolveAssemblyReference.cache
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.DataExists.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.DisplayData.DisplayClientDataForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.Documents.Test.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.BillForm.resources
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.ClientForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.ClientTypeForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.ContractForm.resources
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.Main.resources
-E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.ProjectForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.Properties.Resources.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\GenerateResource.read.1.tlog
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\GenerateResource.write.1.tlog
@@ -37,3 +33,5 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Bi
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.AddValueForm.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\bin\Debug\Nlog.config
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.MainForm.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ClientUserControl.resources
+E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ProjectUserControl.resources
