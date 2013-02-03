@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Billing.InsertData;
 
-namespace Billing
+namespace Billing.InsertData
 {
-    public partial class ProjectForm : BaseDataForm
+    public partial class ProjectUserControl : UserControl
     {
         bool isNew = true;
-        MainForm parent;
 
-        public ProjectForm(MainForm sender)
+        public ProjectUserControl()
         {           
             Onload();
-            parent = sender;
         }
 
         private void Onload()
@@ -30,7 +27,7 @@ namespace Billing
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
         }      
 
-        public ProjectForm(string selectedProject, string selectedClient)
+        public ProjectUserControl(string selectedProject, string selectedClient)
         {
             Onload();
             Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE, selectedProject);
@@ -80,7 +77,7 @@ namespace Billing
                 {
                     if (CheckAndSave())
                     {
-                        Close();
+                        this.Parent.Controls.Remove(this);
                     }
                 }
                 else
@@ -138,7 +135,7 @@ namespace Billing
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Parent.Controls.Remove(this);
         }
 
         private void btnSaveAddContract_Click(object sender, EventArgs e)
@@ -150,8 +147,9 @@ namespace Billing
                     if (CheckAndSave())
                     {                        
                         Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
-                        this.Hide();
-                        this.Close();
+                        this.Parent.Controls.Add(f); 
+                        this.Parent.Controls.Remove(this);
+                        
                         //parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
                     }
                 }

@@ -120,23 +120,29 @@
     <Compile Include="InsertData\AddValueForm.Designer.cs">
       <DependentUpon>AddValueForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InsertData\BaseDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertData\BaseDataForm.Designer.cs">
+      <DependentUpon>BaseDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertData\BillForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InsertData\BillForm.Designer.cs">
       <DependentUpon>BillForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertData\ClientForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InsertData\ClientForm.Designer.cs">
-      <DependentUpon>ClientForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="InsertData\ClientTypeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InsertData\ClientTypeForm.Designer.cs">
       <DependentUpon>ClientTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InsertData\ClientUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InsertData\ClientUserControl.Designer.cs">
+      <DependentUpon>ClientUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="InsertData\ContractForm.cs">
       <SubType>Form</SubType>
@@ -145,13 +151,13 @@
       <DependentUpon>ContractForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="InsertData\ProjectUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InsertData\ProjectUserControl.Designer.cs">
+      <DependentUpon>ProjectUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogWriter.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,12 +165,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="InsertData\ProjectForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InsertData\ProjectForm.Designer.cs">
-      <DependentUpon>ProjectForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DataExists.resx">
       <DependentUpon>DataExists.cs</DependentUpon>
@@ -181,20 +181,17 @@
     <EmbeddedResource Include="InsertData\BillForm.resx">
       <DependentUpon>BillForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertData\ClientForm.resx">
-      <DependentUpon>ClientForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ClientTypeForm.resx">
       <DependentUpon>ClientTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertData\ClientUserControl.resx">
+      <DependentUpon>ClientUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ContractForm.resx">
       <DependentUpon>ContractForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InsertData\ProjectForm.resx">
-      <DependentUpon>ProjectForm.cs</DependentUpon>
+    <EmbeddedResource Include="InsertData\ProjectUserControl.resx">
+      <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

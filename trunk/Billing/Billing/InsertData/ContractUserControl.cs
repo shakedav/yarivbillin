@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Billing.InsertData;
 
-namespace Billing
+namespace Billing.InsertData
 {
-    public partial class ContractForm : BaseDataForm
+    public partial class ContractUserControl : UserControl
     {
         bool isNew;
         private string valueTypes = string.Empty;
         MainForm parent;
 
-        public ContractForm(MainForm sender)
+        public ContractUserControl()
         {
             Onload();
-            parent = sender;
             //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
-           
+
         }
 
-        public ContractForm(string selectedClient, string selectedProject)
+        public ContractUserControl(string selectedClient, string selectedProject)
         {
             Onload();
             clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
@@ -48,13 +46,13 @@ namespace Billing
             projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
             contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns[ColumnNames.TYPE_CODE].Table;
             contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;
-            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();            
+            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();
         }
 
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
         {
             clientContractCodetxtBox.Clear();
-            valueTxtBox.Clear();         
+            valueTxtBox.Clear();
             valueWithMaamTxtBox.Clear();
         }
 
@@ -74,7 +72,7 @@ namespace Billing
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Parent.Controls.Remove(this);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -85,7 +83,7 @@ namespace Billing
                 {
                     if (CheckAndSave())
                     {
-                        Close();
+                        this.Parent.Controls.Remove(this);
                     }
                 }
                 else
@@ -116,12 +114,12 @@ namespace Billing
                 {
                     if (CheckAndSave())
                     {
-                        Form f = new BillForm(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
-                        this.Hide();
-                        this.Close();
+                        BillUserControl f = new BillUserControl(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                        this.Parent.Controls.Add(f);
+                        this.Parent.Controls.Remove(this);
                         //parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
                     }
-                        }
+                }
                 else
                 {
                     MessageBox.Show("מלא את כל השדות בבקשה");
@@ -167,7 +165,7 @@ namespace Billing
             }
             else
             {
-                MessageBox.Show("תאריך התחלה קטן מתאריך סיום, אנא וודא תאריכים תקפים");               
+                MessageBox.Show("תאריך התחלה קטן מתאריך סיום, אנא וודא תאריכים תקפים");
             }
             return false;
         }
@@ -177,14 +175,14 @@ namespace Billing
             return ((ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
                 ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts)) ||
-                (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ExcelHelper.Instance.Contracts)));
+                (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ExcelHelper.Instance.Contracts)));
         }
 
         private bool SaveData()
         {
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
-            {                
+            {
                 row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
                 row[ColumnNames.PROJECT_CODE] = projectCodeTxtBox.Text;
                 row[ColumnNames.CONTRACT_CODE_YARIV] = yarivContractCodeTxtBox.Text;
@@ -193,7 +191,7 @@ namespace Billing
                 row[ColumnNames.CONTRACT_SIGNING_DATE] = signingDatePicker.Text;
                 row[ColumnNames.CONTRACT_START_DATE] = startDatePicker.Text;
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
-                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);                
+                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
@@ -213,7 +211,7 @@ namespace Billing
         }
 
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {           
+        {
             projectNameComboBox.DataSource = null;
             projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME);
 
@@ -233,12 +231,11 @@ namespace Billing
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                   valueListBox.Items.Add(form.valueType);
-                   valueTypes = valueTypes + form.valueIndex + ";";
-                   valueListBox.Visible = true;
+                    valueListBox.Items.Add(form.valueType);
+                    valueTypes = valueTypes + form.valueIndex + ";";
+                    valueListBox.Visible = true;
                 }
-            }  
-        }        
+            }
+        }
     }
 }
-

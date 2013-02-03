@@ -9,24 +9,29 @@ using System.Windows.Forms;
 using System.Collections;
 using Billing.DataObjects;
 using System.Globalization;
+using Billing.InsertData;
 
 namespace Billing
 {
-    public partial class BillForm : Form
+    public partial class BillForm : BaseDataForm
     {        
         public string clientCode;
         public Point lastControl;
         private int tblRow = 0;
         private int tblCol = 0;
         Dictionary<int,List<TextBox>> valuesList = new Dictionary<int,List<TextBox>>();
-        public BillForm()
+        MainForm parent;
+
+        public BillForm(MainForm sender)
         {
             Onload();
+            parent = sender;
         }
 
         private void Onload()
         {
-            InitializeComponent();            
+            InitializeComponent();  
+          
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
@@ -70,7 +75,7 @@ namespace Billing
             contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
             contractCodeComboBox.Enabled = false;
         }
-
+       
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             lastBillTxtBox.Clear();

@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Billing.InsertData;
 
-namespace Billing
+namespace Billing.InsertData
 {
-    public partial class ClientForm : BaseDataForm
+    public partial class ClientUserControl : UserControl
     {
-        Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
+       Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
         bool isNew = true;
         MainForm parent;
 
-        public ClientForm(MainForm sender)
+        public ClientUserControl()
         {
             OnLoad();
-            parent = sender;
         }
 
         private void OnLoad()
@@ -39,7 +37,7 @@ namespace Billing
                                                   , ColumnNames.CLIENT_TYPE);
         }
 
-        public ClientForm(string clientCode)
+        public ClientUserControl(string clientCode)
         {
             isNew = false;
             OnLoad();
@@ -59,8 +57,8 @@ namespace Billing
                 if (CheckAllFieldsAreFilled())
                 {
                     if (CheckAndSave())
-                    {                        
-                        Close();
+                    {
+                        this.Parent.Controls.Remove(this);
                     }
                 }
                 else
@@ -119,10 +117,9 @@ namespace Billing
                 {
                     if (CheckAndSave())
                     {
-                        Form f = new ProjectForm(string.Empty, clientNameTxtBox.Text);
-                        this.Hide();
-                        this.Close();
-                        parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
+                        ProjectUserControl f = new ProjectUserControl(string.Empty, clientNameTxtBox.Text);                   
+                        this.Parent.Controls.Add(f);
+                        this.Parent.Controls.Remove(this);
                     }
                 }
                 else
@@ -173,7 +170,7 @@ namespace Billing
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Parent.Controls.Remove(this);
         }
 
         private void ClientTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -191,7 +188,5 @@ namespace Billing
             Form f = new ClientTypeForm();
             f.ShowDialog();
         }
-
-       
     }
 }
