@@ -145,8 +145,8 @@ namespace Billing.InsertData
                 if (CheckAllFieldsAreFilled())
                 {
                     if (CheckAndSave())
-                    {                        
-                        Form f = new ContractForm(clientNameComboBox.Text, projectNametxtBox.Text);
+                    {
+                        ContractUserControl f = new ContractUserControl(clientNameComboBox.Text, projectNametxtBox.Text);
                         this.Parent.Controls.Add(f); 
                         this.Parent.Controls.Remove(this);
                         

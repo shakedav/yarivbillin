@@ -78,3 +78,61 @@
 2013-02-04 00:09:12.9493 Client Saved 
 2013-02-04 00:11:45.5971 Client Saved 
 2013-02-04 00:13:24.9557 Client Saved 
+2013-02-05 23:54:07.8147 Client Saved 
+2013-02-05 23:54:31.3111 Client Saved 
+2013-02-05 23:54:41.7857 Project Saved 
+2013-02-05 23:55:13.6565 Client Saved 
+2013-02-05 23:55:49.8605 Client Saved 
+2013-02-05 23:56:25.1706 Bill Saved 
+2013-02-06 00:03:50.0580 Client Saved 
+2013-02-06 00:04:02.0097 Project Saved 
+2013-02-06 00:06:48.9772 Project Saved 
+2013-02-06 00:07:48.1856 Client Saved 
+2013-02-06 00:07:56.7751 Project Saved 
+2013-02-06 00:10:39.9735 Project Saved 
+2013-02-06 00:16:52.4888 Client Saved 
+2013-02-06 00:17:19.9433 Project Saved 
+2013-02-06 00:20:09.1670 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 137
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 154
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 89
+   at Billing.InsertData.ClientUserControl.btnSaveAndAddProj_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 118
+2013-02-06 00:20:09.1950 Client Saved 
+2013-02-06 00:20:13.8113 Client Saved 
+2013-02-06 00:21:08.4054 Client Saved 
+2013-02-06 00:21:27.5545 Project Saved 
+2013-02-06 00:22:27.8439 Client Saved 
+2013-02-06 00:23:43.0943 Project Saved 
+2013-02-06 00:24:57.0115 Client Saved 
+2013-02-06 00:25:21.2449 Project Saved 
+2013-02-06 00:25:45.4763 Client Saved 
+2013-02-06 00:27:48.9893 error when saving Bill info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 108
+2013-02-06 00:27:48.9893 Bill Saved 
+2013-02-06 00:29:13.8652 Bill Saved 
+2013-02-06 00:29:24.0017 error when saving Bill info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 108
+2013-02-06 00:29:24.0017 Bill Saved 
+2013-02-06 00:30:09.5384 error when saving Bill info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 108
+2013-02-06 00:30:09.5384 Bill Saved 
+2013-02-06 00:31:26.6968 Bill Saved 
+2013-02-06 00:32:15.2905 Client Saved 
+2013-02-06 00:32:55.8739 Project Saved 
+2013-02-06 00:35:11.1086 Client Saved 
+2013-02-06 00:36:50.2603 Project Saved 
+2013-02-06 00:38:32.9351 Project Saved 
+2013-02-06 00:42:55.0231 Project Saved 
+2013-02-06 00:59:24.5587 Client Saved 
+2013-02-06 01:00:42.8752 Project Saved 
+2013-02-06 01:02:06.6490 Client Saved 
+2013-02-06 01:02:17.5306 Project Saved 
+2013-02-06 01:03:02.0992 Client Saved 
+2013-02-06 01:03:28.4267 Bill Saved 
+2013-02-06 01:03:45.9807 Client Saved 
+2013-02-06 01:04:32.0183 Project Saved 
+2013-02-06 01:05:51.0698 Project Saved 
+2013-02-06 01:06:51.9553 Project Saved 
+2013-02-06 01:08:05.2695 Project Saved 
+2013-02-06 01:12:39.3542 Project Saved 

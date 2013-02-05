@@ -119,6 +119,7 @@
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(294, 21);
             this.clientNameComboBox.TabIndex = 45;
+            this.clientNameComboBox.SelectedIndexChanged += new System.EventHandler(this.clientNamecomboBox_Click);
             this.clientNameComboBox.Click += new System.EventHandler(this.clientNamecomboBox_Click);
             // 
             // clientNamelbl

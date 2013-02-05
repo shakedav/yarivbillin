@@ -126,11 +126,11 @@
     <Compile Include="InsertData\BaseDataForm.Designer.cs">
       <DependentUpon>BaseDataForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertData\BillForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="InsertData\BillUserControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InsertData\BillForm.Designer.cs">
-      <DependentUpon>BillForm.cs</DependentUpon>
+    <Compile Include="InsertData\BillUserControl.Designer.cs">
+      <DependentUpon>BillUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="InsertData\ClientTypeForm.cs">
       <SubType>Form</SubType>
@@ -144,13 +144,13 @@
     <Compile Include="InsertData\ClientUserControl.Designer.cs">
       <DependentUpon>ClientUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="InsertData\ContractForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InsertData\ContractForm.Designer.cs">
-      <DependentUpon>ContractForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="InsertData\ContractUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InsertData\ContractUserControl.Designer.cs">
+      <DependentUpon>ContractUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertData\ProjectUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,8 +178,8 @@
     <EmbeddedResource Include="InsertData\AddValueForm.resx">
       <DependentUpon>AddValueForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertData\BillForm.resx">
-      <DependentUpon>BillForm.cs</DependentUpon>
+    <EmbeddedResource Include="InsertData\BillUserControl.resx">
+      <DependentUpon>BillUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ClientTypeForm.resx">
       <DependentUpon>ClientTypeForm.cs</DependentUpon>
@@ -187,8 +187,8 @@
     <EmbeddedResource Include="InsertData\ClientUserControl.resx">
       <DependentUpon>ClientUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InsertData\ContractForm.resx">
-      <DependentUpon>ContractForm.cs</DependentUpon>
+    <EmbeddedResource Include="InsertData\ContractUserControl.resx">
+      <DependentUpon>ContractUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
