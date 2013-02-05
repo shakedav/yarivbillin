@@ -19,17 +19,21 @@ namespace Billing
 
         private void btnAddBill_Click(object sender, EventArgs e)
         {
-            BillForm billForm = new BillForm(this);
-            billForm.Parent = this;
-            //displayFormInTab(billForm, splitContainer1);
+            checkFormsStatus();
+            BillUserControl billForm = new BillUserControl();
+            splitContainer1.Panel1.Visible = true;
+            splitContainer1.Panel1.Select();
+            splitContainer1.Panel1.Controls.Add(billForm);      
           
         }
 
         private void btnAddContract_Click(object sender, EventArgs e)
         {
-            ContractForm contractForm = new ContractForm(this);
-            contractForm.Parent = this;
-            //displayFormInTab(contractForm, splitContainer1);                   
+            checkFormsStatus();
+            ContractUserControl contractForm = new ContractUserControl();
+            splitContainer1.Panel1.Visible = true;
+            splitContainer1.Panel1.Select();
+            splitContainer1.Panel1.Controls.Add(contractForm);                      
         }
 
         private void btnAddProject_Click(object sender, EventArgs e)
@@ -105,13 +109,13 @@ namespace Billing
                     }
                 case "חוזה":
                     {
-                        ContractForm form = new ContractForm(value1, value2);
+                        ContractUserControl form = new ContractUserControl(value1, value2);
                         //displayFormInTab(form, searchSplit);
                         break;
                     }
                 case "חשבון":
                     {
-                        BillForm form = new BillForm(value1, value2);
+                        BillUserControl form = new BillUserControl(value1, value2);
                         //displayFormInTab(form, searchSplit);
                         break;
                     }

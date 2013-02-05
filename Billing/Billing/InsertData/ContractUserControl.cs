@@ -18,6 +18,9 @@ namespace Billing.InsertData
         public ContractUserControl()
         {
             Onload();
+            GetClientName();
+            GetProjects();
+            GetContractType();
             //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
 
         }
@@ -25,11 +28,14 @@ namespace Billing.InsertData
         public ContractUserControl(string selectedClient, string selectedProject)
         {
             Onload();
+            GetClientName();
+            GetProjects();
+            GetContractType();
             clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
             clientNameComboBox.Enabled = false;
             projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
             projectNameComboBox.Enabled = false;
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
+            //projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
             projectCodeTxtBox.Enabled = false;
         }
 
@@ -37,16 +43,28 @@ namespace Billing.InsertData
         {
             InitializeComponent();
             yarivContractCodeTxtBox.Text = (ExcelHelper.Instance.Contracts.Rows.Count + 1).ToString();
+        }
+
+        private void GetContractType()
+        {
+            contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns[ColumnNames.TYPE_CODE].Table;
+            contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;
+            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();
+        }
+
+        private void GetClientName()
+        {
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+        }
+
+        private void GetProjects()
+        {
             projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE)
                 , ColumnNames.PROJECT_NAME);
             projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
-            contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns[ColumnNames.TYPE_CODE].Table;
-            contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;
-            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();
         }
 
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
@@ -208,15 +226,7 @@ namespace Billing.InsertData
         {
             endDatePicker.Text = startDatePicker.Text;
             endDatePicker.Refresh();
-        }
-
-        private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            projectNameComboBox.DataSource = null;
-            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME);
-
-            projectNameComboBox.Text = projectNameComboBox.SelectedItem == null ? "אין פרוייקטים ללקוח זה" : projectNameComboBox.SelectedItem.ToString();
-        }
+        }        
 
         private void valueTxtBox_Leave(object sender, EventArgs e)
         {
@@ -236,6 +246,11 @@ namespace Billing.InsertData
                     valueListBox.Visible = true;
                 }
             }
+        }
+
+        private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetProjects();
         }
     }
 }

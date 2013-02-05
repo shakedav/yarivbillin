@@ -77,6 +77,7 @@
             this.addValue.TabIndex = 106;
             this.addValue.Text = "+";
             this.addValue.UseVisualStyleBackColor = true;
+            this.addValue.Click += new System.EventHandler(this.addValue_Click);
             // 
             // label1
             // 
@@ -128,6 +129,7 @@
             this.cancelBtn.TabIndex = 92;
             this.cancelBtn.Text = "ביטול";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // endDatePicker
             // 
@@ -142,6 +144,7 @@
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(296, 20);
             this.startDatePicker.TabIndex = 86;
+            this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // signingDatePicker
             // 
@@ -166,6 +169,7 @@
             this.projectNameComboBox.Name = "projectNameComboBox";
             this.projectNameComboBox.Size = new System.Drawing.Size(296, 21);
             this.projectNameComboBox.TabIndex = 80;
+            this.projectNameComboBox.SelectedIndexChanged += new System.EventHandler(this.projectNameComboBox_SelectedIndexChanged);
             // 
             // startDatelbl
             // 
@@ -183,6 +187,8 @@
             this.clientNameComboBox.Name = "clientNameComboBox";
             this.clientNameComboBox.Size = new System.Drawing.Size(296, 21);
             this.clientNameComboBox.TabIndex = 79;
+            this.clientNameComboBox.SelectedIndexChanged += new System.EventHandler(this.clientNameComboBox_SelectedIndexChanged);
+            this.clientNameComboBox.Click += new System.EventHandler(this.clientNameComboBox_Click);
             // 
             // clientNamelbl
             // 
@@ -201,6 +207,7 @@
             this.btnSaveAddBill.TabIndex = 90;
             this.btnSaveAddBill.Text = "שמור והוסף חשבון";
             this.btnSaveAddBill.UseVisualStyleBackColor = true;
+            this.btnSaveAddBill.Click += new System.EventHandler(this.btnSaveAddBill_Click);
             // 
             // ClearFieldsBtn
             // 
@@ -210,6 +217,7 @@
             this.ClearFieldsBtn.TabIndex = 91;
             this.ClearFieldsBtn.Text = "נקה";
             this.ClearFieldsBtn.UseVisualStyleBackColor = true;
+            this.ClearFieldsBtn.Click += new System.EventHandler(this.ClearFieldsBtn_Click);
             // 
             // saveBtn
             // 
@@ -219,6 +227,7 @@
             this.saveBtn.TabIndex = 89;
             this.saveBtn.Text = "שמור";
             this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // signingDatelbl
             // 
@@ -258,6 +267,7 @@
             this.valueTxtBox.Name = "valueTxtBox";
             this.valueTxtBox.Size = new System.Drawing.Size(296, 20);
             this.valueTxtBox.TabIndex = 84;
+            this.valueTxtBox.Leave += new System.EventHandler(this.valueTxtBox_Leave);
             // 
             // valuelbl
             // 
