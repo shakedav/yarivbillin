@@ -45,11 +45,12 @@
             this.clientAddressLbl = new System.Windows.Forms.Label();
             this.clientNameTxtBox = new System.Windows.Forms.TextBox();
             this.clientNamelbl = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // addClientType
             // 
-            this.addClientType.Location = new System.Drawing.Point(184, 383);
+            this.addClientType.Location = new System.Drawing.Point(189, 400);
             this.addClientType.Name = "addClientType";
             this.addClientType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.addClientType.Size = new System.Drawing.Size(126, 23);
@@ -61,7 +62,7 @@
             // clientCodeTxtBox
             // 
             this.clientCodeTxtBox.Enabled = false;
-            this.clientCodeTxtBox.Location = new System.Drawing.Point(156, 65);
+            this.clientCodeTxtBox.Location = new System.Drawing.Point(161, 82);
             this.clientCodeTxtBox.Name = "clientCodeTxtBox";
             this.clientCodeTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientCodeTxtBox.Size = new System.Drawing.Size(177, 20);
@@ -70,7 +71,7 @@
             // ClientCodelbl
             // 
             this.ClientCodelbl.AutoSize = true;
-            this.ClientCodelbl.Location = new System.Drawing.Point(339, 68);
+            this.ClientCodelbl.Location = new System.Drawing.Point(344, 85);
             this.ClientCodelbl.Name = "ClientCodelbl";
             this.ClientCodelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientCodelbl.Size = new System.Drawing.Size(55, 13);
@@ -80,7 +81,7 @@
             // ClientTypeComboBox
             // 
             this.ClientTypeComboBox.FormattingEnabled = true;
-            this.ClientTypeComboBox.Location = new System.Drawing.Point(156, 30);
+            this.ClientTypeComboBox.Location = new System.Drawing.Point(161, 47);
             this.ClientTypeComboBox.Name = "ClientTypeComboBox";
             this.ClientTypeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientTypeComboBox.Size = new System.Drawing.Size(177, 21);
@@ -90,7 +91,7 @@
             // ClientTypelbl
             // 
             this.ClientTypelbl.AutoSize = true;
-            this.ClientTypelbl.Location = new System.Drawing.Point(340, 33);
+            this.ClientTypelbl.Location = new System.Drawing.Point(345, 50);
             this.ClientTypelbl.Name = "ClientTypelbl";
             this.ClientTypelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientTypelbl.Size = new System.Drawing.Size(54, 13);
@@ -99,7 +100,7 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(184, 346);
+            this.cancelBtn.Location = new System.Drawing.Point(189, 363);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cancelBtn.Size = new System.Drawing.Size(126, 23);
@@ -110,7 +111,7 @@
             // 
             // btnSaveAndAddProj
             // 
-            this.btnSaveAndAddProj.Location = new System.Drawing.Point(184, 272);
+            this.btnSaveAndAddProj.Location = new System.Drawing.Point(189, 289);
             this.btnSaveAndAddProj.Name = "btnSaveAndAddProj";
             this.btnSaveAndAddProj.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnSaveAndAddProj.Size = new System.Drawing.Size(126, 23);
@@ -121,7 +122,7 @@
             // 
             // ClearFieldsBtn
             // 
-            this.ClearFieldsBtn.Location = new System.Drawing.Point(184, 309);
+            this.ClearFieldsBtn.Location = new System.Drawing.Point(189, 326);
             this.ClearFieldsBtn.Name = "ClearFieldsBtn";
             this.ClearFieldsBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClearFieldsBtn.Size = new System.Drawing.Size(126, 23);
@@ -132,7 +133,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(184, 235);
+            this.saveBtn.Location = new System.Drawing.Point(189, 252);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.saveBtn.Size = new System.Drawing.Size(126, 23);
@@ -143,7 +144,7 @@
             // 
             // emailTxtBox
             // 
-            this.emailTxtBox.Location = new System.Drawing.Point(157, 201);
+            this.emailTxtBox.Location = new System.Drawing.Point(162, 218);
             this.emailTxtBox.Name = "emailTxtBox";
             this.emailTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.emailTxtBox.Size = new System.Drawing.Size(177, 20);
@@ -152,7 +153,7 @@
             // emailLbl
             // 
             this.emailLbl.AutoSize = true;
-            this.emailLbl.Location = new System.Drawing.Point(350, 204);
+            this.emailLbl.Location = new System.Drawing.Point(355, 221);
             this.emailLbl.Name = "emailLbl";
             this.emailLbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.emailLbl.Size = new System.Drawing.Size(44, 13);
@@ -161,7 +162,7 @@
             // 
             // phoneTxtBox
             // 
-            this.phoneTxtBox.Location = new System.Drawing.Point(157, 133);
+            this.phoneTxtBox.Location = new System.Drawing.Point(162, 150);
             this.phoneTxtBox.Name = "phoneTxtBox";
             this.phoneTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.phoneTxtBox.Size = new System.Drawing.Size(177, 20);
@@ -170,7 +171,7 @@
             // phoneLbl
             // 
             this.phoneLbl.AutoSize = true;
-            this.phoneLbl.Location = new System.Drawing.Point(356, 136);
+            this.phoneLbl.Location = new System.Drawing.Point(361, 153);
             this.phoneLbl.Name = "phoneLbl";
             this.phoneLbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.phoneLbl.Size = new System.Drawing.Size(38, 13);
@@ -179,7 +180,7 @@
             // 
             // ClientAddressTxtBox
             // 
-            this.ClientAddressTxtBox.Location = new System.Drawing.Point(158, 167);
+            this.ClientAddressTxtBox.Location = new System.Drawing.Point(163, 184);
             this.ClientAddressTxtBox.Name = "ClientAddressTxtBox";
             this.ClientAddressTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ClientAddressTxtBox.Size = new System.Drawing.Size(177, 20);
@@ -188,7 +189,7 @@
             // clientAddressLbl
             // 
             this.clientAddressLbl.AutoSize = true;
-            this.clientAddressLbl.Location = new System.Drawing.Point(354, 170);
+            this.clientAddressLbl.Location = new System.Drawing.Point(359, 187);
             this.clientAddressLbl.Name = "clientAddressLbl";
             this.clientAddressLbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientAddressLbl.Size = new System.Drawing.Size(40, 13);
@@ -197,7 +198,7 @@
             // 
             // clientNameTxtBox
             // 
-            this.clientNameTxtBox.Location = new System.Drawing.Point(157, 99);
+            this.clientNameTxtBox.Location = new System.Drawing.Point(162, 116);
             this.clientNameTxtBox.Name = "clientNameTxtBox";
             this.clientNameTxtBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientNameTxtBox.Size = new System.Drawing.Size(177, 20);
@@ -206,18 +207,28 @@
             // clientNamelbl
             // 
             this.clientNamelbl.AutoSize = true;
-            this.clientNamelbl.Location = new System.Drawing.Point(342, 102);
+            this.clientNamelbl.Location = new System.Drawing.Point(347, 119);
             this.clientNamelbl.Name = "clientNamelbl";
             this.clientNamelbl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.clientNamelbl.Size = new System.Drawing.Size(52, 13);
             this.clientNamelbl.TabIndex = 103;
             this.clientNamelbl.Text = "שם לקוח";
             // 
+            // titleLabel
+            // 
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Location = new System.Drawing.Point(307, 14);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(33, 13);
+            this.titleLabel.TabIndex = 119;
+            this.titleLabel.Text = "לקוח";
+            // 
             // ClientUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.addClientType);
             this.Controls.Add(this.clientCodeTxtBox);
             this.Controls.Add(this.ClientCodelbl);
@@ -262,5 +273,6 @@
         private System.Windows.Forms.Label clientAddressLbl;
         private System.Windows.Forms.TextBox clientNameTxtBox;
         private System.Windows.Forms.Label clientNamelbl;
+        private System.Windows.Forms.Label titleLabel;
     }
 }

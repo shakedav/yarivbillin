@@ -47,6 +47,8 @@ namespace Billing.InsertData
             totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
             totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+            billDateBox.Text = DateTime.Now.ToString();
+            GetHebrewDate();
         }
 
         private object GetAllowedValues()

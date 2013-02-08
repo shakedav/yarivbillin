@@ -52,6 +52,7 @@
             this.contactManLbl = new System.Windows.Forms.Label();
             this.projectNameLbl = new System.Windows.Forms.Label();
             this.projectCodeLbl = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // contactManEmailTxtBox
@@ -257,10 +258,21 @@
             this.projectCodeLbl.TabIndex = 59;
             this.projectCodeLbl.Text = "קוד פרוייקט";
             // 
+            // titleLabel
+            // 
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Location = new System.Drawing.Point(267, 9);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(49, 13);
+            this.titleLabel.TabIndex = 109;
+            this.titleLabel.Text = "פרוייקט";
+            // 
             // ProjectUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.contactManEmailTxtBox);
             this.Controls.Add(this.contactManEmaillbl);
             this.Controls.Add(this.contactManPhoneTxtBox);
@@ -318,5 +330,6 @@
         private System.Windows.Forms.Label contactManLbl;
         private System.Windows.Forms.Label projectNameLbl;
         private System.Windows.Forms.Label projectCodeLbl;
+        private System.Windows.Forms.Label titleLabel;
     }
 }

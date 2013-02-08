@@ -60,7 +60,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1039, 607);
+            this.tabControl1.Size = new System.Drawing.Size(1100, 669);
             this.tabControl1.TabIndex = 0;
             // 
             // AddDataTab
@@ -71,13 +71,14 @@
             this.AddDataTab.Location = new System.Drawing.Point(4, 22);
             this.AddDataTab.Name = "AddDataTab";
             this.AddDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AddDataTab.Size = new System.Drawing.Size(1031, 581);
+            this.AddDataTab.Size = new System.Drawing.Size(1092, 643);
             this.AddDataTab.TabIndex = 0;
             this.AddDataTab.Text = "הוספת לקוחות, פרוייקטים, חוזים וחשבונות";
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(8, 6);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -92,8 +93,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.btnAddClient);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddProject);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddContract);
-            this.splitContainer1.Size = new System.Drawing.Size(1015, 569);
-            this.splitContainer1.SplitterDistance = 879;
+            this.splitContainer1.Size = new System.Drawing.Size(1086, 637);
+            this.splitContainer1.SplitterDistance = 940;
             this.splitContainer1.TabIndex = 8;
             // 
             // btnAddBill
@@ -202,7 +203,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 607);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1100, 669);
             this.Controls.Add(this.tabControl1);
             this.IsMdiContainer = true;
             this.Name = "MainForm";
