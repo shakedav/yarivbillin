@@ -18,7 +18,7 @@ namespace Billing.InsertData
         public ContractUserControl()
         {
             Onload();
-            GetClientName();
+            GetClientNames();
             GetProjects();
             GetContractType();
             //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
@@ -28,10 +28,11 @@ namespace Billing.InsertData
         public ContractUserControl(string selectedClient, string selectedProject)
         {
             Onload();
-            GetClientName();
+            GetClientNames();
+            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
             GetProjects();
             GetContractType();
-            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+            
             clientNameComboBox.Enabled = false;
             projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
             projectNameComboBox.Enabled = false;
@@ -52,7 +53,7 @@ namespace Billing.InsertData
             contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();
         }
 
-        private void GetClientName()
+        private void GetClientNames()
         {
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;

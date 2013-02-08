@@ -57,6 +57,7 @@
             this.yarivContractCodeLbl = new System.Windows.Forms.Label();
             this.projectNameLbl = new System.Windows.Forms.Label();
             this.projectCodeLbl = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // valueListBox
@@ -312,10 +313,21 @@
             this.projectCodeLbl.TabIndex = 93;
             this.projectCodeLbl.Text = "קוד פרוייקט";
             // 
+            // titleLabel
+            // 
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Location = new System.Drawing.Point(332, 10);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(31, 13);
+            this.titleLabel.TabIndex = 108;
+            this.titleLabel.Text = "חוזה";
+            // 
             // ContractUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.valueListBox);
             this.Controls.Add(this.addValue);
             this.Controls.Add(this.label1);
@@ -383,5 +395,6 @@
         private System.Windows.Forms.Label yarivContractCodeLbl;
         private System.Windows.Forms.Label projectNameLbl;
         private System.Windows.Forms.Label projectCodeLbl;
+        private System.Windows.Forms.Label titleLabel;
     }
 }
