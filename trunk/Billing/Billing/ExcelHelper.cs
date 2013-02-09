@@ -195,7 +195,7 @@ namespace Billing
                 for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
                     if (table.Rows[i][columnNameToSearchIn].ToString().Contains(stringToMatch))
-                        list.Add(itemType + "-" + table.Rows[i][whatToFind].ToString() + "-" + table.Rows[i][secondIdentifier].ToString());
+                        list.Add(itemType + "-" + table.Rows[i][secondIdentifier].ToString() + "-" + table.Rows[i][whatToFind].ToString());
                 }
                 
             return list;

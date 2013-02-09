@@ -97,29 +97,36 @@ namespace Billing
             {
                 case "לקוח":
                     {
-                        ClientUserControl form = new ClientUserControl(value2);
-                        //displayFormInTab(form, searchSplit);
+                        ClientUserControl control = new ClientUserControl(value1);
+                        ShowControl(control);
                         break;
                     }
                 case "פרוייקט":
                     {
-                        ProjectUserControl form = new ProjectUserControl(value2, string.Empty);
-                        //displayFormInTab(form, searchSplit);
+                        ProjectUserControl control = new ProjectUserControl(value1, string.Empty);
+                        ShowControl(control);
                         break;
                     }
                 case "חוזה":
                     {
-                        ContractUserControl form = new ContractUserControl(value1, value2);
-                        //displayFormInTab(form, searchSplit);
+                        ContractUserControl control = new ContractUserControl(value1, value2);
+                        ShowControl(control);
                         break;
                     }
                 case "חשבון":
                     {
-                        BillUserControl form = new BillUserControl(value1, value2);
-                        //displayFormInTab(form, searchSplit);
+                        BillUserControl control = new BillUserControl(value1, value2);
+                        ShowControl(control);
                         break;
                     }
             }
+        }
+
+        private void ShowControl(UserControl control)
+        {
+            searchSplit.Panel1.Visible = true;
+            searchSplit.Panel1.Select();
+            searchSplit.Panel1.Controls.Add(control);
         }
     }
 }
