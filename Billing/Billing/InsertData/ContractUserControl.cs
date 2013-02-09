@@ -22,22 +22,64 @@ namespace Billing.InsertData
             GetProjects();
             GetContractType();
             //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
+            
+        }
 
+        private void CalculateValueWithMaam()
+        {
+            double value = double.Parse(valueTxtBox.Text);
+            valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
         }
 
         public ContractUserControl(string selectedClient, string selectedProject)
         {
             Onload();
-            GetClientNames();
-            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-            GetProjects();
-            GetContractType();
-            
-            clientNameComboBox.Enabled = false;
-            projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
-            projectNameComboBox.Enabled = false;
-            //projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
-            projectCodeTxtBox.Enabled = false;
+            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient);
+            if (dic.Count > 0)
+            {
+                clientNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, selectedClient, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
+                projectNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, selectedProject, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_NAME);
+                projectCodeTxtBox.Text = dic[ColumnNames.PROJECT_CODE];
+                yarivContractCodeTxtBox.Text = dic[ColumnNames.CONTRACT_CODE_YARIV];
+                clientContractCodetxtBox.Text = dic[ColumnNames.CONRACT_CODE_CLIENT];
+                valueTxtBox.Text = dic[ColumnNames.VALUE];
+                CalculateValueWithMaam();
+                signingDatePicker.Text = dic[ColumnNames.CONTRACT_SIGNING_DATE];
+                startDatePicker.Text = dic[ColumnNames.CONTRACT_START_DATE];
+                endDatePicker.Text = dic[ColumnNames.CONTRACT_END_DATE];
+                contractTypeComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, dic[ColumnNames.CONTRACT_TYPE], ColumnNames.TYPE_CODE, ColumnNames.TYPE_NAME);
+                valueListBox.Items.Clear();
+                getValueTypes(dic[ColumnNames.VALUE_TYPES]);
+            }
+            else
+            {
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.Enabled = false;
+                GetClientNames();
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                GetProjects();
+                GetContractType();
+
+                clientNameComboBox.Enabled = false;
+                projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
+                projectNameComboBox.Enabled = false;
+                //projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
+                projectCodeTxtBox.Enabled = false;
+            }
+        }
+
+        private void getValueTypes(string types)
+        {
+            List<string> list = new List<string>(types.Split(';'));
+            foreach (string typeCode in list)
+            {
+                string item = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, typeCode, ColumnNames.VALUE_CODE, ColumnNames.VALUE_TYPE);
+                if (!string.IsNullOrEmpty(item))
+                {
+                    valueListBox.Items.Add(item);
+                }            
+            }
+            valueListBox.Visible = true;
         }
 
         private void Onload()
@@ -231,8 +273,7 @@ namespace Billing.InsertData
 
         private void valueTxtBox_Leave(object sender, EventArgs e)
         {
-            double value = double.Parse(valueTxtBox.Text);
-            valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
+            CalculateValueWithMaam();
         }
 
         private void addValue_Click(object sender, EventArgs e)
