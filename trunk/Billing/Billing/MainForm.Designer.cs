@@ -62,6 +62,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1100, 669);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
             // 
             // AddDataTab
             // 
@@ -144,7 +145,7 @@
             this.EditDataTab.Location = new System.Drawing.Point(4, 22);
             this.EditDataTab.Name = "EditDataTab";
             this.EditDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.EditDataTab.Size = new System.Drawing.Size(1031, 581);
+            this.EditDataTab.Size = new System.Drawing.Size(1092, 643);
             this.EditDataTab.TabIndex = 1;
             this.EditDataTab.Text = "עריכה וחיפוש";
             // 

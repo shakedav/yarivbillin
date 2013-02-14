@@ -57,18 +57,38 @@ namespace Billing
 
         public void checkFormsStatus()
         {
-            if (splitContainer1.Panel1.Controls.Count >= 1)
+            if (tabControl1.SelectedTab.Name == "AddDataTab")
             {
-                DialogResult dr = MessageBox.Show("לשמור או לא?", "aaa", MessageBoxButtons.YesNoCancel);
-                if ( dr  == DialogResult.OK)
+                if (splitContainer1.Panel1.Controls.Count >= 1)
                 {
-                    //Form.save;
+                    DialogResult dr = MessageBox.Show("לשמור או לא?", "aaa", MessageBoxButtons.YesNoCancel);
+                    if (dr == DialogResult.OK)
+                    {
+                        //Form.save;
+                        splitContainer1.Panel1.Controls.Clear();
+                    }
+                    else
+                    {
+                        splitContainer1.Panel1.Controls.Clear();
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (searchSplit.Panel1.Controls.Count >= 1)
                 {
-                    splitContainer1.Panel1.Controls.Clear();
+                    DialogResult dr = MessageBox.Show("לשמור או לא?", "aaa", MessageBoxButtons.YesNoCancel);
+                    if (dr == DialogResult.OK)
+                    {
+                        //Form.save;
+                        searchSplit.Panel1.Controls.Clear();
+                    }
+                    else
+                    {
+                        searchSplit.Panel1.Controls.Clear();
+                    }
                 }
-            }           
+            }
         }
 
         private void searchBtn_Click(object sender, EventArgs e)
@@ -127,6 +147,11 @@ namespace Billing
             searchSplit.Panel1.Visible = true;
             searchSplit.Panel1.Select();
             searchSplit.Panel1.Controls.Add(control);
+        }
+
+        private void tabControl1_Click(object sender, EventArgs e)
+        {
+            checkFormsStatus();
         }
     }
 }

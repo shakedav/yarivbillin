@@ -53,7 +53,7 @@ namespace Billing
 
             row[ColumnNames.CLIENT_CODE] = ClientCodeTxtBox.Text;
             row[ColumnNames.CLIENT_TYPE] = clientTypetxtBox.Text;
-            ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.ClientTypes.TableName);
+            ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.ClientTypes.TableName, SaveType.SaveNew);
             ExcelHelper.Instance.ClientTypes.Rows.Add(row);
         }
     }

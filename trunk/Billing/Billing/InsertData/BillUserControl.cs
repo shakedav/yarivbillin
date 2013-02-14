@@ -146,7 +146,7 @@ namespace Billing.InsertData
         {
             if (IsDataExist())
             {
-                if (ExcelHelper.Instance.shouldSave("חשבון חלקי {0} או חשבון עבור חודש זה", billSequenceInContractTxtBox.Text))
+                if (ExcelHelper.Instance.shouldSave("חשבון חלקי {0} או חשבון עבור חודש זה", billSequenceInContractTxtBox.Text) != SaveType.NA)
                 {
                     SaveData();
                     return true;
@@ -185,7 +185,7 @@ namespace Billing.InsertData
                     billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
                     billsRow[ColumnNames.CLIENT_CODE] = clientCode;
                     billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
-                    ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName);
+                    ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
                     ExcelHelper.Instance.Bills.Rows.Add(billsRow);           
                     foreach(KeyValuePair<int,List<TextBox>> list in valuesList)
                     {
@@ -197,7 +197,7 @@ namespace Billing.InsertData
                             valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
                             valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
                             valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
-                            ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName);
+                            ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
                             ExcelHelper.Instance.ValueInBill.Rows.Add(valueRow);
                         }
                     }
