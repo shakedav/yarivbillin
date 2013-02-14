@@ -31,6 +31,7 @@
             this.errorMessage = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.updateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // errorMessage
@@ -45,7 +46,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(369, 66);
+            this.btnSave.Location = new System.Drawing.Point(379, 66);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
@@ -55,7 +56,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(213, 66);
+            this.btnCancel.Location = new System.Drawing.Point(159, 66);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -63,11 +64,22 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // updateBtn
+            // 
+            this.updateBtn.Location = new System.Drawing.Point(269, 66);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(75, 23);
+            this.updateBtn.TabIndex = 3;
+            this.updateBtn.Text = "עדכן";
+            this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
+            // 
             // DataExists
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(612, 101);
+            this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.errorMessage);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Label errorMessage;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button updateBtn;
     }
 }

@@ -153,3 +153,185 @@
 2013-02-10 01:01:57.5165 Client Saved 
 2013-02-10 01:48:53.2916 Project Saved 
 2013-02-10 01:49:27.7545 Project Saved 
+2013-02-11 00:40:49.7977 Client Saved 
+2013-02-11 00:41:06.8027 Project Saved 
+2013-02-11 00:41:25.9558 Client Saved 
+2013-02-11 00:44:22.9909 Bill Saved 
+2013-02-11 00:44:42.4141 Client Saved 
+2013-02-11 00:44:58.9800 Project Saved 
+2013-02-11 00:45:21.6743 Client Saved 
+2013-02-11 00:54:02.8481 Bill Saved 
+2013-02-11 21:58:52.6386 Client Saved 
+2013-02-11 22:08:51.7369 error when saving client info System.Runtime.InteropServices.InvalidComObjectException: COM object that has been separated from its underlying RCW cannot be used.
+   at System.RuntimeType.InvokeDispMethod(String name, BindingFlags invokeAttr, Object target, Object[] args, Boolean[] byrefModifiers, Int32 culture, String[] namedParameters)
+   at System.RuntimeType.InvokeMember(String name, BindingFlags bindingFlags, Binder binder, Object target, Object[] providedArgs, ParameterModifier[] modifiers, CultureInfo culture, String[] namedParams)
+   at System.RuntimeType.ForwardCallToInvokeMember(String memberName, BindingFlags flags, Object target, Int32[] aWrapperTypes, MessageData& msgData)
+   at Microsoft.Office.Interop.Excel.Range.set_Value(Object RangeValueDataType, Object value)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 152
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:08:51.7369 Client Saved 
+2013-02-11 22:10:01.0088 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot save as that name. Document was opened as read-only.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 157
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:10:01.0088 Client Saved 
+2013-02-11 22:10:24.4432 Client Saved 
+2013-02-11 22:12:07.4991 Client Saved 
+2013-02-11 22:16:04.2276 Client Saved 
+2013-02-11 22:17:41.5342 Client Saved 
+2013-02-11 22:22:59.9304 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Exception from HRESULT: 0x800A03EC
+   at Microsoft.Office.Interop.Excel._Worksheet.get_Range(Object Cell1, Object Cell2)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, Boolean update) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 165
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:22:59.9454 Client Saved 
+2013-02-11 22:24:18.0739 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, Boolean update) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 171
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:24:18.0929 Client Saved 
+2013-02-11 22:24:24.6492 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, Boolean update) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 171
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:24:24.6492 Client Saved 
+2013-02-11 22:24:44.6884 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, Boolean update) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 171
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:24:44.7064 Client Saved 
+2013-02-11 22:24:55.4170 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, Boolean update) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 171
+   at Billing.InsertData.ClientUserControl.SaveData() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 169
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 83
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:24:55.4170 Client Saved 
+2013-02-11 22:25:22.2205 Client Saved 
+2013-02-11 22:28:13.7423 Client Saved 
+2013-02-11 22:29:21.3922 Client Saved 
+2013-02-11 22:29:33.7849 Client Saved 
+2013-02-11 22:30:01.7715 Client Saved 
+2013-02-11 22:48:31.8940 Client Saved 
+2013-02-11 22:51:42.8829 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ClientUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 166
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 86
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:51:42.8979 Client Saved 
+2013-02-11 22:51:59.6469 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ClientUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 166
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 86
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 22:51:59.6469 Client Saved 
+2013-02-11 22:56:09.7172 Client Saved 
+2013-02-11 22:56:42.7411 Client Saved 
+2013-02-11 22:57:52.1391 Client Saved 
+2013-02-11 23:01:42.6172 Client Saved 
+2013-02-11 23:09:07.2987 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:09:07.3167 Project Saved 
+2013-02-11 23:09:22.2645 error when saving Project info System.ArgumentException: Column 'קוד פרוייקט' does not belong to table פרוייקטים.
+   at System.Data.DataRow.GetDataColumn(String columnName)
+   at System.Data.DataRow.set_Item(String columnName, Object value)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 110
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:09:22.2645 Project Saved 
+2013-02-11 23:09:58.9126 error when saving Project info System.ArgumentException: Column 'קוד פרוייקט' does not belong to table פרוייקטים.
+   at System.Data.DataRow.GetDataColumn(String columnName)
+   at System.Data.DataRow.set_Item(String columnName, Object value)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 110
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:09:58.9126 Project Saved 
+2013-02-11 23:10:57.4800 error when saving Project info System.ArgumentException: Column 'קוד פרוייקט' does not belong to table פרוייקטים.
+   at System.Data.DataRow.GetDataColumn(String columnName)
+   at System.Data.DataRow.set_Item(String columnName, Object value)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 110
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:10:57.4800 Project Saved 
+2013-02-11 23:14:27.5050 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:14:27.5240 Project Saved 
+2013-02-11 23:15:44.0724 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 218
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:15:44.0894 Project Saved 
+2013-02-11 23:19:30.6553 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 219
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:19:30.6693 Project Saved 
+2013-02-11 23:20:42.4884 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 219
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:20:42.5054 Project Saved 
+2013-02-11 23:20:51.3919 error when saving client info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ClientUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 158
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 90
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 23:20:51.3919 Client Saved 
+2013-02-11 23:21:37.5966 Client Saved 
+2013-02-11 23:22:38.9991 error when saving Project info System.Data.MissingPrimaryKeyException: Table doesn't have a primary key.
+   at System.Data.DataTable.FindByPrimaryKey(Object[] values)
+   at System.Data.DataRowCollection.Find(Object[] keys)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 126
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 213
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:22:38.9991 Project Saved 
+2013-02-11 23:23:19.1614 error when saving Project info System.Data.MissingPrimaryKeyException: Table doesn't have a primary key.
+   at System.Data.DataTable.FindByPrimaryKey(Object[] values)
+   at System.Data.DataRowCollection.Find(Object[] keys)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 126
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 213
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-11 23:23:19.1614 Project Saved 
+2013-02-11 23:25:30.0639 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 183
+   at Billing.InsertData.ClientUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 176
+   at Billing.InsertData.ClientUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 84
+   at Billing.InsertData.ClientUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ClientUserControl.cs:line 59
+2013-02-11 23:25:30.0789 Client Saved 
+2013-02-11 23:25:34.4361 Client Saved 
+2013-02-11 23:25:43.3586 Project Saved 
+2013-02-11 23:25:54.6973 Client Saved 
+2013-02-11 23:26:01.4247 Client Saved 
+2013-02-11 23:26:10.3132 Client Saved 
+2013-02-11 23:26:32.0894 Client Saved 
+2013-02-11 23:30:01.8054 Client Saved 
+2013-02-11 23:30:17.7333 Client Saved 
+2013-02-11 23:30:40.7897 Project Saved 
+2013-02-11 23:30:48.3251 Project Saved 
+2013-02-11 23:31:14.4246 Project Saved 
+2013-02-11 23:31:26.1382 Client Saved 

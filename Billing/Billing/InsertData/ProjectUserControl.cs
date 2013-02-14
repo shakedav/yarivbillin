@@ -102,21 +102,43 @@ namespace Billing.InsertData
                                                         (ExcelHelper.Instance.CheckExistenceOfSingleValue(projectCodetxtBox.Text,ColumnNames.PROJECT_CODE,ExcelHelper.Instance.Projects)));
         }
 
-        private void SaveData()
+        private void SaveData(SaveType saveType)
         {
-            DataRow row = ExcelHelper.Instance.Projects.NewRow();
-            row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
-            row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
-            row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
-            row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;
-            row[ColumnNames.INVITER_PROJECT_CODE] = projectCodeInviterTxtBox.Text;
-            row[ColumnNames.PROJECT_DESCRIPTION] = projectDescriptiontxtBox.Text;
-            row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
-            row[ColumnNames.CONTACT_MAN_DESC] = contactManDescTxt.Text;
-            row[ColumnNames.CONTACT_MAN_PHONE] = contactManPhoneTxtBox.Text;
-            row[ColumnNames.CONTACT_MAN_EMAIL] = contactManEmailTxtBox.Text;
-            ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName);
-            ExcelHelper.Instance.Projects.Rows.Add(row);
+            if (isNew)
+            {
+                DataRow row = ExcelHelper.Instance.Projects.NewRow();
+                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
+                row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
+                row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
+                row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;
+                row[ColumnNames.INVITER_PROJECT_CODE] = projectCodeInviterTxtBox.Text;
+                row[ColumnNames.PROJECT_DESCRIPTION] = projectDescriptiontxtBox.Text;
+                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+                row[ColumnNames.CONTACT_MAN_DESC] = contactManDescTxt.Text;
+                row[ColumnNames.CONTACT_MAN_PHONE] = contactManPhoneTxtBox.Text;
+                row[ColumnNames.CONTACT_MAN_EMAIL] = contactManEmailTxtBox.Text;
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName, saveType);
+            }
+            else
+            {
+                object[] obj = new object[2] { projectCodetxtBox.Text, projectNametxtBox.Text };
+                DataRow row = ExcelHelper.Instance.Projects.Rows.Find(obj);
+                if (saveType == SaveType.SaveNew)
+                {
+                    projectCodetxtBox.Text = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
+                }
+                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
+                row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
+                row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
+                row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;
+                row[ColumnNames.INVITER_PROJECT_CODE] = projectCodeInviterTxtBox.Text;
+                row[ColumnNames.PROJECT_DESCRIPTION] = projectDescriptiontxtBox.Text;
+                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+                row[ColumnNames.CONTACT_MAN_DESC] = contactManDescTxt.Text;
+                row[ColumnNames.CONTACT_MAN_PHONE] = contactManPhoneTxtBox.Text;
+                row[ColumnNames.CONTACT_MAN_EMAIL] = contactManEmailTxtBox.Text;
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName, saveType);                
+            }
         }
 
         private void ShowErrorMessage(Exception ex)
@@ -149,8 +171,6 @@ namespace Billing.InsertData
                         ContractUserControl f = new ContractUserControl(clientNameComboBox.Text, projectNametxtBox.Text);
                         this.Parent.Controls.Add(f); 
                         this.Parent.Controls.Remove(this);
-                        
-                        //parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
                     }
                 }
                 else
@@ -182,16 +202,23 @@ namespace Billing.InsertData
         {
             if (IsDataExist())
             {
-
-                if (ExcelHelper.Instance.shouldSave(string.Format("קוד פרוייקט {0} או", projectCodetxtBox.Text) + " או פרוייקט {0}", projectNametxtBox.Text))
+                SaveType type =ExcelHelper.Instance.shouldSave(string.Format("קוד פרוייקט {0} או", projectCodetxtBox.Text) + " או פרוייקט {0}", projectNametxtBox.Text);
+                switch (type)
                 {
-                    SaveData();
-                    return true;
+                    case SaveType.SaveNew:
+                    case SaveType.Update:
+                        {
+                            SaveData(type);
+                            return true;
+                        }
+                    case SaveType.NA:
+                    default:
+                        break;
                 }
             }
             else
             {
-                SaveData();
+                SaveData(SaveType.SaveNew);
                 return true;
             }
             return false;

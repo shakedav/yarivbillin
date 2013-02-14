@@ -64,14 +64,39 @@ namespace Billing
         {
             dbCon = new OleDbConnection(sConnection);
             DataSet ds = ReadExcelData(Constants.Instance.Path);
+            SetTables(ds);
+        }
+
+        private void SetTables(DataSet ds)
+        {
             Clients = ds.Tables["לקוחות"];
+            DataColumn[] clientsKeys = new DataColumn[2];
+            clientsKeys[0] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_CODE];
+            clientsKeys[1] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_NAME];
+            Clients.PrimaryKey = clientsKeys;
+
             Contracts = ds.Tables["חוזים"];
+            DataColumn[] ContractsKeys = new DataColumn[2];
+            ContractsKeys[0] = ds.Tables["חוזים"].Columns[ColumnNames.CONTRACT_CODE_YARIV];
+            ContractsKeys[1] = ds.Tables["חוזים"].Columns[ColumnNames.CLIENT_CODE];
+            Contracts.PrimaryKey = ContractsKeys;
+
             Bills = ds.Tables["חשבונות"];
+            DataColumn[] billsKeys = new DataColumn[2];
+            billsKeys[0] = ds.Tables["חשבונות"].Columns[ColumnNames.BILL_NUMBER_YARIV];
+            billsKeys[1] = ds.Tables["חשבונות"].Columns[ColumnNames.CLIENT_CODE];
+            Bills.PrimaryKey = billsKeys;
+
             Projects = ds.Tables["פרוייקטים"];
+            DataColumn[] projectsKeys = new DataColumn[2];
+            projectsKeys[0] = ds.Tables["פרוייקטים"].Columns[ColumnNames.PROJECT_CODE];
+            projectsKeys[1] = ds.Tables["פרוייקטים"].Columns[ColumnNames.PROJECT_NAME];
+            Projects.PrimaryKey = projectsKeys;
+
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
-            ValueTypes = ds.Tables["סוגי תמורה"];  
+            ValueTypes = ds.Tables["סוגי תמורה"];
             ValueInBill = ds.Tables["תמורות בחשבון"];
         }
 
@@ -115,7 +140,7 @@ namespace Billing
             return sb.ToString();
         }
 
-        public void SaveDataToExcel(DataRow row, string sheetName)
+        public void SaveDataToExcel(DataRow row, string sheetName, SaveType saveType)
         {          
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
@@ -124,14 +149,35 @@ namespace Billing
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             // get the last used column number 
             int lastCol = excelWorksheet.Cells.Find("*", System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value, ExcelApp.XlSearchOrder.xlByColumns, ExcelApp.XlSearchDirection.xlPrevious, false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Column;
-            int lastRow = excelWorksheet.Cells.Find("*", System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value, ExcelApp.XlSearchOrder.xlByRows, ExcelApp.XlSearchDirection.xlPrevious, false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row + 1;
-
-            for (int col = 1;col <= lastCol; col++)
+            switch (saveType)
             {
-                ExcelApp.Range excelCell = (ExcelApp.Range)excelWorksheet.get_Range(toAlphabet(col) + lastRow.ToString(), toAlphabet(col) + lastRow.ToString());
-                excelCell.Value = row.ItemArray[col-1];
-                if (excelCell != null) { Marshal.ReleaseComObject(excelCell); }
-                excelCell = null;
+                case SaveType.NA:
+                    break;
+                case SaveType.SaveNew:
+                    {
+                        int lastRow = excelWorksheet.Cells.Find("*", System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value, ExcelApp.XlSearchOrder.xlByRows, ExcelApp.XlSearchDirection.xlPrevious, false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row + 1;
+
+                        for (int col = 1; col <= lastCol; col++)
+                        {
+                            ExcelApp.Range excelCell = (ExcelApp.Range)excelWorksheet.get_Range(toAlphabet(col) + lastRow.ToString(), toAlphabet(col) + lastRow.ToString());
+                            excelCell.Value = row.ItemArray[col - 1];
+                            if (excelCell != null) { Marshal.ReleaseComObject(excelCell); }
+                            excelCell = null;
+                        }
+                        break;
+                    }
+                case SaveType.Update:
+                    {
+                        int lastRow = row.Table.Rows.IndexOf(row) + 2;
+
+                        for (int col = 1; col <= lastCol; col++)
+                        {
+                            ExcelApp.Range excelCell = (ExcelApp.Range)excelWorksheet.get_Range(toAlphabet(col) + lastRow.ToString(), toAlphabet(col) + lastRow.ToString());
+                            excelCell.Value = row.ItemArray[col - 1];
+                            excelCell = null;
+                        }
+                        break;
+                    }
             }
             bool SaveChanges = true;
             excelWorksheet.SaveAs(Constants.Instance.Path);
@@ -151,6 +197,7 @@ namespace Billing
             excelApp = null;
             GC.Collect();
             ReadExcelData(Constants.Instance.Path);
+            Reload();
         }
 
         private string toAlphabet(int col)
@@ -424,16 +471,16 @@ namespace Billing
             }
         }
 
-        public bool shouldSave(string message, string ExistingData)
+        public Billing.SaveType shouldSave(string message, string ExistingData)
         {
             using (var form = new DataExists(string.Format(message, ExistingData)))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    return form.ShouldSave;
+                    return form.typeOfSave;
                 }
-                else return false;
+                else return form.typeOfSave;
             }
         }
 
@@ -467,14 +514,7 @@ namespace Billing
         {
             dbCon = new OleDbConnection(sConnection);
             DataSet ds = ReadExcelData(Constants.Instance.Path);
-            Clients = ds.Tables["לקוחות"];
-            Contracts = ds.Tables["חוזים"];
-            Bills = ds.Tables["חשבונות"];
-            Projects = ds.Tables["פרוייקטים"];
-            ContractTypes = ds.Tables["סוגי חוזים"];
-            StatusTypes = ds.Tables["סוגי סטטוס"];
-            ClientTypes = ds.Tables["סוגי לקוחות"];
-            ValueTypes = ds.Tables["סוגי תמורה"];
+            SetTables(ds);
         }
 
         internal List<int> getValuesFromDB(string contractCode)

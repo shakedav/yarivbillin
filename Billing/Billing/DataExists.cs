@@ -9,9 +9,17 @@ using System.Windows.Forms;
 
 namespace Billing
 {
+    public enum SaveType 
+    {
+        NA = 0,
+        SaveNew = 1,
+        Update = 2
+    }
+
     public partial class DataExists : Form
     {
         public bool ShouldSave { get; set; }
+        public SaveType typeOfSave = SaveType.NA;
 
         public DataExists(string message)
         {
@@ -23,6 +31,7 @@ namespace Billing
         {
             ShouldSave = true;
             DialogResult = DialogResult.OK;
+            typeOfSave = SaveType.SaveNew;
             this.Close();
         }
 
@@ -31,6 +40,14 @@ namespace Billing
             ShouldSave = false;
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+            ShouldSave = true;
+            DialogResult = DialogResult.OK;
+            typeOfSave = SaveType.Update;
+            this.Close();
         }
 
        

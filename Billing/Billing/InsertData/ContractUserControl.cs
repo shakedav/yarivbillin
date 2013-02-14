@@ -214,14 +214,24 @@ namespace Billing.InsertData
 
                 if (IsDataExist())
                 {
-                    if (ExcelHelper.Instance.shouldSave(string.Format("קוד חוזה {0} או", clientContractCodetxtBox.Text) + " או חוזה {0}", yarivContractCodeTxtBox.Text))
+                    SaveType type = ExcelHelper.Instance.shouldSave(string.Format("קוד חוזה {0} או", clientContractCodetxtBox.Text) + " או חוזה {0}", yarivContractCodeTxtBox.Text);
+                    switch (type)
                     {
-                        return SaveData();
+                        case SaveType.SaveNew:
+                        case SaveType.Update:
+                            {
+                                SaveData(type);
+                                return true;
+                            }
+                        case SaveType.NA:
+                        default:
+                            break;
                     }
-                }
+                }   
                 else
                 {
-                    return SaveData();
+                    SaveData(SaveType.SaveNew);
+                    return true;
                 }
             }
             else
@@ -239,7 +249,7 @@ namespace Billing.InsertData
                 (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ExcelHelper.Instance.Contracts)));
         }
 
-        private bool SaveData()
+        private bool SaveData(SaveType saveType)
         {
             DataRow row = ExcelHelper.Instance.Contracts.NewRow();
             try
@@ -254,7 +264,7 @@ namespace Billing.InsertData
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
-                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName);
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.SaveNew);
                 ExcelHelper.Instance.Contracts.Rows.Add(row);
                 return true;
             }
