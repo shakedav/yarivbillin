@@ -11,9 +11,8 @@ namespace Billing.InsertData
 {
     public partial class ContractUserControl : UserControl
     {
-        bool isNew;
+        bool isNew = true;
         private string valueTypes = string.Empty;
-        MainForm parent;
 
         public ContractUserControl()
         {
@@ -37,6 +36,23 @@ namespace Billing.InsertData
             Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient);
             if (dic.Count > 0)
             {
+                isNew = false;
+            }
+            if (isNew)
+            {
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.Enabled = false;
+                GetClientNames();
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                GetProjects();
+                GetContractType();
+                clientNameComboBox.Enabled = false;
+                projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
+                projectNameComboBox.Enabled = false;
+                projectCodeTxtBox.Enabled = false;
+            }
+            else
+            {
                 clientNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, selectedClient, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
                 projectNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, selectedProject, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_NAME);
                 projectCodeTxtBox.Text = dic[ColumnNames.PROJECT_CODE];
@@ -50,21 +66,6 @@ namespace Billing.InsertData
                 contractTypeComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, dic[ColumnNames.CONTRACT_TYPE], ColumnNames.TYPE_CODE, ColumnNames.TYPE_NAME);
                 valueListBox.Items.Clear();
                 getValueTypes(dic[ColumnNames.VALUE_TYPES]);
-            }
-            else
-            {
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-                clientNameComboBox.Enabled = false;
-                GetClientNames();
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-                GetProjects();
-                GetContractType();
-
-                clientNameComboBox.Enabled = false;
-                projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
-                projectNameComboBox.Enabled = false;
-                //projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
-                projectCodeTxtBox.Enabled = false;
             }
         }
 
@@ -249,11 +250,39 @@ namespace Billing.InsertData
                 (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ExcelHelper.Instance.Contracts)));
         }
 
-        private bool SaveData(SaveType saveType)
+        private void SaveData(SaveType saveType)
         {
-            DataRow row = ExcelHelper.Instance.Contracts.NewRow();
-            try
+            if (saveType == SaveType.SaveNew)
             {
+                DataRow row = ExcelHelper.Instance.Contracts.NewRow();
+                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+                row[ColumnNames.PROJECT_CODE] = projectCodeTxtBox.Text;
+                row[ColumnNames.CONTRACT_CODE_YARIV] = yarivContractCodeTxtBox.Text;
+                row[ColumnNames.CONRACT_CODE_CLIENT] = clientContractCodetxtBox.Text;
+                row[ColumnNames.VALUE] = valueTxtBox.Text;
+                row[ColumnNames.CONTRACT_SIGNING_DATE] = signingDatePicker.Text;
+                row[ColumnNames.CONTRACT_START_DATE] = startDatePicker.Text;
+                row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
+                row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
+                row[ColumnNames.VALUE_TYPES] = valueTypes;
+
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.SaveNew);
+            }
+            else
+            {
+                string clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
+                clientNameComboBox.SelectedValue = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,clientCode,ColumnNames.CLIENT_CODE,ColumnNames.CLIENT_NAME);
+                yarivContractCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(
+                                                                                        ExcelHelper.Instance.Contracts, 
+                                                                                        projectNameComboBox.Text, 
+                                                                                        ColumnNames.PROJECT_NAME,
+                                                                                        ColumnNames.CONTRACT_CODE_YARIV);
+                object[] obj = new object[2] { yarivContractCodeTxtBox.Text, clientCode };
+                DataRow row = ExcelHelper.Instance.Contracts.Rows.Find(obj);
+                if (saveType == SaveType.SaveNew)
+                {
+                    yarivContractCodeTxtBox.Text = (ExcelHelper.Instance.Contracts.Rows.Count + 1).ToString();
+                }
                 row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
                 row[ColumnNames.PROJECT_CODE] = projectCodeTxtBox.Text;
                 row[ColumnNames.CONTRACT_CODE_YARIV] = yarivContractCodeTxtBox.Text;
@@ -265,13 +294,6 @@ namespace Billing.InsertData
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.SaveNew);
-                ExcelHelper.Instance.Contracts.Rows.Add(row);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage(ex);
-                return false;
             }
         }
 

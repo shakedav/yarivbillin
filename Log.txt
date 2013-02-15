@@ -335,3 +335,161 @@
 2013-02-11 23:30:48.3251 Project Saved 
 2013-02-11 23:31:14.4246 Project Saved 
 2013-02-11 23:31:26.1382 Client Saved 
+2013-02-15 22:36:18.9952 Client Saved 
+2013-02-15 22:37:06.3159 Project Saved 
+2013-02-15 22:37:54.4866 Client Saved 
+2013-02-15 22:39:41.8458 error when saving client info System.IndexOutOfRangeException: There is no row at position -1.
+   at System.Data.RBTree`1.GetNodeByIndex(Int32 userIndex)
+   at System.Data.DataRowCollection.get_Item(Int32 index)
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 42
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 70
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 22:39:41.8598 Client Saved 
+2013-02-15 22:39:54.4165 Client Saved 
+2013-02-15 22:54:35.3809 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 183
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 22:54:35.4109 Client Saved 
+2013-02-15 22:54:56.2571 error when saving client info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 270
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 22:54:56.2571 Client Saved 
+2013-02-15 22:55:16.2212 error when saving client info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 22:55:16.2212 Client Saved 
+2013-02-15 22:55:53.1163 error when saving client info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 22:55:53.1183 Client Saved 
+2013-02-15 23:03:11.5524 Client Saved 
+2013-02-15 23:28:19.6677 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 183
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 291
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:28:19.6817 Client Saved 
+2013-02-15 23:28:50.0724 error when saving client info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 291
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:28:51.2825 Client Saved 
+2013-02-15 23:29:05.6023 error when saving client info System.Data.MissingPrimaryKeyException: Table doesn't have a primary key.
+   at System.Data.DataTable.FindByPrimaryKey(Object[] values)
+   at System.Data.DataRowCollection.Find(Object[] keys)
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 276
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:29:05.6023 Client Saved 
+2013-02-15 23:29:16.6269 error when saving client info System.Data.MissingPrimaryKeyException: Table doesn't have a primary key.
+   at System.Data.DataTable.FindByPrimaryKey(Object[] values)
+   at System.Data.DataRowCollection.Find(Object[] keys)
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 276
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:29:16.6269 Client Saved 
+2013-02-15 23:31:47.7466 Client Saved 
+2013-02-15 23:37:19.3465 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 281
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:37:19.3595 Client Saved 
+2013-02-15 23:37:48.4172 error when saving client info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 183
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 270
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 225
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 178
+2013-02-15 23:37:48.4172 Client Saved 
+2013-02-15 23:38:16.5298 Client Saved 
+2013-02-15 23:40:14.8936 Bill Saved 
+2013-02-15 23:50:23.5188 Client Saved 
+2013-02-15 23:51:30.8176 Client Saved 
+2013-02-15 23:51:52.6829 Client Saved 
+2013-02-16 00:03:37.1402 Project Saved 
+2013-02-16 00:04:14.3753 error when saving Project info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 183
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 141
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 212
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-16 00:04:14.3753 Project Saved 
+2013-02-16 00:04:17.1084 Project Saved 
+2013-02-16 00:05:01.4810 error when saving Project info System.ArgumentException: This row already belongs to another table.
+   at System.Data.DataTable.InsertRow(DataRow row, Int64 proposedID, Int32 pos, Boolean fireEvent)
+   at System.Data.DataRowCollection.Add(DataRow row)
+   at Billing.InsertData.ProjectUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 121
+   at Billing.InsertData.ProjectUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 222
+   at Billing.InsertData.ProjectUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ProjectUserControl.cs:line 78
+2013-02-16 00:05:01.4810 Project Saved 
+2013-02-16 00:05:14.2187 Project Saved 
+2013-02-16 00:05:39.8612 Project Saved 
+2013-02-16 00:06:02.1124 Project Saved 
+2013-02-16 00:06:21.9976 Project Saved 
+2013-02-16 00:06:40.9047 Project Saved 
+2013-02-16 00:22:08.8977 error when saving contract info System.InvalidOperationException: Cannot set the SelectedValue in a ListControl with an empty ValueMember.
+   at System.Windows.Forms.ListControl.set_SelectedValue(Object value)
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 274
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 146
+2013-02-16 00:22:08.9107 Contract Saved 
+2013-02-16 00:22:38.8895 error when saving contract info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 146
+2013-02-16 00:22:38.8895 Contract Saved 
+2013-02-16 00:23:20.1748 error when saving contract info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 146
+2013-02-16 00:23:20.1748 Contract Saved 
+2013-02-16 00:25:17.4565 error when saving contract info System.ArgumentException: These columns don't currently have unique values.
+   at System.Data.ConstraintCollection.AddUniqueConstraint(UniqueConstraint constraint)
+   at System.Data.ConstraintCollection.Add(Constraint constraint, Boolean addUniqueWhenAddingForeign)
+   at System.Data.DataTable.set_PrimaryKey(DataColumn[] value)
+   at Billing.ExcelHelper.SetTables(DataSet ds) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 82
+   at Billing.ExcelHelper.Reload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 517
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 200
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 269
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 146
+2013-02-16 00:25:17.4565 Contract Saved 

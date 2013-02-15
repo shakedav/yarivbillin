@@ -37,7 +37,7 @@
             this.CheckTotalAmount = new System.Windows.Forms.Button();
             this.totalToPayTxtBox = new System.Windows.Forms.TextBox();
             this.billAmountlbl = new System.Windows.Forms.Label();
-            this.tblControls = new System.Windows.Forms.TableLayoutPanel();
+            this.ValuesCollection = new System.Windows.Forms.TableLayoutPanel();
             this.valueComboBox = new System.Windows.Forms.ComboBox();
             this.valuelbl = new System.Windows.Forms.Label();
             this.addValue = new System.Windows.Forms.Button();
@@ -149,22 +149,22 @@
             this.billAmountlbl.TabIndex = 146;
             this.billAmountlbl.Text = "סכום החשבון";
             // 
-            // tblControls
+            // ValuesCollection
             // 
-            this.tblControls.AutoScroll = true;
-            this.tblControls.ColumnCount = 5;
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControls.Location = new System.Drawing.Point(86, 416);
-            this.tblControls.Name = "tblControls";
-            this.tblControls.RowCount = 2;
-            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblControls.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblControls.Size = new System.Drawing.Size(496, 136);
-            this.tblControls.TabIndex = 144;
+            this.ValuesCollection.AutoScroll = true;
+            this.ValuesCollection.ColumnCount = 5;
+            this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.ValuesCollection.Location = new System.Drawing.Point(86, 416);
+            this.ValuesCollection.Name = "ValuesCollection";
+            this.ValuesCollection.RowCount = 2;
+            this.ValuesCollection.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.ValuesCollection.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.ValuesCollection.Size = new System.Drawing.Size(496, 136);
+            this.ValuesCollection.TabIndex = 144;
             // 
             // valueComboBox
             // 
@@ -472,7 +472,7 @@
             this.Controls.Add(this.CheckTotalAmount);
             this.Controls.Add(this.totalToPayTxtBox);
             this.Controls.Add(this.billAmountlbl);
-            this.Controls.Add(this.tblControls);
+            this.Controls.Add(this.ValuesCollection);
             this.Controls.Add(this.valueComboBox);
             this.Controls.Add(this.valuelbl);
             this.Controls.Add(this.addValue);
@@ -520,7 +520,7 @@
         private System.Windows.Forms.Button CheckTotalAmount;
         private System.Windows.Forms.TextBox totalToPayTxtBox;
         private System.Windows.Forms.Label billAmountlbl;
-        private System.Windows.Forms.TableLayoutPanel tblControls;
+        private System.Windows.Forms.TableLayoutPanel ValuesCollection;
         private System.Windows.Forms.ComboBox valueComboBox;
         private System.Windows.Forms.Label valuelbl;
         private System.Windows.Forms.Button addValue;

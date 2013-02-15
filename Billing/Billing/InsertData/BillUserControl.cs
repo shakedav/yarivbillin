@@ -12,6 +12,7 @@ namespace Billing.InsertData
 {
     public partial class BillUserControl : UserControl
     {
+        bool isNew = true;
         public string clientCode;
         public Point lastControl;
         private int tblRow = 0;
@@ -68,10 +69,35 @@ namespace Billing.InsertData
         public BillUserControl(string selectedClient, string selectedContract)
         {
             Onload();
-            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-            clientNameComboBox.Enabled = false;
-            contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
-            contractCodeComboBox.Enabled = false;
+            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, selectedClient);
+            if (dic.Count > 0)
+            {
+                isNew = false;
+            }
+            if (isNew)
+            {
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.Enabled = false;
+                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
+                contractCodeComboBox.Enabled = false;
+            }
+            else
+            {
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.Enabled = false;
+                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
+                contractCodeComboBox.Enabled = false;
+                billDateBox.Text = dic[ColumnNames.BILL_DATE];
+                billNumberTxtBox.Text = dic[ColumnNames.BILL_NUMBER_YARIV];
+                billSequenceInContractTxtBox.Text = dic[ColumnNames.BILL_SEQUENCE];
+                lastBillTxtBox.Text = dic[ColumnNames.PREVIOUS_BILL];
+                maamTxtBox.Text = dic[ColumnNames.MAAM];
+                billStatusComboBox.SelectedValue = dic[ColumnNames.STATUS_NAME];
+                foreach (int type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
+                {
+                    CreateValues(type);
+                }
+            }
         }
        
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,7 +212,6 @@ namespace Billing.InsertData
                     billsRow[ColumnNames.CLIENT_CODE] = clientCode;
                     billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
                     ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
-                    ExcelHelper.Instance.Bills.Rows.Add(billsRow);           
                     foreach(KeyValuePair<int,List<TextBox>> list in valuesList)
                     {
                         if (list.Value.Count == 2)
@@ -198,7 +223,6 @@ namespace Billing.InsertData
                             valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
                             valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
                             ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
-                            ExcelHelper.Instance.ValueInBill.Rows.Add(valueRow);
                         }
                     }
                 }
@@ -263,42 +287,47 @@ namespace Billing.InsertData
 
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            CreateValues(valueComboBox.SelectedIndex);
+        }
+
+        private void CreateValues(int valueType)
+        {
             Point size = new Point(60, 50);
             Point lblSize = new Point(100, 50);
-            tblControls.Visible = true;
-            List<TextBox> textBoxes = new List<TextBox>();            
-            switch (valueComboBox.SelectedIndex)
-            {                    
+            ValuesCollection.Visible = true;
+            List<TextBox> textBoxes = new List<TextBox>();
+            switch (valueType)
+            {
                 case 0:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Name = "1";
                         txt.Size = new Size(size);
-                        tblControls.Controls.Add(txt,tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("תעריף שנתי");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "1";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox("");                        
+                        TextBox text = CreateTextBox("");
                         text.Size = new Size(size);
                         text.Name = "1";
-                        tblControls.Controls.Add(text,tblCol,tblRow);
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
                         tblCol++;
                         Label lbl1 = CreateLabel("מספר שעות עבודה");
                         lbl1.Size = new Size(lblSize);
                         lbl1.Name = "1";
-                        tblControls.Controls.Add(lbl1, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
                         tblCol++;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,lbl1);         
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
                         tblCol = 0;
-                        tblRow++;                        
+                        tblRow++;
                         break;
                     }
                 case 1:
@@ -306,29 +335,29 @@ namespace Billing.InsertData
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
                         txt.Name = "2";
-                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("תעריף חודשי");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "2";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
                         TextBox text = CreateTextBox("");
                         text.Size = new Size(size);
                         text.Name = "2";
-                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
                         tblCol++;
                         Label lbl1 = CreateLabel("מספר חודשים");
                         lbl1.Size = new Size(lblSize);
                         lbl1.Name = "6";
-                        tblControls.Controls.Add(lbl1, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
                         tblCol++;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,lbl1);
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -338,29 +367,29 @@ namespace Billing.InsertData
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
                         txt.Name = "3";
-                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("אחוז משכר טרחה");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "3";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
                         TextBox text = CreateTextBox("");
                         text.Size = new Size(size);
                         text.Name = "3";
-                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
                         tblCol++;
                         Label lbl1 = CreateLabel("שכר הטרחה");
                         lbl1.Size = new Size(lblSize);
                         lbl1.Name = "3";
-                        tblControls.Controls.Add(lbl1, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
                         tblCol++;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,lbl1);
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -370,12 +399,12 @@ namespace Billing.InsertData
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
                         txt.Name = "4";
-                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("סכום לתשלום");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "4";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
                         TextBox text = CreateTextBox("1");
                         text.Size = new Size(size);
@@ -383,10 +412,10 @@ namespace Billing.InsertData
                         text.Visible = false;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);                     
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,null);
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -396,29 +425,29 @@ namespace Billing.InsertData
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
                         txt.Name = "5";
-                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("אחוז מהקבלן");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "5";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
                         TextBox text = CreateTextBox("");
                         text.Size = new Size(size);
                         text.Name = "5";
-                        tblControls.Controls.Add(text, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
                         tblCol++;
                         Label lbl1 = CreateLabel("סכום הקבלן");
                         lbl1.Size = new Size(lblSize);
                         lbl1.Name = "5";
-                        tblControls.Controls.Add(lbl1, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
                         tblCol++;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);                     
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,lbl1);
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -428,12 +457,12 @@ namespace Billing.InsertData
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
                         txt.Name = "6";
-                        tblControls.Controls.Add(txt, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
                         Label lbl = CreateLabel("סכום החשבון");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "6";
-                        tblControls.Controls.Add(lbl, tblCol, tblRow);
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
                         TextBox text = CreateTextBox("1");
                         text.Size = new Size(size);
@@ -441,16 +470,16 @@ namespace Billing.InsertData
                         text.Visible = false;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow,textBoxes);                    
+                        valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
-                        tblControls.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b,tblRow, lbl,null);
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
             }
-          
+
             valuelbl.Visible = false;
             valueComboBox.Visible = false;
         }
@@ -466,18 +495,18 @@ namespace Billing.InsertData
         {
             b.Click += (sender1, e1) =>
             {
-                tblControls.Controls.Remove(b);
-                tblControls.Controls.Remove(txt);
-                tblControls.Controls.Remove(text);
-                tblControls.Controls.Remove(lbl);
+                ValuesCollection.Controls.Remove(b);
+                ValuesCollection.Controls.Remove(txt);
+                ValuesCollection.Controls.Remove(text);
+                ValuesCollection.Controls.Remove(lbl);
                 if (lbl1 != null)
                 {
-                    tblControls.Controls.Remove(lbl1);
+                    ValuesCollection.Controls.Remove(lbl1);
                     }
                 valuesList.Remove(row);
-                if (tblControls.Controls.Count == 0)
+                if (ValuesCollection.Controls.Count == 0)
                 {
-                    tblControls.Visible = false;
+                    ValuesCollection.Visible = false;
                 }               
             };
         }
