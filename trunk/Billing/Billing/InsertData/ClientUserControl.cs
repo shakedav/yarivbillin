@@ -152,7 +152,7 @@ namespace Billing.InsertData
 
         private void SaveData(SaveType saveType)
         {
-            if (isNew)
+            if (saveType == SaveType.SaveNew)
             {
                 DataRow row = ExcelHelper.Instance.Clients.NewRow();
                 row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
@@ -162,11 +162,11 @@ namespace Billing.InsertData
                 row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();               
                 row[ColumnNames.CLIENT_CODE] = clientCodeTxtBox.Text;                
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
-                //ExcelHelper.Instance.Clients.Rows.Add(row);
             }
             else
             {
-               object[] obj = new object[2] { clientCodeTxtBox.Text, clientNameTxtBox.Text };
+               object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
+                                                clientNameTxtBox.Text,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),clientNameTxtBox.Text};
                DataRow row = ExcelHelper.Instance.Clients.Rows.Find(obj);
                row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
                row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;
@@ -179,7 +179,7 @@ namespace Billing.InsertData
                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
                                                  , ColumnNames.CLIENT_TYPE);
                }
-               row[ColumnNames.CLIENT_CODE] = clientCodeTxtBox.Text;
+               row[ColumnNames.CLIENT_CODE] = obj[0];
                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
             }
         }

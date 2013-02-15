@@ -104,7 +104,7 @@ namespace Billing.InsertData
 
         private void SaveData(SaveType saveType)
         {
-            if (isNew)
+            if (saveType == SaveType.SaveNew)
             {
                 DataRow row = ExcelHelper.Instance.Projects.NewRow();
                 row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
@@ -121,13 +121,13 @@ namespace Billing.InsertData
             }
             else
             {
-                object[] obj = new object[2] { projectCodetxtBox.Text, projectNametxtBox.Text };
+                object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNametxtBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE), projectNametxtBox.Text};
                 DataRow row = ExcelHelper.Instance.Projects.Rows.Find(obj);
                 if (saveType == SaveType.SaveNew)
                 {
                     projectCodetxtBox.Text = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
                 }
-                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
+                row[ColumnNames.PROJECT_CODE] = obj[0];
                 row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
                 row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
                 row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;

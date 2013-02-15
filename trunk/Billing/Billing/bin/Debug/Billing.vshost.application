@@ -4,7 +4,6 @@
   <description asmv2:publisher="Billing" asmv2:product="Billing" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Client" supportedRuntime="4.0.30319" />
     <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
@@ -15,7 +14,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>NIlu8N7o/gqJGy3Ozb57ygItNvc=</dsig:DigestValue>
+        <dsig:DigestValue>bbrUGzeON2ajgDtg+ybXDNBTbPc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
