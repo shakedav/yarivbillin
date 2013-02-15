@@ -271,13 +271,14 @@ namespace Billing.InsertData
             else
             {
                 string clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
-                clientNameComboBox.SelectedValue = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,clientCode,ColumnNames.CLIENT_CODE,ColumnNames.CLIENT_NAME);
+                clientNameComboBox.SelectedItem = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,clientCode,ColumnNames.CLIENT_CODE,ColumnNames.CLIENT_NAME);
+                string projectName = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects,projectNameComboBox.Text,ColumnNames.PROJECT_NAME,ColumnNames.PROJECT_CODE);
                 yarivContractCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(
-                                                                                        ExcelHelper.Instance.Contracts, 
-                                                                                        projectNameComboBox.Text, 
-                                                                                        ColumnNames.PROJECT_NAME,
+                                                                                        ExcelHelper.Instance.Contracts,
+                                                                                        projectName, 
+                                                                                        ColumnNames.PROJECT_CODE,
                                                                                         ColumnNames.CONTRACT_CODE_YARIV);
-                object[] obj = new object[2] { yarivContractCodeTxtBox.Text, clientCode };
+                object[] obj = new object[2] { yarivContractCodeTxtBox.Text, projectCodeTxtBox.Text };
                 DataRow row = ExcelHelper.Instance.Contracts.Rows.Find(obj);
                 if (saveType == SaveType.SaveNew)
                 {
@@ -293,7 +294,7 @@ namespace Billing.InsertData
                 row[ColumnNames.CONTRACT_END_DATE] = endDatePicker.Text;
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
-                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.SaveNew);
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.Update);
             }
         }
 

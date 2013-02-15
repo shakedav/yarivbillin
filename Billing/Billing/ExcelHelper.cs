@@ -73,25 +73,53 @@ namespace Billing
             DataColumn[] clientsKeys = new DataColumn[2];
             clientsKeys[0] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_CODE];
             clientsKeys[1] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_NAME];
-            Clients.PrimaryKey = clientsKeys;
+            try
+            {
+                Clients.PrimaryKey = clientsKeys;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שם לקוח וקוד לקוח כבר קיימים", ex);
+            }
 
             Contracts = ds.Tables["חוזים"];
             DataColumn[] ContractsKeys = new DataColumn[2];
             ContractsKeys[0] = ds.Tables["חוזים"].Columns[ColumnNames.CONTRACT_CODE_YARIV];
-            ContractsKeys[1] = ds.Tables["חוזים"].Columns[ColumnNames.CLIENT_CODE];
-            Contracts.PrimaryKey = ContractsKeys;
+            ContractsKeys[1] = ds.Tables["חוזים"].Columns[ColumnNames.PROJECT_CODE];
+            try
+            {
+                Contracts.PrimaryKey = ContractsKeys;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("קוד חוזה וקוד פרוייקט כבר קיימים", ex);
+            }
 
             Bills = ds.Tables["חשבונות"];
             DataColumn[] billsKeys = new DataColumn[2];
             billsKeys[0] = ds.Tables["חשבונות"].Columns[ColumnNames.BILL_NUMBER_YARIV];
             billsKeys[1] = ds.Tables["חשבונות"].Columns[ColumnNames.CLIENT_CODE];
-            Bills.PrimaryKey = billsKeys;
+            try 
+            {
+                Bills.PrimaryKey = billsKeys;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("קוד לקוח ומספר חשבון כבר קיימים", ex);
+            }
 
             Projects = ds.Tables["פרוייקטים"];
             DataColumn[] projectsKeys = new DataColumn[2];
             projectsKeys[0] = ds.Tables["פרוייקטים"].Columns[ColumnNames.PROJECT_CODE];
             projectsKeys[1] = ds.Tables["פרוייקטים"].Columns[ColumnNames.PROJECT_NAME];
-            Projects.PrimaryKey = projectsKeys;
+            try
+            {
+                Projects.PrimaryKey = projectsKeys;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("קוד פרוייקט ושם פרוייקט כבר קיימים", ex);
+            }
 
             ContractTypes = ds.Tables["סוגי חוזים"];
             StatusTypes = ds.Tables["סוגי סטטוס"];
