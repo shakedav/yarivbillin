@@ -85,20 +85,20 @@ namespace Billing
             Contracts = ds.Tables["חוזים"];
             DataColumn[] ContractsKeys = new DataColumn[2];
             ContractsKeys[0] = ds.Tables["חוזים"].Columns[ColumnNames.CONTRACT_CODE_YARIV];
-            ContractsKeys[1] = ds.Tables["חוזים"].Columns[ColumnNames.PROJECT_CODE];
+            ContractsKeys[1] = ds.Tables["חוזים"].Columns[ColumnNames.CONRACT_CODE_CLIENT];
             try
             {
                 Contracts.PrimaryKey = ContractsKeys;
             }
             catch (Exception ex)
             {
-                throw new Exception("קוד חוזה וקוד פרוייקט כבר קיימים", ex);
+                throw new Exception("קוד חוזה יריב וקוד חוזה לקוח כבר קיימים", ex);
             }
 
             Bills = ds.Tables["חשבונות"];
             DataColumn[] billsKeys = new DataColumn[2];
             billsKeys[0] = ds.Tables["חשבונות"].Columns[ColumnNames.BILL_NUMBER_YARIV];
-            billsKeys[1] = ds.Tables["חשבונות"].Columns[ColumnNames.CLIENT_CODE];
+            billsKeys[1] = ds.Tables["חשבונות"].Columns[ColumnNames.CONTRACT_CODE_YARIV];
             try 
             {
                 Bills.PrimaryKey = billsKeys;

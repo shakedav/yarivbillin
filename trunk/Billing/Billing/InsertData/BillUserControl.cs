@@ -39,8 +39,13 @@ namespace Billing.InsertData
                                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
                                                                         ColumnNames.CONTRACT_CODE_YARIV);
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);            
-            valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
-            valueComboBox.Text = ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
+            //valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
+            //valueComboBox.Text = valueComboBox.SelectedIndex == -1 ?  ExcelHelper.Instance.ValueTypes.Rows[0][ColumnNames.VALUE_TYPE].ToString() : ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
+            foreach (int type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
+            {
+                CreateValues(type);
+            }
+           
             billStatusComboBox.DataSource = ExcelHelper.Instance.StatusTypes.Columns[ColumnNames.STATUS_CODE].Table;
             billStatusComboBox.DisplayMember = ColumnNames.STATUS_NAME;
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex][ColumnNames.STATUS_NAME].ToString();
@@ -172,15 +177,23 @@ namespace Billing.InsertData
         {
             if (IsDataExist())
             {
-                if (ExcelHelper.Instance.shouldSave("חשבון חלקי {0} או חשבון עבור חודש זה", billSequenceInContractTxtBox.Text) != SaveType.NA)
+                SaveType type = ExcelHelper.Instance.shouldSave("חשבון חלקי {0} או חשבון עבור חודש זה", billSequenceInContractTxtBox.Text);
+                switch (type)
                 {
-                    SaveData();
-                    return true;
+                    case SaveType.SaveNew:
+                    case SaveType.Update:
+                        {
+                            SaveData(type);
+                            return true;
+                        }
+                    case SaveType.NA:
+                    default:
+                        break;
                 }
             }
             else
             {
-                SaveData();
+                SaveData(SaveType.SaveNew);
                 return true;
             }
             return false;
@@ -192,41 +205,63 @@ namespace Billing.InsertData
                 || (ExcelHelper.Instance.CheckExistence(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, ExcelHelper.Instance.Bills)));
         }
 
-        private void SaveData()
+        private void SaveData(SaveType saveType)
         {
             try
             {
-                DataRow billsRow = ExcelHelper.Instance.Bills.NewRow();
-                
-                if (!errorsLabel.Visible)
+                if (saveType == SaveType.SaveNew)
                 {
-                    billsRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
-                    billsRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
-                    billsRow[ColumnNames.BILL_DATE] = billDateBox.Text;
-                    billsRow[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;                    
-                    billsRow[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
-                    billsRow[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
-                    billsRow[ColumnNames.MAAM] = maamTxtBox.Text;
-                    billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
-                    billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
-                    billsRow[ColumnNames.CLIENT_CODE] = clientCode;
-                    billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
-                    ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
-                    foreach(KeyValuePair<int,List<TextBox>> list in valuesList)
+                    DataRow billsRow = ExcelHelper.Instance.Bills.NewRow();
+
+                    if (!errorsLabel.Visible)
                     {
-                        if (list.Value.Count == 2)
+                        billsRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
+                        billsRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
+                        billsRow[ColumnNames.BILL_DATE] = billDateBox.Text;
+                        billsRow[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
+                        billsRow[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
+                        billsRow[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
+                        billsRow[ColumnNames.MAAM] = maamTxtBox.Text;
+                        billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
+                        billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
+                        billsRow[ColumnNames.CLIENT_CODE] = clientCode;
+                        billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
+                        ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
+                        foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
                         {
-                            DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
-                            valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
-                            valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
-                            valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
-                            valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
-                            valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
-                            ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
+                            if (list.Value.Count == 2)
+                            {
+                                DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
+                                valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
+                                valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
+                                valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
+                                valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
+                                valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
+                                ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills,
+                                                contractCodeComboBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.BILL_SEQUENCE),billNumberTxtBox.Text};
+                    DataRow row = ExcelHelper.Instance.Bills.Rows.Find(obj);
+                    row[ColumnNames.CONTRACT_CODE_YARIV] = obj[0];
+                    row[ColumnNames.BILL_NUMBER_YARIV] = obj[1];
+                    row[ColumnNames.BILL_DATE] = billDateBox.Text;
+                    row[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
+                    row[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
+                    row[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
+                    row[ColumnNames.MAAM] = maamTxtBox.Text;
+                    row[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
+                    row[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
+                    row[ColumnNames.CLIENT_CODE] = clientCode;
+                    row[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
+                    ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
+                }
             }
+                
             catch (Exception ex)
             {
                 ShowErrorMessage(ex);
@@ -280,9 +315,27 @@ namespace Billing.InsertData
         }
 
         private void addValue_Click(object sender, EventArgs e)
-        {
-            valuelbl.Visible = true;
-            valueComboBox.Visible = true;            
+        {            
+            if (valueComboBox.Items.Count > 0)
+            {
+                if (ValuesCollection.Controls[0].Name == "Error")
+                {
+                    ValuesCollection.Controls.Clear();
+                }
+                valuelbl.Visible = true;
+                valueComboBox.Visible = true;
+            }
+            else
+            {
+                ValuesCollection.Controls.Clear();
+                Label lbl = new Label();
+                Point lblSize = new Point(100, 50);
+                lbl.ForeColor = Color.Red;
+                lbl.Text = "אין חוזה לפרוייקט זה או שאין לו תמורות מוגדרות, צור חדש";
+                lbl.Size = new Size(lblSize);
+                lbl.Name = "Error";
+                ValuesCollection.Controls.Add(lbl);
+            }
         }
 
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -562,7 +615,7 @@ namespace Billing.InsertData
             GetHebrewDate();            
         }
 
-        private void GetHebrewDate()
+        private string GetHebrewDate()
         {
             System.Text.StringBuilder hebrewFormatedString = new System.Text.StringBuilder();
             CultureInfo jewishCulture = CultureInfo.CreateSpecificCulture("he-IL");
@@ -571,6 +624,7 @@ namespace Billing.InsertData
             hebrewFormatedString.Append(billDateBox.Value.ToString("dd", jewishCulture) + " ");
             hebrewFormatedString.Append("" + billDateBox.Value.ToString("y", jewishCulture));
             hebDateTxtBox.Text = hebrewFormatedString.ToString();
+            return hebDateTxtBox.Text;
         }
     
     }
