@@ -129,13 +129,13 @@ namespace Billing
                     }
                 case "חוזה":
                     {
-                        ContractUserControl control = new ContractUserControl(value1, value2);
+                        ContractUserControl control = new ContractUserControl(value1, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2,ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.PROJECT_CODE));
                         ShowControl(control);
                         break;
                     }
                 case "חשבון":
                     {
-                        BillUserControl control = new BillUserControl(value1, value2);
+                        BillUserControl control = new BillUserControl(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, value2/*bill*/,ColumnNames.BILL_NUMBER_YARIV,ColumnNames.CLIENT_CODE), value1/*contract*/);
                         ShowControl(control);
                         break;
                     }

@@ -278,7 +278,7 @@ namespace Billing.InsertData
                                                                                         projectName, 
                                                                                         ColumnNames.PROJECT_CODE,
                                                                                         ColumnNames.CONTRACT_CODE_YARIV);
-                object[] obj = new object[2] { yarivContractCodeTxtBox.Text, projectCodeTxtBox.Text };
+                object[] obj = new object[2] { yarivContractCodeTxtBox.Text, clientContractCodetxtBox.Text };
                 DataRow row = ExcelHelper.Instance.Contracts.Rows.Find(obj);
                 if (saveType == SaveType.SaveNew)
                 {
@@ -286,8 +286,8 @@ namespace Billing.InsertData
                 }
                 row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
                 row[ColumnNames.PROJECT_CODE] = projectCodeTxtBox.Text;
-                row[ColumnNames.CONTRACT_CODE_YARIV] = yarivContractCodeTxtBox.Text;
-                row[ColumnNames.CONRACT_CODE_CLIENT] = clientContractCodetxtBox.Text;
+                row[ColumnNames.CONTRACT_CODE_YARIV] = obj[0];
+                row[ColumnNames.CONRACT_CODE_CLIENT] = obj[1];
                 row[ColumnNames.VALUE] = valueTxtBox.Text;
                 row[ColumnNames.CONTRACT_SIGNING_DATE] = signingDatePicker.Text;
                 row[ColumnNames.CONTRACT_START_DATE] = startDatePicker.Text;
