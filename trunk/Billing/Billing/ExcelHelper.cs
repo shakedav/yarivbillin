@@ -429,7 +429,6 @@ namespace Billing
         {
             try
             {
-                ArrayList list = new ArrayList();
                 Dictionary<string, string> dictionary = new Dictionary<string, string>();
                 for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
                 {
@@ -437,8 +436,31 @@ namespace Billing
                     {
                         for (int j = 0; j <= fromTable.Columns.Count - 1; j++)
                         {
+                            dictionary.Add(fromTable.Columns[j].ToString(), fromTable.Rows[i][j].ToString());                      
+                        }
+                        return dictionary;
+                    }
+                }
+                return dictionary;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Dictionary<string, string> GetRowItemsByFilters(DataTable fromTable, string filterByColumn1, string valueToFilterBy1, string filterByColumn2, string valueToFilterBy2)
+        {
+            try
+            {
+                Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                for (int i = 0; i <= fromTable.Rows.Count - 1; i++)
+                {
+                    if ((valueToFilterBy1 == fromTable.Rows[i][filterByColumn1].ToString()) && (valueToFilterBy2 == fromTable.Rows[i][filterByColumn2].ToString()))
+                    {
+                        for (int j = 0; j <= fromTable.Columns.Count - 1; j++)
+                        {
                             dictionary.Add(fromTable.Columns[j].ToString(), fromTable.Rows[i][j].ToString());
-                            //list.Add(fromTable.Rows[i][j].ToString());                            
                         }
                         return dictionary;
                     }
@@ -558,6 +580,30 @@ namespace Billing
             }
 
             return list;
+        }
+
+        public  List<DataRow> getValueRows(string contractCode, string billNumber, string valueCode)
+        {
+            try
+            {
+                List<DataRow> list = new List<DataRow>();
+                for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
+                {
+                    if ((contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString()) && (billNumber == ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()) && (valueCode == ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString()))
+                    {
+                        for (int j = 0; j <= ValueInBill.Columns.Count - 1; j++)
+                        {
+                            list.Add(ValueInBill.Rows[i]);
+                        }
+                        return list;
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
    }
 }

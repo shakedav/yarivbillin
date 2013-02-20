@@ -38,14 +38,7 @@ namespace Billing.InsertData
                                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
                                                                         ColumnNames.CONTRACT_CODE_YARIV);
-            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);            
-            //valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
-            //valueComboBox.Text = valueComboBox.SelectedIndex == -1 ?  ExcelHelper.Instance.ValueTypes.Rows[0][ColumnNames.VALUE_TYPE].ToString() : ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
-            foreach (int type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
-            {
-                CreateValues(type);
-            }
-           
+            billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);                       
             billStatusComboBox.DataSource = ExcelHelper.Instance.StatusTypes.Columns[ColumnNames.STATUS_CODE].Table;
             billStatusComboBox.DisplayMember = ColumnNames.STATUS_NAME;
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex][ColumnNames.STATUS_NAME].ToString();
@@ -74,7 +67,7 @@ namespace Billing.InsertData
         public BillUserControl(string selectedClient, string selectedContract)
         {
             Onload();
-            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, selectedClient);
+            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Bills, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.BILL_NUMBER_YARIV, billNumberTxtBox.Text);
             if (dic.Count > 0)
             {
                 isNew = false;
@@ -85,10 +78,14 @@ namespace Billing.InsertData
                 clientNameComboBox.Enabled = false;
                 contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
                 contractCodeComboBox.Enabled = false;
+                foreach (string type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
+                {
+                    CreateValues(int.Parse(type));
+                }
             }
             else
             {
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,selectedClient,ColumnNames.CLIENT_CODE,ColumnNames.CLIENT_NAME));
                 clientNameComboBox.Enabled = false;
                 contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
                 contractCodeComboBox.Enabled = false;
@@ -97,10 +94,13 @@ namespace Billing.InsertData
                 billSequenceInContractTxtBox.Text = dic[ColumnNames.BILL_SEQUENCE];
                 lastBillTxtBox.Text = dic[ColumnNames.PREVIOUS_BILL];
                 maamTxtBox.Text = dic[ColumnNames.MAAM];
-                billStatusComboBox.SelectedValue = dic[ColumnNames.STATUS_NAME];
-                foreach (int type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
+                billStatusComboBox.SelectedItem = dic[ColumnNames.STATUS_TYPE];
+                foreach (int type in ExcelHelper.Instance.getValuesFromDB(contractCodeComboBox.Text))
                 {
-                    CreateValues(type);
+                    foreach (DataRow row in ExcelHelper.Instance.getValueRows(contractCodeComboBox.Text, billNumberTxtBox.Text, type.ToString()))
+                    {                        
+                        fillValues(type, row[ColumnNames.PAYMENT].ToString(), row[ColumnNames.QUANTITY].ToString());
+                    }
                 }
             }
         }
@@ -207,66 +207,64 @@ namespace Billing.InsertData
 
         private void SaveData(SaveType saveType)
         {
-            try
+            if (saveType == SaveType.SaveNew)
             {
-                if (saveType == SaveType.SaveNew)
-                {
-                    DataRow billsRow = ExcelHelper.Instance.Bills.NewRow();
+                DataRow billsRow = ExcelHelper.Instance.Bills.NewRow();
 
-                    if (!errorsLabel.Visible)
+                if (!errorsLabel.Visible)
+                {
+                    billsRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
+                    billsRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
+                    billsRow[ColumnNames.BILL_DATE] = billDateBox.Text;
+                    billsRow[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
+                    billsRow[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
+                    billsRow[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
+                    billsRow[ColumnNames.MAAM] = maamTxtBox.Text;
+                    billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
+                    billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
+                    billsRow[ColumnNames.CLIENT_CODE] = clientCode;
+                    billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
+                    ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
+                    foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
                     {
-                        billsRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
-                        billsRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
-                        billsRow[ColumnNames.BILL_DATE] = billDateBox.Text;
-                        billsRow[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
-                        billsRow[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
-                        billsRow[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
-                        billsRow[ColumnNames.MAAM] = maamTxtBox.Text;
-                        billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
-                        billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
-                        billsRow[ColumnNames.CLIENT_CODE] = clientCode;
-                        billsRow[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
-                        ExcelHelper.Instance.SaveDataToExcel(billsRow, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
-                        foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+                        if (list.Value.Count == 2)
                         {
-                            if (list.Value.Count == 2)
-                            {
-                                DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
-                                valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
-                                valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
-                                valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
-                                valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
-                                valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
-                                ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
-                            }
+                            DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
+                            valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
+                            valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
+                            valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
+                            valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
+                            valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
+                            ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
                         }
                     }
                 }
-                else
-                {
-                    object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills,
-                                                contractCodeComboBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.BILL_SEQUENCE),billNumberTxtBox.Text};
-                    DataRow row = ExcelHelper.Instance.Bills.Rows.Find(obj);
-                    row[ColumnNames.CONTRACT_CODE_YARIV] = obj[0];
-                    row[ColumnNames.BILL_NUMBER_YARIV] = obj[1];
-                    row[ColumnNames.BILL_DATE] = billDateBox.Text;
-                    row[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
-                    row[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
-                    row[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
-                    row[ColumnNames.MAAM] = maamTxtBox.Text;
-                    row[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
-                    row[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
-                    row[ColumnNames.CLIENT_CODE] = clientCode;
-                    row[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
-                    ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Bills.TableName, SaveType.SaveNew);
-                }
             }
-                
-            catch (Exception ex)
+            else
             {
-                ShowErrorMessage(ex);
+                object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills,
+                                                contractCodeComboBox.Text,ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.BILL_SEQUENCE),billNumberTxtBox.Text};
+                DataRow row = ExcelHelper.Instance.Bills.Rows.Find(obj);
+                if (row == null)
+                {
+                    Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.BILL_DATE, billDateBox.Text);
+                    obj = new object[2] { dic[ColumnNames.CONTRACT_CODE_YARIV], dic[ColumnNames.BILL_NUMBER_YARIV] };
+                    row = ExcelHelper.Instance.Bills.Rows.Find(obj);
+                }
+                row[ColumnNames.CONTRACT_CODE_YARIV] = obj[0];
+                row[ColumnNames.BILL_NUMBER_YARIV] = obj[1];
+                row[ColumnNames.BILL_DATE] = billDateBox.Text;
+                row[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
+                row[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
+                row[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
+                row[ColumnNames.MAAM] = maamTxtBox.Text;
+                row[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
+                row[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
+                row[ColumnNames.CLIENT_CODE] = clientCode;
+                row[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
+                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Bills.TableName, SaveType.Update);
             }
-        }        
+        } 
 
         private void billNumberTxtBox_TextChanged(object sender, EventArgs e)
         {
@@ -315,8 +313,8 @@ namespace Billing.InsertData
         }
 
         private void addValue_Click(object sender, EventArgs e)
-        {            
-            if (valueComboBox.Items.Count > 0)
+        {
+            if (ValuesCollection.Controls.Count > 0)
             {
                 if (ValuesCollection.Controls[0].Name == "Error")
                 {
@@ -508,6 +506,201 @@ namespace Billing.InsertData
                 case 5:
                     {
                         TextBox txt = CreateTextBox("");
+                        txt.Size = new Size(size);
+                        txt.Name = "6";
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("סכום החשבון");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "6";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("1");
+                        text.Size = new Size(size);
+                        text.Name = "6";
+                        text.Visible = false;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+            }
+
+            valuelbl.Visible = false;
+            valueComboBox.Visible = false;
+        }
+
+
+        private void fillValues(int valueType, string amount, string sum)
+        {
+            Point size = new Point(60, 50);
+            Point lblSize = new Point(100, 50);
+            ValuesCollection.Visible = true;
+            List<TextBox> textBoxes = new List<TextBox>();
+            switch (valueType)
+            {
+                case 0:
+                    {
+                        TextBox txt = CreateTextBox(sum);
+                        txt.Name = "1";
+                        txt.Size = new Size(size);
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("תעריף שנתי");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "1";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox(amount);
+                        text.Size = new Size(size);
+                        text.Name = "1";
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl1 = CreateLabel("מספר שעות עבודה");
+                        lbl1.Size = new Size(lblSize);
+                        lbl1.Name = "1";
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+                        tblCol++;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 1:
+                    {
+                        TextBox txt = CreateTextBox(sum);
+                        txt.Size = new Size(size);
+                        txt.Name = "2";
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("תעריף חודשי");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "2";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox(amount);
+                        text.Size = new Size(size);
+                        text.Name = "2";
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl1 = CreateLabel("מספר חודשים");
+                        lbl1.Size = new Size(lblSize);
+                        lbl1.Name = "6";
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+                        tblCol++;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 2:
+                    {
+                        TextBox txt = CreateTextBox(sum);
+                        txt.Size = new Size(size);
+                        txt.Name = "3";
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("אחוז משכר טרחה");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "3";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox(amount);
+                        text.Size = new Size(size);
+                        text.Name = "3";
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl1 = CreateLabel("שכר הטרחה");
+                        lbl1.Size = new Size(lblSize);
+                        lbl1.Name = "3";
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+                        tblCol++;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 3:
+                    {
+                        TextBox txt = CreateTextBox(sum);
+                        txt.Size = new Size(size);
+                        txt.Name = "4";
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("סכום לתשלום");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "4";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox("1");
+                        text.Size = new Size(size);
+                        text.Name = "4";
+                        text.Visible = false;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 4:
+                    {
+                        TextBox txt = CreateTextBox(amount);
+                        txt.Size = new Size(size);
+                        txt.Name = "5";
+                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl = CreateLabel("אחוז מהקבלן");
+                        lbl.Size = new Size(lblSize);
+                        lbl.Name = "5";
+                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+                        tblCol++;
+                        TextBox text = CreateTextBox(sum);
+                        text.Size = new Size(size);
+                        text.Name = "5";
+                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
+                        tblCol++;
+                        Label lbl1 = CreateLabel("סכום הקבלן");
+                        lbl1.Size = new Size(lblSize);
+                        lbl1.Name = "5";
+                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+                        tblCol++;
+                        textBoxes.Add(txt);
+                        textBoxes.Add(text);
+                        valuesList.Add(tblRow, textBoxes);
+                        Button b = CreateDeleteBtn();
+                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        tblCol = 0;
+                        tblRow++;
+                        break;
+                    }
+                case 5:
+                    {
+                        TextBox txt = CreateTextBox(sum);
                         txt.Size = new Size(size);
                         txt.Name = "6";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);

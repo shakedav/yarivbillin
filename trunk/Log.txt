@@ -685,3 +685,89 @@
 2013-02-19 21:51:39.0962 Contract Saved 
 2013-02-19 21:52:34.0303 Contract Saved 
 2013-02-19 22:53:29.4784 Project Saved 
+2013-02-20 15:16:47.4993 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:16:47.5133 Client Saved 
+2013-02-20 15:16:52.0655 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:16:52.0655 Client Saved 
+2013-02-20 15:17:11.3876 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:17:11.3886 Client Saved 
+2013-02-20 15:17:44.9525 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:17:44.9525 Client Saved 
+2013-02-20 15:18:02.8106 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:18:02.8106 Client Saved 
+2013-02-20 15:18:11.9841 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 287
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:18:11.9841 Client Saved 
+2013-02-20 15:24:14.7078 Client Saved 
+2013-02-20 15:27:52.9413 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 284
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:27:52.9423 Client Saved 
+2013-02-20 15:28:02.3259 Client Saved 
+2013-02-20 15:29:38.7184 Client Saved 
+2013-02-20 15:31:22.2253 Client Saved 
+2013-02-20 15:31:28.8107 Project Saved 
+2013-02-20 15:31:43.8195 Client Saved 
+2013-02-20 15:32:54.7776 Client Saved 
+2013-02-20 15:35:29.1304 Bill Saved 
+2013-02-20 15:36:37.2443 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:36:37.2623 Client Saved 
+2013-02-20 15:37:41.9340 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:37:41.9340 Client Saved 
+2013-02-20 15:39:02.4936 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:39:02.4936 Client Saved 
+2013-02-20 15:39:19.4016 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:39:19.4016 Client Saved 
+2013-02-20 15:39:48.5492 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:39:48.5502 Client Saved 
+2013-02-20 15:40:05.7082 Contract Saved 
+2013-02-20 15:41:07.0447 error when saving client info System.InvalidCastException: Specified cast is not valid.
+   at Billing.InsertData.BillUserControl.Onload() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 44
+   at Billing.InsertData.BillUserControl..ctor(String selectedClient, String selectedContract) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 76
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 179
+2013-02-20 15:41:07.0447 Client Saved 
+2013-02-20 15:41:14.5302 error when saving client info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.ContractUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 284
+   at Billing.InsertData.ContractUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 224
+   at Billing.InsertData.ContractUserControl.btnSaveAddBill_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\ContractUserControl.cs:line 177
+2013-02-20 15:41:14.5302 Client Saved 
+2013-02-20 15:44:36.9347 Client Saved 
+2013-02-20 15:45:26.2886 Bill Saved 
+2013-02-20 15:59:29.2338 Bill Saved 
+2013-02-20 16:00:32.3844 Bill Saved 
+2013-02-20 16:00:58.3649 Bill Saved 
+2013-02-20 16:02:56.0956 Bill Saved 
+2013-02-20 22:41:04.3182 Bill Saved 
