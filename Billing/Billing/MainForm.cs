@@ -107,38 +107,47 @@ namespace Billing
 
         private void listBox1_Click(object sender, EventArgs e)
         {
-            searchSplit.Panel1.Controls.Clear();
-            string a = listBox1.SelectedItems[0].ToString();
-            string type = a.Split('-')[0];
-            string value1 = a.Split('-')[1];
-            string value2 = a.Split('-')[2];
-
-            switch (type)
+            try
             {
-                case "לקוח":
-                    {
-                        ClientUserControl control = new ClientUserControl(value1);
-                        ShowControl(control);
-                        break;
-                    }
-                case "פרוייקט":
-                    {
-                        ProjectUserControl control = new ProjectUserControl(value1, string.Empty);
-                        ShowControl(control);
-                        break;
-                    }
-                case "חוזה":
-                    {
-                        ContractUserControl control = new ContractUserControl(value1, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2,ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.PROJECT_CODE));
-                        ShowControl(control);
-                        break;
-                    }
-                case "חשבון":
-                    {
-                        BillUserControl control = new BillUserControl(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, value2/*bill*/,ColumnNames.BILL_NUMBER_YARIV,ColumnNames.CLIENT_CODE), value1/*contract*/);
-                        ShowControl(control);
-                        break;
-                    }
+                searchSplit.Panel1.Controls.Clear();
+                string a = listBox1.SelectedItems[0].ToString();
+                string type = a.Split('-')[0];
+                string value1 = a.Split('-')[1];
+                string value2 = a.Split('-')[2];
+
+                switch (type)
+                {
+                    case "לקוח":
+                        {
+                            ClientUserControl control = new ClientUserControl(value1);
+                            ShowControl(control);
+                            break;
+                        }
+                    case "פרוייקט":
+                        {
+                            ProjectUserControl control = new ProjectUserControl(value1, string.Empty);
+                            ShowControl(control);
+                            break;
+                        }
+                    case "חוזה":
+                        {
+                            ContractUserControl control = new ContractUserControl(value1, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.PROJECT_CODE));
+                            ShowControl(control);
+                            break;
+                        }
+                    case "חשבון":
+                        {
+                            string clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Bills, value2/*bill*/, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE);
+                            string clientName = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientCode, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
+                            BillUserControl control = new BillUserControl(clientCode, value1/*contract*/);
+                            ShowControl(control);
+                            break;
+                        }
+                }
+            }
+            catch(Exception ex)
+            {
+                
             }
         }
 

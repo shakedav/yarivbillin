@@ -151,7 +151,8 @@
             // 
             // searchSplit
             // 
-            this.searchSplit.Location = new System.Drawing.Point(8, 10);
+            this.searchSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchSplit.Location = new System.Drawing.Point(3, 3);
             this.searchSplit.Name = "searchSplit";
             // 
             // searchSplit.Panel2
@@ -160,8 +161,8 @@
             this.searchSplit.Panel2.Controls.Add(this.searchTxtBox);
             this.searchSplit.Panel2.Controls.Add(this.searchLbl);
             this.searchSplit.Panel2.Controls.Add(this.searchBtn);
-            this.searchSplit.Size = new System.Drawing.Size(1006, 563);
-            this.searchSplit.SplitterDistance = 654;
+            this.searchSplit.Size = new System.Drawing.Size(1086, 637);
+            this.searchSplit.SplitterDistance = 706;
             this.searchSplit.TabIndex = 5;
             // 
             // listBox1

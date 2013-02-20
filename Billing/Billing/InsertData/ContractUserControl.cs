@@ -244,9 +244,7 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return ((ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,
-                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE),
-                ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts)) ||
+            return ((ExcelHelper.Instance.CheckExistence(clientContractCodetxtBox.Text,yarivContractCodeTxtBox.Text, ColumnNames.CONRACT_CODE_CLIENT, ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Contracts)) ||
                 (ExcelHelper.Instance.CheckExistenceOfSingleValue(clientContractCodetxtBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ExcelHelper.Instance.Contracts)));
         }
 
