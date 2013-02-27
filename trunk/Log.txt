@@ -771,3 +771,38 @@
 2013-02-20 16:00:58.3649 Bill Saved 
 2013-02-20 16:02:56.0956 Bill Saved 
 2013-02-20 22:41:04.3182 Bill Saved 
+2013-02-26 21:16:59.7103 Client Saved 
+2013-02-26 21:17:54.4984 Project Saved 
+2013-02-26 21:23:37.5690 Client Saved 
+2013-02-26 21:33:08.1306 Client Saved 
+2013-02-26 21:33:50.6261 Client Saved 
+2013-02-26 21:35:10.8257 Client Saved 
+2013-02-26 21:47:55.0534 Contract Saved 
+2013-02-26 21:48:39.2359 Contract Saved 
+2013-02-26 22:19:22.7393 Client Saved 
+2013-02-26 22:20:06.3188 Bill Saved 
+2013-02-26 22:20:44.5300 Bill Saved 
+2013-02-26 22:55:52.6636 error when saving Bill info System.NullReferenceException: Object reference not set to an instance of an object.
+   at Billing.InsertData.BillUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 259
+   at Billing.InsertData.BillUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 191
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 144
+2013-02-26 22:55:52.6796 Bill Saved 
+2013-02-26 22:59:29.6070 error when saving Bill info System.Data.ConstraintException: Column 'מספר חשבון ביריב, קוד חוזה יריב' is constrained to be unique.  Value '1, 1' is already present.
+   at System.Data.UniqueConstraint.CheckConstraint(DataRow row, DataRowAction action)
+   at System.Data.DataTable.RaiseRowChanging(DataRowChangeEventArgs args, DataRow eRow, DataRowAction eAction, Boolean fireEvent)
+   at System.Data.DataTable.SetNewRecordWorker(DataRow row, Int32 proposedRecord, DataRowAction action, Boolean isInMerge, Boolean suppressEnsurePropertyChanged, Int32 position, Boolean fireEvent, Exception& deferredException)
+   at System.Data.DataRow.EndEdit()
+   at System.Data.DataRow.set_Item(DataColumn column, Object value)
+   at System.Data.DataRow.set_Item(String columnName, Object value)
+   at Billing.InsertData.BillUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 259
+   at Billing.InsertData.BillUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 191
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 144
+2013-02-26 22:59:29.6320 Bill Saved 
+2013-02-26 23:17:53.2671 error when saving Bill info System.Runtime.InteropServices.COMException (0x800A03EC): Cannot access read-only document 'DataBase.xls'.
+   at Microsoft.Office.Interop.Excel._Worksheet.SaveAs(String Filename, Object FileFormat, Object Password, Object WriteResPassword, Object ReadOnlyRecommended, Object CreateBackup, Object AddToMru, Object TextCodepage, Object TextVisualLayout, Object Local)
+   at Billing.ExcelHelper.SaveDataToExcel(DataRow row, String sheetName, SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\ExcelHelper.cs:line 211
+   at Billing.InsertData.BillUserControl.SaveData(SaveType saveType) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 270
+   at Billing.InsertData.BillUserControl.CheckAndSave() in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 191
+   at Billing.InsertData.BillUserControl.saveBtn_Click(Object sender, EventArgs e) in E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\InsertData\BillUserControl.cs:line 144
+2013-02-26 23:17:53.2821 Bill Saved 
+2013-02-26 23:17:55.4603 Bill Saved 

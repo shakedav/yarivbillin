@@ -64,10 +64,14 @@ namespace Billing.InsertData
             return valuesDic;            
         }
 
-        public BillUserControl(string selectedClient, string selectedContract)
+        public BillUserControl(string selectedClient, string selectedContractOrBill, SaveType saveType)
         {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
             Onload();
-            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Bills, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.BILL_NUMBER_YARIV, billNumberTxtBox.Text);
+            if (saveType == SaveType.Update)
+            {
+                dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Bills, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.BILL_NUMBER_YARIV, selectedContractOrBill);
+            }
             if (dic.Count > 0)
             {
                 isNew = false;
@@ -76,7 +80,7 @@ namespace Billing.InsertData
             {
                 clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
                 clientNameComboBox.Enabled = false;
-                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
+                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContractOrBill);
                 contractCodeComboBox.Enabled = false;
                 foreach (string type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
                 {
@@ -87,7 +91,7 @@ namespace Billing.InsertData
             {
                 clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,selectedClient,ColumnNames.CLIENT_CODE,ColumnNames.CLIENT_NAME));
                 clientNameComboBox.Enabled = false;
-                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContract);
+                contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(dic[ColumnNames.CONTRACT_CODE_YARIV]);
                 contractCodeComboBox.Enabled = false;
                 billDateBox.Text = dic[ColumnNames.BILL_DATE];
                 billNumberTxtBox.Text = dic[ColumnNames.BILL_NUMBER_YARIV];
@@ -102,6 +106,7 @@ namespace Billing.InsertData
                         fillValues(type, row[ColumnNames.PAYMENT].ToString(), row[ColumnNames.QUANTITY].ToString());
                     }
                 }
+                CheckTotalAmount_Click(this, null);
             }
         }
        
@@ -248,11 +253,11 @@ namespace Billing.InsertData
                 if (row == null)
                 {
                     Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Bills, ColumnNames.BILL_DATE, billDateBox.Text);
-                    obj = new object[2] { dic[ColumnNames.CONTRACT_CODE_YARIV], dic[ColumnNames.BILL_NUMBER_YARIV] };
+                    obj = new object[2] { dic[ColumnNames.BILL_NUMBER_YARIV], dic[ColumnNames.CONTRACT_CODE_YARIV] };
                     row = ExcelHelper.Instance.Bills.Rows.Find(obj);
                 }
-                row[ColumnNames.CONTRACT_CODE_YARIV] = obj[0];
-                row[ColumnNames.BILL_NUMBER_YARIV] = obj[1];
+                row[ColumnNames.CONTRACT_CODE_YARIV] = obj[1];
+                row[ColumnNames.BILL_NUMBER_YARIV] = obj[0];
                 row[ColumnNames.BILL_DATE] = billDateBox.Text;
                 row[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
                 row[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
@@ -263,6 +268,19 @@ namespace Billing.InsertData
                 row[ColumnNames.CLIENT_CODE] = clientCode;
                 row[ColumnNames.HEBREW_DATE] = hebDateTxtBox.Text;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Bills.TableName, SaveType.Update);
+                foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+                {
+                    if (list.Value.Count == 2)
+                    {
+                        DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
+                        valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
+                        valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
+                        valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
+                        valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCodeComboBox.Text;
+                        valueRow[ColumnNames.BILL_NUMBER_YARIV] = billNumberTxtBox.Text;
+                        ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
+                    }
+                }
             }
         } 
 
@@ -296,6 +314,9 @@ namespace Billing.InsertData
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
             contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
             valueComboBox.DataSource = GetAllowedValues();
+            ValuesCollection.Controls.Clear();
+            valuelbl.Visible = false;
+            valueComboBox.Visible = false;
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -314,31 +335,44 @@ namespace Billing.InsertData
 
         private void addValue_Click(object sender, EventArgs e)
         {
-            if (ValuesCollection.Controls.Count > 0)
+            if (ValuesCollection.Controls.Count == 0)
             {
-                if (ValuesCollection.Controls[0].Name == "Error")
-                {
-                    ValuesCollection.Controls.Clear();
-                }
                 valuelbl.Visible = true;
                 valueComboBox.Visible = true;
             }
             else
             {
-                ValuesCollection.Controls.Clear();
-                Label lbl = new Label();
-                Point lblSize = new Point(100, 50);
-                lbl.ForeColor = Color.Red;
-                lbl.Text = "אין חוזה לפרוייקט זה או שאין לו תמורות מוגדרות, צור חדש";
-                lbl.Size = new Size(lblSize);
-                lbl.Name = "Error";
-                ValuesCollection.Controls.Add(lbl);
+                if (ValuesCollection.Controls.Count > 0)
+                {
+                    if (ValuesCollection.Controls[0].Name == "Error")
+                    {
+                        ValuesCollection.Controls.Clear();
+                        valuelbl.Visible = false;
+                        valueComboBox.Visible = false;
+                    }
+                    else
+                    {
+                        valuelbl.Visible = true;
+                        valueComboBox.Visible = true;
+                    }
+                }
+                else
+                {
+                    ValuesCollection.Controls.Clear();
+                    Label lbl = new Label();
+                    Point lblSize = new Point(100, 50);
+                    lbl.ForeColor = Color.Red;
+                    lbl.Text = "אין חוזה לפרוייקט זה או שאין לו תמורות מוגדרות, צור חדש";
+                    lbl.Size = new Size(lblSize);
+                    lbl.Name = "Error";
+                    ValuesCollection.Controls.Add(lbl);
+                }
             }
         }
 
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            CreateValues(valueComboBox.SelectedIndex);
+            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes,valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));
         }
 
         private void CreateValues(int valueType)
@@ -349,14 +383,14 @@ namespace Billing.InsertData
             List<TextBox> textBoxes = new List<TextBox>();
             switch (valueType)
             {
-                case 0:
+                case 1:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Name = "1";
                         txt.Size = new Size(size);
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
-                        Label lbl = CreateLabel("תעריף שנתי");
+                        Label lbl = CreateLabel("תעריף שעתי");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "1";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
@@ -381,7 +415,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 1:
+                case 2:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
@@ -400,7 +434,7 @@ namespace Billing.InsertData
                         tblCol++;
                         Label lbl1 = CreateLabel("מספר חודשים");
                         lbl1.Size = new Size(lblSize);
-                        lbl1.Name = "6";
+                        lbl1.Name = "2";
                         ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
                         tblCol++;
                         textBoxes.Add(txt);
@@ -413,7 +447,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 2:
+                case 3:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
@@ -445,7 +479,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 3:
+                case 4:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
@@ -471,7 +505,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 4:
+                case 5:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
@@ -503,7 +537,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 5:
+                case 6:
                     {
                         TextBox txt = CreateTextBox("");
                         txt.Size = new Size(size);
@@ -544,19 +578,19 @@ namespace Billing.InsertData
             List<TextBox> textBoxes = new List<TextBox>();
             switch (valueType)
             {
-                case 0:
+                case 1:
                     {
-                        TextBox txt = CreateTextBox(sum);
+                        TextBox txt = CreateTextBox(amount);
                         txt.Name = "1";
                         txt.Size = new Size(size);
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
                         tblCol++;
-                        Label lbl = CreateLabel("תעריף שנתי");
+                        Label lbl = CreateLabel("תעריף שעתי");
                         lbl.Size = new Size(lblSize);
                         lbl.Name = "1";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(amount);
+                        TextBox text = CreateTextBox(sum);
                         text.Size = new Size(size);
                         text.Name = "1";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -576,9 +610,9 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 1:
+                case 2:
                     {
-                        TextBox txt = CreateTextBox(sum);
+                        TextBox txt = CreateTextBox(amount);
                         txt.Size = new Size(size);
                         txt.Name = "2";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -588,7 +622,7 @@ namespace Billing.InsertData
                         lbl.Name = "2";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(amount);
+                        TextBox text = CreateTextBox(sum);
                         text.Size = new Size(size);
                         text.Name = "2";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -608,9 +642,9 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 2:
+                case 3:
                     {
-                        TextBox txt = CreateTextBox(sum);
+                        TextBox txt = CreateTextBox(amount);
                         txt.Size = new Size(size);
                         txt.Name = "3";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -620,7 +654,7 @@ namespace Billing.InsertData
                         lbl.Name = "3";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(amount);
+                        TextBox text = CreateTextBox(sum);
                         text.Size = new Size(size);
                         text.Name = "3";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -640,9 +674,9 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 3:
+                case 4:
                     {
-                        TextBox txt = CreateTextBox(sum);
+                        TextBox txt = CreateTextBox(amount);
                         txt.Size = new Size(size);
                         txt.Name = "4";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -666,7 +700,7 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 4:
+                case 5:
                     {
                         TextBox txt = CreateTextBox(amount);
                         txt.Size = new Size(size);
@@ -698,9 +732,9 @@ namespace Billing.InsertData
                         tblRow++;
                         break;
                     }
-                case 5:
+                case 6:
                     {
-                        TextBox txt = CreateTextBox(sum);
+                        TextBox txt = CreateTextBox(amount);
                         txt.Size = new Size(size);
                         txt.Name = "6";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);

@@ -78,6 +78,7 @@ namespace Billing.InsertData
                 if (!string.IsNullOrEmpty(item))
                 {
                     valueListBox.Items.Add(item);
+                    valueTypes = valueTypes + typeCode + ";";
                 }            
             }
             valueListBox.Visible = true;
@@ -176,7 +177,7 @@ namespace Billing.InsertData
                 {
                     if (CheckAndSave())
                     {
-                        BillUserControl f = new BillUserControl(clientNameComboBox.Text, yarivContractCodeTxtBox.Text);
+                        BillUserControl f = new BillUserControl(clientNameComboBox.Text, yarivContractCodeTxtBox.Text, SaveType.SaveNew);
                         this.Parent.Controls.Add(f);
                         this.Parent.Controls.Remove(this);
                         //parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
@@ -314,8 +315,13 @@ namespace Billing.InsertData
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    string valueTypesnew = string.Empty;
                     valueListBox.Items.Add(form.valueType);
-                    valueTypes = valueTypes + form.valueIndex + ";";
+                    foreach (string valueType in valueListBox.Items)
+                    {
+                        valueTypesnew = valueTypes + form.valueIndex + ";";
+                    }
+                    valueTypes = valueTypesnew;
                     valueListBox.Visible = true;
                 }
             }

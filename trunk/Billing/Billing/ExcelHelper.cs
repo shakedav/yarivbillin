@@ -281,6 +281,25 @@ namespace Billing
             }
         }
 
+        public List<string> searchInTable(DataTable table, string stringToMatch, string columnNameToSearchIn, string whatToFind, string secondIdentifier, string thirdIdentifier, string itemType)
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                for (int i = 0; i <= table.Rows.Count - 1; i++)
+                {
+                    if (table.Rows[i][columnNameToSearchIn].ToString().Contains(stringToMatch))
+                        list.Add(itemType + "-" + table.Rows[i][secondIdentifier].ToString() + "-" + table.Rows[i][whatToFind].ToString() + "-" + table.Rows[i][thirdIdentifier].ToString());
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
         {
             try
@@ -590,12 +609,8 @@ namespace Billing
                 for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
                 {
                     if ((contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString()) && (billNumber == ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()) && (valueCode == ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString()))
-                    {
-                        for (int j = 0; j <= ValueInBill.Columns.Count - 1; j++)
-                        {
-                            list.Add(ValueInBill.Rows[i]);
-                        }
-                        return list;
+                    {                      
+                        list.Add(ValueInBill.Rows[i]);                        
                     }
                 }
                 return list;
