@@ -35,3 +35,28 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Bi
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ProjectUserControl.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.BillUserControl.resources
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ContractUserControl.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Billing.exe.config
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.csproj.ResolveComReference.cache
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.exe
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.pdb
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.DataExists.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.DisplayData.DisplayClientDataForm.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.Documents.Test.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.AddValueForm.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.BillUserControl.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.ClientTypeForm.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ClientUserControl.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ContractUserControl.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.InsertData.ProjectUserControl.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.MainForm.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.Properties.Resources.resources
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Nlog.config
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Billing.exe.manifest
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Billing.application
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Billing.exe
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Debug\Billing.pdb
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.exe.manifest
+C:\Users\shakedav\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.application
