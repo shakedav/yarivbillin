@@ -834,7 +834,9 @@ namespace Billing.InsertData
             totalWithMaamTextBox.Text = (totalAmount * (1+Constants.Instance.MAAM)).ToString();
             totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
             contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
+            contractused.Text = 100*((double.Parse(totalBillsTxtBox.Text) + 
+                                    double.Parse(totalToPayTxtBox.Text)) /
+                                    double.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, contractCodeComboBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE))) + "%";
         }
 
         private void billDateBox_ValueChanged(object sender, EventArgs e)
