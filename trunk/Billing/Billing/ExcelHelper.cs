@@ -392,7 +392,7 @@ namespace Billing
             return "0";
         }
 
-        private double getContractBillsSum(string contractCode)
+        public double getContractBillsSum(string contractCode)
         {
             double sum = 0;
             foreach (DataRow row in Bills.Rows)
@@ -436,7 +436,7 @@ namespace Billing
             try
             {
                 int totalAmount = int.Parse(getItemFromTable(Contracts, contractCode, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE));
-                return ((double)getContractBillsSum(contractCode) / totalAmount).ToString("0.0%");
+                return ((double)(getContractBillsSum(contractCode) / totalAmount)).ToString(".0%");
             }
             catch (Exception ex)
             {
