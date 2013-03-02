@@ -41,6 +41,7 @@
             this.searchTxtBox = new System.Windows.Forms.TextBox();
             this.searchLbl = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Button();
+            this.createBillBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AddDataTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -157,6 +158,7 @@
             // 
             // searchSplit.Panel2
             // 
+            this.searchSplit.Panel2.Controls.Add(this.createBillBtn);
             this.searchSplit.Panel2.Controls.Add(this.listBox1);
             this.searchSplit.Panel2.Controls.Add(this.searchTxtBox);
             this.searchSplit.Panel2.Controls.Add(this.searchLbl);
@@ -201,6 +203,16 @@
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
+            // createBillBtn
+            // 
+            this.createBillBtn.Location = new System.Drawing.Point(16, 492);
+            this.createBillBtn.Name = "createBillBtn";
+            this.createBillBtn.Size = new System.Drawing.Size(114, 23);
+            this.createBillBtn.TabIndex = 5;
+            this.createBillBtn.Text = "צור מסמך חשבון";
+            this.createBillBtn.UseVisualStyleBackColor = true;
+            this.createBillBtn.Click += new System.EventHandler(this.createBillBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,5 +252,6 @@
         private System.Windows.Forms.TextBox searchTxtBox;
         private System.Windows.Forms.SplitContainer searchSplit;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button createBillBtn;
     }
 }

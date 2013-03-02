@@ -47,14 +47,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Billing.exe" size="123392">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Billing.exe" size="124416">
       <assemblyIdentity name="Billing" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>5VnV7AdIoJ9Gg4WeJRKo6Nn9o9k=</dsig:DigestValue>
+        <dsig:DigestValue>6Pf70uiN72VHEfQdE4g1VYEYz00=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
