@@ -881,13 +881,33 @@ namespace Billing.InsertData
             //Insert a paragraph at the beginning of the document.
             Microsoft.Office.Interop.Word.Paragraph oPara1;
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara1.Range.Font.Bold = 1;
+            oPara1.Range.Font.Size = 16;
+            
             oPara1.Range.Text = CreateAddresseeText(client, project,contract);
             oPara1.Range.InsertParagraphAfter();
+            oPara1.Range.Font.Bold = 1;
 
             float leftPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdHorizontalPositionRelativeToTextBoundary);
             float topPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdVerticalPositionRelativeToTextBoundary);
-            Size s = new Size(150, 150);
-            oDoc.Shapes.AddPicture(System.Configuration.ConfigurationSettings.AppSettings["YarivIcon"], false, true, leftPos, topPos,s.Width,s.Height,s.Width);
+            Size s = new Size(100, 100);
+            oDoc.Shapes.AddPicture(System.Configuration.ConfigurationSettings.AppSettings["YarivIcon"], false, true, null, null,s.Width,s.Height);
+            oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            
+            oPara1.Range.InsertParagraph();
+            oPara1.Range.InsertParagraph();
+            oPara1.Range.InsertParagraph();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Indent();
+            oPara1.Range.Text = CreateAddresseeText(client, project, contract);
 
             
             
