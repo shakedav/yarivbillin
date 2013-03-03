@@ -41,7 +41,6 @@
             this.searchTxtBox = new System.Windows.Forms.TextBox();
             this.searchLbl = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Button();
-            this.createBillBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AddDataTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -61,7 +60,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1100, 669);
+            this.tabControl1.Size = new System.Drawing.Size(1100, 762);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
             // 
@@ -146,7 +145,7 @@
             this.EditDataTab.Location = new System.Drawing.Point(4, 22);
             this.EditDataTab.Name = "EditDataTab";
             this.EditDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.EditDataTab.Size = new System.Drawing.Size(1092, 643);
+            this.EditDataTab.Size = new System.Drawing.Size(1092, 736);
             this.EditDataTab.TabIndex = 1;
             this.EditDataTab.Text = "עריכה וחיפוש";
             // 
@@ -158,12 +157,11 @@
             // 
             // searchSplit.Panel2
             // 
-            this.searchSplit.Panel2.Controls.Add(this.createBillBtn);
             this.searchSplit.Panel2.Controls.Add(this.listBox1);
             this.searchSplit.Panel2.Controls.Add(this.searchTxtBox);
             this.searchSplit.Panel2.Controls.Add(this.searchLbl);
             this.searchSplit.Panel2.Controls.Add(this.searchBtn);
-            this.searchSplit.Size = new System.Drawing.Size(1086, 637);
+            this.searchSplit.Size = new System.Drawing.Size(1086, 730);
             this.searchSplit.SplitterDistance = 706;
             this.searchSplit.TabIndex = 5;
             // 
@@ -203,25 +201,16 @@
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
-            // createBillBtn
-            // 
-            this.createBillBtn.Location = new System.Drawing.Point(16, 492);
-            this.createBillBtn.Name = "createBillBtn";
-            this.createBillBtn.Size = new System.Drawing.Size(114, 23);
-            this.createBillBtn.TabIndex = 5;
-            this.createBillBtn.Text = "צור מסמך חשבון";
-            this.createBillBtn.UseVisualStyleBackColor = true;
-            this.createBillBtn.Click += new System.EventHandler(this.createBillBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1100, 669);
+            this.ClientSize = new System.Drawing.Size(1100, 762);
             this.Controls.Add(this.tabControl1);
             this.IsMdiContainer = true;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.tabControl1.ResumeLayout(false);
             this.AddDataTab.ResumeLayout(false);
@@ -252,6 +241,5 @@
         private System.Windows.Forms.TextBox searchTxtBox;
         private System.Windows.Forms.SplitContainer searchSplit;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button createBillBtn;
     }
 }
