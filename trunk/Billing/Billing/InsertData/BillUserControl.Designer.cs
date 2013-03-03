@@ -68,6 +68,7 @@
             this.projectCodeLbl = new System.Windows.Forms.Label();
             this.errorsLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.createBillBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // contractused
@@ -455,12 +456,23 @@
             this.titleLabel.TabIndex = 155;
             this.titleLabel.Text = "חשבון";
             // 
+            // createBillBtn
+            // 
+            this.createBillBtn.Location = new System.Drawing.Point(3, 638);
+            this.createBillBtn.Name = "createBillBtn";
+            this.createBillBtn.Size = new System.Drawing.Size(114, 23);
+            this.createBillBtn.TabIndex = 156;
+            this.createBillBtn.Text = "צור מסמך חשבון";
+            this.createBillBtn.UseVisualStyleBackColor = true;
+            this.createBillBtn.Click += new System.EventHandler(this.createBillBtn_Click);
+            // 
             // BillUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.createBillBtn);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.errorsLabel);
             this.Controls.Add(this.contractused);
@@ -551,5 +563,6 @@
         private System.Windows.Forms.Label projectCodeLbl;
         private System.Windows.Forms.Label errorsLabel;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Button createBillBtn;
     }
 }
