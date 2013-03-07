@@ -888,8 +888,8 @@ namespace Billing.InsertData
             oPara1.Range.InsertParagraphAfter();
             oPara1.Range.Font.Bold = 1;
 
-            float leftPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdHorizontalPositionRelativeToTextBoundary);
-            float topPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdVerticalPositionRelativeToTextBoundary);
+            //float leftPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdHorizontalPositionRelativeToTextBoundary);
+            //float topPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdVerticalPositionRelativeToTextBoundary);
             Size s = new Size(100, 100);
             oDoc.Shapes.AddPicture(System.Configuration.ConfigurationSettings.AppSettings["YarivIcon"], false, true, null, null,s.Width,s.Height);
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
@@ -905,9 +905,24 @@ namespace Billing.InsertData
             oPara1.Indent();
             oPara1.Indent();
             oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Range.Text = CreateAddresseeText(client, project, contract);
+            oPara1.Range.Text = CreateDocLeftSide(client, project, contract);
+            oPara1.Range.InsertParagraphAfter();
+            oPara1.Range.Text = "אדון נכבד,";
+            oPara1.Range.InsertParagraphAfter();
+            //oPara1.Range.InsertParagraphAfter();
+            //oPara1.Range.InsertParagraphAfter();
+
+            Word.Paragraph oPara2;
+            object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
+            oPara2.Range.InsertParagraph();
+            oPara2.Range.Text = string.Format("הנדון: {0}", project[ColumnNames.PROJECT_NAME]); ;
+            
+            oPara2.Format.SpaceAfter = 6;
+            oPara2.Range.InsertParagraphAfter();
+
+            
+
 
             
             
@@ -1035,6 +1050,11 @@ namespace Billing.InsertData
 
             //Close this form.
             //this.Parent.Controls.Remove(this);
+        }
+
+        private string CreateDocLeftSide(Dictionary<string, string> client, Dictionary<string, string> project, Dictionary<string, string> contract)
+        {
+            return string.Format("{0}\n{1}\nסימוכין: XXXXXXXX\nמספר חשבון: {2}\nעוסק מורשה: 511383218\n", billDateBox.Text, hebDateTxtBox.Text, billNumberTxtBox.Text);
         }
 
         private string CreateAddresseeText(Dictionary<string,string> client, Dictionary<string,string> project, Dictionary<string,string> contract)
