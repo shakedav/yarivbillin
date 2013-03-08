@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Billing.Documents;
 
 namespace Billing
 {
@@ -16,6 +17,7 @@ namespace Billing
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+            //Application.Run(new Test());
         }
     }
 }
