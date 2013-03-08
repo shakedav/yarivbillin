@@ -72,7 +72,7 @@
             this.AddDataTab.Location = new System.Drawing.Point(4, 22);
             this.AddDataTab.Name = "AddDataTab";
             this.AddDataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AddDataTab.Size = new System.Drawing.Size(1092, 643);
+            this.AddDataTab.Size = new System.Drawing.Size(1092, 736);
             this.AddDataTab.TabIndex = 0;
             this.AddDataTab.Text = "הוספת לקוחות, פרוייקטים, חוזים וחשבונות";
             // 
@@ -94,7 +94,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.btnAddClient);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddProject);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddContract);
-            this.splitContainer1.Size = new System.Drawing.Size(1086, 637);
+            this.splitContainer1.Size = new System.Drawing.Size(1086, 730);
             this.splitContainer1.SplitterDistance = 940;
             this.splitContainer1.TabIndex = 8;
             // 

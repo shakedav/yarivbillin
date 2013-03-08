@@ -873,27 +873,19 @@ namespace Billing.InsertData
             Microsoft.Office.Interop.Word._Document oDoc;
             oWord = new Microsoft.Office.Interop.Word.Application();
             
-            oWord.Visible = true;
-            oDoc = oWord.Documents.Add(ref oMissing, ref oMissing,
-                ref oMissing, ref oMissing);
+            oWord.Visible = true;            
+            oDoc = oWord.Documents.Open(System.Configuration.ConfigurationSettings.AppSettings["BillTemplate"], Visible: true);
             oWord.ActiveWindow.Selection.ParagraphFormat.LineSpacingRule = Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceSingle;
             oWord.ActiveWindow.Selection.ParagraphFormat.SpaceAfter = 1.0F;
             //Insert a paragraph at the beginning of the document.
             Microsoft.Office.Interop.Word.Paragraph oPara1;
             oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara1.Range.Font.Bold = 1;
-            oPara1.Range.Font.Size = 16;
-            
+            oPara1.Range.Font.BoldBi = 1;
+            oPara1.Range.Font.SizeBi = 12;
+            oPara1.Range.Font.NameBi = "Tahoma";
             oPara1.Range.Text = CreateAddresseeText(client, project,contract);
             oPara1.Range.InsertParagraphAfter();
-            oPara1.Range.Font.Bold = 1;
 
-            //float leftPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdHorizontalPositionRelativeToTextBoundary);
-            //float topPos = (float)oWord.Selection.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdVerticalPositionRelativeToTextBoundary);
-            Size s = new Size(100, 100);
-            oDoc.Shapes.AddPicture(System.Configuration.ConfigurationSettings.AppSettings["YarivIcon"], false, true, null, null,s.Width,s.Height);
-            oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            
             oPara1.Range.InsertParagraph();
             oPara1.Range.InsertParagraph();
             oPara1.Range.InsertParagraph();
@@ -905,16 +897,28 @@ namespace Billing.InsertData
             oPara1.Indent();
             oPara1.Indent();
             oPara1.Indent();
-            oPara1.Range.Text = CreateDocLeftSide(client, project, contract);
+            oPara1.Indent();
+            oPara1.Range.Font.BoldBi = 1;
+            oPara1.Range.Font.SizeBi = 12;
+            oPara1.Range.Font.NameBi = "Tahoma";
+            oPara1.Range.Text = CreateDocLeftSide(client, project, contract);            
             oPara1.Range.InsertParagraphAfter();
-            oPara1.Range.Text = "אדון נכבד,";
-            oPara1.Range.InsertParagraphAfter();
-            //oPara1.Range.InsertParagraphAfter();
-            //oPara1.Range.InsertParagraphAfter();
 
             Word.Paragraph oPara2;
-            object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
+            oMissing = System.Reflection.Missing.Value;
+            oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
+            oPara2.Range.Font.BoldBi = 1;
+            oPara2.Range.Font.SizeBi = 12;
+            oPara2.Range.Font.NameBi = "Tahoma";
+            
+            oPara2.Range.Text = "אדון נכבד,";
+            oPara2.Range.InsertParagraphAfter();
+            //oPara1.Range.InsertParagraphAfter();
+            //oPara1.Range.InsertParagraphAfter();
+
+            //Word.Paragraph oPara2;
+            //object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            //oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
             oPara2.Range.InsertParagraph();
             oPara2.Range.Text = string.Format("הנדון: {0}", project[ColumnNames.PROJECT_NAME]); ;
             
