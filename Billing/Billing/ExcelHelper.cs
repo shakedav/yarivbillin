@@ -32,7 +32,6 @@ namespace Billing
        OleDbConnection dbCon;
        private static object locker = new Object();
        private static volatile ExcelHelper instance;
-       private bool disposed;
        /// <summary>
        /// Get an instance of the ExcelHelper (create on the first time).
        /// </summary>
@@ -431,12 +430,12 @@ namespace Billing
             }
         }
 
-        public string getUsedAmountOfContract(string contractCode)
+        public string getUsedAmountOfContract(string contractCode, string billAmount)
         {
             try
             {
                 int totalAmount = int.Parse(getItemFromTable(Contracts, contractCode, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE));
-                return ((double)(getContractBillsSum(contractCode) / totalAmount)).ToString(".0%");
+                return ((double)((getContractBillsSum(contractCode) - int.Parse(billAmount)) / totalAmount)).ToString(".0%");
             }
             catch (Exception ex)
             {
@@ -553,7 +552,7 @@ namespace Billing
             }
         }
 
-        public string getTotalOfBills(string contractCode)
+        public double getTotalOfBills(string contractCode)
         {
             DataTable table = this.Bills;
             double billsAmount = 0;
@@ -564,7 +563,7 @@ namespace Billing
                     billsAmount += double.Parse(table.Rows[i][ColumnNames.TOTAL_AMOUNT].ToString());
                 }
             }
-            return billsAmount.ToString();            
+            return billsAmount;            
         }
 
         public bool CheckExistenceOfSingleValue(string TextToSearch, string columnName, DataTable dataTable)

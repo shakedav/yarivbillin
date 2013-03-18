@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
 
 namespace Billing.Documents
 {
@@ -46,8 +45,11 @@ namespace Billing.Documents
             oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
             oPara2.Range.Text = "Heading 2";
             oPara2.Format.SpaceAfter = 6;
-            oPara2.Range.InsertParagraphAfter();
 
+            oPara2.TabIndent(10);
+            oPara2.Range.InsertParagraphAfter();
+            oPara2.TabIndent(-10);
+            oPara2.Range.InsertParagraphAfter();
             //Insert another paragraph.
             Word.Paragraph oPara3;
             oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
