@@ -11,8 +11,6 @@ namespace Billing.InsertData
 {
     public partial class BaseDataForm : Form
     {
-        public MainForm Parent { get; set; }
-
         public BaseDataForm()
         {
             InitializeComponent();

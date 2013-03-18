@@ -60,6 +60,20 @@ namespace Billing.Properties {
             }
         }
         
+        internal static byte[] billTemplate {
+            get {
+                object obj = ResourceManager.GetObject("billTemplate", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] DataBase {
+            get {
+                object obj = ResourceManager.GetObject("DataBase", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap YarivIcon {
             get {
                 object obj = ResourceManager.GetObject("YarivIcon", resourceCulture);

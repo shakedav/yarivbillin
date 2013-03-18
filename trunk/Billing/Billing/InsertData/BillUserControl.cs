@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using Billing.Properties;
 using Word = Microsoft.Office.Interop.Word;
+using System.IO;
 
 namespace Billing.InsertData
 {
@@ -20,7 +21,6 @@ namespace Billing.InsertData
         private int tblRow = 0;
         private int tblCol = 0;
         Dictionary<int,List<TextBox>> valuesList = new Dictionary<int,List<TextBox>>();
-        MainForm parent;
     
         public BillUserControl()
         {
@@ -45,9 +45,9 @@ namespace Billing.InsertData
             billStatusComboBox.DisplayMember = ColumnNames.STATUS_NAME;
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex][ColumnNames.STATUS_NAME].ToString();
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
+            GetTotalBills();
+            GetTotalBillsIncludingBill();
+            contractParttxtBox.Text = GetUsedContractWithoutBill(totalToPayTxtBox.Text);
             billDateBox.Text = DateTime.Now.ToString();
             GetHebrewDate();
         }
@@ -88,6 +88,8 @@ namespace Billing.InsertData
                 {
                     CreateValues(int.Parse(type));
                 }
+                GetTotalBills();
+                GetTotalBillsIncludingBill();
             }
             else
             {
@@ -109,6 +111,8 @@ namespace Billing.InsertData
                     }
                 }
                 CheckTotalAmount_Click(this, null);
+                GetTotalBills();
+                GetTotalBillsIncludingBill();
             }
         }
        
@@ -126,8 +130,8 @@ namespace Billing.InsertData
             {
                 lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
             }
-            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            GetTotalBills();
+            GetTotalBillsIncludingBill();
             clientCode = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE);
             billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
         }
@@ -302,23 +306,51 @@ namespace Billing.InsertData
             totalWithMaamTextBox.Clear();
             errorsLabel.Visible = false;
             contractParttxtBox.Clear();
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
+            contractParttxtBox.Text = GetUsedContractWithoutBill(totalToPayTxtBox.Text);
+            contractused.Text = GetUsedContractWithBill(totalToPayTxtBox.Text);
+        }
+
+        private string GetUsedContractWithoutBill(string billAmount)
+        {
+            if (isNew)
+            {
+                billAmount = "0";
+            }
+            string usedContract = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text, billAmount);
+            if (usedContract.Contains('-'))
+            {
+                return "0.00%";
+            }
+            return usedContract;
+        }
+
+        private string GetUsedContractWithBill(string billAmount)
+        {
+            if (!isNew)
+            {
+                billAmount = "0";
+            }
+            return ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text, "-"+billAmount);
         }
 
         private void contractCodeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             billSequenceInContractTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_SEQUENCE, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text);
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            GetTotalBills();
+            GetTotalBillsIncludingBill();
             billNumberTxtBox.Text = ExcelHelper.Instance.GetMaxItemOfColumnByColumn(ExcelHelper.Instance.Bills, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.CLIENT_CODE, clientCode);
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString() + "%";
+            contractParttxtBox.Text = GetUsedContractWithoutBill(totalToPayTxtBox.Text);
+            contractused.Text = GetUsedContractWithBill(totalToPayTxtBox.Text);
             valueComboBox.DataSource = GetAllowedValues();
             ValuesCollection.Controls.Clear();
             valuelbl.Visible = false;
             valueComboBox.Visible = false;
+        }
+
+        private void GetTotalBills()
+        {
+            totalBillsTxtBox.Text = (ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text) - double.Parse(totalWithMaamTextBox.Text)).ToString();
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -331,8 +363,8 @@ namespace Billing.InsertData
         private void billSequenceInContractTxtBox_Leave(object sender, EventArgs e)
         {            
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
-            totalBillsTxtBox.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text);            
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
+            GetTotalBills();
+            GetTotalBillsIncludingBill();
         }
 
         private void addValue_Click(object sender, EventArgs e)
@@ -820,12 +852,12 @@ namespace Billing.InsertData
 
         private void CheckTotalAmount_Click(object sender, EventArgs e)
         {
-            double totalAmount =0;
+            double totalAmount = 0;
             double res = 0;
-            foreach(KeyValuePair<int,List<TextBox>> list in valuesList)
+            foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
             {
                 if (list.Value.Count == 2)
-                {            
+                {
                     if (double.TryParse(list.Value[0].Text, out res) && (double.TryParse(list.Value[1].Text, out res)))
                     {
                         totalAmount += double.Parse(list.Value[0].Text) * double.Parse(list.Value[1].Text);
@@ -833,12 +865,15 @@ namespace Billing.InsertData
                 }
             }
             totalToPayTxtBox.Text = totalAmount.ToString();
-            totalWithMaamTextBox.Text = (totalAmount * (1+Constants.Instance.MAAM)).ToString();
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalToPayTxtBox.Text)).ToString();
-            contractParttxtBox.Text = ExcelHelper.Instance.getUsedAmountOfContract(contractCodeComboBox.Text);
-            contractused.Text = 100*((double.Parse(totalBillsTxtBox.Text) + 
-                                    double.Parse(totalToPayTxtBox.Text)) /
-                                    double.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, contractCodeComboBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.VALUE))) + "%";
+            totalWithMaamTextBox.Text = (totalAmount * (1 + Constants.Instance.MAAM)).ToString();
+            GetTotalBillsIncludingBill();
+            contractParttxtBox.Text = GetUsedContractWithoutBill(totalWithMaamTextBox.Text);
+            contractused.Text = GetUsedContractWithBill(totalWithMaamTextBox.Text);
+        }
+
+        private void GetTotalBillsIncludingBill()
+        {
+                totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalWithMaamTextBox.Text)).ToString();
         }
 
         private void billDateBox_ValueChanged(object sender, EventArgs e)
@@ -873,8 +908,14 @@ namespace Billing.InsertData
             Microsoft.Office.Interop.Word._Document oDoc;
             oWord = new Microsoft.Office.Interop.Word.Application();
             
-            oWord.Visible = true;            
-            oDoc = oWord.Documents.Open(System.Configuration.ConfigurationSettings.AppSettings["BillTemplate"], Visible: true);
+            oWord.Visible = true;
+            string tempPath = string.Format("{0}\\{1}_{2}_{3}.doc", System.Configuration.ConfigurationManager.AppSettings["BillsFolder"],clientNameComboBox.Text, billSequenceInContractTxtBox.Text, billSequenceInContractTxtBox.Text);
+            using (System.IO.FileStream fs = new System.IO.FileStream(tempPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
+            {
+                byte[] data = Resources.billTemplate;
+                fs.Write(data, 0, data.Length);
+            }
+            oDoc = oWord.Documents.Open(tempPath, Visible: true);
             oWord.ActiveWindow.Selection.ParagraphFormat.LineSpacingRule = Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceSingle;
             oWord.ActiveWindow.Selection.ParagraphFormat.SpaceAfter = 1.0F;
             //Insert a paragraph at the beginning of the document.
@@ -886,184 +927,169 @@ namespace Billing.InsertData
             oPara1.Range.Text = CreateAddresseeText(client, project,contract);
             oPara1.Range.InsertParagraphAfter();
 
-            oPara1.Range.InsertParagraph();
-            oPara1.Range.InsertParagraph();
-            oPara1.Range.InsertParagraph();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Indent();
-            oPara1.Range.Font.BoldBi = 1;
+            oPara1.Range.Font.BoldBi = 0;
             oPara1.Range.Font.SizeBi = 12;
             oPara1.Range.Font.NameBi = "Tahoma";
+            oPara1.TabIndent(9);
             oPara1.Range.Text = CreateDocLeftSide(client, project, contract);            
             oPara1.Range.InsertParagraphAfter();
-
-            Word.Paragraph oPara2;
-            oMissing = System.Reflection.Missing.Value;
-            oPara2 = oDoc.Content.Paragraphs.Add(ref oMissing);
-            oPara2.Range.Font.BoldBi = 1;
-            oPara2.Range.Font.SizeBi = 12;
-            oPara2.Range.Font.NameBi = "Tahoma";
-            
-            oPara2.Range.Text = "אדון נכבד,";
-            oPara2.Range.InsertParagraphAfter();
-            //oPara1.Range.InsertParagraphAfter();
-            //oPara1.Range.InsertParagraphAfter();
-
-            //Word.Paragraph oPara2;
-            //object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            //oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara2.Range.InsertParagraph();
-            oPara2.Range.Text = string.Format("הנדון: {0}", project[ColumnNames.PROJECT_NAME]); ;
-            
-            oPara2.Format.SpaceAfter = 6;
-            oPara2.Range.InsertParagraphAfter();
-
-            
-
-
-            
-            
-               //24 pt spacing after paragraph.
-            //oPara1.Range.InsertParagraphAfter();
-            /*
-            //Insert a paragraph at the end of the document.
+            oPara1.TabIndent(-9); 
+            oPara1.Range.InsertParagraphAfter();
             Word.Paragraph oPara2;
             object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara2.Range.Text = "Heading 2";
+            oPara2.Range.Font.BoldBi = 0;
+            oPara2.Range.Font.SizeBi = 12;
+            oPara2.Range.Font.NameBi = "Tahoma";
+            oPara2.TabIndent(5);
+            oPara2.Range.Text = "אדון נכבד,";
+            oPara2.Range.InsertParagraphAfter();            
+            oPara2.TabIndent(-5);
+            oPara2.Range.InsertParagraphAfter();
+            oPara2.TabIndent(5);
+            oPara2.Range.BoldBi = 1;
+            oPara2.Range.Font.Underline = Word.WdUnderline.wdUnderlineSingle;
+            oPara2.Range.Text = string.Format("הנדון: {0}", project[ColumnNames.PROJECT_NAME]); ;
+            oPara2.Format.SpaceAfter = 0;
+            oPara2.Range.InsertParagraphAfter();
+            oPara2.TabIndent(-1);
+            oPara2.Range.Font.Underline = Word.WdUnderline.wdUnderlineNone;
+            oPara2.Range.Font.SizeBi = 8;
+            string[] billDate = billDateBox.Text.Split('/');
+            oPara2.Range.Text = string.Format("חשבון חלקי מספר {0} לחודש {1}/{2}", billSequenceInContractTxtBox.Text, billDate[1], billDate[0]);            
+            oPara2.Range.InsertParagraphAfter();
+            oPara2.TabIndent(-4);
             oPara2.Format.SpaceAfter = 6;
             oPara2.Range.InsertParagraphAfter();
 
-            //Insert another paragraph.
-            Word.Paragraph oPara3;
-            oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oPara3 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara3.Range.Text = "This is a sentence of normal text. Now here is a table:";
-            oPara3.Range.Font.Bold = 0;
-            oPara3.Format.SpaceAfter = 24;
-            oPara3.Range.InsertParagraphAfter();
-
-            //Insert a 3 x 5 table, fill it with data, and make the first row
-            //bold and italic.
             Word.Table oTable;
             Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oTable = oDoc.Tables.Add(wrdRng, 3, 5, ref oMissing, ref oMissing);
+            oTable = oDoc.Tables.Add(wrdRng, 1, 7, ref oMissing, ref oMissing); 
+            oTable.Range.BoldBi = 0;
+            oTable.Range.Font.NameBi = "Tahoma";
             oTable.Range.ParagraphFormat.SpaceAfter = 6;
-            int r, c;
-            string strText;
-            for (r = 1; r <= 3; r++)
-                for (c = 1; c <= 5; c++)
-                {
-                    strText = "r" + r + "c" + c;
-                    oTable.Cell(r, c).Range.Text = strText;
-                }
-            oTable.Rows[1].Range.Font.Bold = 1;
-            oTable.Rows[1].Range.Font.Italic = 1;
-
-            //Add some text after the table.
-            Word.Paragraph oPara4;
-            oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oPara4 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara4.Range.InsertParagraphBefore();
-            oPara4.Range.Text = "And here's another table:";
-            oPara4.Format.SpaceAfter = 24;
-            oPara4.Range.InsertParagraphAfter();
-
-            //Insert a 5 x 2 table, fill it with data, and change the column widths.
-            wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oTable = oDoc.Tables.Add(wrdRng, 5, 2, ref oMissing, ref oMissing);
-            oTable.Range.ParagraphFormat.SpaceAfter = 6;
-            for (r = 1; r <= 5; r++)
-                for (c = 1; c <= 2; c++)
-                {
-                    strText = "r" + r + "c" + c;
-                    oTable.Cell(r, c).Range.Text = strText;
-                }
-            oTable.Columns[1].Width = oWord.InchesToPoints(2); //Change width of columns 1 & 2
-            oTable.Columns[2].Width = oWord.InchesToPoints(3);
-
-            //Keep inserting text. When you get to 7 inches from top of the
-            //document, insert a hard page break.
-            object oPos;
-            double dPos = oWord.InchesToPoints(7);
-            oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range.InsertParagraphAfter();
-            do
+            int r;
+            double tempTotal = 0;
+            string[] strText;
+            List<int> values = ExcelHelper.Instance.getValuesFromDB(contractCodeComboBox.Text);
+            r = 1;
+            foreach (int type in values)
             {
-                wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-                wrdRng.ParagraphFormat.SpaceAfter = 6;
-                wrdRng.InsertAfter("A line of text");
-                wrdRng.InsertParagraphAfter();
-                oPos = wrdRng.get_Information
-                               (Word.WdInformation.wdVerticalPositionRelativeToPage);
+                foreach (DataRow row in ExcelHelper.Instance.getValueRows(contractCodeComboBox.Text, billNumberTxtBox.Text, type.ToString()))
+                {
+                    string valueType = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, type.ToString(), ColumnNames.VALUE_CODE, ColumnNames.VALUE_TYPE);
+                    strText = createBillDoc(type, row[ColumnNames.PAYMENT].ToString(), row[ColumnNames.QUANTITY].ToString());
+                    foreach (int value in values)
+                    {                               
+                            oTable.Cell(r, 1).Range.Text = strText[1];
+                            oTable.Cell(r, 2).Range.Text = strText[0];
+                            oTable.Cell(r, 3).Range.Text = "X";
+                            oTable.Cell(r, 4).Range.Text = strText[3];
+                            oTable.Cell(r, 5).Range.Text = strText[2];
+                            oTable.Cell(r, 6).Range.Text = strText[4];
+                            oTable.Cell(r, 7).Range.Text = strText[5];   
+                    }
+                    tempTotal = tempTotal + double.Parse(strText[4]);
+                    oTable.Rows.Add();
+                    r++;
+                }
             }
-            while (dPos >= Convert.ToDouble(oPos));
-            object oCollapseEnd = Word.WdCollapseDirection.wdCollapseEnd;
-            object oPageBreak = Word.WdBreakType.wdPageBreak;
-            wrdRng.Collapse(ref oCollapseEnd);
-            wrdRng.InsertBreak(ref oPageBreak);
-            wrdRng.Collapse(ref oCollapseEnd);
-            wrdRng.InsertAfter("We're now on page 2. Here's my chart:");
-            wrdRng.InsertParagraphAfter();
+            oTable.Cell(r, 1).Range.Text = "סה\"כ ביניים";
+            oTable.Cell(r, 6).Range.Text = tempTotal.ToString() + " ש\"ח";                   
+            oTable.Rows.Add();
+            oTable.Cell(r, 1).Range.Text = "מע\"מ";
+            oTable.Cell(r, 3).Range.Text = Constants.Instance.MAAM.ToString() + "%";
+            oTable.Cell(r, 6).Range.Text = (tempTotal * Constants.Instance.MAAM).ToString();
+            oTable.Cell(r, 7).Range.Text = "ש\"ח";
+            oTable.Rows.Add();
+            r++;
+            oTable.Rows[r].Cells[1].Merge(oTable.Rows[r].Cells[3]);
+            oTable.Cell(r, 1).Range.Text = "סה\"כ לתשלום בחשבון חלקי מספר " + billSequenceInContractTxtBox.Text;
+            oTable.Cell(r, 4).Range.Text = totalWithMaamTextBox.Text;
+            oTable.Cell(r, 5).Range.Text = "ש\"ח";
+        }
 
-            //Insert a chart.
-            Word.InlineShape oShape;
-            object oClassType = "MSGraph.Chart.8";
-            wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oShape = wrdRng.InlineShapes.AddOLEObject(ref oClassType, ref oMissing,
-                ref oMissing, ref oMissing, ref oMissing,
-                ref oMissing, ref oMissing, ref oMissing);
-
-            //Demonstrate use of late bound oChart and oChartApp objects to
-            //manipulate the chart object with MSGraph.
-            object oChart;
-            object oChartApp;
-            oChart = oShape.OLEFormat.Object;
-            oChartApp = oChart.GetType().InvokeMember("Application",
-                BindingFlags.GetProperty, null, oChart, null);
-
-            //Change the chart type to Line.
-            object[] Parameters = new Object[1];
-            Parameters[0] = 4; //xlLine = 4
-            oChart.GetType().InvokeMember("ChartType", BindingFlags.SetProperty,
-                null, oChart, Parameters);
-
-            //Update the chart image and quit MSGraph.
-            oChartApp.GetType().InvokeMember("Update",
-                BindingFlags.InvokeMethod, null, oChartApp, null);
-            oChartApp.GetType().InvokeMember("Quit",
-                BindingFlags.InvokeMethod, null, oChartApp, null);
-            //... If desired, you can proceed from here using the Microsoft Graph 
-            //Object model on the oChart and oChartApp objects to make additional
-            //changes to the chart.
-
-            //Set the width of the chart.
-            oShape.Width = oWord.InchesToPoints(6.25f);
-            oShape.Height = oWord.InchesToPoints(3.57f);
-
-            //Add text after the chart.
-            wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            wrdRng.InsertParagraphAfter();
-            wrdRng.InsertAfter("THE END.");*/
-
-            //Close this form.
-            //this.Parent.Controls.Remove(this);
+        private string[] createBillDoc(int valueType, string payment, string quantity)
+        {
+            string[] str = new string[6];
+            try
+            {
+                switch (valueType)
+                {
+                    case 1:
+                        {
+                            str[0] = "שעות עבודה";
+                            str[1] = quantity;
+                            str[2] = "ש\"ע / ש\"ח";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }
+                    case 2:
+                        {
+                            str[0] = "מספר חודשים";
+                            str[1] = quantity;
+                            str[2] = "ש\"ח";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }
+                    case 3:
+                        {
+                            str[0] = "%";
+                            str[1] = quantity;
+                            str[2] = "שכר טרחה";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }
+                    case 4:
+                        {
+                            str[0] = "";
+                            str[1] = quantity;
+                            str[2] = "ש\"ח";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }
+                    case 5:
+                        {
+                            str[0] = "";
+                            str[1] = quantity;
+                            str[2] = "ש\"ח";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }
+                    case 6:
+                        {
+                            str[0] = "1";
+                            str[1] = quantity;
+                            str[2] = "ש\"ח";
+                            str[3] = payment;
+                            str[4] = (double.Parse(quantity) * double.Parse(payment)).ToString();
+                            break;
+                        }                        
+                }
+                str[5] = "ש\"ח";
+                return str;
+            }            
+            catch(Exception ex)
+            {
+                LogWriter.Instance.Error("בעיה בחישוב סה\"כ",ex);
+            }
+            return str;
         }
 
         private string CreateDocLeftSide(Dictionary<string, string> client, Dictionary<string, string> project, Dictionary<string, string> contract)
         {
-            return string.Format("{0}\n{1}\nסימוכין: XXXXXXXX\nמספר חשבון: {2}\nעוסק מורשה: 511383218\n", billDateBox.Text, hebDateTxtBox.Text, billNumberTxtBox.Text);
+            return string.Format("{0}\n{1}\nסימוכין: XXXXXXXX \nמספר חשבון: {2}\nעוסק מורשה: 511383218\n", billDateBox.Text, hebDateTxtBox.Text, billNumberTxtBox.Text);
         }
 
         private string CreateAddresseeText(Dictionary<string,string> client, Dictionary<string,string> project, Dictionary<string,string> contract)
         {
-            return string.Format("לכבוד\n{0}\n{1}\n{2}\n{3}", project[ColumnNames.PROJECT_CONTACT_MAN], project[ColumnNames.CONTACT_MAN_DESC], project[ColumnNames.CONTACT_MAN_DESC], client[ColumnNames.ADRESS]);// ClientAddressTxtBox.Text);
+            return string.Format("לכבוד\n{0}\n{1}\n{2}\n{3}", project[ColumnNames.PROJECT_CONTACT_MAN], project[ColumnNames.CONTACT_MAN_DESC], 
+                                  client[ColumnNames.CLIENT_NAME], client[ColumnNames.ADRESS]);
         }        
     }
 }

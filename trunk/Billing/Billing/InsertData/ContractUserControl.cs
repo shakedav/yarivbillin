@@ -19,9 +19,7 @@ namespace Billing.InsertData
             Onload();
             GetClientNames();
             GetProjects();
-            GetContractType();
-            //TODO: לכתוב את ColumnNames.CONTRACT_USAGE כמו שצריך
-            
+            GetContractType();            
         }
 
         private void CalculateValueWithMaam()
@@ -180,7 +178,6 @@ namespace Billing.InsertData
                         BillUserControl f = new BillUserControl(clientNameComboBox.Text, yarivContractCodeTxtBox.Text, SaveType.SaveNew);
                         this.Parent.Controls.Add(f);
                         this.Parent.Controls.Remove(this);
-                        //parent.displayFormInTab(f, (SplitContainer)parent.GetContainerControl().ActiveControl);
                     }
                 }
                 else

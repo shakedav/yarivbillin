@@ -14,7 +14,7 @@ namespace Billing
         {
             get
             {
-                return double.Parse(System.Configuration.ConfigurationSettings.AppSettings["maam"]);
+                return double.Parse(System.Configuration.ConfigurationManager.AppSettings["maam"]);
             }
         }
 
@@ -22,7 +22,7 @@ namespace Billing
         {
             get
             {
-                return System.Configuration.ConfigurationSettings.AppSettings["excelFilePath"];
+                return System.Configuration.ConfigurationManager.AppSettings["excelFilePath"];
             }
         }
 

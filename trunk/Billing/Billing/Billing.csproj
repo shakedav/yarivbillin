@@ -77,7 +77,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\NLog.dll</HintPath>
@@ -105,12 +104,6 @@
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\ValueItem.cs" />
-    <Compile Include="DisplayData\DisplayClientDataForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayData\DisplayClientDataForm.Designer.cs">
-      <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Documents\Test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,9 +165,6 @@
     <EmbeddedResource Include="DataExists.resx">
       <DependentUpon>DataExists.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayData\DisplayClientDataForm.resx">
-      <DependentUpon>DisplayClientDataForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Documents\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,7 +199,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Billing_TemporaryKey.pfx" />
     <None Include="DataBase - Empty.xls" />
     <None Include="Nlog.config">
@@ -277,6 +269,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\billTemplate.doc" />
+    <None Include="Resources\DataBase.xls" />
     <None Include="Resources\YarivIcon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

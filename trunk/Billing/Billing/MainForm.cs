@@ -20,76 +20,74 @@ namespace Billing
 
         private void btnAddBill_Click(object sender, EventArgs e)
         {
-            checkFormsStatus();
-            BillUserControl billForm = new BillUserControl();
-            splitContainer1.Panel1.Visible = true;
-            splitContainer1.Panel1.Select();
-            splitContainer1.Panel1.Controls.Add(billForm);      
-          
+            DialogResult dr = checkFormsStatus();
+            if ((dr == DialogResult.Yes) || (dr == DialogResult.None))
+            {
+                splitContainer1.Panel1.Controls.Clear();
+                BillUserControl billForm = new BillUserControl();
+                splitContainer1.Panel1.Visible = true;
+                splitContainer1.Panel1.Select();
+                splitContainer1.Panel1.Controls.Add(billForm);      
+            }
         }
 
         private void btnAddContract_Click(object sender, EventArgs e)
         {
-            checkFormsStatus();
-            ContractUserControl contractForm = new ContractUserControl();
-            splitContainer1.Panel1.Visible = true;
-            splitContainer1.Panel1.Select();
-            splitContainer1.Panel1.Controls.Add(contractForm);                      
+            DialogResult dr = checkFormsStatus();
+            if ((dr == DialogResult.Yes) || (dr == DialogResult.None))
+            {
+                splitContainer1.Panel1.Controls.Clear();
+                ContractUserControl contractForm = new ContractUserControl();
+                splitContainer1.Panel1.Visible = true;
+                splitContainer1.Panel1.Select();
+                splitContainer1.Panel1.Controls.Add(contractForm);
+            }
         }
 
         private void btnAddProject_Click(object sender, EventArgs e)
         {
-            checkFormsStatus();
-            ProjectUserControl projectForm = new ProjectUserControl();
-            splitContainer1.Panel1.Visible = true;
-            splitContainer1.Panel1.Select();
-            splitContainer1.Panel1.Controls.Add(projectForm);       
-          
+            DialogResult dr = checkFormsStatus();
+            if ((dr == DialogResult.Yes) || (dr == DialogResult.None))
+            {
+                splitContainer1.Panel1.Controls.Clear();
+                ProjectUserControl projectForm = new ProjectUserControl();
+                splitContainer1.Panel1.Visible = true;
+                splitContainer1.Panel1.Select();
+                splitContainer1.Panel1.Controls.Add(projectForm);
+            }
         }
 
         private void btnAddClient_Click(object sender, EventArgs e)
         {
-            checkFormsStatus();
-            ClientUserControl control = new ClientUserControl();
-            splitContainer1.Panel1.Visible = true;
-            splitContainer1.Panel1.Select();
-            splitContainer1.Panel1.Controls.Add(control);        
+           DialogResult dr = checkFormsStatus();
+            if ((dr == DialogResult.Yes) || (dr == DialogResult.None))
+            {
+                splitContainer1.Panel1.Controls.Clear();            
+                ClientUserControl control = new ClientUserControl();
+                splitContainer1.Panel1.Visible = true;
+                splitContainer1.Panel1.Select();
+                splitContainer1.Panel1.Controls.Add(control);
+            }
         }
 
-        public void checkFormsStatus()
+        public DialogResult checkFormsStatus()
         {
             if (tabControl1.SelectedTab.Name == "AddDataTab")
             {
                 if (splitContainer1.Panel1.Controls.Count >= 1)
                 {
-                    DialogResult dr = MessageBox.Show("לשמור או לא?", "aaa", MessageBoxButtons.YesNoCancel);
-                    if (dr == DialogResult.OK)
-                    {
-                        //Form.save;
-                        splitContainer1.Panel1.Controls.Clear();
-                    }
-                    else
-                    {
-                        splitContainer1.Panel1.Controls.Clear();
-                    }
+                    return MessageBox.Show("האם לנקות את הטופס?", "", MessageBoxButtons.YesNo);
+                    
                 }
             }
             else
             {
                 if (searchSplit.Panel1.Controls.Count >= 1)
                 {
-                    DialogResult dr = MessageBox.Show("לשמור או לא?", "aaa", MessageBoxButtons.YesNoCancel);
-                    if (dr == DialogResult.OK)
-                    {
-                        //Form.save;
-                        searchSplit.Panel1.Controls.Clear();
-                    }
-                    else
-                    {
-                        searchSplit.Panel1.Controls.Clear();
-                    }
+                    return MessageBox.Show("האם לנקות את הטופס?", "", MessageBoxButtons.YesNo);                
                 }
             }
+            return DialogResult.None;
         }
 
         private void searchBtn_Click(object sender, EventArgs e)
@@ -106,7 +104,7 @@ namespace Billing
             listBox1.Items.Add("");
             listBox1.Items.Add("-----------פרוייקטים------------");
             //Projects
-           List<string> projectsList = ExcelHelper.Instance.searchInTable(ExcelHelper.Instance.Projects, searchTxtBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE, "פרוייקט");
+            List<string> projectsList = ExcelHelper.Instance.searchInTable(ExcelHelper.Instance.Projects, searchTxtBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE, "פרוייקט");
             foreach (string project in projectsList)
             {
                 listBox1.Items.Add(project);
@@ -130,14 +128,6 @@ namespace Billing
                 listBox1.Items.Add(bill);
             }
             listBox1.Items.Add("-------------------------------------");
-
-            //clientsList.AddRange(ExcelHelper.Instance.searchInTable(ExcelHelper.Instance.Projects, searchTxtBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE, "פרוייקט"));
-            //clientsList.AddRange(ExcelHelper.Instance.searchInTable(ExcelHelper.Instance.Contracts, searchTxtBox.Text, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.CONTRACT_CODE_YARIV,ColumnNames.CLIENT_CODE,"חוזה"));
-            //clientsList.AddRange(ExcelHelper.Instance.searchInTable(ExcelHelper.Instance.Bills, searchTxtBox.Text, ColumnNames.BILL_NUMBER_YARIV, ColumnNames.BILL_NUMBER_YARIV,ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.CLIENT_CODE, "חשבון"));
-            //foreach (string client in clientsList)
-            //{                
-            //    listBox1.Items.Add(client);
-            //}
         }
 
         private void listBox1_Click(object sender, EventArgs e)
@@ -180,8 +170,7 @@ namespace Billing
                         break;
                     }
                 case "חשבון":
-                    {
-                        //string clientCode = ExcelHelper.Instance.get
+                    {                        
                         string clientCode = value3;
                         string clientName = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientCode, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
                         BillUserControl control = new BillUserControl(clientCode, value2/*contract*/, SaveType.Update);
@@ -200,7 +189,18 @@ namespace Billing
 
         private void tabControl1_Click(object sender, EventArgs e)
         {
-            checkFormsStatus();
+            DialogResult dr = checkFormsStatus();
+            if ((dr == DialogResult.Yes) || (dr == DialogResult.None))
+            {
+                if (((System.Windows.Forms.TabControl)(sender)).SelectedTab.Name == "EditDataTab")
+                {
+                    searchSplit.Panel1.Controls.Clear();
+                }
+                else
+                {
+                    splitContainer1.Panel1.Controls.Clear();
+                }
+            }
         }
     }
 }

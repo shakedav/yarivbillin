@@ -13,8 +13,7 @@ namespace Billing.InsertData
     {
         Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
         bool isNew = true;
-        MainForm parent;
-
+        
         public ClientUserControl()
         {
             OnLoad();
