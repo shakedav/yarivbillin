@@ -37,3 +37,28 @@ E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.exe
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.pdb
 E:\Yariv Handasa\BillingApplication\yarivbillin\Billing\Billing\obj\x86\Release\Billing.ClientTypeForm.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Billing.exe.config
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.csproj.ResolveComReference.cache
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.exe
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.pdb
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Nlog.config
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Billing.exe.manifest
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Billing.application
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Billing.exe
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Billing.pdb
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\Excel.dll
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\bin\Release\NLog.dll
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.DataExists.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.InsertData.AddValueForm.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.InsertData.BillUserControl.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.ClientTypeForm.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.InsertData.ClientUserControl.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.InsertData.ContractUserControl.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.InsertData.ProjectUserControl.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.MainForm.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.Properties.Resources.resources
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.exe.manifest
+C:\Users\User\Dropbox\יריב\yarivbillin\Billing\Billing\obj\x86\Release\Billing.application

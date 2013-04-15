@@ -103,13 +103,6 @@
     <Compile Include="DataExists.Designer.cs">
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataObjects\ValueItem.cs" />
-    <Compile Include="Documents\Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Documents\Test.Designer.cs">
-      <DependentUpon>Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="InsertData\AddValueForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,9 +157,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DataExists.resx">
       <DependentUpon>DataExists.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Documents\Test.resx">
-      <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InsertData\AddValueForm.resx">
       <DependentUpon>AddValueForm.cs</DependentUpon>

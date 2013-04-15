@@ -18,11 +18,11 @@ namespace Billing
             }
         }
 
-        public String Path
+        public String DB
         {
             get
             {
-                return System.Configuration.ConfigurationManager.AppSettings["excelFilePath"];
+                return System.Configuration.ConfigurationManager.AppSettings["excelFilePath"] + System.Configuration.ConfigurationManager.AppSettings["excelFileName"];
             }
         }
 

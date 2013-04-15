@@ -41,6 +41,15 @@
             this.searchTxtBox = new System.Windows.Forms.TextBox();
             this.searchLbl = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Button();
+            this.Settings = new System.Windows.Forms.TabPage();
+            this.maamBtn = new System.Windows.Forms.Button();
+            this.maamSettingsTxt = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.DBPathTxt = new System.Windows.Forms.TextBox();
+            this.DBPathFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.billsPathBtn = new System.Windows.Forms.Button();
+            this.billsPathTxt = new System.Windows.Forms.TextBox();
+            this.billsFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.AddDataTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -50,12 +59,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.searchSplit)).BeginInit();
             this.searchSplit.Panel2.SuspendLayout();
             this.searchSplit.SuspendLayout();
+            this.Settings.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.AddDataTab);
             this.tabControl1.Controls.Add(this.EditDataTab);
+            this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -86,6 +97,7 @@
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             // 
             // splitContainer1.Panel2
             // 
@@ -94,6 +106,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.btnAddClient);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddProject);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddContract);
+            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(1086, 730);
             this.splitContainer1.SplitterDistance = 940;
             this.splitContainer1.TabIndex = 8;
@@ -155,12 +168,17 @@
             this.searchSplit.Location = new System.Drawing.Point(3, 3);
             this.searchSplit.Name = "searchSplit";
             // 
+            // searchSplit.Panel1
+            // 
+            this.searchSplit.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            // 
             // searchSplit.Panel2
             // 
             this.searchSplit.Panel2.Controls.Add(this.listBox1);
             this.searchSplit.Panel2.Controls.Add(this.searchTxtBox);
             this.searchSplit.Panel2.Controls.Add(this.searchLbl);
             this.searchSplit.Panel2.Controls.Add(this.searchBtn);
+            this.searchSplit.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.searchSplit.Size = new System.Drawing.Size(1086, 730);
             this.searchSplit.SplitterDistance = 706;
             this.searchSplit.TabIndex = 5;
@@ -201,6 +219,78 @@
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
+            // Settings
+            // 
+            this.Settings.Controls.Add(this.billsPathBtn);
+            this.Settings.Controls.Add(this.billsPathTxt);
+            this.Settings.Controls.Add(this.maamBtn);
+            this.Settings.Controls.Add(this.maamSettingsTxt);
+            this.Settings.Controls.Add(this.button1);
+            this.Settings.Controls.Add(this.DBPathTxt);
+            this.Settings.Location = new System.Drawing.Point(4, 22);
+            this.Settings.Name = "Settings";
+            this.Settings.Padding = new System.Windows.Forms.Padding(3);
+            this.Settings.Size = new System.Drawing.Size(1092, 736);
+            this.Settings.TabIndex = 2;
+            this.Settings.Text = "הגדרות";
+            this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // maamBtn
+            // 
+            this.maamBtn.Enabled = false;
+            this.maamBtn.Location = new System.Drawing.Point(381, 55);
+            this.maamBtn.Name = "maamBtn";
+            this.maamBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.maamBtn.Size = new System.Drawing.Size(162, 23);
+            this.maamBtn.TabIndex = 3;
+            this.maamBtn.Text = "שנה מע\"מ";
+            this.maamBtn.UseVisualStyleBackColor = true;
+            this.maamBtn.Click += new System.EventHandler(this.maamBtn_Click);
+            // 
+            // maamSettingsTxt
+            // 
+            this.maamSettingsTxt.Location = new System.Drawing.Point(9, 57);
+            this.maamSettingsTxt.Name = "maamSettingsTxt";
+            this.maamSettingsTxt.Size = new System.Drawing.Size(366, 20);
+            this.maamSettingsTxt.TabIndex = 2;
+            this.maamSettingsTxt.TextChanged += new System.EventHandler(this.maamSettingsTxt_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(381, 26);
+            this.button1.Name = "button1";
+            this.button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button1.Size = new System.Drawing.Size(162, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "בחר נתיב DB";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // DBPathTxt
+            // 
+            this.DBPathTxt.Location = new System.Drawing.Point(9, 28);
+            this.DBPathTxt.Name = "DBPathTxt";
+            this.DBPathTxt.Size = new System.Drawing.Size(366, 20);
+            this.DBPathTxt.TabIndex = 0;
+            // 
+            // billsPathBtn
+            // 
+            this.billsPathBtn.Location = new System.Drawing.Point(381, 84);
+            this.billsPathBtn.Name = "billsPathBtn";
+            this.billsPathBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.billsPathBtn.Size = new System.Drawing.Size(162, 23);
+            this.billsPathBtn.TabIndex = 5;
+            this.billsPathBtn.Text = "בחר נתיב למסמכי חשבונות";
+            this.billsPathBtn.UseVisualStyleBackColor = true;
+            this.billsPathBtn.Click += new System.EventHandler(this.billsPathBtn_Click);
+            // 
+            // billsPathTxt
+            // 
+            this.billsPathTxt.Location = new System.Drawing.Point(9, 86);
+            this.billsPathTxt.Name = "billsPathTxt";
+            this.billsPathTxt.Size = new System.Drawing.Size(366, 20);
+            this.billsPathTxt.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,7 +301,7 @@
             this.IsMdiContainer = true;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainForm";
+            this.Text = "יריב הנדסה";
             this.tabControl1.ResumeLayout(false);
             this.AddDataTab.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -222,6 +312,8 @@
             this.searchSplit.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchSplit)).EndInit();
             this.searchSplit.ResumeLayout(false);
+            this.Settings.ResumeLayout(false);
+            this.Settings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -241,5 +333,14 @@
         private System.Windows.Forms.TextBox searchTxtBox;
         private System.Windows.Forms.SplitContainer searchSplit;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TabPage Settings;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox DBPathTxt;
+        private System.Windows.Forms.OpenFileDialog DBPathFileDialog;
+        private System.Windows.Forms.TextBox maamSettingsTxt;
+        private System.Windows.Forms.Button maamBtn;
+        private System.Windows.Forms.Button billsPathBtn;
+        private System.Windows.Forms.TextBox billsPathTxt;
+        private System.Windows.Forms.FolderBrowserDialog billsFolderDialog;
     }
 }
