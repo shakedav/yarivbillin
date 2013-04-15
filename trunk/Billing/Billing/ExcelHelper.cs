@@ -28,7 +28,7 @@ namespace Billing
        public DataTable ValueTypes;
        public DataTable ValueInBill;      
        OleDbDataAdapter dbDa = new OleDbDataAdapter();
-       static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Constants.Instance.Path + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
+       static string sConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Constants.Instance.DB + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\";";
        OleDbConnection dbCon;
        private static object locker = new Object();
        private static volatile ExcelHelper instance;
@@ -62,7 +62,7 @@ namespace Billing
         ExcelHelper()
         {
             dbCon = new OleDbConnection(sConnection);
-            DataSet ds = ReadExcelData(Constants.Instance.Path);
+            DataSet ds = ReadExcelData(Constants.Instance.DB);
             SetTables(ds);
         }
 
@@ -171,7 +171,7 @@ namespace Billing
         {          
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.DB, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             // get the last used column number 
@@ -207,9 +207,9 @@ namespace Billing
                     }
             }
             bool SaveChanges = true;
-            excelWorksheet.SaveAs(Constants.Instance.Path);
-            excelWorkbook.SaveAs(Constants.Instance.Path);
-            excelWorkbook.Close(SaveChanges, Constants.Instance.Path, null);
+            excelWorksheet.SaveAs(Constants.Instance.DB);
+            excelWorkbook.SaveAs(Constants.Instance.DB);
+            excelWorkbook.Close(SaveChanges, Constants.Instance.DB, null);
             excelApp.Workbooks.Close();
             excelApp.Quit();
             
@@ -223,7 +223,7 @@ namespace Billing
             excelWorkbook = null;
             excelApp = null;
             GC.Collect();
-            ReadExcelData(Constants.Instance.Path);
+            ReadExcelData(Constants.Instance.DB);
             Reload();
         }
 
@@ -507,7 +507,7 @@ namespace Billing
         {            
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.Path, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.DB, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             for (int row = 0; row <= table.Rows.Count - 1; row++)
@@ -517,9 +517,9 @@ namespace Billing
                     table.Rows[row].Delete();
                     ((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Rows[row+2]).Delete();
                     bool SaveChanges = true;
-                    excelWorksheet.SaveAs(Constants.Instance.Path);
-                    excelWorkbook.SaveAs(Constants.Instance.Path);
-                    excelWorkbook.Close(SaveChanges, Constants.Instance.Path, null);
+                    excelWorksheet.SaveAs(Constants.Instance.DB);
+                    excelWorkbook.SaveAs(Constants.Instance.DB);
+                    excelWorkbook.Close(SaveChanges, Constants.Instance.DB, null);
                     excelApp.Workbooks.Close();
                     excelApp.Quit();
 
@@ -533,7 +533,7 @@ namespace Billing
                     excelWorkbook = null;
                     excelApp = null;
                     GC.Collect();
-                    ReadExcelData(Constants.Instance.Path);
+                    ReadExcelData(Constants.Instance.DB);
                     return;
                 }
             }
@@ -581,7 +581,7 @@ namespace Billing
         internal void Reload()
         {
             dbCon = new OleDbConnection(sConnection);
-            DataSet ds = ReadExcelData(Constants.Instance.Path);
+            DataSet ds = ReadExcelData(Constants.Instance.DB);
             SetTables(ds);
         }
 

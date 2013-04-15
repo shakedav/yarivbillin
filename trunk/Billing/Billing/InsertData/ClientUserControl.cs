@@ -13,7 +13,8 @@ namespace Billing.InsertData
     {
         Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
         bool isNew = true;
-        
+        string oldName;
+
         public ClientUserControl()
         {
             OnLoad();
@@ -21,8 +22,7 @@ namespace Billing.InsertData
 
         private void OnLoad()
         {
-            InitializeComponent();
-
+            InitializeComponent();            
             foreach (DataRow row in ExcelHelper.Instance.ClientTypes.Rows)
             {
                 clientTypeDic.Add(row[1].ToString(), row[0].ToString());
@@ -46,7 +46,9 @@ namespace Billing.InsertData
             ClientTypeComboBox.SelectedItem = dic[ColumnNames.CLIENT_TYPE];
             phoneTxtBox.Text = dic[ColumnNames.PHONE];
             ClientAddressTxtBox.Text = dic[ColumnNames.ADRESS];
-            emailTxtBox.Text = dic[ColumnNames.EMAIL];            
+            emailTxtBox.Text = dic[ColumnNames.EMAIL];
+            oldName = clientNameTxtBox.Text;
+            ClearFieldsBtn.Enabled = false;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -113,7 +115,8 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients);
+            return (ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients))
+                || ExcelHelper.Instance.CheckExistence(clientCodeTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients);
         }
 
         private void btnSaveAndAddProj_Click(object sender, EventArgs e)
@@ -145,7 +148,7 @@ namespace Billing.InsertData
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.DB);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת לקוח", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
@@ -158,14 +161,16 @@ namespace Billing.InsertData
                 row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;
                 row[ColumnNames.PHONE] = phoneTxtBox.Text;
                 row[ColumnNames.EMAIL] = emailTxtBox.Text;
-                row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();               
-                row[ColumnNames.CLIENT_CODE] = clientCodeTxtBox.Text;                
+                row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();
+                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+                                                 ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
+                                                 , ColumnNames.CLIENT_TYPE);                
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
             }
             else
-            {
+            {               
                object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
-                                                clientNameTxtBox.Text,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),clientNameTxtBox.Text};
+                                                oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
                DataRow row = ExcelHelper.Instance.Clients.Rows.Find(obj);
                row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
                row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;

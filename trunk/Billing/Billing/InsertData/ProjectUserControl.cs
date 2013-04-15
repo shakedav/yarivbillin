@@ -12,6 +12,7 @@ namespace Billing.InsertData
     public partial class ProjectUserControl : UserControl
     {
         bool isNew = true;
+        string oldName;
 
         public ProjectUserControl()
         {           
@@ -54,6 +55,8 @@ namespace Billing.InsertData
                 projectNameInviterTxtBox.Text = dic[ColumnNames.INVITER_PROJECT_NAME];
                 projectDescriptiontxtBox.Text = dic[ColumnNames.PROJECT_DESCRIPTION];
                 clientNameComboBox.Enabled = false;
+                oldName = projectNametxtBox.Text;
+                ClearFieldsBtn.Enabled = false;
             }
         }
 
@@ -95,7 +98,7 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return ((ExcelHelper.Instance.CheckExistence(projectNametxtBox.Text,
+            return ((ExcelHelper.Instance.CheckExistence(oldName,
                                                         ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
                                                         clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.PROJECT_NAME,
                                                         ColumnNames.CLIENT_CODE, ExcelHelper.Instance.Projects)) ||
@@ -107,7 +110,7 @@ namespace Billing.InsertData
             if (saveType == SaveType.SaveNew)
             {
                 DataRow row = ExcelHelper.Instance.Projects.NewRow();
-                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
+                row[ColumnNames.PROJECT_CODE] = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
                 row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
                 row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
                 row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;
@@ -121,7 +124,7 @@ namespace Billing.InsertData
             }
             else
             {
-                object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNametxtBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE), projectNametxtBox.Text};
+                object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, oldName, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE), oldName};
                 DataRow row = ExcelHelper.Instance.Projects.Rows.Find(obj);
                 if (saveType == SaveType.SaveNew)
                 {
@@ -144,7 +147,7 @@ namespace Billing.InsertData
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.DB);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת פרוייקט", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
         

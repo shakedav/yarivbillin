@@ -74,7 +74,7 @@
             this.Name = "AddValueForm";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AddValue";
+            this.Text = "הוסף תמורה";
             this.ResumeLayout(false);
             this.PerformLayout();
 

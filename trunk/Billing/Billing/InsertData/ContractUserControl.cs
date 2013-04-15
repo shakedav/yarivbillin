@@ -54,8 +54,11 @@ namespace Billing.InsertData
                 clientNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, selectedClient, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
                 projectNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, selectedProject, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_NAME);
                 projectCodeTxtBox.Text = dic[ColumnNames.PROJECT_CODE];
+                projectCodeTxtBox.Enabled = false;
                 yarivContractCodeTxtBox.Text = dic[ColumnNames.CONTRACT_CODE_YARIV];
+                yarivContractCodeTxtBox.Enabled = false;
                 clientContractCodetxtBox.Text = dic[ColumnNames.CONRACT_CODE_CLIENT];
+                clientContractCodetxtBox.Enabled = false;
                 valueTxtBox.Text = dic[ColumnNames.VALUE];
                 CalculateValueWithMaam();
                 signingDatePicker.Text = dic[ColumnNames.CONTRACT_SIGNING_DATE];
@@ -163,7 +166,7 @@ namespace Billing.InsertData
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.Path);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.DB);
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
