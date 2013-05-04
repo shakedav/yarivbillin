@@ -42,13 +42,13 @@
             this.searchLbl = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Button();
             this.Settings = new System.Windows.Forms.TabPage();
+            this.billsPathBtn = new System.Windows.Forms.Button();
+            this.billsPathTxt = new System.Windows.Forms.TextBox();
             this.maamBtn = new System.Windows.Forms.Button();
             this.maamSettingsTxt = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.DBPathTxt = new System.Windows.Forms.TextBox();
             this.DBPathFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.billsPathBtn = new System.Windows.Forms.Button();
-            this.billsPathTxt = new System.Windows.Forms.TextBox();
             this.billsFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.AddDataTab.SuspendLayout();
@@ -198,6 +198,7 @@
             this.searchTxtBox.Name = "searchTxtBox";
             this.searchTxtBox.Size = new System.Drawing.Size(192, 20);
             this.searchTxtBox.TabIndex = 1;
+            this.searchTxtBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTxtBox_KeyPress);
             // 
             // searchLbl
             // 
@@ -234,6 +235,24 @@
             this.Settings.TabIndex = 2;
             this.Settings.Text = "הגדרות";
             this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // billsPathBtn
+            // 
+            this.billsPathBtn.Location = new System.Drawing.Point(381, 84);
+            this.billsPathBtn.Name = "billsPathBtn";
+            this.billsPathBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.billsPathBtn.Size = new System.Drawing.Size(162, 23);
+            this.billsPathBtn.TabIndex = 5;
+            this.billsPathBtn.Text = "בחר נתיב למסמכי חשבונות";
+            this.billsPathBtn.UseVisualStyleBackColor = true;
+            this.billsPathBtn.Click += new System.EventHandler(this.billsPathBtn_Click);
+            // 
+            // billsPathTxt
+            // 
+            this.billsPathTxt.Location = new System.Drawing.Point(9, 86);
+            this.billsPathTxt.Name = "billsPathTxt";
+            this.billsPathTxt.Size = new System.Drawing.Size(366, 20);
+            this.billsPathTxt.TabIndex = 4;
             // 
             // maamBtn
             // 
@@ -272,24 +291,6 @@
             this.DBPathTxt.Name = "DBPathTxt";
             this.DBPathTxt.Size = new System.Drawing.Size(366, 20);
             this.DBPathTxt.TabIndex = 0;
-            // 
-            // billsPathBtn
-            // 
-            this.billsPathBtn.Location = new System.Drawing.Point(381, 84);
-            this.billsPathBtn.Name = "billsPathBtn";
-            this.billsPathBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.billsPathBtn.Size = new System.Drawing.Size(162, 23);
-            this.billsPathBtn.TabIndex = 5;
-            this.billsPathBtn.Text = "בחר נתיב למסמכי חשבונות";
-            this.billsPathBtn.UseVisualStyleBackColor = true;
-            this.billsPathBtn.Click += new System.EventHandler(this.billsPathBtn_Click);
-            // 
-            // billsPathTxt
-            // 
-            this.billsPathTxt.Location = new System.Drawing.Point(9, 86);
-            this.billsPathTxt.Name = "billsPathTxt";
-            this.billsPathTxt.Size = new System.Drawing.Size(366, 20);
-            this.billsPathTxt.TabIndex = 4;
             // 
             // MainForm
             // 

@@ -909,7 +909,7 @@ namespace Billing.InsertData
             oWord = new Microsoft.Office.Interop.Word.Application();
             
             oWord.Visible = true;
-            string tempPath = string.Format("{0}\\{1}_{2}_{3}.doc", System.Configuration.ConfigurationManager.AppSettings["BillsFolder"],clientNameComboBox.Text, billSequenceInContractTxtBox.Text, billSequenceInContractTxtBox.Text);
+            string tempPath = string.Format("{0}\\{1}_{2}_{3}.doc", AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["BillsFolder"], clientNameComboBox.Text, billSequenceInContractTxtBox.Text, billSequenceInContractTxtBox.Text);
             using (System.IO.FileStream fs = new System.IO.FileStream(tempPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
             {
                 byte[] data = Resources.billTemplate;
