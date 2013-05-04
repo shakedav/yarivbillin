@@ -19,9 +19,9 @@ namespace Billing
         {
             InitializeComponent();
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
             maamSettingsTxt.Text = config.AppSettings.Settings["maam"].Value;
-            DBPathTxt.Text = config.AppSettings.Settings["excelFilePath"].Value + config.AppSettings.Settings["excelFileName"].Value;
+            DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
             maamBtn.Enabled = false;
         }
 
@@ -218,17 +218,16 @@ namespace Billing
             Configuration config=ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
             DBPathFileDialog.FileName = System.Configuration.ConfigurationManager.AppSettings["excelFileName"];
             DBPathFileDialog.Title = "בחר את קובץ בסיס הנתונים";
-            string filePath = System.Configuration.ConfigurationManager.AppSettings["excelFilePath"];
+            string filePath = AppDomain.CurrentDomain.BaseDirectory;
             DBPathFileDialog.InitialDirectory = filePath;
             DialogResult dr = DBPathFileDialog.ShowDialog();
             string fullPath = DBPathFileDialog.FileName;
             string fileName = DBPathFileDialog.SafeFileName;
-            string path = fullPath.Replace(fileName, "");
-            config.AppSettings.Settings["excelFilePath"].Value = path;
+            string path = fullPath.Replace(fileName, "");            
             config.AppSettings.Settings["excelFileName"].Value = fileName;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
-            DBPathTxt.Text = config.AppSettings.Settings["excelFilePath"].Value + config.AppSettings.Settings["excelFileName"].Value;
+            DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
         }
 
         private void maamBtn_Click(object sender, EventArgs e)
@@ -245,18 +244,27 @@ namespace Billing
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             billsFolderDialog.Description = "בחר נתיב לשמירת חשבונות";
-            string filePath = System.Configuration.ConfigurationManager.AppSettings["BillsFolder"];
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["BillsFolder"];
             billsFolderDialog.SelectedPath = filePath;
             DialogResult dr = billsFolderDialog.ShowDialog();
             config.AppSettings.Settings["BillsFolder"].Value = filePath;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
-            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
         }
 
         private void maamSettingsTxt_TextChanged(object sender, EventArgs e)
         {
             maamBtn.Enabled = true;
+        }
+
+        private void searchTxtBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                e.Handled = true;
+                searchBtn_Click(sender, e);
+            }
         }
     }
 }
