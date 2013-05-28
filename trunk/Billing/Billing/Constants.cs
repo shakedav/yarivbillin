@@ -22,7 +22,7 @@ namespace Billing
         {
             get
             {
-                return AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["excelFileName"];
+                return System.Configuration.ConfigurationManager.AppSettings["excelFileName"];
             }
         }
 
