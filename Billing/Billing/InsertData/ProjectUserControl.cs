@@ -22,7 +22,7 @@ namespace Billing.InsertData
         private void Onload()
         {
             InitializeComponent();
-            projectCodetxtBox.Text = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
+            projectCodetxtBox.Text = (int.Parse(ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE)) + 1).ToString();// (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
@@ -110,7 +110,7 @@ namespace Billing.InsertData
             if (saveType == SaveType.SaveNew)
             {
                 DataRow row = ExcelHelper.Instance.Projects.NewRow();
-                row[ColumnNames.PROJECT_CODE] = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
+                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
                 row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
                 row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
                 row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;
@@ -130,7 +130,7 @@ namespace Billing.InsertData
                 {
                     projectCodetxtBox.Text = (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
                 }
-                row[ColumnNames.PROJECT_CODE] = obj[0];
+                row[ColumnNames.PROJECT_CODE] = projectCodetxtBox.Text;
                 row[ColumnNames.PROJECT_NAME] = projectNametxtBox.Text;
                 row[ColumnNames.PROJECT_CONTACT_MAN] = contactManTxtBox.Text;
                 row[ColumnNames.INVITER_PROJECT_NAME] = projectNameInviterTxtBox.Text;

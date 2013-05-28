@@ -19,7 +19,7 @@ namespace Billing
         {
             InitializeComponent();
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
             maamSettingsTxt.Text = config.AppSettings.Settings["maam"].Value;
             DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
             maamBtn.Enabled = false;
@@ -223,11 +223,11 @@ namespace Billing
             DialogResult dr = DBPathFileDialog.ShowDialog();
             string fullPath = DBPathFileDialog.FileName;
             string fileName = DBPathFileDialog.SafeFileName;
-            string path = fullPath.Replace(fileName, "");            
-            config.AppSettings.Settings["excelFileName"].Value = fileName;
-            config.Save(ConfigurationSaveMode.Modified);
+            string path = fullPath.Replace(fileName, "");
+            config.AppSettings.Settings["excelFileName"].Value = fullPath;
+            config.Save(ConfigurationSaveMode.Modified); 
             ConfigurationManager.RefreshSection("appSettings");
-            DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
+            DBPathTxt.Text = fullPath;
         }
 
         private void maamBtn_Click(object sender, EventArgs e)
@@ -244,13 +244,12 @@ namespace Billing
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             billsFolderDialog.Description = "בחר נתיב לשמירת חשבונות";
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["BillsFolder"];
-            billsFolderDialog.SelectedPath = filePath;
+            billsFolderDialog.SelectedPath = billsPathTxt.Text;
             DialogResult dr = billsFolderDialog.ShowDialog();
-            config.AppSettings.Settings["BillsFolder"].Value = filePath;
+            config.AppSettings.Settings["BillsFolder"].Value = billsFolderDialog.SelectedPath;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
-            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
         }
 
         private void maamSettingsTxt_TextChanged(object sender, EventArgs e)
