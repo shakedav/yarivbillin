@@ -600,6 +600,16 @@ namespace Billing
             return list;
         }
 
+        internal List<string> getValuesFromDB()
+        {
+            List<string> list = new List<string>();
+            foreach (DataRow row in ExcelHelper.Instance.ValueTypes.Rows)
+            {
+                list.Add(row[ColumnNames.VALUE_TYPE].ToString());
+            }
+            return list;
+        }
+
         public  List<DataRow> getValueRows(string contractCode, string billNumber, string valueCode)
         {
             try
@@ -619,5 +629,7 @@ namespace Billing
                 throw;
             }
         }
+
+       
    }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.DataObjects;
 
 namespace Billing.InsertData
 {
@@ -13,6 +14,8 @@ namespace Billing.InsertData
     {
         bool isNew = true;
         private string valueTypes = string.Empty;
+        Dictionary<int, List<TextBox>> valuesList = new Dictionary<int, List<TextBox>>();
+        string contractCode;
 
         public ContractUserControl()
         {
@@ -266,6 +269,21 @@ namespace Billing.InsertData
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
 
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.SaveNew);
+
+                foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+                {
+                    if (list.Value.Count == 2)
+                    {
+                        DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
+                        valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
+                        valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
+                        valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
+                        valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCode;
+                        valueRow[ColumnNames.BILL_NUMBER_YARIV] = string.Empty;
+                        Dictionary<string,string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCode);
+                        ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
+                    }
+                }            
             }
             else
             {
@@ -294,6 +312,19 @@ namespace Billing.InsertData
                 row[ColumnNames.CONTRACT_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, contractTypeComboBox.Text, ColumnNames.TYPE_NAME, ColumnNames.TYPE_CODE);
                 row[ColumnNames.VALUE_TYPES] = valueTypes;
                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Contracts.TableName, SaveType.Update);
+                foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+                {
+                    if (list.Value.Count == 2)
+                    {
+                        DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
+                        valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
+                        valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
+                        valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
+                        valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCode;
+                        valueRow[ColumnNames.BILL_NUMBER_YARIV] = string.Empty;
+                        ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
+                    }
+                }
             }
         }
 
@@ -310,18 +341,20 @@ namespace Billing.InsertData
 
         private void addValue_Click(object sender, EventArgs e)
         {
-            using (AddValueForm form = new AddValueForm())
+            using (AddValueForm form = new AddValueForm(yarivContractCodeTxtBox.Text))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     string valueTypesnew = string.Empty;
-                    valueListBox.Items.Add(form.valueType);
-                    foreach (string valueType in valueListBox.Items)
+                    foreach (ValueItem obj in form.valueTypes)
                     {
-                        valueTypesnew = valueTypes + form.valueIndex + ";";
-                    }
+                        valueListBox.Items.Add(obj.ValueType);
+                        valueTypesnew += valueTypes + obj.valueIndex + ";";
+                    }                    
                     valueTypes = valueTypesnew;
+                    valuesList = form.valuesList;
+                    contractCode = form.contractCode;
                     valueListBox.Visible = true;
                 }
             }
