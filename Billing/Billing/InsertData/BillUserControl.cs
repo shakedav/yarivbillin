@@ -406,6 +406,7 @@ namespace Billing.InsertData
 
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
             CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes,valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));
         }
 
