@@ -27,8 +27,14 @@ namespace Billing.InsertData
 
         private void CalculateValueWithMaam()
         {
-            double value = double.Parse(valueTxtBox.Text);
-            valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
+            try
+            {
+                double value = double.Parse(valueTxtBox.Text);
+                valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
+            }
+            catch
+            {
+            }
         }
 
         public ContractUserControl(string selectedClient, string selectedProject)
@@ -350,7 +356,7 @@ namespace Billing.InsertData
                     foreach (ValueItem obj in form.valueTypes)
                     {
                         valueListBox.Items.Add(obj.ValueType);
-                        valueTypesnew += valueTypes + obj.valueIndex + ";";
+                        valueTypesnew += valueTypes + obj.ValueIndex + ";";
                     }                    
                     valueTypes = valueTypesnew;
                     valuesList = form.valuesList;

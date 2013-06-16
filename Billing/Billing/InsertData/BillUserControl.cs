@@ -10,6 +10,7 @@ using System.Globalization;
 using Billing.Properties;
 using Word = Microsoft.Office.Interop.Word;
 using System.IO;
+using Billing.DataObjects;
 
 namespace Billing.InsertData
 {
@@ -84,10 +85,10 @@ namespace Billing.InsertData
                 clientNameComboBox.Enabled = false;
                 contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContractOrBill);
                 contractCodeComboBox.Enabled = false;
-                foreach (string type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
-                {
-                    CreateValues(int.Parse(type));
-                }
+                //foreach (string type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
+                //{
+                //    CreateValues(int.Parse(type));
+                //}
                 GetTotalBills();
                 GetTotalBillsIncludingBill();
             }
@@ -373,6 +374,11 @@ namespace Billing.InsertData
             {
                 valuelbl.Visible = true;
                 valueComboBox.Visible = true;
+                List<ValueItem> allowedValues = ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
+                foreach (ValueItem item in allowedValues)
+                {
+                    CreateValues(item);
+                }
             }
             else
             {
@@ -407,7 +413,48 @@ namespace Billing.InsertData
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
-            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes,valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));
+            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));            
+        }
+
+        private void CreateValues(ValueItem item)
+        {
+            Point size = new Point(60, 50);
+            Point lblSize = new Point(100, 50);
+            ValuesCollection.Visible = true;
+            List<TextBox> textBoxes = new List<TextBox>();
+            switch (item.ValueCode)
+            {
+                case "1":
+                    {
+                        CreateValueByHour(ref size, ref lblSize, textBoxes,item.Payment, item.Quantity);
+                        break;
+                    }
+                case "2":
+                    {
+                        CreateValueByMonth(ref size, ref lblSize, textBoxes, item.Payment, item.Quantity);
+                        break;
+                    }
+                case "3":
+                    {
+                        CreateValueByFee(ref size, ref lblSize, textBoxes, item.Payment, item.Quantity);
+                        break;
+                    }
+                case "4":
+                    {
+                        CreateValueByAmount(ref size, ref lblSize, textBoxes, item.Payment);
+                        break;
+                    }
+                case "5":
+                    {
+                        CreateValueByContractor(ref size, ref lblSize, textBoxes, item.Payment, item.Quantity);
+                        break;
+                    }
+                case "6":
+                    {
+                        CreateValueByBillAmount(ref size, ref lblSize, textBoxes, item.Payment, item.Quantity);
+                        break;
+                    }
+            }
         }
 
         private void CreateValues(int valueType)
@@ -420,188 +467,228 @@ namespace Billing.InsertData
             {
                 case 1:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Name = "1";
-                        txt.Size = new Size(size);
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("תעריף שעתי");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "1";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("");
-                        text.Size = new Size(size);
-                        text.Name = "1";
-                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl1 = CreateLabel("מספר שעות עבודה");
-                        lbl1.Size = new Size(lblSize);
-                        lbl1.Name = "1";
-                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
-                        tblCol++;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByHour(ref size, ref lblSize, textBoxes,string.Empty,string.Empty);
                         break;
                     }
                 case 2:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Size = new Size(size);
-                        txt.Name = "2";
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("תעריף חודשי");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "2";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("");
-                        text.Size = new Size(size);
-                        text.Name = "2";
-                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl1 = CreateLabel("מספר חודשים");
-                        lbl1.Size = new Size(lblSize);
-                        lbl1.Name = "2";
-                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
-                        tblCol++;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByMonth(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
                         break;
                     }
                 case 3:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Size = new Size(size);
-                        txt.Name = "3";
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("אחוז משכר טרחה");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "3";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("");
-                        text.Size = new Size(size);
-                        text.Name = "3";
-                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl1 = CreateLabel("שכר הטרחה");
-                        lbl1.Size = new Size(lblSize);
-                        lbl1.Name = "3";
-                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
-                        tblCol++;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByFee(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
                         break;
                     }
                 case 4:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Size = new Size(size);
-                        txt.Name = "4";
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("סכום לתשלום");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "4";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("1");
-                        text.Size = new Size(size);
-                        text.Name = "4";
-                        text.Visible = false;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByAmount(ref size, ref lblSize, textBoxes, string.Empty);
                         break;
                     }
                 case 5:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Size = new Size(size);
-                        txt.Name = "5";
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("אחוז מהקבלן");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "5";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("");
-                        text.Size = new Size(size);
-                        text.Name = "5";
-                        ValuesCollection.Controls.Add(text, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl1 = CreateLabel("סכום הקבלן");
-                        lbl1.Size = new Size(lblSize);
-                        lbl1.Name = "5";
-                        ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
-                        tblCol++;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByContractor(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
                         break;
                     }
                 case 6:
                     {
-                        TextBox txt = CreateTextBox("");
-                        txt.Size = new Size(size);
-                        txt.Name = "6";
-                        ValuesCollection.Controls.Add(txt, tblCol, tblRow);
-                        tblCol++;
-                        Label lbl = CreateLabel("סכום החשבון");
-                        lbl.Size = new Size(lblSize);
-                        lbl.Name = "6";
-                        ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
-                        tblCol++;
-                        TextBox text = CreateTextBox("1");
-                        text.Size = new Size(size);
-                        text.Name = "6";
-                        text.Visible = false;
-                        textBoxes.Add(txt);
-                        textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
-                        Button b = CreateDeleteBtn();
-                        ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
-                        tblCol = 0;
-                        tblRow++;
+                        CreateValueByBillAmount(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
                         break;
                     }
             }
 
             valuelbl.Visible = false;
             valueComboBox.Visible = false;
+        }
+
+        private void CreateValueByBillAmount(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Size = new Size(size);
+            txt.Name = "6";
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("סכום החשבון");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "6";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("1");
+            text.Size = new Size(size);
+            text.Name = "6";
+            text.Visible = false;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+            tblCol = 0;
+            tblRow++;
+        }
+
+        private void CreateValueByContractor(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Size = new Size(size);
+            txt.Name = "5";
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("אחוז מהקבלן");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "5";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("");
+            text.Size = new Size(size);
+            text.Name = "5";
+            text.Text = quantity;
+            ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            tblCol++;
+            Label lbl1 = CreateLabel("סכום הקבלן");
+            lbl1.Size = new Size(lblSize);
+            lbl1.Name = "5";
+            ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+            tblCol++;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            tblCol = 0;
+            tblRow++;
+        }
+
+        private void CreateValueByAmount(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Size = new Size(size);
+            txt.Name = "4";
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("סכום לתשלום");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "4";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("1");
+            text.Size = new Size(size);
+            text.Name = "4";
+            text.Visible = false;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+            tblCol = 0;
+            tblRow++;
+        }
+
+        private void CreateValueByFee(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Size = new Size(size);
+            txt.Name = "3";
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("אחוז משכר טרחה");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "3";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("");
+            text.Size = new Size(size);
+            text.Name = "3";
+            text.Text = quantity;
+            ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            tblCol++;
+            Label lbl1 = CreateLabel("שכר הטרחה");
+            lbl1.Size = new Size(lblSize);
+            lbl1.Name = "3";
+            ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+            tblCol++;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            tblCol = 0;
+            tblRow++;
+        }
+
+        private void CreateValueByMonth(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Size = new Size(size);
+            txt.Name = "2";
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("תעריף חודשי");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "2";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("");
+            text.Size = new Size(size);
+            text.Name = "2";
+            text.Text = quantity;
+            ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            tblCol++;
+            Label lbl1 = CreateLabel("מספר חודשים");
+            lbl1.Size = new Size(lblSize);
+            lbl1.Name = "2";
+            ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+            tblCol++;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            tblCol = 0;
+            tblRow++;
+        }
+
+        private void CreateValueByHour(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
+        {
+            TextBox txt = CreateTextBox("");
+            txt.Name = "1";
+            txt.Size = new Size(size);
+            txt.Text = payment;
+            ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            tblCol++;
+            Label lbl = CreateLabel("תעריף שעתי");
+            lbl.Size = new Size(lblSize);
+            lbl.Name = "1";
+            ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
+            tblCol++;
+            TextBox text = CreateTextBox("");
+            text.Size = new Size(size);
+            text.Name = "1";
+            text.Text = quantity;
+            ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            tblCol++;
+            Label lbl1 = CreateLabel("מספר שעות עבודה");
+            lbl1.Size = new Size(lblSize);
+            lbl1.Name = "1";
+            ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+            tblCol++;
+            textBoxes.Add(txt);
+            textBoxes.Add(text);
+            valuesList.Add(tblRow, textBoxes);
+            Button b = CreateDeleteBtn();
+            ValuesCollection.Controls.Add(b, tblCol, tblRow);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            tblCol = 0;
+            tblRow++;
         }
 
 
@@ -910,7 +997,7 @@ namespace Billing.InsertData
             oWord = new Microsoft.Office.Interop.Word.Application();
             
             oWord.Visible = true;
-            string tempPath = string.Format("{0}\\{1}_{2}_{3}.doc", AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["BillsFolder"], clientNameComboBox.Text, billSequenceInContractTxtBox.Text, billSequenceInContractTxtBox.Text);
+            string tempPath = string.Format("{0}\\{1}_{2}_{3}.doc", System.Configuration.ConfigurationManager.AppSettings["BillsFolder"], clientNameComboBox.Text, billSequenceInContractTxtBox.Text, billSequenceInContractTxtBox.Text);
             using (System.IO.FileStream fs = new System.IO.FileStream(tempPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
             {
                 byte[] data = Resources.billTemplate;

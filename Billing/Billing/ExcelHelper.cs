@@ -12,6 +12,7 @@ using ExcelApp = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Windows.Forms;
+using Billing.DataObjects;
 
 namespace Billing
 {
@@ -630,6 +631,19 @@ namespace Billing
             }
         }
 
-       
+        public List<ValueItem> getAllowedValuesByContractCode(string contractCode)
+        {
+            List<ValueItem> list = new List<ValueItem>();
+            for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
+            {
+                if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString())
+                {
+                    ValueItem item = new ValueItem(ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString(),
+                                        i.ToString(), ValueInBill.Rows[i][ColumnNames.PAYMENT].ToString(), ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString());
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
    }
 }
