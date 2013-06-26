@@ -121,7 +121,7 @@ namespace Billing.InsertData
         {
             lastBillTxtBox.Clear();
             totalToPayTxtBox.Text = "0";
-            maamTxtBox.Text = Constants.Instance.MAAM.ToString();
+            maamTxtBox.Text = Constants.Instance.MAAM.ToString() + "%";
             contractCodeComboBox.DataSource = null;
             contractCodeComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE,
                 ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE), ColumnNames.CONTRACT_CODE_YARIV);
@@ -169,7 +169,7 @@ namespace Billing.InsertData
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.DB);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חשבון", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 
@@ -177,7 +177,7 @@ namespace Billing.InsertData
         {
             if ((string.IsNullOrEmpty(clientNameComboBox.Text)) || (string.IsNullOrEmpty(contractCodeComboBox.Text))
                 || (string.IsNullOrEmpty(billNumberTxtBox.Text)) || (string.IsNullOrEmpty(billSequenceInContractTxtBox.Text))
-                || (string.IsNullOrEmpty(valueComboBox.Text)) || (string.IsNullOrEmpty(totalToPayTxtBox.Text)) || (string.IsNullOrEmpty(maamTxtBox.Text))
+                || (string.IsNullOrEmpty(valueComboBox.Text)) || (string.IsNullOrEmpty(totalToPayTxtBox.Text)) || (string.IsNullOrEmpty(maamTxtBox.Text.Trim('%')))
                 || (string.IsNullOrEmpty(totalWithMaamTextBox.Text)) || (string.IsNullOrEmpty(billStatusComboBox.Text)) || (string.IsNullOrEmpty(hebDateTxtBox.Text)))
             {
                 return false;
@@ -231,7 +231,7 @@ namespace Billing.InsertData
                     billsRow[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
                     billsRow[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
                     billsRow[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
-                    billsRow[ColumnNames.MAAM] = maamTxtBox.Text;
+                    billsRow[ColumnNames.MAAM] = maamTxtBox.Text.Trim('%');
                     billsRow[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
                     billsRow[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
                     billsRow[ColumnNames.CLIENT_CODE] = clientCode;
@@ -269,7 +269,7 @@ namespace Billing.InsertData
                 row[ColumnNames.BILL_SEQUENCE] = billSequenceInContractTxtBox.Text;
                 row[ColumnNames.PREVIOUS_BILL] = lastBillTxtBox.Text;
                 row[ColumnNames.BILL_AMOUNT] = totalToPayTxtBox.Text;
-                row[ColumnNames.MAAM] = maamTxtBox.Text;
+                row[ColumnNames.MAAM] = maamTxtBox.Text.Trim('%');
                 row[ColumnNames.TOTAL_AMOUNT] = totalWithMaamTextBox.Text;
                 row[ColumnNames.STATUS_TYPE] = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.StatusTypes, billStatusComboBox.Text, ColumnNames.STATUS_NAME, ColumnNames.STATUS_CODE);
                 row[ColumnNames.CLIENT_CODE] = clientCode;
@@ -953,7 +953,7 @@ namespace Billing.InsertData
                 }
             }
             totalToPayTxtBox.Text = totalAmount.ToString();
-            totalWithMaamTextBox.Text = (totalAmount * (1 + Constants.Instance.MAAM)).ToString();
+            totalWithMaamTextBox.Text = (totalAmount * (1 + (Constants.Instance.MAAM)/100)).ToString();
             GetTotalBillsIncludingBill();
             contractParttxtBox.Text = GetUsedContractWithoutBill(totalWithMaamTextBox.Text);
             contractused.Text = GetUsedContractWithBill(totalWithMaamTextBox.Text);
