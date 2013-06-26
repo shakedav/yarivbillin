@@ -30,7 +30,7 @@ namespace Billing.InsertData
             try
             {
                 double value = double.Parse(valueTxtBox.Text);
-                valueWithMaamTxtBox.Text = (value + value * Constants.Instance.MAAM).ToString();
+                valueWithMaamTxtBox.Text = (value + value * (Constants.Instance.MAAM /100)).ToString();
             }
             catch
             {
@@ -175,7 +175,7 @@ namespace Billing.InsertData
         private void ShowErrorMessage(Exception ex)
         {
             MessageBoxOptions options = MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign;
-            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", Constants.Instance.DB);
+            string text = string.Format("הוספה נכשלה אנא ודא כי {0} אינו בשימוש או שסוג הנתונים שהוכנס תקין", string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
             MessageBox.Show(this, text + "\n\n" + ex, "בעיה בשמירת חוזה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, options);
         }
 

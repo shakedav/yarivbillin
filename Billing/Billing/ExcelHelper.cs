@@ -63,7 +63,7 @@ namespace Billing
         ExcelHelper()
         {
             dbCon = new OleDbConnection(sConnection);
-            DataSet ds = ReadExcelData(Constants.Instance.DB);
+            DataSet ds = ReadExcelData(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
             SetTables(ds);
         }
 
@@ -172,7 +172,7 @@ namespace Billing
         {          
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.DB, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB), 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             // get the last used column number 
@@ -208,9 +208,9 @@ namespace Billing
                     }
             }
             bool SaveChanges = true;
-            excelWorksheet.SaveAs(Constants.Instance.DB);
-            excelWorkbook.SaveAs(Constants.Instance.DB);
-            excelWorkbook.Close(SaveChanges, Constants.Instance.DB, null);
+            excelWorksheet.SaveAs(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
+            excelWorkbook.SaveAs(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
+            excelWorkbook.Close(SaveChanges, string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB), null);
             excelApp.Workbooks.Close();
             excelApp.Quit();
             
@@ -224,7 +224,7 @@ namespace Billing
             excelWorkbook = null;
             excelApp = null;
             GC.Collect();
-            ReadExcelData(Constants.Instance.DB);
+            ReadExcelData(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
             Reload();
         }
 
@@ -508,7 +508,7 @@ namespace Billing
         {            
             ExcelApp.Application excelApp = new ExcelApp.Application();
             excelApp.DisplayAlerts = false;
-            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(Constants.Instance.DB, 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            ExcelApp.Workbook excelWorkbook = excelApp.Workbooks.Open(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB), 0, false, 5, "", "", false, ExcelApp.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             ExcelApp.Sheets excelSheets = excelWorkbook.Worksheets;
             ExcelApp.Worksheet excelWorksheet = (ExcelApp.Worksheet)excelSheets.get_Item(sheetName);
             for (int row = 0; row <= table.Rows.Count - 1; row++)
@@ -518,9 +518,9 @@ namespace Billing
                     table.Rows[row].Delete();
                     ((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Rows[row+2]).Delete();
                     bool SaveChanges = true;
-                    excelWorksheet.SaveAs(Constants.Instance.DB);
-                    excelWorkbook.SaveAs(Constants.Instance.DB);
-                    excelWorkbook.Close(SaveChanges, Constants.Instance.DB, null);
+                    excelWorksheet.SaveAs(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
+                    excelWorkbook.SaveAs(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
+                    excelWorkbook.Close(SaveChanges, string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB), null);
                     excelApp.Workbooks.Close();
                     excelApp.Quit();
 
@@ -534,7 +534,7 @@ namespace Billing
                     excelWorkbook = null;
                     excelApp = null;
                     GC.Collect();
-                    ReadExcelData(Constants.Instance.DB);
+                    ReadExcelData(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
                     return;
                 }
             }
@@ -582,7 +582,7 @@ namespace Billing
         internal void Reload()
         {
             dbCon = new OleDbConnection(sConnection);
-            DataSet ds = ReadExcelData(Constants.Instance.DB);
+            DataSet ds = ReadExcelData(string.Format(@"{0}{1}", AppDomain.CurrentDomain.BaseDirectory, Constants.Instance.DB));
             SetTables(ds);
         }
 
