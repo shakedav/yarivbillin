@@ -69,23 +69,27 @@
             this.errorsLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
             this.createBillBtn = new System.Windows.Forms.Button();
+            this.totalHrsIncludingBill = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.totalHrsNotIncludingBill = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // contractused
             // 
-            this.contractused.Location = new System.Drawing.Point(86, 354);
+            this.contractused.Location = new System.Drawing.Point(307, 354);
             this.contractused.Name = "contractused";
-            this.contractused.Size = new System.Drawing.Size(296, 20);
+            this.contractused.Size = new System.Drawing.Size(75, 20);
             this.contractused.TabIndex = 153;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(442, 357);
+            this.label6.Location = new System.Drawing.Point(409, 357);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(143, 13);
+            this.label6.Size = new System.Drawing.Size(173, 13);
             this.label6.TabIndex = 152;
-            this.label6.Text = "ניצול חוזה כולל חשבון זה";
+            this.label6.Text = "ניצול חוזה כולל חשבון זה (ש\"ח)";
             // 
             // totalBillsIncludingTxtBox
             // 
@@ -211,17 +215,17 @@
             // contractPartlbl
             // 
             this.contractPartlbl.AutoSize = true;
-            this.contractPartlbl.Location = new System.Drawing.Point(424, 331);
+            this.contractPartlbl.Location = new System.Drawing.Point(391, 331);
             this.contractPartlbl.Name = "contractPartlbl";
-            this.contractPartlbl.Size = new System.Drawing.Size(161, 13);
+            this.contractPartlbl.Size = new System.Drawing.Size(191, 13);
             this.contractPartlbl.TabIndex = 139;
-            this.contractPartlbl.Text = "ניצול חוזה לא כולל חשבון זה";
+            this.contractPartlbl.Text = "ניצול חוזה לא כולל חשבון זה (ש\"ח)";
             // 
             // contractParttxtBox
             // 
-            this.contractParttxtBox.Location = new System.Drawing.Point(86, 328);
+            this.contractParttxtBox.Location = new System.Drawing.Point(307, 328);
             this.contractParttxtBox.Name = "contractParttxtBox";
-            this.contractParttxtBox.Size = new System.Drawing.Size(296, 20);
+            this.contractParttxtBox.Size = new System.Drawing.Size(75, 20);
             this.contractParttxtBox.TabIndex = 138;
             // 
             // billDateBox
@@ -466,12 +470,48 @@
             this.createBillBtn.UseVisualStyleBackColor = true;
             this.createBillBtn.Click += new System.EventHandler(this.createBillBtn_Click);
             // 
+            // totalHrsIncludingBill
+            // 
+            this.totalHrsIncludingBill.Location = new System.Drawing.Point(26, 354);
+            this.totalHrsIncludingBill.Name = "totalHrsIncludingBill";
+            this.totalHrsIncludingBill.Size = new System.Drawing.Size(75, 20);
+            this.totalHrsIncludingBill.TabIndex = 160;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(121, 357);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(180, 13);
+            this.label1.TabIndex = 159;
+            this.label1.Text = "ניצול חוזה כולל חשבון זה (שעות)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(103, 331);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(198, 13);
+            this.label7.TabIndex = 158;
+            this.label7.Text = "ניצול חוזה לא כולל חשבון זה (שעות)";
+            // 
+            // totalHrsNotIncludingBill
+            // 
+            this.totalHrsNotIncludingBill.Location = new System.Drawing.Point(26, 328);
+            this.totalHrsNotIncludingBill.Name = "totalHrsNotIncludingBill";
+            this.totalHrsNotIncludingBill.Size = new System.Drawing.Size(75, 20);
+            this.totalHrsNotIncludingBill.TabIndex = 157;
+            // 
             // BillUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.totalHrsIncludingBill);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.totalHrsNotIncludingBill);
             this.Controls.Add(this.createBillBtn);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.errorsLabel);
@@ -564,5 +604,9 @@
         private System.Windows.Forms.Label errorsLabel;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Button createBillBtn;
+        private System.Windows.Forms.TextBox totalHrsIncludingBill;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox totalHrsNotIncludingBill;
     }
 }
