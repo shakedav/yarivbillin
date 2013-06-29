@@ -41,6 +41,18 @@ namespace Billing.InsertData
         {
             Onload();
             Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient);
+            FillForm(selectedClient, selectedProject, dic);
+        }
+
+        public ContractUserControl(string selectedClient, string selectedProject, string selectedContract)
+        {
+            Onload();
+            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.CONTRACT_CODE_YARIV, selectedContract);
+            FillForm(selectedClient, selectedProject, dic);
+        }
+
+        private void FillForm(string selectedClient, string selectedProject, Dictionary<string, string> dic)
+        {
             if (dic.Count > 0)
             {
                 isNew = false;

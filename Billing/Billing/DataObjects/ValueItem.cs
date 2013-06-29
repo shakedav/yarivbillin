@@ -7,6 +7,11 @@ namespace Billing.DataObjects
 {
     public class ValueItem
     {
+        public ValueItem()
+        {
+
+        }
+
         public ValueItem(string type, string index)
         {
             this.ValueType = type;

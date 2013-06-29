@@ -125,6 +125,16 @@ namespace Billing
             StatusTypes = ds.Tables["סוגי סטטוס"];
             ClientTypes = ds.Tables["סוגי לקוחות"];
             ValueTypes = ds.Tables["סוגי תמורה"];
+            DataColumn[] ValueTypesKeys = new DataColumn[2];
+            ValueTypesKeys[0] = ds.Tables["סוגי תמורה"].Columns[ColumnNames.VALUE_CODE];
+            try
+            {
+                ValueTypes.PrimaryKey = ValueTypesKeys;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("קוד תמורה כבר קיים", ex);
+            }
             ValueInBill = ds.Tables["תמורות בחשבון"];
         }
 
@@ -567,6 +577,20 @@ namespace Billing
             return billsAmount;            
         }
 
+        public double getTotalHoursOfBill(string contractCode, string billNumber, string type)
+        {
+            DataTable table = this.ValueInBill;
+            double billsAmount = 0;
+            for (int i = 0; i <= table.Rows.Count - 1; i++)
+            {
+                if ((contractCode == table.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString()) && (billNumber == table.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()) && (type == table.Rows[i][ColumnNames.VALUE_CODE].ToString()))
+                {
+                    billsAmount += double.Parse(table.Rows[i][ColumnNames.QUANTITY].ToString());
+                }
+            }
+            return billsAmount;
+        }
+
         public bool CheckExistenceOfSingleValue(string TextToSearch, string columnName, DataTable dataTable)
         {
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
@@ -599,6 +623,46 @@ namespace Billing
             }
 
             return list;
+        }
+
+        public List<ValueItem> getValuesByBill(string contractCode, string billCode)
+        {
+            if ((contractCode != null) && (billCode != null))
+            {
+                return getValuesByCode(contractCode, billCode);
+            }
+            if ((contractCode != null) && (billCode == null))
+            {
+                return getAllowedValuesByContractCode(contractCode);
+            }
+            return null;
+        }
+
+        public List<ValueItem> getValuesByCode(string contractCode, string billNumber)
+        {
+            try
+            {
+                List<ValueItem> list = new List<ValueItem>();
+                for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
+                {
+                    int index = 0;
+                    if ((contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString())
+                        && (billNumber == ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()))
+                    {
+                        ValueItem item = new ValueItem(ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString(),
+                                                        index.ToString(),
+                                                        ValueInBill.Rows[i][ColumnNames.PAYMENT].ToString(),
+                                                        ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString());
+                        list.Add(item);
+                        index++;
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         internal List<string> getValuesFromDB()
@@ -639,7 +703,8 @@ namespace Billing
                 if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString())
                 {
                     ValueItem item = new ValueItem(ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString(),
-                                        i.ToString(), ValueInBill.Rows[i][ColumnNames.PAYMENT].ToString(), ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString());
+                                        i.ToString(), ValueInBill.Rows[i][ColumnNames.PAYMENT].ToString(),
+                                        ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString());
                     list.Add(item);
                 }
             }

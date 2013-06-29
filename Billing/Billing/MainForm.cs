@@ -19,7 +19,7 @@ namespace Billing
         {
             InitializeComponent();
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
             maamSettingsTxt.Text = config.AppSettings.Settings["maam"].Value;
             DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
             maamBtn.Enabled = false;
@@ -172,7 +172,7 @@ namespace Billing
                     }
                 case "חוזה":
                     {
-                        ContractUserControl control = new ContractUserControl(value1, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.PROJECT_CODE));
+                        ContractUserControl control = new ContractUserControl(value1, ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.PROJECT_CODE), ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Contracts, value2, ColumnNames.CONTRACT_CODE_YARIV, ColumnNames.CONTRACT_CODE_YARIV));
                         ShowControl(control);
                         break;
                     }
