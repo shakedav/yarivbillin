@@ -82,9 +82,9 @@ namespace Billing.InsertData
                 clientContractCodetxtBox.Enabled = false;
                 valueTxtBox.Text = dic[ColumnNames.VALUE];
                 CalculateValueWithMaam();
-                signingDatePicker.Text = dic[ColumnNames.CONTRACT_SIGNING_DATE];
-                startDatePicker.Text = dic[ColumnNames.CONTRACT_START_DATE];
-                endDatePicker.Text = dic[ColumnNames.CONTRACT_END_DATE];
+                signingDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_SIGNING_DATE]);
+                startDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_START_DATE]);
+                endDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_END_DATE]);
                 contractTypeComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, dic[ColumnNames.CONTRACT_TYPE], ColumnNames.TYPE_CODE, ColumnNames.TYPE_NAME);
                 valueListBox.Items.Clear();
                 getValueTypes(dic[ColumnNames.VALUE_TYPES]);
@@ -344,13 +344,7 @@ namespace Billing.InsertData
                     }
                 }
             }
-        }
-
-        private void startDatePicker_ValueChanged(object sender, EventArgs e)
-        {
-            endDatePicker.Text = startDatePicker.Text;
-            endDatePicker.Refresh();
-        }        
+        }    
 
         private void valueTxtBox_Leave(object sender, EventArgs e)
         {
@@ -359,18 +353,18 @@ namespace Billing.InsertData
 
         private void addValue_Click(object sender, EventArgs e)
         {
-            using (AddValueForm form = new AddValueForm(yarivContractCodeTxtBox.Text))
+            using (AddValueForm form = new AddValueForm(yarivContractCodeTxtBox.Text, valueListBox.Items))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    string valueTypesnew = string.Empty;
+                    valueListBox.Items.Clear();
+                    valueTypes = string.Empty;
                     foreach (ValueItem obj in form.valueTypes)
                     {
                         valueListBox.Items.Add(obj.ValueType);
-                        valueTypesnew += valueTypes + obj.ValueIndex + ";";
-                    }                    
-                    valueTypes = valueTypesnew;
+                        valueTypes += obj.ValueCode + ";";
+                    }                                       
                     valuesList = form.valuesList;
                     contractCode = form.contractCode;
                     valueListBox.Visible = true;

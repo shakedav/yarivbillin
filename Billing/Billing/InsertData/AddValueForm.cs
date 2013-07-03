@@ -17,6 +17,8 @@ namespace Billing.InsertData
         private int tblCol = 0;
         public string contractCode { get; set; }
         public Dictionary<int, List<TextBox>> valuesList = new Dictionary<int, List<TextBox>>();
+        private string p;
+        private ListBox.ObjectCollection objectCollection;
 
         public AddValueForm()
         {
@@ -33,6 +35,35 @@ namespace Billing.InsertData
             valueComboBox.DataSource = ExcelHelper.Instance.getValuesFromDB();//ValueTypes.Columns[ColumnNames.VALUE_CODE].Table;
             valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
             valueComboBox.Text = ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();
+            List<int> list = ExcelHelper.Instance.getValuesFromDB(contractCode);
+            int index = 0;
+            foreach (int code in list)
+            {
+                index++;
+                ValueItem item = new ValueItem(code.ToString(), index.ToString());
+                valueTypes.Add(item);
+                CreateValues(code, item);
+            }
+        }
+
+        public AddValueForm(string contractCode, ListBox.ObjectCollection valuesList)
+        {
+            InitializeComponent();
+            this.contractCode = contractCode;
+            valueComboBox.DataSource = ExcelHelper.Instance.getValuesFromDB();//ValueTypes.Columns[ColumnNames.VALUE_CODE].Table;
+            valueComboBox.DisplayMember = ColumnNames.VALUE_TYPE;
+            valueComboBox.Text = ExcelHelper.Instance.ValueTypes.Rows[valueComboBox.SelectedIndex][ColumnNames.VALUE_TYPE].ToString();            
+            int index = 0;
+            foreach (string value in valuesList)
+            {
+                DataRow[] rows = ExcelHelper.Instance.ValueTypes.Select();
+                List<string> selectedValue = rows.Where(r => r.ItemArray[1].ToString() == value).Select(r => r.ItemArray[0].ToString()).ToList<string>();
+                int code = int.Parse(selectedValue[0].ToString());
+                index++;
+                ValueItem item = new ValueItem(code.ToString(), index.ToString());
+                valueTypes.Add(item);
+                CreateValues(code, item);
+            }
         }
 
         private void selectBtn_Click(object sender, EventArgs e)
@@ -40,34 +71,16 @@ namespace Billing.InsertData
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
              
-        }
-
-        //private void SaveValues()
-        //{
-        //    foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
-        //    {
-        //        this.valueTypes.Add(valueComboBox.Text);
-        //        if (list.Value.Count == 2)
-        //        {
-        //            DataRow valueRow = ExcelHelper.Instance.ValueInBill.NewRow();
-        //            valueRow[ColumnNames.PAYMENT] = list.Value[0].Text;
-        //            valueRow[ColumnNames.QUANTITY] = list.Value[1].Text;
-        //            valueRow[ColumnNames.VALUE_CODE] = list.Value[0].Name;
-        //            valueRow[ColumnNames.CONTRACT_CODE_YARIV] = contractCode;
-        //            valueRow[ColumnNames.BILL_NUMBER_YARIV] = string.Empty;
-        //            ExcelHelper.Instance.SaveDataToExcel(valueRow, ExcelHelper.Instance.ValueInBill.TableName, SaveType.SaveNew);
-        //        }
-        //    }
-        //}
-
-        private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        }    
+       
+        private void addValue_Click(object sender, EventArgs e)
         {
-            ValueItem item = new ValueItem(valueComboBox.Text, (valueComboBox.SelectedIndex + 1).ToString());
-            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes,valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));
+            ValueItem item = new ValueItem((valueComboBox.SelectedIndex+1).ToString(), (valueComboBox.SelectedIndex + 1).ToString());
+            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)), item);
             valueTypes.Add(item);
         }
 
-        private void CreateValues(int valueType)
+        private void CreateValues(int valueType, ValueItem item)
         {
             Point size = new Point(60, 50);
             Point lblSize = new Point(100, 50);
@@ -102,7 +115,11 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);                        
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -134,7 +151,11 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -166,7 +187,11 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -192,7 +217,11 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null, item);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -224,7 +253,11 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -250,15 +283,16 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        item.ValueCode = text.Name;
+                        item.ValueIndex = tblRow.ToString();
+                        item.Payment = txt.Text;
+                        item.Quantity = text.Text;
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-            }
-
-            //valuelbl.Visible = false;
-            //valueComboBox.Visible = false;
+            }         
         }
 
         private static Button CreateDeleteBtn()
@@ -293,7 +327,7 @@ namespace Billing.InsertData
             return lbl;
         }
 
-        private void SetDeleteEventHandler(TextBox txt, TextBox text, Button b, int row, Label lbl, Label lbl1)
+        private void SetDeleteEventHandler(TextBox txt, TextBox text, Button b, int row, Label lbl, Label lbl1, ValueItem item)
         {
             b.Click += (sender1, e1) =>
             {
@@ -306,12 +340,12 @@ namespace Billing.InsertData
                     ValuesCollection.Controls.Remove(lbl1);
                 }
                 valuesList.Remove(row);
+                valueTypes.Remove(item);
                 if (ValuesCollection.Controls.Count == 0)
                 {
                     ValuesCollection.Visible = false;
                 }
             };
         }
-
     }
 }

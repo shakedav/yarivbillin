@@ -138,6 +138,7 @@
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(296, 20);
             this.endDatePicker.TabIndex = 87;
+            this.endDatePicker.Value = new System.DateTime(2013, 7, 3, 22, 29, 21, 0);
             // 
             // startDatePicker
             // 

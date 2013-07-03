@@ -661,7 +661,8 @@ namespace Billing
             }
             catch (Exception ex)
             {
-                throw;
+                LogWriter.Instance.Error("Error when getting values by code", ex);
+                return null;
             }
         }
 
@@ -700,7 +701,7 @@ namespace Billing
             List<ValueItem> list = new List<ValueItem>();
             for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
             {
-                if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString())
+                if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString() && string.IsNullOrEmpty(ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()))
                 {
                     ValueItem item = new ValueItem(ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString(),
                                         i.ToString(), ValueInBill.Rows[i][ColumnNames.PAYMENT].ToString(),
@@ -710,5 +711,42 @@ namespace Billing
             }
             return list;
         }
+
+        public string GetContractTotalHrs(string contractCode)
+        {
+            double hours = 0;
+            double hrs;
+            for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
+            {
+                // Has contract code but no bill number
+                if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString() && string.IsNullOrEmpty(ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()))
+                {
+                    if (ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString() == "1")
+                    {
+                        double.TryParse(ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString(),out hrs);
+                        hours += hrs;
+                    }
+                }
+            }
+            return hours.ToString();
+        }
+
+         public string GetContractTotalHrsUsed(string contractCode)
+        {
+            double hours = 0;
+            for (int i = 0; i <= ValueInBill.Rows.Count - 1; i++)
+            {
+                // Has contract code and bill number
+                if (contractCode == ValueInBill.Rows[i][ColumnNames.CONTRACT_CODE_YARIV].ToString() && !string.IsNullOrEmpty(ValueInBill.Rows[i][ColumnNames.BILL_NUMBER_YARIV].ToString()))
+                {
+                    if (ValueInBill.Rows[i][ColumnNames.VALUE_CODE].ToString() == "1")
+                    {
+                        hours += double.Parse(ValueInBill.Rows[i][ColumnNames.QUANTITY].ToString());
+                    }
+                }
+            }
+            return hours.ToString();
+        }
+       
    }
 }
