@@ -50,6 +50,7 @@ namespace Billing.InsertData
             billStatusComboBox.DisplayMember = ColumnNames.STATUS_NAME;
             billStatusComboBox.Text = ExcelHelper.Instance.StatusTypes.Rows[billStatusComboBox.SelectedIndex][ColumnNames.STATUS_NAME].ToString();
             lastBillTxtBox.Text = ExcelHelper.Instance.getLastBillAmount(billSequenceInContractTxtBox.Text, contractCodeComboBox.Text);
+            CheckTotalAmount_Click(this, null);
             GetTotalBills();
             GetTotalBillsIncludingBill();
             contractParttxtBox.Text = GetUsedContractWithoutBill(totalToPayTxtBox.Text);
@@ -60,19 +61,6 @@ namespace Billing.InsertData
         private List<ValueItem> GetAllowedValues()
         {
             return allowedValues = ExcelHelper.Instance.getValuesByCode(contractCodeComboBox.Text, string.Empty);
-        
-
-
-            //List<int> valuesAllowed = ExcelHelper.Instance.getValuesFromDB(contractCodeComboBox.Text);
-
-            //List<string> valuesDic = new List<string>();
-
-            //foreach (int valueCode in valuesAllowed)
-            //{
-            //    valuesDic.Add(ExcelHelper.Instance.ValueTypes.Rows[valueCode - 1][1].ToString());
-                
-            //}
-            //return valuesDic;            
         }
 
         public BillUserControl(string selectedClient, string selectedContractOrBill, SaveType saveType)
@@ -93,10 +81,6 @@ namespace Billing.InsertData
                 clientNameComboBox.Enabled = false;
                 contractCodeComboBox.SelectedIndex = contractCodeComboBox.FindStringExact(selectedContractOrBill);
                 contractCodeComboBox.Enabled = false;
-                //foreach (string type in (ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.ValueInBill, ColumnNames.CONTRACT_CODE_YARIV, contractCodeComboBox.Text, ColumnNames.BILL_NUMBER_YARIV)))
-                //{
-                //    CreateValues(int.Parse(type));
-                //}
                 GetTotalBills();
                 GetTotalBillsIncludingBill();
             }
@@ -115,15 +99,8 @@ namespace Billing.InsertData
                 allowedValues = ExcelHelper.Instance.getValuesByCode(contractCodeComboBox.Text, billNumberTxtBox.Text);
                 foreach (ValueItem item in allowedValues)
                 {
-                    fillValues(int.Parse(item.ValueType), item.Payment,item.Quantity);
+                    CreateValues(item);
                 }
-                //foreach (int type in ExcelHelper.Instance.getValuesFromDB(contractCodeComboBox.Text))
-                //{
-                    //foreach (DataRow row in ExcelHelper.Instance.getValueRows(contractCodeComboBox.Text, billNumberTxtBox.Text, type.ToString()))
-                    //{                        
-                //        fillValues(type, row[ColumnNames.PAYMENT].ToString(), row[ColumnNames.QUANTITY].ToString());
-                //    }
-                //}
                 CheckTotalAmount_Click(this, null);
                 GetTotalBills();
                 GetTotalBillsIncludingBill();
@@ -362,8 +339,7 @@ namespace Billing.InsertData
             {
                 DataRowCollection ds =  ExcelHelper.Instance.ValueTypes.Rows;
                 valueComboBox.DataSource = (from f in allowedValues where ExcelHelper.Instance.ValueTypes.Rows.Contains(f.ValueCode)
-                                           select (ExcelHelper.Instance.ValueTypes.Rows[int.Parse(f.ValueCode)-1][ColumnNames.VALUE_TYPE])).ToList();
-                    //allowedValues.Where(f => f.ValueType != null).Select(f => f.ValueType).ToList()
+                                           select (ExcelHelper.Instance.ValueTypes.Rows[int.Parse(f.ValueCode)-1][ColumnNames.VALUE_TYPE])).ToList();                    
             }            
             ValuesCollection.Controls.Clear();
             valuelbl.Visible = false;
@@ -373,7 +349,7 @@ namespace Billing.InsertData
         private void GetTotalBills()
         {
             totalBillsTxtBox.Text = (ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text) - double.Parse(totalWithMaamTextBox.Text)).ToString();
-            totalHrsNotIncludingBill.Text = ExcelHelper.Instance.getTotalOfBills(contractCodeComboBox.Text).ToString();
+            totalHrsNotIncludingBill.Text = ExcelHelper.Instance.GetContractTotalHrs(contractCodeComboBox.Text);            
         }
 
         private void billDateBox_Leave(object sender, EventArgs e)
@@ -392,15 +368,26 @@ namespace Billing.InsertData
 
         private void addValue_Click(object sender, EventArgs e)
         {
+            List<ValueItem> allowedValues = new List<ValueItem>();
             if (ValuesCollection.Controls.Count == 0)
-            {
-                valuelbl.Visible = true;
-                valueComboBox.Visible = true;
-                List<ValueItem> allowedValues = ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
-                foreach (ValueItem item in allowedValues)
+            {                
+                if (isNew)
                 {
-                    CreateValues(item);
+                    allowedValues = ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
                 }
+                else
+                {
+                    allowedValues = ExcelHelper.Instance.getValuesByCode(contractCodeComboBox.Text, billNumberTxtBox.Text);
+                }
+                if (allowedValues.Count > 0)
+                {
+                    valuelbl.Visible = true;
+                    valueComboBox.Visible = true;
+                    foreach (ValueItem item in allowedValues)
+                    {
+                        CreateValues(item);
+                    }
+                }                
             }
             else
             {
@@ -434,9 +421,14 @@ namespace Billing.InsertData
 
         private void valueComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
-            CreateValues(int.Parse(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ValueTypes, valueComboBox.SelectedValue.ToString(), ColumnNames.VALUE_TYPE, ColumnNames.VALUE_CODE)));            
-        }
+            allowedValues = ExcelHelper.Instance.getAllowedValuesByContractCode(contractCodeComboBox.Text);
+           
+            DataRow[] rows = ExcelHelper.Instance.ValueTypes.Select();
+            List<string> selectedValue = rows.Where(r => r.ItemArray[1].ToString() == valueComboBox.SelectedValue).Select(r => r.ItemArray[0].ToString()).ToList<string>();            
+            ValueItem item = new ValueItem(selectedValue[0].ToString(), (valueComboBox.Items.Count + 1).ToString());            
+            CreateValues(item);
+            ValuesCollection.VerticalScroll.Value = ValuesCollection.VerticalScroll.Maximum;
+        }     
 
         private void CreateValues(ValueItem item)
         {
@@ -479,60 +471,19 @@ namespace Billing.InsertData
             }
         }
 
-        private void CreateValues(int valueType)
-        {
-            Point size = new Point(60, 50);
-            Point lblSize = new Point(100, 50);
-            ValuesCollection.Visible = true;
-            List<TextBox> textBoxes = new List<TextBox>();
-            switch (valueType)
-            {
-                case 1:
-                    {
-                        CreateValueByHour(ref size, ref lblSize, textBoxes,string.Empty,string.Empty);
-                        break;
-                    }
-                case 2:
-                    {
-                        CreateValueByMonth(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
-                        break;
-                    }
-                case 3:
-                    {
-                        CreateValueByFee(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
-                        break;
-                    }
-                case 4:
-                    {
-                        CreateValueByAmount(ref size, ref lblSize, textBoxes, string.Empty);
-                        break;
-                    }
-                case 5:
-                    {
-                        CreateValueByContractor(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
-                        break;
-                    }
-                case 6:
-                    {
-                        CreateValueByBillAmount(ref size, ref lblSize, textBoxes, string.Empty, string.Empty);
-                        break;
-                    }
-            }
-
-            valuelbl.Visible = false;
-            valueComboBox.Visible = false;
-        }
-
         private void CreateValueByBillAmount(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByBill).ToString();
+            item.ValueCode = ((int)Enums.Values.ByBill).ToString();
             TextBox txt = CreateTextBox("");
             txt.Size = new Size(size);
-            txt.Name = "6";
+            txt.Name = "6";            
             txt.Text = payment;
-            item.Payment = payment;
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
+            item.ValueCode = "6";
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
+            item.Quantity = "1";
             tblCol++;
             Label lbl = CreateLabel("סכום החשבון");
             lbl.Size = new Size(lblSize);
@@ -548,7 +499,7 @@ namespace Billing.InsertData
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null,item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
@@ -557,12 +508,11 @@ namespace Billing.InsertData
         private void CreateValueByContractor(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByContractor).ToString();
+            item.ValueCode = ((int)Enums.Values.ByContractor).ToString();
             TextBox txt = CreateTextBox("");
             txt.Size = new Size(size);
             txt.Name = "5";
-            txt.Text = payment;
-            item.Payment = payment;
+            txt.Text = payment;            
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
             tblCol++;
             Label lbl = CreateLabel("אחוז מהקבלן");
@@ -574,20 +524,23 @@ namespace Billing.InsertData
             text.Size = new Size(size);
             text.Name = "5";
             text.Text = quantity;
-            item.Quantity = quantity;
             ValuesCollection.Controls.Add(text, tblCol, tblRow);
             tblCol++;
             Label lbl1 = CreateLabel("סכום הקבלן");
             lbl1.Size = new Size(lblSize);
             lbl1.Name = "5";
             ValuesCollection.Controls.Add(lbl1, tblCol, tblRow);
+            item.ValueCode = "5";
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
+            item.Quantity = quantity;
             tblCol++;
             textBoxes.Add(txt);
             textBoxes.Add(text);
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
@@ -596,12 +549,11 @@ namespace Billing.InsertData
         private void CreateValueByAmount(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByAmount).ToString();
+            item.ValueCode = ((int)Enums.Values.ByAmount).ToString();
             TextBox txt = CreateTextBox("");
             txt.Size = new Size(size);
             txt.Name = "4";
             txt.Text = payment;
-            item.Payment = payment;
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
             tblCol++;
             Label lbl = CreateLabel("סכום לתשלום");
@@ -609,7 +561,10 @@ namespace Billing.InsertData
             lbl.Name = "4";
             ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
             tblCol++;
-            TextBox text = CreateTextBox("1");
+            TextBox text = CreateTextBox("1");            
+            item.ValueCode = "4";
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
             item.Quantity = text.Text;
             text.Size = new Size(size);
             text.Name = "4";
@@ -619,7 +574,7 @@ namespace Billing.InsertData
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, null, item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
@@ -628,12 +583,11 @@ namespace Billing.InsertData
         private void CreateValueByFee(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByFee).ToString();
+            item.ValueCode = ((int)Enums.Values.ByFee).ToString();
             TextBox txt = CreateTextBox("");
             txt.Size = new Size(size);
             txt.Name = "3";
             txt.Text = payment;
-            item.Payment = payment;
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
             tblCol++;
             Label lbl = CreateLabel("אחוז משכר טרחה");
@@ -645,8 +599,11 @@ namespace Billing.InsertData
             text.Size = new Size(size);
             text.Name = "3";
             text.Text = quantity;
-            item.Quantity = quantity;
             ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            item.ValueCode = text.Name;
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
+            item.Quantity = text.Text;
             tblCol++;
             Label lbl1 = CreateLabel("שכר הטרחה");
             lbl1.Size = new Size(lblSize);
@@ -658,7 +615,7 @@ namespace Billing.InsertData
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
@@ -667,12 +624,11 @@ namespace Billing.InsertData
         private void CreateValueByMonth(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByMonth).ToString();
+            item.ValueCode = ((int)Enums.Values.ByMonth).ToString();
             TextBox txt = CreateTextBox("");
             txt.Size = new Size(size);
             txt.Name = "2";
             txt.Text = payment;
-            item.Payment = payment;
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
             tblCol++;
             Label lbl = CreateLabel("תעריף חודשי");
@@ -684,8 +640,11 @@ namespace Billing.InsertData
             text.Size = new Size(size);
             text.Name = "2";
             text.Text = quantity;
-            item.Quantity = quantity;
             ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            item.ValueCode = text.Name;
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
+            item.Quantity = text.Text;
             tblCol++;
             Label lbl1 = CreateLabel("מספר חודשים");
             lbl1.Size = new Size(lblSize);
@@ -697,7 +656,7 @@ namespace Billing.InsertData
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
@@ -706,12 +665,11 @@ namespace Billing.InsertData
         private void CreateValueByHour(ref Point size, ref Point lblSize, List<TextBox> textBoxes, string payment, string quantity)
         {
             ValueItem item = new ValueItem();
-            item.ValueType = ((int)Enums.Values.ByHour).ToString();
+            item.ValueCode = ((int)Enums.Values.ByHour).ToString();
             TextBox txt = CreateTextBox("");
             txt.Name = "1";
             txt.Size = new Size(size);
             txt.Text = payment;
-            item.Payment = payment;
             ValuesCollection.Controls.Add(txt, tblCol, tblRow);
             tblCol++;
             Label lbl = CreateLabel("תעריף שעתי");
@@ -723,8 +681,11 @@ namespace Billing.InsertData
             text.Size = new Size(size);
             text.Name = "1";
             text.Text = quantity;
-            item.Quantity = quantity;
             ValuesCollection.Controls.Add(text, tblCol, tblRow);
+            item.ValueCode = text.Name;
+            item.ValueIndex = tblRow.ToString();
+            item.Payment = payment;
+            item.Quantity = text.Text;
             tblCol++;
             Label lbl1 = CreateLabel("מספר שעות עבודה");
             lbl1.Size = new Size(lblSize);
@@ -736,24 +697,23 @@ namespace Billing.InsertData
             valuesList.Add(tblRow, textBoxes);
             Button b = CreateDeleteBtn();
             ValuesCollection.Controls.Add(b, tblCol, tblRow);
-            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+            SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
             tblCol = 0;
             tblRow++;
             valueItems.Add(item);
         }
-
-
-        private void fillValues(int valueType, string amount, string sum)
+        
+        private void fillValues(ValueItem item) /*int valueType, string amount, string sum)*/
         {
             Point size = new Point(60, 50);
             Point lblSize = new Point(100, 50);
             ValuesCollection.Visible = true;
             List<TextBox> textBoxes = new List<TextBox>();
-            switch (valueType)
+            switch (item.ValueCode)
             {
-                case 1:
+                case "1":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Name = "1";
                         txt.Size = new Size(size);
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -763,7 +723,7 @@ namespace Billing.InsertData
                         lbl.Name = "1";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(sum);
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "1";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -775,17 +735,17 @@ namespace Billing.InsertData
                         tblCol++;
                         textBoxes.Add(txt);
                         textBoxes.Add(text);
-                        valuesList.Add(tblRow, textBoxes);
+                        valueItems.Add(item);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-                case 2:
+                case "2":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "2";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -795,7 +755,7 @@ namespace Billing.InsertData
                         lbl.Name = "2";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(sum);
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "2";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -810,14 +770,14 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-                case 3:
+                case "3":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "3";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -827,7 +787,7 @@ namespace Billing.InsertData
                         lbl.Name = "3";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(sum);
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "3";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -842,14 +802,14 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-                case 4:
+                case "4":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "4";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -868,14 +828,14 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-                case 5:
+                case "5":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "5";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -885,7 +845,7 @@ namespace Billing.InsertData
                         lbl.Name = "5";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox(sum);
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "5";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -900,14 +860,14 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, lbl1, item);
                         tblCol = 0;
                         tblRow++;
                         break;
                     }
-                case 6:
+                case "6":
                     {
-                        TextBox txt = CreateTextBox(amount);
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "6";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -926,7 +886,7 @@ namespace Billing.InsertData
                         valuesList.Add(tblRow, textBoxes);
                         Button b = CreateDeleteBtn();
                         ValuesCollection.Controls.Add(b, tblCol, tblRow);
-                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null);
+                        SetDeleteEventHandler(txt, text, b, tblRow, lbl, null, item);
                         tblCol = 0;
                         tblRow++;
                         break;
@@ -944,7 +904,7 @@ namespace Billing.InsertData
             return lbl;
         }
 
-        private void SetDeleteEventHandler(TextBox txt, TextBox text, Button b, int row, Label lbl,Label lbl1)
+        private void SetDeleteEventHandler(TextBox txt, TextBox text, Button b, int row, Label lbl,Label lbl1, ValueItem item)
         {
             b.Click += (sender1, e1) =>
             {
@@ -955,8 +915,10 @@ namespace Billing.InsertData
                 if (lbl1 != null)
                 {
                     ValuesCollection.Controls.Remove(lbl1);
-                    }
+                }
+                valueItems.Remove(item);
                 valuesList.Remove(row);
+                
                 if (ValuesCollection.Controls.Count == 0)
                 {
                     ValuesCollection.Visible = false;
@@ -991,32 +953,64 @@ namespace Billing.InsertData
 
         private void CheckTotalAmount_Click(object sender, EventArgs e)
         {
-            double totalAmount = 0;
+            double totalMoney = 0;
+            double totalHours = 0;
             double res = 0;
-            foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+            try
             {
-                if (list.Value.Count == 2)
+                UpdateValueItems();
+                foreach (ValueItem item in valueItems)
                 {
-                    if (double.TryParse(list.Value[0].Text, out res) && (double.TryParse(list.Value[1].Text, out res)))
+                    if ((item.ValueCode == "1"))
                     {
-                        totalAmount += double.Parse(list.Value[0].Text) * double.Parse(list.Value[1].Text);
+                        totalHours += int.Parse(item.Quantity);
+                        totalMoney += double.Parse(item.Payment) * double.Parse(item.Quantity);
+                    }
+                    else
+                    {
+                        totalMoney += double.Parse(item.Payment) * double.Parse(item.Quantity);
+                    }
+                }
+                totalToPayTxtBox.Text = totalMoney.ToString();
+                totalWithMaamTextBox.Text = (totalMoney * (1 + (Constants.Instance.MAAM) / 100)).ToString();
+                GetTotalBillsIncludingBill();
+                totalHrsNotIncludingBill.Text = ExcelHelper.Instance.GetContractTotalHrsUsed(contractCodeComboBox.Text);
+                totalHrsIncludingBill.Text = (double.Parse(totalHrsNotIncludingBill.Text) + totalHours).ToString();
+                totalHrsNotIncludingBill.Text += "/" + ExcelHelper.Instance.GetContractTotalHrs(contractCodeComboBox.Text);
+                contractParttxtBox.Text = GetUsedContractWithoutBill(totalWithMaamTextBox.Text);
+                contractused.Text = GetUsedContractWithBill(totalWithMaamTextBox.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("לא כל השדות מלאים, הסר שדות או הוסף נתונים");
+            }
+
+        }
+
+        private void UpdateValueItems()
+        {
+            double res;
+            double totalAmount = 0;
+            try
+            {
+                foreach (KeyValuePair<int, List<TextBox>> list in valuesList)
+                {
+                    if (list.Value.Count == 2)
+                    {
+                        ValueItem item = valueItems.Find(v => v.ValueIndex == list.Key.ToString());
+                        item.Payment = double.Parse(list.Value[0].Text).ToString();
+                        item.Quantity = double.Parse(list.Value[1].Text).ToString();
                     }
                 }
             }
-            totalToPayTxtBox.Text = totalAmount.ToString();
-            totalWithMaamTextBox.Text = (totalAmount * (1 + (Constants.Instance.MAAM)/100)).ToString();
-            GetTotalBillsIncludingBill();
-            contractParttxtBox.Text = GetUsedContractWithoutBill(totalWithMaamTextBox.Text);
-            contractused.Text = GetUsedContractWithBill(totalWithMaamTextBox.Text);
+            catch (Exception ex)
+            {
+            }
         }
 
         private void GetTotalBillsIncludingBill()
         {
-            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalWithMaamTextBox.Text)).ToString();
-            foreach (Control c in ValuesCollection.Controls)
-            {
-                string s = c.Text;
-            }
+            totalBillsIncludingTxtBox.Text = (double.Parse(totalBillsTxtBox.Text) + double.Parse(totalWithMaamTextBox.Text)).ToString();           
         }
 
         private void billDateBox_ValueChanged(object sender, EventArgs e)

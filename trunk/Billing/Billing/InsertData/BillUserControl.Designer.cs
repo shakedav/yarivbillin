@@ -157,6 +157,7 @@
             // ValuesCollection
             // 
             this.ValuesCollection.AutoScroll = true;
+            this.ValuesCollection.CausesValidation = false;
             this.ValuesCollection.ColumnCount = 5;
             this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.ValuesCollection.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
