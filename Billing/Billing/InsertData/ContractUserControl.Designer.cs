@@ -146,7 +146,6 @@
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(296, 20);
             this.startDatePicker.TabIndex = 86;
-            this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // signingDatePicker
             // 

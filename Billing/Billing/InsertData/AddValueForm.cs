@@ -47,7 +47,7 @@ namespace Billing.InsertData
         }
 
         public AddValueForm(string contractCode, ListBox.ObjectCollection valuesList)
-        {
+        {            
             InitializeComponent();
             this.contractCode = contractCode;
             valueComboBox.DataSource = ExcelHelper.Instance.getValuesFromDB();//ValueTypes.Columns[ColumnNames.VALUE_CODE].Table;
@@ -90,7 +90,7 @@ namespace Billing.InsertData
             {
                 case 1:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Name = "1";
                         txt.Size = new Size(size);
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -100,7 +100,7 @@ namespace Billing.InsertData
                         lbl.Name = "1";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox("");
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "1";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -126,7 +126,7 @@ namespace Billing.InsertData
                     }
                 case 2:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "2";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -136,7 +136,7 @@ namespace Billing.InsertData
                         lbl.Name = "2";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox("");
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "2";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -162,7 +162,7 @@ namespace Billing.InsertData
                     }
                 case 3:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "3";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -172,7 +172,7 @@ namespace Billing.InsertData
                         lbl.Name = "3";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox("");
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "3";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -198,7 +198,7 @@ namespace Billing.InsertData
                     }
                 case 4:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "4";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -228,7 +228,7 @@ namespace Billing.InsertData
                     }
                 case 5:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "5";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);
@@ -238,7 +238,7 @@ namespace Billing.InsertData
                         lbl.Name = "5";
                         ValuesCollection.Controls.Add(lbl, tblCol, tblRow);
                         tblCol++;
-                        TextBox text = CreateTextBox("");
+                        TextBox text = CreateTextBox(item.Quantity);
                         text.Size = new Size(size);
                         text.Name = "5";
                         ValuesCollection.Controls.Add(text, tblCol, tblRow);
@@ -264,7 +264,7 @@ namespace Billing.InsertData
                     }
                 case 6:
                     {
-                        TextBox txt = CreateTextBox("");
+                        TextBox txt = CreateTextBox(item.Payment);
                         txt.Size = new Size(size);
                         txt.Name = "6";
                         ValuesCollection.Controls.Add(txt, tblCol, tblRow);

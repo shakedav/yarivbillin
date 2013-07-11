@@ -46,7 +46,7 @@
             this.billsPathTxt = new System.Windows.Forms.TextBox();
             this.maamBtn = new System.Windows.Forms.Button();
             this.maamSettingsTxt = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dbPathBtn = new System.Windows.Forms.Button();
             this.DBPathTxt = new System.Windows.Forms.TextBox();
             this.DBPathFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.billsFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -226,7 +226,7 @@
             this.Settings.Controls.Add(this.billsPathTxt);
             this.Settings.Controls.Add(this.maamBtn);
             this.Settings.Controls.Add(this.maamSettingsTxt);
-            this.Settings.Controls.Add(this.button1);
+            this.Settings.Controls.Add(this.dbPathBtn);
             this.Settings.Controls.Add(this.DBPathTxt);
             this.Settings.Location = new System.Drawing.Point(4, 22);
             this.Settings.Name = "Settings";
@@ -274,16 +274,16 @@
             this.maamSettingsTxt.TabIndex = 2;
             this.maamSettingsTxt.TextChanged += new System.EventHandler(this.maamSettingsTxt_TextChanged);
             // 
-            // button1
+            // dbPathBtn
             // 
-            this.button1.Location = new System.Drawing.Point(381, 26);
-            this.button1.Name = "button1";
-            this.button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button1.Size = new System.Drawing.Size(162, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "בחר נתיב DB";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.dbPathBtn.Location = new System.Drawing.Point(381, 26);
+            this.dbPathBtn.Name = "dbPathBtn";
+            this.dbPathBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dbPathBtn.Size = new System.Drawing.Size(162, 23);
+            this.dbPathBtn.TabIndex = 1;
+            this.dbPathBtn.Text = "בחר נתיב DB";
+            this.dbPathBtn.UseVisualStyleBackColor = true;
+            this.dbPathBtn.Click += new System.EventHandler(this.dbPathBtn_Click);
             // 
             // DBPathTxt
             // 
@@ -335,7 +335,7 @@
         private System.Windows.Forms.SplitContainer searchSplit;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TabPage Settings;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button dbPathBtn;
         private System.Windows.Forms.TextBox DBPathTxt;
         private System.Windows.Forms.OpenFileDialog DBPathFileDialog;
         private System.Windows.Forms.TextBox maamSettingsTxt;
