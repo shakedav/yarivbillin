@@ -19,9 +19,9 @@ namespace Billing
         {
             InitializeComponent();
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            billsPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["BillsFolder"].Value;
+            billsPathTxt.Text = config.AppSettings.Settings["BillsFolder"].Value;
             maamSettingsTxt.Text = config.AppSettings.Settings["maam"].Value;
-            DBPathTxt.Text = AppDomain.CurrentDomain.BaseDirectory + config.AppSettings.Settings["excelFileName"].Value;
+            DBPathTxt.Text = config.AppSettings.Settings["excelFileName"].Value;
             maamBtn.Enabled = false;
         }
 
@@ -213,7 +213,7 @@ namespace Billing
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dbPathBtn_Click(object sender, EventArgs e)
         {
             Configuration config=ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
             DBPathFileDialog.FileName = System.Configuration.ConfigurationManager.AppSettings["excelFileName"];
@@ -228,6 +228,7 @@ namespace Billing
             config.Save(ConfigurationSaveMode.Modified); 
             ConfigurationManager.RefreshSection("appSettings");
             DBPathTxt.Text = fullPath;
+            ExcelHelper.Instance.Reload();
         }
 
         private void maamBtn_Click(object sender, EventArgs e)

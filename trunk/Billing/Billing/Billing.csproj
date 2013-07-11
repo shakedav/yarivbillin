@@ -104,6 +104,7 @@
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\Enums.cs" />
+    <Compile Include="DataObjects\Project.cs" />
     <Compile Include="DataObjects\ValueItem.cs" />
     <Compile Include="InsertData\AddValueForm.cs">
       <SubType>Form</SubType>
