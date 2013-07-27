@@ -1232,7 +1232,7 @@ namespace Billing.InsertData
         private string CreateAddresseeText(Dictionary<string,string> client, Dictionary<string,string> project, Dictionary<string,string> contract)
         {
             return string.Format("לכבוד\n{0}\n{1}\n{2}\n{3}", project[ColumnNames.PROJECT_CONTACT_MAN], project[ColumnNames.CONTACT_MAN_DESC], 
-                                  client[ColumnNames.CLIENT_NAME], client[ColumnNames.ADRESS]);
+                                  client[ColumnNames.CLIENT_NAME], client[ColumnNames.ADDRESS]);
         }        
     }
 }

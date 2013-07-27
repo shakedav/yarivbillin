@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>3GXaQE0khblytSfG7EK1ySOZjms=</dsig:DigestValue>
+        <dsig:DigestValue>yU36SWR572S0LPbXIvdvAhlvhdY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -84,6 +84,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>/zWZGi234ELS+4GhzzQaI+po4Lc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\gabi-Sig.bmp" size="142550">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>6vR1SNQh186i9UEIsQiDVsnePQk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\itzhac-Sig.bmp" size="190738">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>AbGtUH4Kqjo8IjmcGFZueNBpYmU=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

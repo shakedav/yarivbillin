@@ -103,6 +103,8 @@
     <Compile Include="DataExists.Designer.cs">
       <DependentUpon>DataExists.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataObjects\Client.cs" />
+    <Compile Include="DataObjects\ClientTypes.cs" />
     <Compile Include="DataObjects\Enums.cs" />
     <Compile Include="DataObjects\Project.cs" />
     <Compile Include="DataObjects\ValueItem.cs" />
@@ -196,7 +198,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Billing_TemporaryKey.pfx" />
     <None Include="DataBase - Empty.xls" />
     <None Include="Nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -266,6 +267,10 @@
     <EmbeddedResource Include="Resources\billTemplate.doc" />
     <None Include="Resources\DataBase.xls" />
     <None Include="Resources\YarivIcon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\gabi-Sig.bmp" />
+    <Content Include="Resources\itzhac-Sig.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

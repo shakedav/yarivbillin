@@ -319,7 +319,7 @@ namespace Billing
             }
         }
 
-        public string GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
+        public int GetMaxIDOfType(DataTable table, string columnName, string typeID, string typeName)
         {
             try
             {
@@ -337,11 +337,11 @@ namespace Billing
                     }
                 }
                 max++;
-                return max.ToString();
+                return max;
             }
             catch (Exception ex)
             {
-                return "";
+                return 0;
             }
         }
 
@@ -557,20 +557,7 @@ namespace Billing
                     return;
                 }
             }
-        }
-
-        public Billing.SaveType shouldSave(string message, string ExistingData)
-        {
-            using (var form = new DataExists(string.Format(message, ExistingData)))
-            {
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    return form.typeOfSave;
-                }
-                else return form.typeOfSave;
-            }
-        }
+        }        
 
         public double getTotalOfBills(string contractCode)
         {
@@ -756,6 +743,78 @@ namespace Billing
             }
             return hours.ToString();
         }
-       
+
+       #region Refactoring
+         public void SaveClient(Client client, SaveType saveType, string oldName)
+         {
+             if (saveType == SaveType.SaveNew)
+             {
+                 DataRow row = ExcelHelper.Instance.Clients.NewRow();
+                 row[ColumnNames.CLIENT_NAME] = client.ClientName;//clientNameTxtBox.Text;
+                 row[ColumnNames.ADDRESS] = client.Address; //ClientAddressTxtBox.Text;
+                 row[ColumnNames.PHONE] = client.ClientPhone;// phoneTxtBox.Text;
+                 row[ColumnNames.EMAIL] = client.ClientMail;// emailTxtBox.Text;
+                 row[ColumnNames.CLIENT_TYPE] = client.Type;// ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();
+                 row[ColumnNames.CLIENT_CODE] = client.ClientCode;// ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
+                                                   //ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
+                                                   //, ColumnNames.CLIENT_TYPE);
+                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
+             }
+             else
+             {                 
+                 object[] obj = new object[2] { getItemFromTable(ExcelHelper.Instance.Clients,
+                                                oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
+                 DataRow row = ExcelHelper.Instance.Clients.Rows.Find(obj);
+                 row[ColumnNames.CLIENT_NAME] = client.ClientName;
+                 row[ColumnNames.ADDRESS] = client.Address;
+                 row[ColumnNames.PHONE] = client.ClientPhone;
+                 row[ColumnNames.EMAIL] = client.ClientMail;
+                 row[ColumnNames.CLIENT_TYPE] = client.Type;                 
+                 row[ColumnNames.CLIENT_CODE] = obj[0];
+                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
+             }
+         }
+
+         public Client GetClientByIdentifier(string identifier, string column)
+         {
+             Client client = new Client();
+             try
+             {
+                 foreach (DataRow row in Clients.Rows)
+                 //for (int i = 0; i <= Clients.Rows.Count - 1; i++)
+                 {
+                     if (row[column].ToString() == identifier)
+                     {
+                         client.ClientCode = Convert.ToInt32(row[ColumnNames.CLIENT_CODE]);
+                         client.Type = Convert.ToInt32(row[ColumnNames.CLIENT_TYPE]);
+                         client.Address = row[ColumnNames.ADDRESS].ToString();
+                         client.ClientMail = row[ColumnNames.EMAIL].ToString();
+                         client.ClientName = row[ColumnNames.CLIENT_NAME].ToString();
+                         client.ClientPhone = row[ColumnNames.PHONE].ToString();
+                         
+
+                     }
+                 }
+                 return client;
+             }
+             catch (Exception ex)
+             {
+                 throw;
+             }
+         }
+
+         public Billing.SaveType shouldSave(string message, string ExistingData)
+         {
+             using (var form = new DataExists(string.Format(message, ExistingData)))
+             {
+                 var result = form.ShowDialog();
+                 if (result == DialogResult.OK)
+                 {
+                     return form.typeOfSave;
+                 }
+                 else return form.typeOfSave;
+             }
+         }
+       #endregion Refactoring
    }
 }
