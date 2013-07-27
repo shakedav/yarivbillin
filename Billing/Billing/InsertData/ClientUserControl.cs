@@ -6,12 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.DataObjects;
 
 namespace Billing.InsertData
 {
     public partial class ClientUserControl : UserControl
     {
-        Dictionary<string, string> clientTypeDic = new Dictionary<string, string>();
+        Client client = new Client();
         bool isNew = true;
         string oldName;
 
@@ -22,33 +23,49 @@ namespace Billing.InsertData
 
         private void OnLoad()
         {
-            InitializeComponent();            
-            foreach (DataRow row in ExcelHelper.Instance.ClientTypes.Rows)
-            {
-                clientTypeDic.Add(row[1].ToString(), row[0].ToString());
-            }
+            InitializeComponent();
+            BindClientTypes();                      
+        }
 
-            ClientTypeComboBox.DataSource = ExcelHelper.Instance.ClientTypes.Columns[ColumnNames.CLIENT_CODE].Table;
-            ClientTypeComboBox.DisplayMember = ColumnNames.CLIENT_TYPE;
-            ClientTypeComboBox.Text = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_TYPE].ToString();
-            clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
-                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
-                                                  , ColumnNames.CLIENT_TYPE);
+        private void BindClientTypes()
+        {
+            BindingSource src = new BindingSource();
+            src.DataSource = ClientTypes.Instance.ClientTypesList;
+            ClientTypeComboBox.DataSource = src.DataSource;
+            ClientTypeComboBox.DisplayMember = "Type";
+            client.Type = (ClientTypeComboBox.SelectedItem as ClientType).Code;     
         }
 
         public ClientUserControl(string clientCode)
         {
             isNew = false;
             OnLoad();
-            Dictionary<string,string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE, clientCode);
-            clientNameTxtBox.Text = dic[ColumnNames.CLIENT_NAME];
-            clientCodeTxtBox.Text = dic[ColumnNames.CLIENT_CODE];
-            ClientTypeComboBox.SelectedItem = dic[ColumnNames.CLIENT_TYPE];
-            phoneTxtBox.Text = dic[ColumnNames.PHONE];
-            ClientAddressTxtBox.Text = dic[ColumnNames.ADRESS];
-            emailTxtBox.Text = dic[ColumnNames.EMAIL];
-            oldName = clientNameTxtBox.Text;
+            client = ExcelHelper.Instance.GetClientByIdentifier(clientCode, ColumnNames.CLIENT_CODE);
+            SetTextBoxesText();
+            oldName = client.ClientName;
             ClearFieldsBtn.Enabled = false;
+        }
+
+        private void SetTextBoxesText()
+        {
+            clientNameTxtBox.Text = client.ClientName;
+            clientCodeTxtBox.Text = client.ClientCode.ToString();
+            ClientTypeComboBox.SelectedItem = client.Type;
+            phoneTxtBox.Text = client.ClientPhone;
+            ClientAddressTxtBox.Text = client.Address;
+            emailTxtBox.Text = client.ClientMail;
+        }
+
+        private void ClientTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isNew)
+            {
+                ComboBox c = ((System.Windows.Forms.ComboBox)(sender)) as ComboBox;
+                ClientType ct = (ClientType)c.SelectedItem;
+                int maxID = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE, ct.Code.ToString(), ColumnNames.CLIENT_TYPE);
+                clientCodeTxtBox.Text = maxID.ToString();
+                client.ClientCode = maxID;
+            }
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -79,12 +96,13 @@ namespace Billing.InsertData
         {
             if (IsDataExist())
             {
-                SaveType type = ExcelHelper.Instance.shouldSave("לקוח {0}", clientNameTxtBox.Text);
+                SaveType type = ExcelHelper.Instance.shouldSave("לקוח {0} או לקוח עם אותו קוד", client.ClientName);
                 switch (type)
                 {
                     case SaveType.SaveNew:
                     case SaveType.Update:
                         {
+                            UpdateClient();
                             SaveData(type);
                             return true;
                         }
@@ -100,8 +118,16 @@ namespace Billing.InsertData
             }
             return false;
         }
-                      
-    
+
+        private void UpdateClient()
+        {
+            client.Address = ClientAddressTxtBox.Text;
+            client.ClientCode = Convert.ToInt32(clientCodeTxtBox.Text);
+            client.ClientMail = emailTxtBox.Text;
+            client.ClientName = clientNameTxtBox.Text;
+            client.ClientPhone = phoneTxtBox.Text;
+            client.Type = (ClientTypeComboBox.SelectedItem as ClientType).Code;
+        }
 
         private bool CheckAllFieldsAreFilled()
         {
@@ -115,8 +141,8 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return (ExcelHelper.Instance.CheckExistence(clientNameTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients))
-                || ExcelHelper.Instance.CheckExistence(clientCodeTxtBox.Text, clientTypeDic[ClientTypeComboBox.Text], ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients);
+            return (ExcelHelper.Instance.CheckExistence(client.ClientName, client.Type.ToString(), ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients)
+                || ExcelHelper.Instance.CheckExistence(client.ClientCode.ToString(), client.Type.ToString(), ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients));
         }
 
         private void btnSaveAndAddProj_Click(object sender, EventArgs e)
@@ -127,7 +153,7 @@ namespace Billing.InsertData
                 {
                     if (CheckAndSave())
                     {
-                        ProjectUserControl f = new ProjectUserControl(string.Empty, clientNameTxtBox.Text);                   
+                        ProjectUserControl f = new ProjectUserControl(string.Empty, client.ClientName);                   
                         this.Parent.Controls.Add(f);
                         this.Parent.Controls.Remove(this);
                     }
@@ -154,38 +180,7 @@ namespace Billing.InsertData
 
         private void SaveData(SaveType saveType)
         {
-            if (saveType == SaveType.SaveNew)
-            {
-                DataRow row = ExcelHelper.Instance.Clients.NewRow();
-                row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
-                row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;
-                row[ColumnNames.PHONE] = phoneTxtBox.Text;
-                row[ColumnNames.EMAIL] = emailTxtBox.Text;
-                row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();
-                row[ColumnNames.CLIENT_CODE] = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
-                                                 ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
-                                                 , ColumnNames.CLIENT_TYPE);                
-                ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
-            }
-            else
-            {               
-               object[] obj = new object[2] { ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients,
-                                                oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
-               DataRow row = ExcelHelper.Instance.Clients.Rows.Find(obj);
-               row[ColumnNames.CLIENT_NAME] = clientNameTxtBox.Text;
-               row[ColumnNames.ADRESS] = ClientAddressTxtBox.Text;
-               row[ColumnNames.PHONE] = phoneTxtBox.Text;
-               row[ColumnNames.EMAIL] = emailTxtBox.Text;
-               row[ColumnNames.CLIENT_TYPE] = ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString();
-               if (saveType == SaveType.SaveNew)
-               {
-                   clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
-                                                 ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
-                                                 , ColumnNames.CLIENT_TYPE);
-               }
-               row[ColumnNames.CLIENT_CODE] = obj[0];
-               ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
-            }
+            ExcelHelper.Instance.SaveClient(client, saveType, oldName);
         }
 
         private void ClearAllFields()
@@ -204,16 +199,6 @@ namespace Billing.InsertData
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Parent.Controls.Remove(this);
-        }
-
-        private void ClientTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (isNew)
-            {
-                clientCodeTxtBox.Text = ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,
-                                                  ExcelHelper.Instance.ClientTypes.Rows[ClientTypeComboBox.SelectedIndex][ColumnNames.CLIENT_CODE].ToString()
-                                                  , ColumnNames.CLIENT_TYPE);
-            }
         }
 
         private void addClientType_Click(object sender, EventArgs e)

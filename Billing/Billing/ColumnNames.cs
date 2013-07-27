@@ -10,7 +10,7 @@ namespace Billing
         public static string CLIENT_NAME = "שם לקוח";
         public static string CLIENT_CODE = "קוד לקוח";
         public static string CLIENT_TYPE = "סוג לקוח";
-        public static string ADRESS = "כתובת";
+        public static string ADDRESS = "כתובת";
         public static string PHONE = "טלפון";
         public static string EMAIL = "אימייל";
         public static string PROJECT_CODE = "קוד פרוייקט";
