@@ -94,15 +94,27 @@ namespace Billing.InsertData
 
         private bool CheckAndSave()
         {
+            UpdateClient();
+            if (ExcelHelper.Instance.CheckExistence(client.ClientCode.ToString(), client.Type.ToString(), ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients))
+            {
+                SaveType type = SaveType.Update;
+                SaveData(type);
+                return true;                        
+            }
             if (IsDataExist())
             {
-                SaveType type = ExcelHelper.Instance.shouldSave("לקוח {0} או לקוח עם אותו קוד", client.ClientName);
+                SaveType type = ExcelHelper.Instance.shouldSave("לקוח {0}", client.ClientName);
+                Client oldClient = ExcelHelper.Instance.GetClientByIdentifier(clientNameTxtBox.Text, ColumnNames.CLIENT_NAME);
                 switch (type)
                 {
-                    case SaveType.SaveNew:
                     case SaveType.Update:
                         {
-                            UpdateClient();
+                            client.ClientCode = oldClient.ClientCode;
+                            SaveData(type);
+                            return true;
+                        }
+                    case SaveType.SaveNew:                    
+                        {                           
                             SaveData(type);
                             return true;
                         }
@@ -112,7 +124,7 @@ namespace Billing.InsertData
                 }
             }
             else
-            {
+            {                
                 SaveData(SaveType.SaveNew);
                 return true;
             }
@@ -121,6 +133,10 @@ namespace Billing.InsertData
 
         private void UpdateClient()
         {
+            if (oldName == null)
+            {
+                oldName = clientNameTxtBox.Text;
+            }
             client.Address = ClientAddressTxtBox.Text;
             client.ClientCode = Convert.ToInt32(clientCodeTxtBox.Text);
             client.ClientMail = emailTxtBox.Text;
@@ -141,8 +157,7 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return (ExcelHelper.Instance.CheckExistence(client.ClientName, client.Type.ToString(), ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients)
-                || ExcelHelper.Instance.CheckExistence(client.ClientCode.ToString(), client.Type.ToString(), ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients));
+            return (ExcelHelper.Instance.CheckExistence(client.ClientName, client.Type.ToString(), ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients));
         }
 
         private void btnSaveAndAddProj_Click(object sender, EventArgs e)
