@@ -14,8 +14,8 @@ namespace Billing
         public ClientTypeForm()
         {
             InitializeComponent();
-            string maxClientType = ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.ClientTypes, ColumnNames.CLIENT_CODE);
-            ClientCodeTxtBox.Text = (int.Parse(maxClientType) + 100).ToString();
+            int maxClientType = ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.ClientTypes, ColumnNames.CLIENT_CODE);
+            ClientCodeTxtBox.Text = (maxClientType + 100).ToString();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)

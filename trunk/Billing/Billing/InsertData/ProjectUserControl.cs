@@ -6,57 +6,63 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Billing.DataObjects;
 
 namespace Billing.InsertData
 {
     public partial class ProjectUserControl : UserControl
     {
+        Project project  = new Project();
         bool isNew = true;
         string oldName;
 
         public ProjectUserControl()
         {           
-            Onload();
+            Onload();                      
+            SetTextBoxesText();
         }
 
         private void Onload()
         {
             InitializeComponent();
-            projectCodetxtBox.Text = (int.Parse(ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE)) + 1).ToString();// (ExcelHelper.Instance.Projects.Rows.Count + 1).ToString();
+            project.ProjectCode = ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE) + 1;
             clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
             clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
             clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+        }
+
+        private void SetTextBoxesText()
+        {
+            projectCodetxtBox.Text = project.ProjectCode.ToString();          
+            project.ClientCode = Convert.ToInt32(ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_CODE]);
         }      
 
         public ProjectUserControl(string selectedProject, string selectedClient)
         {
             Onload();
-            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE, selectedProject);
-
-            if (dic.Count > 0)
+            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+            clientNameComboBox.Enabled = false;
+            SetTextBoxesText();
+            if (!string.IsNullOrEmpty(selectedProject))
             {
+                project = ExcelHelper.Instance.GetProjectByIdentifier(selectedProject, ColumnNames.PROJECT_CODE);
                 isNew = false;
             }
-            if (isNew)
+            if (!isNew)
             {
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-                clientNameComboBox.Enabled = false;
-            }
-            else
-            {
-                clientNameComboBox.SelectedItem = dic[ColumnNames.CLIENT_CODE];
-                projectCodetxtBox.Text = dic[ColumnNames.PROJECT_CODE];
-                projectNametxtBox.Text = dic[ColumnNames.PROJECT_NAME];
-                contactManTxtBox.Text = dic[ColumnNames.PROJECT_CONTACT_MAN];
-                contactManDescTxt.Text = dic[ColumnNames.CONTACT_MAN_DESC];
-                contactManPhoneTxtBox.Text = dic[ColumnNames.CONTACT_MAN_PHONE];
-                contactManEmailTxtBox.Text = dic[ColumnNames.CONTACT_MAN_EMAIL];
-                projectCodeInviterTxtBox.Text = dic[ColumnNames.INVITER_PROJECT_CODE];
-                projectNameInviterTxtBox.Text = dic[ColumnNames.INVITER_PROJECT_NAME];
-                projectDescriptiontxtBox.Text = dic[ColumnNames.PROJECT_DESCRIPTION];
+                clientNameComboBox.SelectedItem = project.ClientCode;
+                projectCodetxtBox.Text = project.ProjectCode.ToString();
+                projectNametxtBox.Text = project.ProjectName;
+                contactManTxtBox.Text = project.ContactMan;
+                contactManDescTxt.Text = project.ContactManDescription;
+                contactManPhoneTxtBox.Text = project.ContactManPhone;
+                contactManEmailTxtBox.Text = project.ContactManMail;
+                projectCodeInviterTxtBox.Text = project.InviterProjectCode.ToString();
+                projectNameInviterTxtBox.Text = project.InviterProjectName;
+                projectDescriptiontxtBox.Text = project.ProjectDescription;
                 clientNameComboBox.Enabled = false;
                 oldName = projectNametxtBox.Text;
-                ClearFieldsBtn.Enabled = false;
+                ClearFieldsBtn.Enabled = true;
             }
         }
 

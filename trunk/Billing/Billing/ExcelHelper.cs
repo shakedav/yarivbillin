@@ -81,7 +81,6 @@ namespace Billing
             Clients = ds.Tables["לקוחות"];
             DataColumn[] clientsKeys = new DataColumn[2];
             clientsKeys[0] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_CODE];
-            clientsKeys[1] = ds.Tables["לקוחות"].Columns[ColumnNames.CLIENT_NAME];
             try
             {
                 Clients.PrimaryKey = clientsKeys;
@@ -365,21 +364,19 @@ namespace Billing
             }
         }
 
-        public string GetMaxItemOfColumn(DataTable table, string columnName)
+        public int GetMaxItemOfColumn(DataTable table, string columnName)
         {
             try
             {
-                int max = 0;
-                string maxID = string.Empty;
+                int maxID = 0;                
                 for (int i = 0; i <= table.Rows.Count - 1; i++)
                 {
-                    if (int.Parse(table.Rows[i][columnName].ToString()) > max)
+                    if (Convert.ToInt32(table.Rows[i][columnName]) > maxID)
                     {
-                        maxID = table.Rows[i][columnName].ToString();
-                        max = int.Parse(maxID);
+                        maxID = Convert.ToInt32(table.Rows[i][columnName]);                        
                     }
                 }  
-                return max.ToString();
+                return maxID;
             }
             catch (Exception ex)
             {
@@ -762,15 +759,16 @@ namespace Billing
              }
              else
              {                 
-                 object[] obj = new object[2] { getItemFromTable(ExcelHelper.Instance.Clients,
-                                                oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
-                 DataRow row = ExcelHelper.Instance.Clients.Rows.Find(obj);
+                 //object[] obj = new object[2] { getItemFromTable(ExcelHelper.Instance.Clients,
+                 //                               oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
+                 Client clientToFind = GetClientByIdentifier(client.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
+                 DataRow row = ExcelHelper.Instance.Clients.Rows.Find(clientToFind.ClientCode);
                  row[ColumnNames.CLIENT_NAME] = client.ClientName;
                  row[ColumnNames.ADDRESS] = client.Address;
                  row[ColumnNames.PHONE] = client.ClientPhone;
                  row[ColumnNames.EMAIL] = client.ClientMail;
-                 row[ColumnNames.CLIENT_TYPE] = client.Type;                 
-                 row[ColumnNames.CLIENT_CODE] = obj[0];
+                 row[ColumnNames.CLIENT_TYPE] = client.Type;
+                 row[ColumnNames.CLIENT_CODE] = clientToFind.ClientCode;
                  ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
              }
          }
@@ -791,8 +789,6 @@ namespace Billing
                          client.ClientMail = row[ColumnNames.EMAIL].ToString();
                          client.ClientName = row[ColumnNames.CLIENT_NAME].ToString();
                          client.ClientPhone = row[ColumnNames.PHONE].ToString();
-                         
-
                      }
                  }
                  return client;
@@ -816,5 +812,35 @@ namespace Billing
              }
          }
        #endregion Refactoring
+
+         public Project GetProjectByIdentifier(string identifier, string column)
+         {
+            try
+            {
+                Project project = new Project();
+                foreach (DataRow row in Projects.Rows)
+                {
+                    if (row[column].ToString() == identifier)
+                    {
+                        project.ProjectCode = Convert.ToInt32(row[ColumnNames.PROJECT_CODE]);
+                        project.ProjectName = row[ColumnNames.PROJECT_NAME].ToString();
+                        project.ContactMan  = row[ColumnNames.PROJECT_CONTACT_MAN].ToString();
+                        project.ContactManDescription = row[ColumnNames.CONTACT_MAN_DESC].ToString();
+                        project.ContactManPhone = row[ColumnNames.CONTACT_MAN_PHONE].ToString();
+                        project.ContactManMail = row[ColumnNames.CONTACT_MAN_EMAIL].ToString();
+                        project.InviterProjectName = row[ColumnNames.INVITER_PROJECT_NAME].ToString();
+                        project.InviterProjectCode = Convert.ToInt32(row[ColumnNames.INVITER_PROJECT_CODE]);
+                        project.ProjectDescription = row[ColumnNames.PROJECT_DESCRIPTION].ToString();
+                        project.ClientCode = Convert.ToInt32(row[ColumnNames.CLIENT_CODE]);
+                    }
+                }
+                return project;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+             
+         }
    }
 }
