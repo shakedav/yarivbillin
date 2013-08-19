@@ -95,12 +95,15 @@ namespace Billing.InsertData
         private bool CheckAndSave()
         {
             UpdateClient();
-            if (ExcelHelper.Instance.CheckExistence(client.ClientCode.ToString(), client.Type.ToString(), ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients))
+            //Check existence by client Code and Type and if exists --> update the client
+            if (ExcelHelper.Instance.CheckExistence(client.ClientCode.ToString(), client.Type.ToString(), 
+                ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients))
             {
                 SaveType type = SaveType.Update;
                 SaveData(type);
                 return true;                        
             }
+            //Check existence by client Name and Type and ask wwhether to update or save new
             if (IsDataExist())
             {
                 SaveType type = ExcelHelper.Instance.shouldSave("לקוח {0}", client.ClientName);
@@ -157,7 +160,8 @@ namespace Billing.InsertData
 
         private bool IsDataExist()
         {
-            return (ExcelHelper.Instance.CheckExistence(client.ClientName, client.Type.ToString(), ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients));
+            return (ExcelHelper.Instance.CheckExistence(client.ClientName, client.Type.ToString(),
+                ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_TYPE, ExcelHelper.Instance.Clients));
         }
 
         private void btnSaveAndAddProj_Click(object sender, EventArgs e)
@@ -195,7 +199,7 @@ namespace Billing.InsertData
 
         private void SaveData(SaveType saveType)
         {
-            ExcelHelper.Instance.SaveClient(client, saveType, oldName);
+            ExcelHelper.Instance.SaveClient(client, saveType);
         }
 
         private void ClearAllFields()

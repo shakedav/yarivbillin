@@ -742,7 +742,7 @@ namespace Billing
         }
 
        #region Refactoring
-         public void SaveClient(Client client, SaveType saveType, string oldName)
+         public void SaveClient(Client client, SaveType saveType)
          {
              if (saveType == SaveType.SaveNew)
              {
@@ -832,6 +832,7 @@ namespace Billing
                         project.InviterProjectCode = Convert.ToInt32(row[ColumnNames.INVITER_PROJECT_CODE]);
                         project.ProjectDescription = row[ColumnNames.PROJECT_DESCRIPTION].ToString();
                         project.ClientCode = Convert.ToInt32(row[ColumnNames.CLIENT_CODE]);
+                        project.ContactManGendre = row[ColumnNames.CONTACT_MAN_GENDER].ToString();
                     }
                 }
                 return project;
@@ -841,6 +842,45 @@ namespace Billing
                 throw;
             }
              
+         }
+
+         public void SaveProject(Project project, SaveType saveType, int oldProjectCode)
+         {
+             if (saveType == SaveType.SaveNew)
+             {
+                 DataRow row = ExcelHelper.Instance.Projects.NewRow();
+                 row[ColumnNames.CONTACT_MAN_GENDER] = project.ContactManGendre;
+                 row[ColumnNames.PROJECT_CODE] = project.ProjectCode;
+                 row[ColumnNames.PROJECT_NAME] = project.ProjectName;
+                 row[ColumnNames.PROJECT_CONTACT_MAN] = project.ContactMan;
+                 row[ColumnNames.INVITER_PROJECT_NAME] = project.InviterProjectName;
+                 row[ColumnNames.INVITER_PROJECT_CODE] = project.InviterProjectCode;
+                 row[ColumnNames.PROJECT_DESCRIPTION] = project.ProjectDescription;
+                 row[ColumnNames.CLIENT_CODE] = project.ClientCode;
+                 row[ColumnNames.CONTACT_MAN_DESC] = project.ContactManDescription;
+                 row[ColumnNames.CONTACT_MAN_PHONE] = project.ContactManPhone;
+                 row[ColumnNames.CONTACT_MAN_EMAIL] = project.ContactManMail;
+                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName, saveType);
+             }
+             else
+             {
+                 //object[] obj = new object[2] { getItemFromTable(ExcelHelper.Instance.Clients,
+                 //                               oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
+                 Project projectToFind = GetProjectByIdentifier(oldProjectCode.ToString(), ColumnNames.PROJECT_CODE);
+                 DataRow row = ExcelHelper.Instance.Projects.Rows.Find(new object[2] {projectToFind.ProjectCode, projectToFind.ProjectName});
+                 row[ColumnNames.CONTACT_MAN_GENDER] = project.ContactManGendre;
+                 row[ColumnNames.PROJECT_CODE] = project.ProjectCode;
+                 row[ColumnNames.PROJECT_NAME] = project.ProjectName;
+                 row[ColumnNames.PROJECT_CONTACT_MAN] = project.ContactMan;
+                 row[ColumnNames.INVITER_PROJECT_NAME] = project.InviterProjectName;
+                 row[ColumnNames.INVITER_PROJECT_CODE] = project.InviterProjectCode;
+                 row[ColumnNames.PROJECT_DESCRIPTION] = project.ProjectDescription;
+                 row[ColumnNames.CLIENT_CODE] = project.ClientCode;
+                 row[ColumnNames.CONTACT_MAN_DESC] = project.ContactManDescription;
+                 row[ColumnNames.CONTACT_MAN_PHONE] = project.ContactManPhone;
+                 row[ColumnNames.CONTACT_MAN_EMAIL] = project.ContactManMail;
+                 ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName, saveType);
+             }
          }
    }
 }

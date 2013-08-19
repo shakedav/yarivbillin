@@ -50,6 +50,7 @@ namespace Billing
         public static string PAYMENT = "תשלום";
         public static string QUANTITY = "כמות";
         public static string HEBREW_DATE = "תאריך עברי";
+        public static string CONTACT_MAN_GENDER = "מין איש קשר בפרוייקט";
 
     }
 }
