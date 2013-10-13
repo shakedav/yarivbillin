@@ -742,7 +742,7 @@ namespace Billing
         }
 
        #region Refactoring
-         public void SaveClient(Client client, SaveType saveType)
+         public void SaveClient(Client client,Client oldClient, SaveType saveType)
          {
              if (saveType == SaveType.SaveNew)
              {
@@ -759,16 +759,13 @@ namespace Billing
              }
              else
              {                 
-                 //object[] obj = new object[2] { getItemFromTable(ExcelHelper.Instance.Clients,
-                 //                               oldName,ColumnNames.CLIENT_NAME,ColumnNames.CLIENT_CODE),oldName};
-                 Client clientToFind = GetClientByIdentifier(client.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
-                 DataRow row = ExcelHelper.Instance.Clients.Rows.Find(clientToFind.ClientCode);
+                 DataRow row = ExcelHelper.Instance.Clients.Rows.Find(oldClient.ClientCode);
                  row[ColumnNames.CLIENT_NAME] = client.ClientName;
                  row[ColumnNames.ADDRESS] = client.Address;
                  row[ColumnNames.PHONE] = client.ClientPhone;
                  row[ColumnNames.EMAIL] = client.ClientMail;
                  row[ColumnNames.CLIENT_TYPE] = client.Type;
-                 row[ColumnNames.CLIENT_CODE] = clientToFind.ClientCode;
+                 row[ColumnNames.CLIENT_CODE] = client.ClientCode;
                  ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Clients.TableName, saveType);
              }
          }
@@ -880,6 +877,38 @@ namespace Billing
                  row[ColumnNames.CONTACT_MAN_PHONE] = project.ContactManPhone;
                  row[ColumnNames.CONTACT_MAN_EMAIL] = project.ContactManMail;
                  ExcelHelper.Instance.SaveDataToExcel(row, ExcelHelper.Instance.Projects.TableName, saveType);
+             }
+         }
+
+         public Contract getContractByIdentifier(string selectedClient, string selectedProject, string clientCodeColumn, string projectCodeColumn)
+         {
+             try
+             {
+                 Contract contract = new Contract();
+                 foreach (DataRow row in Contracts.Rows)
+                 {
+                     if (row[clientCodeColumn].ToString() == selectedClient && row[projectCodeColumn].ToString() == selectedProject)
+                     {
+                         contract.ContractCodeYariv = Convert.ToInt32(row[ColumnNames.CONTRACT_CODE_YARIV]);
+                         contract.ClientCode = Convert.ToInt32(row[ColumnNames.CLIENT_CODE]);
+                         contract.ContractCodeClient= Convert.ToInt32(row[ColumnNames.CONRACT_CODE_CLIENT]);
+                         contract.ContractEndTime = Convert.ToDateTime(row[ColumnNames.CONTRACT_END_DATE]);
+                         contract.ContractSigningDate = Convert.ToDateTime(row[ColumnNames.CONTRACT_SIGNING_DATE]);
+                         contract.ContractStartDate = Convert.ToDateTime(row[ColumnNames.CONTRACT_START_DATE]);
+                         contract.ContractType = Convert.ToInt32(row[ColumnNames.CONTRACT_TYPE]);
+                         contract.ContractUsage = row[ColumnNames.CONTRACT_USAGE].ToString();
+                         contract.ProjectCode = Convert.ToInt32(row[ColumnNames.PROJECT_CODE]);
+                         contract.Value = Convert.ToInt32(row[ColumnNames.VALUE]);
+                         contract.ValueCalculation = row[ColumnNames.VALUE_CALCULATION].ToString();
+                         //contract.ValueCalculationWay = row[ColumnNames.VALUE_CALCULATION_WAY].ToString();
+                         contract.ValueTypes = row[ColumnNames.VALUE_TYPES].ToString().Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+                     }
+                 }
+                 return contract;
+             }
+             catch (Exception ex)
+             {
+                 throw;
              }
          }
    }

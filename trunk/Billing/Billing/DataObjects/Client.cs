@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace Billing.DataObjects
-{   
-    public class Client
+{
+    public class Client : ICloneable
     {
         public int ClientCode { get; set; }
         public int Type { get; set; }
@@ -25,5 +25,10 @@ namespace Billing.DataObjects
             //ExcelHelper.Instance.GetMaxIDOfType(ExcelHelper.Instance.Clients, ColumnNames.CLIENT_CODE,clientType.ToString(), ColumnNames.CLIENT_TYPE);
         }
 
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
