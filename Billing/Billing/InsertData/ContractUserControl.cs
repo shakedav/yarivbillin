@@ -12,6 +12,9 @@ namespace Billing.InsertData
 {
     public partial class ContractUserControl : UserControl
     {
+        Project project = new Project();
+        Client client = new Client();
+        Contract contract = new Contract();
         bool isNew = true;
         private string valueTypes = string.Empty;
         Dictionary<int, List<TextBox>> valuesList = new Dictionary<int, List<TextBox>>();
@@ -22,7 +25,100 @@ namespace Billing.InsertData
             Onload();
             GetClientNames();
             GetProjects();
-            GetContractType();            
+            GetContractType();
+            SetTextBoxesText();
+        }
+
+        public ContractUserControl(string selectedClient, string selectedProject)
+        {
+            Onload();
+            GetContract(selectedClient, selectedProject);
+            GetClientFromContract();
+            GetProjectFromContract();
+            isNew = false;
+            GetProjects();
+            GetContractType();
+            SetTextBoxesText();
+            //Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient);
+            
+                //FillForm(selectedClient, selectedProject, contract);
+        }
+
+        private void GetContract(string selectedClient, string selectedProject)
+        {
+            contract = ExcelHelper.Instance.getContractByIdentifier(selectedClient, selectedProject, ColumnNames.CLIENT_CODE, ColumnNames.PROJECT_CODE);
+        }
+
+        private void GetProjectFromContract()
+        {
+            project = ExcelHelper.Instance.GetProjectByIdentifier(contract.ProjectCode.ToString(), ColumnNames.PROJECT_CODE);
+        }
+
+        private void GetClientFromContract()
+        {
+            client = ExcelHelper.Instance.GetClientByIdentifier(contract.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
+        }
+
+        public ContractUserControl(string selectedClient, string selectedProject, string selectedContract)
+        {
+            Onload();
+            GetContract(selectedClient, selectedProject);
+            GetClientFromContract();
+            GetProjectFromContract();
+            isNew = false;
+            GetProjects();
+            GetContractType();
+            SetTextBoxesText();
+            //Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.CONTRACT_CODE_YARIV, selectedContract);
+            //FillForm(selectedClient, selectedProject, dic);
+        }
+
+        private void Onload()
+        {
+            InitializeComponent();
+            contract.ContractCodeYariv = ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Contracts, ColumnNames.CONTRACT_CODE_YARIV) + 1;            
+        }
+
+        private void GetClientNames()
+        {
+            clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
+            clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
+           
+        }
+
+        private void clientNameComboBox_Click(object sender, EventArgs e)
+        {
+            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+            clientNameComboBox.Refresh();
+        }
+
+        private void GetProjects()
+        {
+            project = ExcelHelper.Instance.GetProjectByIdentifier(contract.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
+            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE, client.ClientCode.ToString(), ColumnNames.PROJECT_NAME);
+            projectNameComboBox.SelectedItem = project.ProjectName; 
+        }
+
+        private void SetTextBoxesText()
+        {
+            clientNameComboBox.Text = client.ClientName;
+            clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(client.ClientName);
+            projectNameComboBox.Text = project.ProjectName;
+            projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(project.ProjectName);
+            projectCodeTxtBox.Text = project.ProjectCode.ToString();
+            yarivContractCodeTxtBox.Text = contract.ContractCodeYariv.ToString();
+            clientContractCodetxtBox.Text = contract.ContractCodeClient.ToString();
+            valueTxtBox.Text = contract.Value.ToString();
+            CalculateValueWithMaam();
+            signingDatePicker.Value = contract.ContractSigningDate;
+            startDatePicker.Value = contract.ContractStartDate;
+            endDatePicker.Value = contract.ContractEndTime;
+            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[contract.ContractType][ColumnNames.TYPE_NAME].ToString();
+
+            //yarivContractCodeTxtBox.Text = contract.ContractCodeYariv.ToString();
+            //clientNameComboBox.Text = client.ClientName;
+            //projectCodeTxtBox.Text = project.ProjectCode.ToString();
+            //contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[contract.ContractType][ColumnNames.TYPE_NAME].ToString();
         }
 
         private void CalculateValueWithMaam()
@@ -36,60 +132,46 @@ namespace Billing.InsertData
             {
             }
         }
-
-        public ContractUserControl(string selectedClient, string selectedProject)
-        {
-            Onload();
-            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilter(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient);
-            FillForm(selectedClient, selectedProject, dic);
-        }
-
-        public ContractUserControl(string selectedClient, string selectedProject, string selectedContract)
-        {
-            Onload();
-            Dictionary<string, string> dic = ExcelHelper.Instance.GetRowItemsByFilters(ExcelHelper.Instance.Contracts, ColumnNames.CLIENT_CODE, selectedClient, ColumnNames.CONTRACT_CODE_YARIV, selectedContract);
-            FillForm(selectedClient, selectedProject, dic);
-        }
-
-        private void FillForm(string selectedClient, string selectedProject, Dictionary<string, string> dic)
-        {
-            if (dic.Count > 0)
-            {
-                isNew = false;
-            }
-            if (isNew)
-            {
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-                clientNameComboBox.Enabled = false;
-                GetClientNames();
-                clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
-                GetProjects();
-                GetContractType();
-                clientNameComboBox.Enabled = false;
-                projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
-                projectNameComboBox.Enabled = false;
-                projectCodeTxtBox.Enabled = false;
-            }
-            else
-            {
-                clientNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, selectedClient, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
-                projectNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, selectedProject, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_NAME);
-                projectCodeTxtBox.Text = dic[ColumnNames.PROJECT_CODE];
-                projectCodeTxtBox.Enabled = false;
-                yarivContractCodeTxtBox.Text = dic[ColumnNames.CONTRACT_CODE_YARIV];
-                yarivContractCodeTxtBox.Enabled = false;
-                clientContractCodetxtBox.Text = dic[ColumnNames.CONRACT_CODE_CLIENT];
-                clientContractCodetxtBox.Enabled = false;
-                valueTxtBox.Text = dic[ColumnNames.VALUE];
-                CalculateValueWithMaam();
-                signingDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_SIGNING_DATE]);
-                startDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_START_DATE]);
-                endDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_END_DATE]);
-                contractTypeComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, dic[ColumnNames.CONTRACT_TYPE], ColumnNames.TYPE_CODE, ColumnNames.TYPE_NAME);
-                valueListBox.Items.Clear();
-                getValueTypes(dic[ColumnNames.VALUE_TYPES]);
-            }
-        }
+                
+        //private void FillForm(string selectedClient, string selectedProject,Contract contract)
+        //{
+        //    if (contract.Count > 0)
+        //    {
+        //        isNew = false;
+        //    }
+        //    if (isNew)
+        //    {
+        //        clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+        //        clientNameComboBox.Enabled = false;
+        //        GetClientNames();
+        //        clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(selectedClient);
+        //        GetProjects();
+        //        GetContractType();
+        //        clientNameComboBox.Enabled = false;
+        //        projectNameComboBox.SelectedIndex = projectNameComboBox.FindStringExact(selectedProject);
+        //        projectNameComboBox.Enabled = false;
+        //        projectCodeTxtBox.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        clientNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, selectedClient, ColumnNames.CLIENT_CODE, ColumnNames.CLIENT_NAME);
+        //        projectNameComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, selectedProject, ColumnNames.PROJECT_CODE, ColumnNames.PROJECT_NAME);
+        //        projectCodeTxtBox.Text = dic[ColumnNames.PROJECT_CODE];
+        //        projectCodeTxtBox.Enabled = false;
+        //        yarivContractCodeTxtBox.Text = dic[ColumnNames.CONTRACT_CODE_YARIV];
+        //        yarivContractCodeTxtBox.Enabled = false;
+        //        clientContractCodetxtBox.Text = dic[ColumnNames.CONRACT_CODE_CLIENT];
+        //        clientContractCodetxtBox.Enabled = false;
+        //        valueTxtBox.Text = dic[ColumnNames.VALUE];
+        //        CalculateValueWithMaam();
+        //        signingDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_SIGNING_DATE]);
+        //        startDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_START_DATE]);
+        //        endDatePicker.Value = DateTime.Parse(dic[ColumnNames.CONTRACT_END_DATE]);
+        //        contractTypeComboBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.ContractTypes, dic[ColumnNames.CONTRACT_TYPE], ColumnNames.TYPE_CODE, ColumnNames.TYPE_NAME);
+        //        valueListBox.Items.Clear();
+        //        getValueTypes(dic[ColumnNames.VALUE_TYPES]);
+        //    }
+        //}
 
         private void getValueTypes(string types)
         {
@@ -104,34 +186,12 @@ namespace Billing.InsertData
                 }            
             }
             valueListBox.Visible = true;
-        }
-
-        private void Onload()
-        {
-            InitializeComponent();
-            yarivContractCodeTxtBox.Text = (ExcelHelper.Instance.Contracts.Rows.Count + 1).ToString();
-        }
+        }        
 
         private void GetContractType()
         {
             contractTypeComboBox.DataSource = ExcelHelper.Instance.ContractTypes.Columns[ColumnNames.TYPE_CODE].Table;
-            contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;
-            contractTypeComboBox.Text = projectNameComboBox.SelectedIndex < 0 ? "0" : ExcelHelper.Instance.ContractTypes.Rows[projectNameComboBox.SelectedIndex][ColumnNames.TYPE_NAME].ToString();
-        }
-
-        private void GetClientNames()
-        {
-            clientNameComboBox.DataSource = ExcelHelper.Instance.Clients.Columns[ColumnNames.CLIENT_CODE].Table;
-            clientNameComboBox.DisplayMember = ColumnNames.CLIENT_NAME;
-            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
-        }
-
-        private void GetProjects()
-        {
-            projectNameComboBox.DataSource = ExcelHelper.Instance.GetItemsByFilter(ExcelHelper.Instance.Projects, ColumnNames.CLIENT_CODE,
-                ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE)
-                , ColumnNames.PROJECT_NAME);
-            projectCodeTxtBox.Text = ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Projects, projectNameComboBox.Text, ColumnNames.PROJECT_NAME, ColumnNames.PROJECT_CODE);
+            contractTypeComboBox.DisplayMember = ColumnNames.TYPE_NAME;            
         }
 
         private void ClearFieldsBtn_Click(object sender, EventArgs e)
@@ -139,12 +199,6 @@ namespace Billing.InsertData
             clientContractCodetxtBox.Clear();
             valueTxtBox.Clear();
             valueWithMaamTxtBox.Clear();
-        }
-
-        private void clientNameComboBox_Click(object sender, EventArgs e)
-        {
-            clientNameComboBox.Text = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
-            clientNameComboBox.Refresh();
         }
 
         private void projectNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -158,6 +212,7 @@ namespace Billing.InsertData
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Parent.Controls.Remove(this);
+            contract = new Contract();
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -374,6 +429,9 @@ namespace Billing.InsertData
 
         private void clientNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            client.ClientName = ExcelHelper.Instance.Clients.Rows[clientNameComboBox.SelectedIndex][ColumnNames.CLIENT_NAME].ToString();
+            client = ExcelHelper.Instance.GetClientByIdentifier(client.ClientName, ColumnNames.CLIENT_NAME);
+            contract.ClientCode = client.ClientCode;
             GetProjects();
         }
     }

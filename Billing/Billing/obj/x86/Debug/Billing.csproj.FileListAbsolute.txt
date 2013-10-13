@@ -154,3 +154,4 @@ C:\Users\shakedav\Dropbox\Yariv\yarivbillin\Billing\Billing\obj\x86\Debug\Billin
 C:\Users\shakedav\Dropbox\Yariv\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.application
 C:\Users\shakedav\Dropbox\Yariv\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.exe
 C:\Users\shakedav\Dropbox\Yariv\yarivbillin\Billing\Billing\obj\x86\Debug\Billing.pdb
+C:\Users\shakedav\Dropbox\Yariv\yarivbillin\Billing\Billing\bin\Debug\DataBase - Empty.xls

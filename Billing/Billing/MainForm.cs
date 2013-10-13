@@ -166,7 +166,7 @@ namespace Billing
                     }
                 case "פרוייקט":
                     {
-                        ProjectUserControl control = new ProjectUserControl(value1, string.Empty);
+                        ProjectUserControl control = new ProjectUserControl(value1, null);
                         ShowControl(control);
                         break;
                     }

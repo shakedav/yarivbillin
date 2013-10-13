@@ -7,18 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Billing.DataObjects;
+using System.Text.RegularExpressions;
 
 namespace Billing.InsertData
 {
     public partial class ProjectUserControl : UserControl
     {
         Project project  = new Project();
-        Client client = new Client();
+        Client client;
+        Client oldClient;
         bool isNew = true;
         int oldProjectCode;
 
         public ProjectUserControl()
-        {           
+        {
+            client = new Client();
             Onload();            
         }
 
@@ -48,15 +51,16 @@ namespace Billing.InsertData
             projectDescriptiontxtBox.Text = project.ProjectDescription;
         }      
 
-        public ProjectUserControl(string selectedProject, string selectedClient)
+        public ProjectUserControl(string selectedProject, Client selectedClient)
         {
+            oldClient = (Client)selectedClient.Clone();
             Onload();            
             if (!string.IsNullOrEmpty(selectedProject))
             {
                 project = ExcelHelper.Instance.GetProjectByIdentifier(selectedProject, ColumnNames.PROJECT_CODE);
                 isNew = false;
             }
-            client  = ExcelHelper.Instance.GetClientByIdentifier(project.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
+            client = ExcelHelper.Instance.GetClientByIdentifier(selectedClient.ClientCode.ToString(), ColumnNames.CLIENT_CODE);
             clientNameComboBox.SelectedIndex = clientNameComboBox.FindStringExact(client.ClientName);
             clientNameComboBox.Enabled = false;
             SetTextBoxesText();
@@ -73,6 +77,7 @@ namespace Billing.InsertData
             contactManPhoneTxtBox.Clear();
             contactManEmailTxtBox.Clear();
             projectCodetxtBox.Text = (ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE) + 1).ToString();
+            project = new Project(ExcelHelper.Instance.GetMaxItemOfColumn(ExcelHelper.Instance.Projects, ColumnNames.PROJECT_CODE) + 1,0);
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -173,7 +178,7 @@ namespace Billing.InsertData
                 {
                     if (CheckAndSave())
                     {
-                        ContractUserControl f = new ContractUserControl(clientNameComboBox.Text, projectNametxtBox.Text);
+                        ContractUserControl f = new ContractUserControl(project.ClientCode.ToString(), project.ProjectCode.ToString());
                         this.Parent.Controls.Add(f); 
                         this.Parent.Controls.Remove(this);
                     }
@@ -211,7 +216,14 @@ namespace Billing.InsertData
             project.ProjectCode = Convert.ToInt32(projectCodetxtBox.Text);
             project.ProjectName = projectNametxtBox.Text;
             project.ContactMan= contactManTxtBox.Text;
-            project.InviterProjectName= projectNameInviterTxtBox.Text;
+
+            Regex myRegularExpression = new
+                            Regex(@"^\d+$");
+            if (!myRegularExpression.IsMatch(projectCodeInviterTxtBox.Text))
+            {
+                throw new Exception("הכנס ספרות בלבד");
+            }           
+            project.InviterProjectName= projectNameInviterTxtBox.Text;           
             project.InviterProjectCode = Convert.ToInt32(projectCodeInviterTxtBox.Text);
             project.ProjectDescription = projectDescriptiontxtBox.Text;
             project.ClientCode = Convert.ToInt32(ExcelHelper.Instance.getItemFromTable(ExcelHelper.Instance.Clients, clientNameComboBox.Text, ColumnNames.CLIENT_NAME, ColumnNames.CLIENT_CODE));

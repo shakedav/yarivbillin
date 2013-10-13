@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="DataObjects\Client.cs" />
     <Compile Include="DataObjects\ClientTypes.cs" />
+    <Compile Include="DataObjects\Contract.cs" />
     <Compile Include="DataObjects\Enums.cs" />
     <Compile Include="DataObjects\Project.cs" />
     <Compile Include="DataObjects\ValueItem.cs" />
@@ -198,7 +199,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="DataBase - Empty.xls" />
+    <None Include="DataBase - Empty.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
